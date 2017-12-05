@@ -13,7 +13,7 @@
 #include "umock_log.h"
 
 #define IMPLEMENT_STRINGIFY(type, function_postfix, printf_specifier) \
-    char* C2(umocktypes_stringify_,function_postfix)(type* value) \
+    char* C2(umocktypes_stringify_,function_postfix)(volatile type* value) \
     { \
         char* result; \
         if (value == NULL) \
@@ -39,7 +39,7 @@
     }
 
 #define IMPLEMENT_ARE_EQUAL(type, function_postfix) \
-    int C2(umocktypes_are_equal_,function_postfix)(type* left, type* right) \
+    int C2(umocktypes_are_equal_,function_postfix)(volatile type* left, volatile type* right) \
     { \
         int result; \
         if ((left == NULL) || (right == NULL)) \
@@ -55,7 +55,7 @@
     }
 
 #define IMPLEMENT_COPY(type, function_postfix) \
-    int C2(umocktypes_copy_,function_postfix)(type* destination, type* source) \
+    int C2(umocktypes_copy_,function_postfix)(volatile type* destination, volatile type* source) \
     { \
         int result; \
         if ((destination == NULL) || \
@@ -73,7 +73,7 @@
     }
 
 #define IMPLEMENT_FREE(type, function_postfix) \
-    void C2(umocktypes_free_,function_postfix)(type* value) \
+    void C2(umocktypes_free_,function_postfix)(volatile type* value) \
     { \
         (void)value; \
     }
