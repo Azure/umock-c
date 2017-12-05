@@ -272,7 +272,7 @@ int umocktypes_register_alias_type(const char* type, const char* is_type)
 }
 
 /* Codes_SRS_UMOCKTYPES_01_013: [ umocktypes_stringify shall return a char\* with the string representation of the value argument. ]*/
-char* umocktypes_stringify(const char* type, const void* value)
+char* umocktypes_stringify(const char* type, const void volatile* value)
 {
     char* result;
 

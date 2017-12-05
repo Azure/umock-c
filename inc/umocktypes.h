@@ -13,20 +13,20 @@ extern "C" {
 
 #include "umockalloc.h"
 
-    typedef char*(*UMOCKTYPE_STRINGIFY_FUNC)(const void* value);
-    typedef int(*UMOCKTYPE_COPY_FUNC)(void* destination, const void* source);
-    typedef void(*UMOCKTYPE_FREE_FUNC)(void* value);
-    typedef int(*UMOCKTYPE_ARE_EQUAL_FUNC)(const void* left, const void* right);
+    typedef char*(*UMOCKTYPE_STRINGIFY_FUNC)(const void volatile * value);
+    typedef int(*UMOCKTYPE_COPY_FUNC)(void volatile* destination, const void volatile* source);
+    typedef void(*UMOCKTYPE_FREE_FUNC)(void volatile* value);
+    typedef int(*UMOCKTYPE_ARE_EQUAL_FUNC)(const void volatile* left, const void volatile* right);
 
     extern int umocktypes_init(void);
     extern void umocktypes_deinit(void);
     extern int umocktypes_register_type(const char* type, UMOCKTYPE_STRINGIFY_FUNC stringify_func, UMOCKTYPE_ARE_EQUAL_FUNC are_equal_func, UMOCKTYPE_COPY_FUNC copy_func, UMOCKTYPE_FREE_FUNC free_func);
     extern int umocktypes_register_alias_type(const char* type, const char* alias_type);
 
-    extern char* umocktypes_stringify(const char* type, const void* value);
-    extern int umocktypes_are_equal(const char* type, const void* left, const void* right);
-    extern int umocktypes_copy(const char* type, void* destination, const void* source);
-    extern void umocktypes_free(const char* type, void* value);
+    extern char* umocktypes_stringify(const char* type, const void volatile* value);
+    extern int umocktypes_are_equal(const char* type, const void volatile* left, const void volatile* right);
+    extern int umocktypes_copy(const char* type, void volatile* destination, const void volatile* source);
+    extern void umocktypes_free(const char* type, void volatile* value);
 
     /* This is a convenience macro that allows registering a type by simply specifying the name and a function_postfix*/
 #define REGISTER_TYPE(type, function_postfix) \
@@ -37,7 +37,7 @@ extern "C" {
 
 /* Codes_SRS_UMOCK_C_LIB_01_181: [ If a value that is not part of the enum is used, it shall be treated as an int value. ]*/
 #define IMPLEMENT_UMOCK_C_ENUM_STRINGIFY(type, ...) \
-    UMOCK_STATIC char* C2(umocktypes_stringify_,type)(const type* value) \
+    UMOCK_STATIC char* C2(umocktypes_stringify_,type)(const volatile type* value) \
     { \
         char* result; \
         static const char *C2(enum_name,_strings)[]= \
@@ -79,7 +79,7 @@ extern "C" {
     }
 
 #define IMPLEMENT_UMOCK_C_ENUM_ARE_EQUAL(type) \
-    UMOCK_STATIC int C2(umocktypes_are_equal_,type)(const type* left, const type* right) \
+    UMOCK_STATIC int C2(umocktypes_are_equal_,type)(const volatile type* left, const volatile type* right) \
     { \
         int result; \
         if ((left == NULL) || (right == NULL)) \
@@ -94,7 +94,7 @@ extern "C" {
     }
 
 #define IMPLEMENT_UMOCK_C_ENUM_COPY(type) \
-    UMOCK_STATIC int C2(umocktypes_copy_,type)(type* destination, const type* source) \
+    UMOCK_STATIC int C2(umocktypes_copy_,type)(type* destination, const volatile type* source) \
     { \
         int result; \
         if ((destination == NULL) || \
@@ -111,7 +111,7 @@ extern "C" {
     }
 
 #define IMPLEMENT_UMOCK_C_ENUM_FREE(type) \
-    UMOCK_STATIC void C2(umocktypes_free_,type)(type* value) \
+    UMOCK_STATIC void C2(umocktypes_free_,type)(volatile type* value) \
     { \
         (void)value; \
     }

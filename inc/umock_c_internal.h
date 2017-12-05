@@ -35,8 +35,8 @@ typedef struct ARG_BUFFER_TAG
     size_t length;
 } ARG_BUFFER;
 
-typedef int(*TRACK_CREATE_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void* handle, const char* handle_type, size_t handle_type_size);
-typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void* handle);
+typedef int(*TRACK_CREATE_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void volatile * handle, const char* handle_type, size_t handle_type_size);
+typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void volatile * handle);
 
 #define ARG_IS_IGNORED -1
 #define ARG_IS_NOT_IGNORED 0
