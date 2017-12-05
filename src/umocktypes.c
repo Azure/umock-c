@@ -332,7 +332,7 @@ char* umocktypes_stringify(const char* type, const void volatile* value)
 }
 
 /* Codes_SRS_UMOCKTYPES_01_018: [ umocktypes_are_equal shall evaluate whether 2 values are equal. ]*/
-int umocktypes_are_equal(const char* type, const void* left, const void* right)
+int umocktypes_are_equal(const char* type, const void volatile* left, const void volatile* right)
 {
     int result;
 
@@ -417,7 +417,7 @@ int umocktypes_are_equal(const char* type, const void* left, const void* right)
 }
 
 /* Codes_SRS_UMOCKTYPES_01_025: [ umocktypes_copy shall copy the value of the source into the destination argument. ]*/
-int umocktypes_copy(const char* type, void* destination, const void* source)
+int umocktypes_copy(const char* type, void volatile* destination, const void volatile* source)
 {
     int result;
 
@@ -479,7 +479,7 @@ int umocktypes_copy(const char* type, void* destination, const void* source)
 }
 
 /* Codes_SRS_UMOCKTYPES_01_030: [ umocktypes_free shall free a value previously allocated with umocktypes_copy. ]*/
-void umocktypes_free(const char* type, void* value)
+void umocktypes_free(const char* type, void volatile* value)
 {
     /* Codes_SRS_UMOCKTYPES_01_031: [ If any of the arguments is NULL, umocktypes_free shall do nothing. ]*/
     if ((type != NULL) &&
