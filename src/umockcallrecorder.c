@@ -633,3 +633,33 @@ int umockcallrecorder_fail_call(UMOCKCALLRECORDER_HANDLE umock_call_recorder, si
 
     return result;
 }
+
+int umockcallrecorder_can_call_fail(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t index, int* can_call_fail)
+{
+    int result;
+
+    if ((umock_call_recorder == NULL) ||
+        (index >= umock_call_recorder->expected_call_count))
+    {
+        result = __LINE__;
+        UMOCK_LOG("umockcallrecorder_fail_call: NULL Invalid arguments, umock_call_recorder = %p, index = %zu",
+            umock_call_recorder, index);
+    }
+    else
+    {
+        int can_call_fail_result = umockcall_get_call_can_fail(umock_call_recorder->expected_calls[index].umockcall);
+        if (can_call_fail_result == -1)
+        {
+            result = __LINE__;
+            UMOCK_LOG("umockcallrecorder_fail_call: umockcall_set_fail_call failed.");
+        }
+        else
+        {
+            *can_call_fail = can_call_fail_result;
+            result = 0;
+        }
+    }
+
+    return result;
+}
+

@@ -23,6 +23,7 @@ extern "C" {
     extern UMOCKCALLRECORDER_HANDLE umockcallrecorder_clone(UMOCKCALLRECORDER_HANDLE umock_call_recorder);
     extern int umockcallrecorder_get_expected_call_count(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t* expected_call_count);
     extern int umockcallrecorder_fail_call(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t index);
+    extern int umockcallrecorder_can_call_fail(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t index, int* can_call_fail);
 
 #ifdef __cplusplus
 }

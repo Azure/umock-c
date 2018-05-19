@@ -50,6 +50,9 @@ typedef void(*ON_UMOCK_C_ERROR)(UMOCK_C_ERROR_CODE error_code);
 #define REGISTER_GLOBAL_MOCK_RETURNS(mock_function, return_value, fail_return_value) \
     C2(set_global_mock_returns_,mock_function)(return_value, fail_return_value);
 
+#define REGISTER_GLOBAL_MOCK_HOOK_IGNORE_CALL_HISTORY(mock_function, return_value) \
+    C2(set_global_mock_hook_ignore_call_history_,mock_function)(return_value);
+
 /* Codes_SRS_UMOCK_C_LIB_01_013: [STRICT_EXPECTED_CALL shall record that a certain call is expected.] */
 #define STRICT_EXPECTED_CALL(call) \
 	C2(get_auto_ignore_args_function_, call)(C2(umock_c_strict_expected_,call), #call)

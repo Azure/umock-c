@@ -198,3 +198,35 @@ size_t umock_c_negative_tests_call_count(void)
 
     return result;
 }
+
+
+int umock_c_can_call_fail(size_t index)
+{
+    int can_call_fail = 1;
+
+    if (umock_c_negative_tests_state != UMOCK_C_NEGATIVE_TESTS_STATE_INITIALIZED)
+    {
+        UMOCK_LOG("umock_c_negative_tests_fail_call: Not initialized.");
+        umock_c_indicate_error(UMOCK_C_ERROR);
+    }
+    else
+    {
+        UMOCKCALLRECORDER_HANDLE call_recorder = umock_c_get_call_recorder();
+        if (call_recorder == NULL)
+        {
+            UMOCK_LOG("umock_c_negative_tests_fail_call: Cannot get call recorder.");
+            umock_c_indicate_error(UMOCK_C_ERROR);
+        }
+        else
+        {
+            if (umockcallrecorder_can_call_fail(call_recorder, index, &can_call_fail) != 0)
+            {
+                UMOCK_LOG("umock_c_negative_tests_fail_call: Cannot get call can fail.");
+                umock_c_indicate_error(UMOCK_C_ERROR);
+            }
+        }
+    }
+    return can_call_fail;
+}
+
+

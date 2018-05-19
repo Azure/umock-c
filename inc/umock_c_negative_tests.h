@@ -17,6 +17,7 @@ extern "C" {
     extern void umock_c_negative_tests_reset(void);
     extern void umock_c_negative_tests_fail_call(size_t index);
     extern size_t umock_c_negative_tests_call_count(void);
+    extern int umock_c_can_call_fail();
 
 #ifdef __cplusplus
 }

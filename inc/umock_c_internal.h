@@ -740,6 +740,37 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
         return mock_call_modifier; \
     }
 
+#define IMPLEMENT_SET_CALL_CANNOT_FAIL(return_type, name, ...) \
+        static C2(mock_call_modifier_,name) C2(call_cannot_fail_func_,name)(void) \
+        { \
+            UMOCKCALL_HANDLE last_expected_call = umock_c_get_last_expected_call(); \
+            DECLARE_MOCK_CALL_MODIFIER(name) \
+            if (last_expected_call == NULL) \
+            { \
+                UMOCK_LOG("Cannot get last expected call."); \
+                umock_c_indicate_error(UMOCK_C_ERROR); \
+            } \
+            else \
+            { \
+                C2(mock_call_, name)* mock_call_data = (C2(mock_call_, name)*)umockcall_get_call_data(last_expected_call); \
+                if (mock_call_data == NULL) \
+                { \
+                    UMOCK_LOG("ValidateArgumentBuffer called without having an expected call."); \
+                    umock_c_indicate_error(UMOCK_C_ERROR); \
+                } \
+                else \
+                { \
+                    if (umockcall_c_set_call_can_fail(last_expected_call, 0) != 0) \
+                    { \
+                        UMOCK_LOG("Cannot set call can fail value on the last expected call."); \
+                        umock_c_indicate_error(UMOCK_C_ERROR); \
+                    } \
+                } \
+            } \
+            return mock_call_modifier; \
+        } \
+
+
 #define IMPLEMENT_MOCK_FUNCTION(function_prefix, args_ignored, return_type, name, ...) \
 	C2(mock_call_modifier_,name) UMOCK_STATIC C2(function_prefix,name)(IF(COUNT_ARG(__VA_ARGS__),,void) FOR_EACH_2_COUNTED(ARG_IN_SIGNATURE, __VA_ARGS__)) \
 	{ \
@@ -767,6 +798,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
         { \
             (void)umock_c_add_expected_call(mock_call); \
         } \
+        (void)umockcall_c_set_call_can_fail(mock_call, IF(IS_NOT_VOID(return_type), 1, 0)); \
 		return mock_call_modifier; \
 	} \
 
@@ -812,6 +844,14 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
         C2(mock_call_default_result_,name) = return_value; \
         C2(mock_call_fail_result_,name) = fail_return_value; \
     }, ) \
+
+#define IMPLEMENT_REGISTER_GLOBAL_MOCK_HOOK_IGNORE_CALL_HISTORY(return_type, name, ...) \
+    UMOCK_STATIC void C2(set_global_mock_hook_ignore_call_history_,name)(C2(mock_hook_func_type_, name) mock_return_hook) \
+    { \
+        C2(mock_hook_,name) = mock_return_hook; \
+        C2(ignore_call_history_,name) = 1; \
+    } \
+
 
 #define DECLARE_VALIDATE_ONE_ARGUMENT_FUNC_TYPE(name) \
     typedef struct C2(_mock_call_modifier_, name) (*C2(validate_one_argument_func_type_, name))(void);
@@ -881,6 +921,7 @@ typedef struct MOCK_CALL_METADATA_TAG
 #define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE(return_type, name, ...) \
     typedef return_type (*C2(mock_hook_func_type_, name))(IF(COUNT_ARG(__VA_ARGS__),,void) FOR_EACH_2_COUNTED(ARG_IN_SIGNATURE, __VA_ARGS__)); \
     static C2(mock_hook_func_type_,name) C2(mock_hook_,name) = NULL; \
+    static int C2(ignore_call_history_,name) = 0; \
     static TRACK_CREATE_FUNC_TYPE C2(track_create_destroy_pair_malloc_,name) = NULL; \
     static TRACK_DESTROY_FUNC_TYPE C2(track_create_destroy_pair_free_,name) = NULL; \
     static PAIRED_HANDLES C2(paired_handles_,name); \
@@ -901,6 +942,7 @@ typedef struct MOCK_CALL_METADATA_TAG
     typedef struct C2(_mock_call_modifier_,name) (*C2(validate_argument_func_type_,name))(size_t arg_index); \
     typedef struct C2(_mock_call_modifier_,name) (*C2(validate_argument_buffer_func_type_,name))(size_t index, const void* bytes, size_t length); \
     typedef struct C2(_mock_call_modifier_,name) (*C2(copy_out_argument_buffer_func_type_,name))(size_t index, const void* bytes, size_t length); \
+    typedef struct C2(_mock_call_modifier_,name) (*C2(call_cannot_fail_func_type_,name))(void); \
     FOR_EACH_2_KEEP_1(DECLARE_ARG_RELATED_FUNCTIONS, name, __VA_ARGS__),) \
     typedef struct C2(_mock_call_modifier_,name) \
     { \
@@ -915,6 +957,7 @@ typedef struct MOCK_CALL_METADATA_TAG
         C2(validate_argument_func_type_,name) ValidateArgument; \
         C2(validate_argument_buffer_func_type_,name) ValidateArgumentBuffer; \
         C2(copy_out_argument_buffer_func_type_,name) CopyOutArgumentBuffer; \
+        C2(call_cannot_fail_func_type_,name) CallCannotFail; \
         FOR_EACH_2_KEEP_1(ARG_RELATED_FUNCTIONS_IN_MODIFIERS, name, __VA_ARGS__),) \
     } C2(mock_call_modifier_,name); \
     static C2(mock_call_modifier_,name) C2(ignore_all_calls_func_,name)(void); \
@@ -928,6 +971,7 @@ typedef struct MOCK_CALL_METADATA_TAG
     static C2(mock_call_modifier_,name) C2(validate_argument_func_,name)(size_t arg_index); \
     static C2(mock_call_modifier_,name) C2(validate_argument_buffer_func_,name)(size_t index, const void* bytes, size_t length); \
     static C2(mock_call_modifier_,name) C2(copy_out_argument_buffer_func_,name)(size_t index, const void* bytes, size_t length); \
+    static C2(mock_call_modifier_,name) C2(call_cannot_fail_func_,name)(void); \
     FOR_EACH_2_KEEP_1(DECLARE_IGNORE_ARGUMENT_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
     FOR_EACH_2_KEEP_1(DECLARE_VALIDATE_ARGUMENT_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
     FOR_EACH_2_KEEP_1(DECLARE_COPY_OUT_ARGUMENT_BUFFER_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
@@ -961,6 +1005,7 @@ typedef struct MOCK_CALL_METADATA_TAG
         FOR_EACH_2_KEEP_1(COPY_VALIDATE_ARGUMENT_VALUE_BY_NAME_TO_MODIFIER, name, __VA_ARGS__) \
         FOR_EACH_2_KEEP_1(COPY_VALIDATE_ARGUMENT_VALUE_AS_TYPE_BY_NAME_TO_MODIFIER, name, __VA_ARGS__),) \
         mock_call_modifier->IgnoreAllCalls = C2(ignore_all_calls_func_,name); \
+        mock_call_modifier->CallCannotFail = C2(call_cannot_fail_func_,name); \
     } \
     typedef struct C2(_mock_call_,name) \
     { \
@@ -1116,7 +1161,9 @@ typedef struct MOCK_CALL_METADATA_TAG
     FOR_EACH_2_KEEP_1(IMPLEMENT_VALIDATE_ARGUMENT_VALUE_BY_NAME_FUNCTION, name, __VA_ARGS__) \
     FOR_EACH_2_KEEP_1(IMPLEMENT_VALIDATE_ARGUMENT_VALUE_AS_TYPE_BY_NAME_FUNCTION, name, __VA_ARGS__),) \
     IMPLEMENT_IGNORE_ALL_CALLS_FUNCTION(return_type, name, __VA_ARGS__) \
+    IMPLEMENT_SET_CALL_CANNOT_FAIL(return_type, name, __VA_ARGS__) \
     IMPLEMENT_REGISTER_GLOBAL_MOCK_HOOK(return_type, name, __VA_ARGS__) \
+    IMPLEMENT_REGISTER_GLOBAL_MOCK_HOOK_IGNORE_CALL_HISTORY(return_type, name, __VA_ARGS__) \
     IMPLEMENT_REGISTER_GLOBAL_MOCK_RETURN(return_type, name, __VA_ARGS__) \
     IMPLEMENT_REGISTER_GLOBAL_MOCK_FAIL_RETURN(return_type, name, __VA_ARGS__) \
     IMPLEMENT_REGISTER_GLOBAL_MOCK_RETURNS(return_type, name, __VA_ARGS__) \
@@ -1159,7 +1206,11 @@ typedef struct MOCK_CALL_METADATA_TAG
         } \
         else \
         { \
-            if (umock_c_add_actual_call(mock_call, &matched_call) != 0) \
+            if (C2(ignore_call_history_,name) == 1) \
+            { \
+                matched_call = mock_call; \
+            } \
+            else if (umock_c_add_actual_call(mock_call, &matched_call) != 0) \
             { \
                 umockcall_destroy(mock_call); \
                 UMOCK_LOG("Could not add an actual call for %s.", TOSTRING(name)); \
