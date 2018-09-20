@@ -845,14 +845,6 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
         C2(mock_call_fail_result_,name) = fail_return_value; \
     }, ) \
 
-#define IMPLEMENT_REGISTER_GLOBAL_MOCK_HOOK_IGNORE_CALL_HISTORY(return_type, name, ...) \
-    UMOCK_STATIC void C2(set_global_mock_hook_ignore_call_history_,name)(C2(mock_hook_func_type_, name) mock_return_hook) \
-    { \
-        C2(mock_hook_,name) = mock_return_hook; \
-        C2(ignore_call_history_,name) = 1; \
-    } \
-
-
 #define DECLARE_VALIDATE_ONE_ARGUMENT_FUNC_TYPE(name) \
     typedef struct C2(_mock_call_modifier_, name) (*C2(validate_one_argument_func_type_, name))(void);
 
@@ -921,7 +913,6 @@ typedef struct MOCK_CALL_METADATA_TAG
 #define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE(return_type, name, ...) \
     typedef return_type (*C2(mock_hook_func_type_, name))(IF(COUNT_ARG(__VA_ARGS__),,void) FOR_EACH_2_COUNTED(ARG_IN_SIGNATURE, __VA_ARGS__)); \
     static C2(mock_hook_func_type_,name) C2(mock_hook_,name) = NULL; \
-    static int C2(ignore_call_history_,name) = 0; \
     static TRACK_CREATE_FUNC_TYPE C2(track_create_destroy_pair_malloc_,name) = NULL; \
     static TRACK_DESTROY_FUNC_TYPE C2(track_create_destroy_pair_free_,name) = NULL; \
     static PAIRED_HANDLES C2(paired_handles_,name); \
@@ -1206,11 +1197,7 @@ typedef struct MOCK_CALL_METADATA_TAG
         } \
         else \
         { \
-            if (C2(ignore_call_history_,name) == 1) \
-            { \
-                matched_call = mock_call; \
-            } \
-            else if (umock_c_add_actual_call(mock_call, &matched_call) != 0) \
+            if (umock_c_add_actual_call(mock_call, &matched_call) != 0) \
             { \
                 umockcall_destroy(mock_call); \
                 UMOCK_LOG("Could not add an actual call for %s.", TOSTRING(name)); \
