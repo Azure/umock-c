@@ -6,6 +6,6 @@
 int main(void)
 {
     size_t failedTestCount = 0;
-    RUN_TEST_SUITE(umock_c_can_call_fail_int_tests, failedTestCount);
+    RUN_TEST_SUITE(umock_c_negative_tests_call_count_int_tests, failedTestCount);
     return failedTestCount;
 }

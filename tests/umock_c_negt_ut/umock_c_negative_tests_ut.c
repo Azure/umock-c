@@ -48,6 +48,8 @@ typedef struct umockcallrecorder_get_expected_call_count_CALL_TAG
 static umockcallrecorder_get_expected_call_count_CALL* umockcallrecorder_get_expected_call_count_calls;
 static size_t umockcallrecorder_get_expected_call_count_call_count;
 static int umockcallrecorder_get_expected_call_count_call_result;
+static int umockcallrecorder_can_call_fail_result;
+
 
 typedef struct umockcallrecorder_fail_call_CALL_TAG
 {
@@ -66,7 +68,6 @@ typedef struct umock_c_set_call_recorder_CALL_TAG
 
 static umock_c_set_call_recorder_CALL* umock_c_set_call_recorder_calls;
 static size_t umock_c_set_call_recorder_call_count;
-static int umock_c_set_call_recorder_call_result;
 
 typedef struct umockcallrecorder_destroy_CALL_TAG
 {
@@ -75,6 +76,17 @@ typedef struct umockcallrecorder_destroy_CALL_TAG
 
 static umockcallrecorder_destroy_CALL* umockcallrecorder_destroy_calls;
 static size_t umockcallrecorder_destroy_call_count;
+
+// (UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t index, int* can_call_fail)
+typedef struct umockecallercorder_can_call_fail_CALL_TAG
+{
+    UMOCKCALLRECORDER_HANDLE umock_call_recorder;
+    size_t index;
+} umockecallercorder_can_call_fail_CALL;
+
+static int umock_c_set_call_recorder_call_result;
+static int umockcallrecorder_can_call_fail_paramater_result;
+static umockecallercorder_can_call_fail_CALL umockecallercorder_can_call_fail_call;
 
 typedef struct umock_c_indicate_error_CALL_TAG
 {
@@ -156,6 +168,14 @@ void umockcallrecorder_destroy(UMOCKCALLRECORDER_HANDLE umock_call_recorder)
     }
 }
 
+int umockcallrecorder_can_call_fail(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t index, int* can_call_fail)
+{
+    umockecallercorder_can_call_fail_call.umock_call_recorder = umock_call_recorder;
+    umockecallercorder_can_call_fail_call.index = index;
+    *can_call_fail = umockcallrecorder_can_call_fail_paramater_result;
+    return umockcallrecorder_can_call_fail_result;
+}
+
 void umock_c_indicate_error(UMOCK_C_ERROR_CODE error_code)
 {
     umock_c_indicate_error_CALL* new_calls = (umock_c_indicate_error_CALL*)realloc(umock_c_indicate_error_calls, sizeof(umock_c_indicate_error_CALL) * (umock_c_indicate_error_call_count + 1));
@@ -195,6 +215,10 @@ void reset_all_calls(void)
     umockcallrecorder_fail_call_calls = NULL;
     umockcallrecorder_fail_call_call_count = 0;
     umockcallrecorder_fail_call_call_result = 0;
+
+    umockecallercorder_can_call_fail_call.index = 0;
+    umockecallercorder_can_call_fail_call.umock_call_recorder = 0;
+    umockcallrecorder_can_call_fail_result = 0;
 
     if (umock_c_set_call_recorder_calls != NULL)
     {
@@ -655,6 +679,104 @@ TEST_FUNCTION(umock_c_negative_tests_call_count_when_the_module_is_not_initializ
     ASSERT_ARE_EQUAL(size_t, 0, result);
     ASSERT_ARE_EQUAL(size_t, 0, umockcallrecorder_get_expected_call_count_call_count);
     ASSERT_ARE_EQUAL(size_t, 0, umock_c_indicate_error_call_count);
+}
+
+
+TEST_FUNCTION(umock_c_negative_tests_fail_call_calls_the_call_recorder_fail_call_index_0_result_0)
+{
+    // arrange
+    int result;
+    (void)umock_c_negative_tests_init();
+    umockcallrecorder_clone_call_result = test_cloned_call_recorder;
+    umock_c_negative_tests_snapshot();
+    reset_all_calls();
+
+    umockcallrecorder_can_call_fail_paramater_result = 0;
+
+    // act
+    result = umock_c_negative_tests_can_call_fail(0);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 0, result);
+    ASSERT_ARE_EQUAL(void_ptr, test_call_recorder, umockecallercorder_can_call_fail_call.umock_call_recorder);
+    ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.index);
+
+}
+
+TEST_FUNCTION(umock_c_negative_tests_fail_call_calls_the_call_recorder_fail_index_10_result_1)
+{
+    // arrange
+    int result;
+    (void)umock_c_negative_tests_init();
+    umockcallrecorder_clone_call_result = test_cloned_call_recorder;
+    umock_c_negative_tests_snapshot();
+    reset_all_calls();
+
+    umockcallrecorder_can_call_fail_paramater_result = 1;
+
+    // act
+    result = umock_c_negative_tests_can_call_fail(10);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 1, result);
+    ASSERT_ARE_EQUAL(void_ptr, test_call_recorder, umockecallercorder_can_call_fail_call.umock_call_recorder);
+    ASSERT_ARE_EQUAL(void_ptr, 10, umockecallercorder_can_call_fail_call.index);
+}
+
+TEST_FUNCTION(when_getting_the_call_recorder_fails_umock_c_negative_tests_can_call_fail_returns_default_of_1)
+{
+    // arrange
+    int result;
+    (void)umock_c_negative_tests_init();
+    umockcallrecorder_clone_call_result = test_cloned_call_recorder;
+    umock_c_negative_tests_snapshot();
+    reset_all_calls();
+
+    umock_c_get_call_recorder_call_result = NULL;
+    // The error hit should mean default of 1, not 'umockcallrecorder_can_call_fail_paramater_result', returned.
+    umockcallrecorder_can_call_fail_paramater_result = 0; 
+
+    // act
+    result = umock_c_negative_tests_can_call_fail(0);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 1, result);
+    ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.umock_call_recorder);
+    ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.index);
+
+}
+
+TEST_FUNCTION(when_failing_the_call_fails_umock_c_negative_tests_fail_call_returns_default_of_1)
+{
+    // arrange
+    (void)umock_c_negative_tests_init();
+    umockcallrecorder_clone_call_result = test_cloned_call_recorder;
+    umock_c_negative_tests_snapshot();
+    reset_all_calls();
+
+    umockcallrecorder_can_call_fail_result = __LINE__;
+
+    // act
+    int result = umock_c_negative_tests_can_call_fail(0);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 1, result);
+    ASSERT_ARE_EQUAL(void_ptr, test_call_recorder, umockecallercorder_can_call_fail_call.umock_call_recorder);
+    ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.index);
+}
+
+TEST_FUNCTION(umock_c_negative_tests_can_call_fail_when_the_module_is_not_initialized_returns_default_of_1)
+{
+    // arrange
+
+    // act
+    int result = umock_c_negative_tests_can_call_fail(0);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 1, result);
+    ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.umock_call_recorder);
+    ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.index);
+
 }
 
 END_TEST_SUITE(umock_c_negative_tests_unittests)

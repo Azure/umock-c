@@ -200,7 +200,7 @@ size_t umock_c_negative_tests_call_count(void)
 }
 
 
-int umock_c_can_call_fail(size_t index)
+int umock_c_negative_tests_can_call_fail(size_t index)
 {
     int can_call_fail = 1;
 
@@ -221,6 +221,7 @@ int umock_c_can_call_fail(size_t index)
         {
             if (umockcallrecorder_can_call_fail(call_recorder, index, &can_call_fail) != 0)
             {
+                can_call_fail = 1;
                 UMOCK_LOG("umock_c_negative_tests_fail_call: Cannot get call can fail.");
                 umock_c_indicate_error(UMOCK_C_ERROR);
             }
