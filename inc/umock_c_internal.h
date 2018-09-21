@@ -38,6 +38,9 @@ typedef struct ARG_BUFFER_TAG
 typedef int(*TRACK_CREATE_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void* handle, const char* handle_type, size_t handle_type_size);
 typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void* handle);
 
+#define MOCK_ENABLED 0
+#define MOCK_DISABLED 1
+
 #define ARG_IS_IGNORED -1
 #define ARG_IS_NOT_IGNORED 0
 

@@ -22,10 +22,10 @@ char* umocktypes_stringify_charptr(const char** value)
     {
         if (*value == NULL)
         {
-            result = (char*)umockalloc_malloc(sizeof("NULL") + 1);
+            result = (char*)umockalloc_malloc(sizeof("NULL"));
             if (result != NULL)
             {
-                (void)memcpy(result, "NULL", sizeof("NULL") + 1);
+                (void)memcpy(result, "NULL", sizeof("NULL"));
             }
         }
         else
@@ -151,14 +151,14 @@ char* umocktypes_stringify_const_charptr(const char** value)
     {
         if (*value == NULL)
         {
-            result = (char*)umockalloc_malloc(sizeof("NULL") + 1);
+            result = (char*)umockalloc_malloc(sizeof("NULL"));
             if (result == NULL)
             {
                 UMOCK_LOG("umocktypes_stringify_const_charptr: Cannot allocate memoryfor result string.");
             }
             else
             {
-                (void)memcpy(result, "NULL", sizeof("NULL") + 1);
+                (void)memcpy(result, "NULL", sizeof("NULL"));
             }
         }
         else

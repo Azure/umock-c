@@ -12,9 +12,22 @@
 
 #ifdef ENABLE_MOCKS
 
+#ifdef ENABLE_MOCK_FILTERING
+#define ENABLE_MOCK_FILTERING_SWITCH 1
+#else
+#define ENABLE_MOCK_FILTERING_SWITCH 0
+#endif
+
+#include "macro_utils.h"
+
+#define UMOCK_C_PROD_ARG_IN_SIGNATURE(count, arg_type, arg_name) arg_type arg_name IFCOMMA(count)
+
+#define MOCKABLE_FUNCTION_DISABLED(modifiers, result, function, ...) \
+    result modifiers function(IF(COUNT_ARG(__VA_ARGS__), , void) FOR_EACH_2_COUNTED(UMOCK_C_PROD_ARG_IN_SIGNATURE, __VA_ARGS__));
+
 /* Codes_SRS_UMOCK_C_LIB_01_001: [MOCKABLE_FUNCTION shall be used to wrap function definition allowing the user to declare a function that can be mocked.]*/
 #define MOCKABLE_FUNCTION(modifiers, result, function, ...) \
-    MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK(modifiers, result, function, __VA_ARGS__)
+    IF(ENABLE_MOCK_FILTERING_SWITCH,IF(C2(please_mock_, function),MOCKABLE_FUNCTION_DISABLED,MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK), MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK) (modifiers, result, function, __VA_ARGS__)
 
 #include "umock_c.h"
 

@@ -174,6 +174,49 @@ Note that it is possible (and sometimes necessary) to undefine ENABLE_MOCKS:
 
 ```
 
+### ENABLE_MOCK_FILTERING
+
+`ENABLE_MOCK_FILTERING` is a define that allows specifying that only some of the functions that are mockable be actually mocked. This is usefull when it is not desired to generate mock functions for all the functions declared in a header.
+
+This is specially useful if a header contains a huge number of functions and only a small subset of those are actually used by the module under test.
+
+Be nice to the framework, say please!
+Each of the functions that are to be mocked have to be flagged by a #define, like below:
+
+```c
+#define please_mock_the_mocked_one MOCK_ENABLED
+```
+
+### UMOCK_STATIC
+
+If you intend to add several units under test into the same test library, the inclusion of the same dependency will result in symbol collisions of the mock functions.  A way to get around this is to define UMOCK_STATIC as follows
+
+```c
+
+#include <stdlib.h>
+// ... other various includes
+
+// enable emitting static mocks
+#define UMOCK_STATIC static
+#define ENABLE_MOCKS
+
+#include "test_dependency.h"
+
+#undef ENABLE_MOCKS
+#include "unit_under_test.h"
+
+#define ENABLE_MOCKS
+// include unit under test source to make it see static mocks
+#include "unit_under_test.c"
+
+// ... tests
+
+``` 
+
+before including dependencies.  This will cause MOCK_FUNCTION macro to generate static mocks, which avoids symbol collisions if the dependency is included in other unit test .c files in the same library.   
+
+Using this technique, it is however also important to #include the unit under test source into the unit test compilation unit, so as to make it able to see the generated mocks as shown in above code sample.
+
 ## umock init/deinit
 
 ### umock_c_init

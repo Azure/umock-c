@@ -8,7 +8,12 @@
 extern "C" {
 #endif
 
-    void UMOCK_LOG(const char* format, ...);
+    void UMOCK_LOG(const char* format, ...)
+        #if defined(__GNUC__) || defined(__clang__)
+            __attribute__ ((format (printf, 1, 2)))
+        #endif
+        ;
+
 
 #ifdef __cplusplus
 }

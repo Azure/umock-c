@@ -12,8 +12,8 @@ void UMOCK_LOG(const char* format, ...)
 {
     va_list params;
     va_start(params, format);
-    (void)vprintf(format, params); 
+    (void)vprintf(format, params);
     va_end(params);
-    printf("\r\n");
+    (void)printf("\r\n");
     umock_c_indicate_error(UMOCK_C_ERROR);
 }

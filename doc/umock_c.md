@@ -170,6 +170,19 @@ Note that it is possible (and sometimes necessary) to undefine ENABLE_MOCKS:
 
 ```
 
+### ENABLE_MOCK_FILTERING
+
+`ENABLE_MOCK_FILTERING` is a define that allows specifying that only some of the functions that are mockable be actually mocked. This is usefull when it is not desired to generate mock functions for all the functions declared in a header.
+
+This is specially useful if a header contains a huge number of functions and only a small subset of those are actually used by the module under test.
+
+Be nice to the framework, say please!
+Each of the functions that are to be mocked have to be flagged by a #define, like below:
+
+```c
+#define please_mock_the_mocked_one MOCK_ENABLED
+```
+
 ### UMOCK_STATIC
 
 If you intend to add several units under test into the same test library, the inclusion of the same dependency will result in symbol collisions of the mock functions.  A way to get around this is to define UMOCK_STATIC as follows
