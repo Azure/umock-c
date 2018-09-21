@@ -763,7 +763,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
                 } \
                 else \
                 { \
-                    if (umockcall_c_set_call_can_fail(last_expected_call, 0) != 0) \
+                    if (umockcall_set_call_can_fail(last_expected_call, 0) != 0) \
                     { \
                         UMOCK_LOG("Cannot set call can fail value on the last expected call."); \
                         umock_c_indicate_error(UMOCK_C_ERROR); \
@@ -801,7 +801,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
         { \
             (void)umock_c_add_expected_call(mock_call); \
         } \
-        (void)umockcall_c_set_call_can_fail(mock_call, IF(IS_NOT_VOID(return_type), 1, 0)); \
+        (void)umockcall_set_call_can_fail(mock_call, IF(IS_NOT_VOID(return_type), 1, 0)); \
 		return mock_call_modifier; \
 	} \
 

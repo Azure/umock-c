@@ -375,7 +375,7 @@ int umockcall_get_ignore_all_calls(UMOCKCALL_HANDLE umockcall)
     return result;
 }
 
-int umockcall_c_set_call_can_fail(UMOCKCALL_HANDLE umockcall, int call_can_fail)
+int umockcall_set_call_can_fail(UMOCKCALL_HANDLE umockcall, int call_can_fail)
 {
     int result;
 

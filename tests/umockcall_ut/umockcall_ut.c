@@ -1166,4 +1166,140 @@ TEST_FUNCTION(umockcall_get_ignore_all_calls_on_a_cloned_call_retrieves_0)
     umockcall_destroy(cloned_call);
 }
 
+
+/* umockcall_set_call_can_fail */
+
+TEST_FUNCTION(umockcall_set_call_can_fail_sets_the_can_fail_property)
+{
+    // arrange
+    UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
+
+    // act
+    int result = umockcall_set_call_can_fail(call, 1);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 0, result);
+    ASSERT_ARE_EQUAL(int, 1, umockcall_get_call_can_fail(call));
+
+    // cleanup
+    umockcall_destroy(call);
+}
+
+TEST_FUNCTION(umockcall_set_call_can_fail_with_NULL_fails)
+{
+    // arrange
+
+    // act
+    int result = umockcall_set_call_can_fail(NULL, 1);
+
+    // assert
+    ASSERT_ARE_NOT_EQUAL(int, 0, result);
+}
+
+TEST_FUNCTION(umockcall_set_call_can_fail_with_an_invalid_set_can_fail_value_fails)
+{
+    // arrange
+    UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
+
+    // act
+    int result = umockcall_set_call_can_fail(call, 2);
+
+    // assert
+    ASSERT_ARE_NOT_EQUAL(int, 0, result);
+
+    // cleanup
+    umockcall_destroy(call);
+}
+
+/* umockcall_get_call_can_fail */
+
+TEST_FUNCTION(umockcall_get_call_can_fail_retrieves_0)
+{
+    // arrange
+	int result;
+    UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
+    (void)umockcall_set_call_can_fail(call, 0);
+
+    // act
+    result = umockcall_get_call_can_fail(call);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 0, result);
+
+    // cleanup
+    umockcall_destroy(call);
+}
+
+TEST_FUNCTION(umockcall_get_call_can_fail_calls_retrieves_1)
+{
+    // arrange
+	int result;
+    UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
+    (void)umockcall_set_call_can_fail(call, 1);
+
+    // act
+    result = umockcall_get_call_can_fail(call);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 1, result);
+
+    // cleanup
+    umockcall_destroy(call);
+}
+
+TEST_FUNCTION(umockcall_get_call_can_fail_with_NULL_call_fails)
+{
+    // arrange
+
+    // act
+    int result = umockcall_get_call_can_fail(NULL);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, -1, result);
+}
+
+TEST_FUNCTION(umockcall_get_call_can_fail_on_a_cloned_call_retrieves_1)
+{
+    // arrange
+	UMOCKCALL_HANDLE cloned_call;
+	int result;
+    UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
+    (void)umockcall_set_call_can_fail(call, 1);
+    test_mock_call_data_copy_expected_result = (void*)0x4243;
+    cloned_call = umockcall_clone(call);
+
+    // act
+    result = umockcall_get_call_can_fail(cloned_call);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 1, result);
+
+    // cleanup
+    umockcall_destroy(call);
+    umockcall_destroy(cloned_call);
+}
+
+TEST_FUNCTION(umockcall_get_call_can_fail_on_a_cloned_call_retrieves_0)
+{
+    // arrange
+	int result;
+	UMOCKCALL_HANDLE cloned_call;
+    UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
+    (void)umockcall_set_call_can_fail(call, 0);
+    test_mock_call_data_copy_expected_result = (void*)0x4243;
+    cloned_call = umockcall_clone(call);
+
+    // act
+    result = umockcall_get_call_can_fail(cloned_call);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 0, result);
+
+    // cleanup
+    umockcall_destroy(call);
+    umockcall_destroy(cloned_call);
+}
+
+
+
 END_TEST_SUITE(umockcall_unittests)
