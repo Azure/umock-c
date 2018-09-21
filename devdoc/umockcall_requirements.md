@@ -23,6 +23,8 @@ umockcall is a module that encapsulates a umock call.
     extern int umockcall_get_fail_call(UMOCKCALL_HANDLE umockcall);
     extern int umockcall_set_ignore_all_calls(UMOCKCALL_HANDLE umockcall, int ignore_all_calls);
     extern int umockcall_get_ignore_all_calls(UMOCKCALL_HANDLE umockcall);
+    extern int umockcall_set_call_can_fail(UMOCKCALL_HANDLE umockcall, int call_can_fail);
+    extern int umockcall_get_call_can_fail(UMOCKCALL_HANDLE umockcall);
 ```
 
 ## umockcall_create
@@ -166,3 +168,33 @@ extern int umockcall_get_ignore_all_calls(UMOCKCALL_HANDLE umockcall);
 **SRS_UMOCKCALL_01_049: [** umockcall_get_ignore_all_calls shall retrieve the ignore_all_calls value, associated with the umockcall call instance. **]**
 
 **SRS_UMOCKCALL_01_050: [** If umockcall is NULL, umockcall_get_ignore_all_calls shall return -1. **]**
+
+## umockcall_set_call_can_fail
+
+```c
+extern int umockcall_set_call_can_fail(UMOCKCALL_HANDLE umockcall, int call_can_fail);
+```
+
+**SRS_UMOCKCALL_31_051: [** If umockcall is NULL, umockcall_set_call_can_fail shall return -1. **]**
+
+**SRS_UMOCKCALL_31_052: [** If a value different than 0 and 1 is passed as umockcall_set_call_can_fail, umockcall_set_call_can_fail shall return -1. **]**
+
+**SRS_UMOCKCALL_31_053: [** umockcall_set_call_can_fail shall store the call_can_fail value, associating it with the umockcall call instance. **]**
+
+
+
+## umockcall_get_call_can_fail
+
+```c
+extern int umockcall_get_call_can_fail(UMOCKCALL_HANDLE umockcall);
+```
+
+
+**SRS_UMOCKCALL_31_054: [** If umockcall is NULL, umockcall_get_call_can_fail shall return -1. **]**
+
+**SRS_UMOCKCALL_31_055: [** umockcall_get_call_can_fail shall retrieve the call_can_fail value, associated with the umockcall call instance. **]**
+
+
+
+
+

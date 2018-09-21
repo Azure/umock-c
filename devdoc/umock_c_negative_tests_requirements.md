@@ -13,6 +13,7 @@ umock_c_negative_tests is an addon to umock_c that exposes APIs used to automate
     extern void umock_c_negative_tests_reset(void);
     extern void umock_c_negative_tests_fail_call(size_t index);
     extern size_t umock_c_negative_tests_call_count(void);
+    extern int umock_c_negative_tests_can_call_fail(size_t index);
 ```
 
 ## umock_c_negative_tests_init
@@ -100,3 +101,22 @@ XX**SRS_UMOCK_C_NEGATIVE_TESTS_01_021: [** umock_c_negative_tests_call_count sha
 **SRS_UMOCK_C_NEGATIVE_TESTS_01_023: [** If umockcallrecorder_get_expected_call_count fails, umock_c_negative_tests_fail_call shall return 0 and indicate the error via the umock error callback with error code UMOCK_C_ERROR. **]**
 
 **SRS_UMOCK_C_NEGATIVE_TESTS_01_024: [** If the module was not previously initialized, umock_c_negative_tests_call_count shall return 0. **]**
+
+
+## umock_c_negative_tests_can_call_fail
+
+```c
+    extern int umock_c_negative_tests_can_call_fail(size_t index);
+```
+
+
+**SRS_UMOCK_C_NEGATIVE_TESTS_31_026: [** If the module was not previously initialized, umock_c_negative_tests_can_call_fail shall return 0.  **]**
+
+**SRS_UMOCK_C_NEGATIVE_TESTS_31_027: [** If umock_c_get_call_recorder fails, umock_c_negative_tests_can_call_fail shall indicate the error via the umock error callback with error code UMOCK_C_ERROR.  **]**
+
+**SRS_UMOCK_C_NEGATIVE_TESTS_31_028: [** Whether the call can fail for the given index shall made by calling umockcallrecorder_can_call_fail.  **]**
+
+**SRS_UMOCK_C_NEGATIVE_TESTS_31_029: [** If umockcallrecorder_can_call_fail fails, umock_c_negative_tests_fail_call shall indicate the error via the umock error callback with error code UMOCK_C_ERROR and return 1.  **]**
+
+
+
