@@ -927,6 +927,7 @@ typedef struct MOCK_CALL_METADATA_TAG
     struct C2(_mock_call_modifier_,name); \
     IF(IS_NOT_VOID(return_type),typedef struct C2(_mock_call_modifier_,name) (*C2(set_return_func_type_,name))(return_type return_value); \
     typedef struct C2(_mock_call_modifier_,name) (*C2(set_fail_return_func_type_,name))(return_type return_value); \
+    typedef struct C2(_mock_call_modifier_,name) (*C2(call_cannot_fail_func_type_,name))(void); \
     typedef struct C2(_mock_call_modifier_,name) (*C2(capture_return_func_type_,name))(return_type* captured_return_value);,) \
     typedef struct C2(_mock_call_modifier_,name) (*C2(ignore_all_calls_func_type_,name))(void); \
     IF(COUNT_ARG(__VA_ARGS__),typedef struct C2(_mock_call_modifier_,name) (*C2(ignore_all_arguments_func_type_,name))(void); \
@@ -936,13 +937,13 @@ typedef struct MOCK_CALL_METADATA_TAG
     typedef struct C2(_mock_call_modifier_,name) (*C2(validate_argument_func_type_,name))(size_t arg_index); \
     typedef struct C2(_mock_call_modifier_,name) (*C2(validate_argument_buffer_func_type_,name))(size_t index, const void* bytes, size_t length); \
     typedef struct C2(_mock_call_modifier_,name) (*C2(copy_out_argument_buffer_func_type_,name))(size_t index, const void* bytes, size_t length); \
-    typedef struct C2(_mock_call_modifier_,name) (*C2(call_cannot_fail_func_type_,name))(void); \
     FOR_EACH_2_KEEP_1(DECLARE_ARG_RELATED_FUNCTIONS, name, __VA_ARGS__),) \
     typedef struct C2(_mock_call_modifier_,name) \
     { \
         C2(ignore_all_calls_func_type_,name) IgnoreAllCalls; \
         IF(IS_NOT_VOID(return_type),C2(set_return_func_type_,name) SetReturn; \
         C2(set_fail_return_func_type_,name) SetFailReturn; \
+        C2(call_cannot_fail_func_type_,name) CallCannotFail; \
         C2(capture_return_func_type_,name) CaptureReturn;,) \
         IF(COUNT_ARG(__VA_ARGS__),C2(ignore_all_arguments_func_type_,name) IgnoreAllArguments; \
         C2(validate_all_arguments_func_type_,name) ValidateAllArguments; \
@@ -951,12 +952,12 @@ typedef struct MOCK_CALL_METADATA_TAG
         C2(validate_argument_func_type_,name) ValidateArgument; \
         C2(validate_argument_buffer_func_type_,name) ValidateArgumentBuffer; \
         C2(copy_out_argument_buffer_func_type_,name) CopyOutArgumentBuffer; \
-        C2(call_cannot_fail_func_type_,name) CallCannotFail; \
         FOR_EACH_2_KEEP_1(ARG_RELATED_FUNCTIONS_IN_MODIFIERS, name, __VA_ARGS__),) \
     } C2(mock_call_modifier_,name); \
     static C2(mock_call_modifier_,name) C2(ignore_all_calls_func_,name)(void); \
     IF(IS_NOT_VOID(return_type),static C2(mock_call_modifier_,name) C2(set_return_func_,name)(return_type return_value); \
     static C2(mock_call_modifier_,name) C2(set_fail_return_func_,name)(return_type return_value); \
+    static C2(mock_call_modifier_,name) C2(call_cannot_fail_func_,name)(void); \
     static C2(mock_call_modifier_,name) C2(capture_return_func_,name)(return_type* captured_return_value);,) \
     IF(COUNT_ARG(__VA_ARGS__),static C2(mock_call_modifier_,name) C2(ignore_all_arguments_func_,name)(void); \
     static C2(mock_call_modifier_,name) C2(validate_all_arguments_func_,name)(void); \
@@ -965,7 +966,6 @@ typedef struct MOCK_CALL_METADATA_TAG
     static C2(mock_call_modifier_,name) C2(validate_argument_func_,name)(size_t arg_index); \
     static C2(mock_call_modifier_,name) C2(validate_argument_buffer_func_,name)(size_t index, const void* bytes, size_t length); \
     static C2(mock_call_modifier_,name) C2(copy_out_argument_buffer_func_,name)(size_t index, const void* bytes, size_t length); \
-    static C2(mock_call_modifier_,name) C2(call_cannot_fail_func_,name)(void); \
     FOR_EACH_2_KEEP_1(DECLARE_IGNORE_ARGUMENT_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
     FOR_EACH_2_KEEP_1(DECLARE_VALIDATE_ARGUMENT_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
     FOR_EACH_2_KEEP_1(DECLARE_COPY_OUT_ARGUMENT_BUFFER_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
@@ -985,6 +985,7 @@ typedef struct MOCK_CALL_METADATA_TAG
     { \
         IF(IS_NOT_VOID(return_type),mock_call_modifier->SetReturn = C2(set_return_func_,name); \
         mock_call_modifier->SetFailReturn = C2(set_fail_return_func_,name); \
+        mock_call_modifier->CallCannotFail = C2(call_cannot_fail_func_,name); \
         mock_call_modifier->CaptureReturn = C2(capture_return_func_,name);,) \
         IF(COUNT_ARG(__VA_ARGS__),mock_call_modifier->IgnoreAllArguments = C2(ignore_all_arguments_func_,name); \
         mock_call_modifier->ValidateAllArguments = C2(validate_all_arguments_func_,name); \
@@ -999,7 +1000,6 @@ typedef struct MOCK_CALL_METADATA_TAG
         FOR_EACH_2_KEEP_1(COPY_VALIDATE_ARGUMENT_VALUE_BY_NAME_TO_MODIFIER, name, __VA_ARGS__) \
         FOR_EACH_2_KEEP_1(COPY_VALIDATE_ARGUMENT_VALUE_AS_TYPE_BY_NAME_TO_MODIFIER, name, __VA_ARGS__),) \
         mock_call_modifier->IgnoreAllCalls = C2(ignore_all_calls_func_,name); \
-        mock_call_modifier->CallCannotFail = C2(call_cannot_fail_func_,name); \
     } \
     typedef struct C2(_mock_call_,name) \
     { \
@@ -1141,6 +1141,7 @@ typedef struct MOCK_CALL_METADATA_TAG
     static return_type C2(mock_call_fail_result_,name); \
     IMPLEMENT_SET_RETURN_FUNCTION(return_type, name, __VA_ARGS__) \
     IMPLEMENT_SET_FAIL_RETURN_FUNCTION(return_type, name, __VA_ARGS__) \
+    IMPLEMENT_SET_CALL_CANNOT_FAIL(return_type, name, __VA_ARGS__) \
     IMPLEMENT_CAPTURE_RETURN_FUNCTION(return_type, name, __VA_ARGS__),) \
     IF(COUNT_ARG(__VA_ARGS__),IMPLEMENT_IGNORE_ALL_ARGUMENTS_FUNCTION(return_type, name, __VA_ARGS__) \
     IMPLEMENT_VALIDATE_ALL_ARGUMENTS_FUNCTION(return_type, name, __VA_ARGS__) \
@@ -1155,9 +1156,7 @@ typedef struct MOCK_CALL_METADATA_TAG
     FOR_EACH_2_KEEP_1(IMPLEMENT_VALIDATE_ARGUMENT_VALUE_BY_NAME_FUNCTION, name, __VA_ARGS__) \
     FOR_EACH_2_KEEP_1(IMPLEMENT_VALIDATE_ARGUMENT_VALUE_AS_TYPE_BY_NAME_FUNCTION, name, __VA_ARGS__),) \
     IMPLEMENT_IGNORE_ALL_CALLS_FUNCTION(return_type, name, __VA_ARGS__) \
-    IMPLEMENT_SET_CALL_CANNOT_FAIL(return_type, name, __VA_ARGS__) \
     IMPLEMENT_REGISTER_GLOBAL_MOCK_HOOK(return_type, name, __VA_ARGS__) \
-    IMPLEMENT_REGISTER_GLOBAL_MOCK_HOOK_IGNORE_CALL_HISTORY(return_type, name, __VA_ARGS__) \
     IMPLEMENT_REGISTER_GLOBAL_MOCK_RETURN(return_type, name, __VA_ARGS__) \
     IMPLEMENT_REGISTER_GLOBAL_MOCK_FAIL_RETURN(return_type, name, __VA_ARGS__) \
     IMPLEMENT_REGISTER_GLOBAL_MOCK_RETURNS(return_type, name, __VA_ARGS__) \
