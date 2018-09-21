@@ -90,6 +90,14 @@ static umockcall_stringify_CALL* umockcall_stringify_calls;
 static size_t umockcall_stringify_call_count;
 static char* umockcall_stringify_call_result;
 
+typedef struct umockcall_get_call_can_fail_CALL_TAG
+{
+    UMOCKCALL_HANDLE umockcall;
+} umockcall_get_call_can_fail_CALL;
+
+static umockcall_get_call_can_fail_CALL umockcall_get_call_can_fail_call;
+static int umockcall_get_call_can_fail_result;
+
 int umockcall_get_ignore_all_calls(UMOCKCALL_HANDLE call)
 {
     umockcall_get_ignore_all_calls_CALL* new_calls = (umockcall_get_ignore_all_calls_CALL*)realloc(umockcall_get_ignore_all_calls_calls, sizeof(umockcall_get_ignore_all_calls_CALL) * (umockcall_get_ignore_all_calls_call_count + 1));
@@ -206,6 +214,12 @@ char* umockcall_stringify(UMOCKCALL_HANDLE umockcall)
     return result;
 }
 
+int umockcall_get_call_can_fail(UMOCKCALL_HANDLE umockcall)
+{
+    umockcall_get_call_can_fail_call.umockcall = umockcall;
+    return umockcall_get_call_can_fail_result;
+}
+
 void reset_umockcall_get_ignore_all_calls_calls(void)
 {
     if (umockcall_get_ignore_all_calls_calls != NULL)
@@ -272,6 +286,12 @@ void reset_umockcall_set_fail_call_calls(void)
 
     umockcall_set_fail_call_call_result = 0;
     umockcall_set_fail_call_call_count = 0;
+}
+
+void reset_umockcall_get_call_can_fail_calls(void)
+{
+    umockcall_get_call_can_fail_call.umockcall = 0;
+    umockcall_get_call_can_fail_result = 0;
 }
 
 static size_t malloc_call_count;
@@ -366,6 +386,7 @@ TEST_FUNCTION_INITIALIZE(test_function_init)
     reset_umockcall_stringify_calls();
     reset_umockcall_clone_calls();
     reset_umockcall_set_fail_call_calls();
+    reset_umockcall_get_call_can_fail_calls();
     reset_malloc_calls();
 }
 
@@ -395,7 +416,7 @@ TEST_FUNCTION(umockcallrecorder_create_succeeds)
 TEST_FUNCTION(when_allocating_memory_fails_then_umockcallrecorder_create_fails)
 {
     // arrange
-	UMOCKCALLRECORDER_HANDLE call_recorder;
+    UMOCKCALLRECORDER_HANDLE call_recorder;
     when_shall_malloc_fail = 1;
 
     // act
@@ -465,7 +486,7 @@ TEST_FUNCTION(umockcallrecorder_destroy_with_one_expected_call_frees_the_call_re
 TEST_FUNCTION(umockcallrecorder_reset_all_calls_frees_all_existing_expected_and_actual_calls)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     umockcall_are_equal_call_result = 0;
@@ -554,7 +575,7 @@ TEST_FUNCTION(umockcallrecorder_add_expected_call_with_NULL_mock_call_fails)
 TEST_FUNCTION(when_allocating_memory_fails_umockcallrecorder_add_expected_call_fails)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     reset_malloc_calls();
     when_shall_realloc_fail = 1;
@@ -596,7 +617,7 @@ TEST_FUNCTION(umockcallrecorder_add_actual_call_without_any_expected_calls_succe
 TEST_FUNCTION(umockcallrecorder_add_actual_call_with_a_call_that_does_not_match_succeeds)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
@@ -667,7 +688,7 @@ TEST_FUNCTION(umockcallrecorder_add_actual_call_with_NULL_matched_call_fails)
 TEST_FUNCTION(when_allocating_memory_for_the_actual_calls_fails_umockcallrecorder_add_actual_call_fails)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     reset_malloc_calls();
@@ -687,7 +708,7 @@ TEST_FUNCTION(when_allocating_memory_for_the_actual_calls_fails_umockcallrecorde
 TEST_FUNCTION(when_umockcall_are_equal_fails_then_umockcallrecorder_add_actual_call_fails)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
@@ -710,7 +731,7 @@ TEST_FUNCTION(when_umockcall_are_equal_fails_then_umockcallrecorder_add_actual_c
 TEST_FUNCTION(when_the_actual_call_matches_the_expected_call_then_the_matched_call_is_returned)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
@@ -735,7 +756,7 @@ TEST_FUNCTION(when_the_actual_call_matches_the_expected_call_then_the_matched_ca
 TEST_FUNCTION(when_the_actual_call_matches_the_1st_of_2_expected_call_then_the_matched_call_is_returned)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
@@ -761,7 +782,7 @@ TEST_FUNCTION(when_the_actual_call_matches_the_1st_of_2_expected_call_then_the_m
 TEST_FUNCTION(when_the_actual_call_matches_the_2nd_of_2_expected_call_then_the_matched_call_is_returned)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
@@ -792,7 +813,7 @@ TEST_FUNCTION(when_the_actual_call_matches_the_2nd_of_2_expected_call_then_the_m
 TEST_FUNCTION(two_actual_calls_can_be_added)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     (void)umockcallrecorder_add_actual_call(call_recorder, test_actual_umockcall_1, &matched_call);
@@ -811,7 +832,7 @@ TEST_FUNCTION(two_actual_calls_can_be_added)
 TEST_FUNCTION(only_the_first_expected_call_is_checked_for_match)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     umockcall_are_equal_call_result = 0;
@@ -834,7 +855,7 @@ TEST_FUNCTION(only_the_first_expected_call_is_checked_for_match)
 TEST_FUNCTION(if_matching_fails_subsequent_actual_calls_are_not_matched)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     umockcall_stringify_call_result = "[a()]";
@@ -860,7 +881,7 @@ TEST_FUNCTION(if_matching_fails_subsequent_actual_calls_are_not_matched)
 TEST_FUNCTION(if_expected_call_has_ignore_all_calls_the_actual_call_is_not_recorded)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     umockcall_stringify_call_result = "[a()]";
@@ -884,7 +905,7 @@ TEST_FUNCTION(if_expected_call_has_ignore_all_calls_the_actual_call_is_not_recor
 TEST_FUNCTION(if_expected_call_has_ignore_all_calls_2_actual_calls_are_not_recorded)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     umockcall_stringify_call_result = "[a()]";
@@ -909,7 +930,7 @@ TEST_FUNCTION(if_expected_call_has_ignore_all_calls_2_actual_calls_are_not_recor
 TEST_FUNCTION(if_expected_call_has_ignore_all_calls_and_umockcall_get_ignore_all_calls_fails_then_umockcallrecorder_get_actual_calls_fails)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     int add_call_result;
@@ -954,7 +975,7 @@ TEST_FUNCTION(umockcallrecorder_get_actual_calls_with_no_calls_returns_an_empty_
 TEST_FUNCTION(umockcallrecorder_get_actual_calls_with_1_call_returns_one_stringified_call)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     umockcall_stringify_call_result = "[a()]";
@@ -977,7 +998,7 @@ TEST_FUNCTION(umockcallrecorder_get_actual_calls_with_1_call_returns_one_stringi
 TEST_FUNCTION(umockcallrecorder_get_actual_calls_with_2_calls_returns_the_stringified_calls)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     umockcall_stringify_call_result = "[a()]";
@@ -1000,7 +1021,7 @@ TEST_FUNCTION(umockcallrecorder_get_actual_calls_with_2_calls_returns_the_string
 TEST_FUNCTION(when_stringifying_one_call_fails_then_umockcallrecorder_get_actual_calls_fails)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     umockcall_stringify_call_result = NULL;
@@ -1032,7 +1053,7 @@ TEST_FUNCTION(umockcallrecorder_get_actual_calls_with_NULL_call_recorder_fails)
 TEST_FUNCTION(when_allocating_memory_for_the_resulting_string_for_no_calls_fails_then_umockcallrecorder_get_actual_calls_fails)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     reset_malloc_calls();
 
@@ -1053,7 +1074,7 @@ TEST_FUNCTION(when_allocating_memory_for_the_resulting_string_for_no_calls_fails
 TEST_FUNCTION(when_allocating_memory_for_the_resulting_string_fails_then_umockcallrecorder_get_actual_calls_fails)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     umockcall_stringify_call_result = "[a()]";
@@ -1078,7 +1099,7 @@ TEST_FUNCTION(when_allocating_memory_for_the_resulting_string_fails_then_umockca
 TEST_FUNCTION(umockcallrecorder_get_actual_calls_when_the_actual_call_does_not_match_the_expected_should_return_the_actual_call)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     umockcall_stringify_call_result = "[a()]";
@@ -1120,7 +1141,7 @@ TEST_FUNCTION(umockcallrecorder_get_expected_calls_with_no_calls_returns_an_empt
 TEST_FUNCTION(umockcallrecorder_get_expected_calls_with_1_call_returns_one_stringified_call)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     umockcall_stringify_call_result = "[a()]";
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
@@ -1142,7 +1163,7 @@ TEST_FUNCTION(umockcallrecorder_get_expected_calls_with_1_call_returns_one_strin
 TEST_FUNCTION(umockcallrecorder_get_expected_calls_with_2_calls_returns_the_stringified_calls)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     umockcall_stringify_call_result = "[a()]";
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
@@ -1164,7 +1185,7 @@ TEST_FUNCTION(umockcallrecorder_get_expected_calls_with_2_calls_returns_the_stri
 TEST_FUNCTION(when_stringifying_one_call_fails_then_umockcallrecorder_get_expected_calls_fails)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     umockcall_stringify_call_result = NULL;
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
@@ -1195,7 +1216,7 @@ TEST_FUNCTION(umockcallrecorder_get_expected_calls_with_NULL_call_recorder_fails
 TEST_FUNCTION(when_allocating_memory_for_the_resulting_string__for_no_calls_fails_then_umockcallrecorder_get_expected_calls_fails)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     reset_malloc_calls();
 
@@ -1216,7 +1237,7 @@ TEST_FUNCTION(when_allocating_memory_for_the_resulting_string__for_no_calls_fail
 TEST_FUNCTION(when_allocating_memory_for_the_resulting_string_fails_then_umockcallrecorder_get_expected_calls_fails)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     umockcall_stringify_call_result = "[a()]";
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
@@ -1239,7 +1260,7 @@ TEST_FUNCTION(when_allocating_memory_for_the_resulting_string_fails_then_umockca
 TEST_FUNCTION(umockcallrecorder_get_expected_calls_with_a_matched_expected_call_yields_no_calls_in_the_string)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     umockcall_are_equal_call_result = 1;
@@ -1261,7 +1282,7 @@ TEST_FUNCTION(umockcallrecorder_get_expected_calls_with_a_matched_expected_call_
 TEST_FUNCTION(umockcallrecorder_get_expected_calls_when_the_actual_call_does_not_match_the_expected_should_return_the_expected_call)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     umockcall_stringify_call_result = "[a()]";
@@ -1285,7 +1306,7 @@ TEST_FUNCTION(umockcallrecorder_get_expected_calls_when_the_actual_call_does_not
 TEST_FUNCTION(umockcallrecorder_get_expected_calls_with_1_expectd_call_with_ignore_all_calls_set_returns_an_empty_string)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     umockcall_stringify_call_result = "[a()]";
     umockcall_are_equal_call_result = 0;
@@ -1307,7 +1328,7 @@ TEST_FUNCTION(umockcallrecorder_get_expected_calls_with_1_expectd_call_with_igno
 TEST_FUNCTION(when_getting_the_ignore_all_cals_fails_umockcallrecorder_get_expected_calls_fails)
 {
     // arrange
-	const char* result;
+    const char* result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     umockcall_stringify_call_result = "[a()]";
     umockcall_are_equal_call_result = 0;
@@ -1359,7 +1380,7 @@ TEST_FUNCTION(umockcallrecorder_get_last_expected_call_with_NULL_call_recorder_f
 TEST_FUNCTION(umockcallrecorder_get_last_expected_call_with_1_expected_call_returns_the_last_expected_call)
 {
     // arrange
-	UMOCKCALL_HANDLE result;
+    UMOCKCALL_HANDLE result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
 
@@ -1377,7 +1398,7 @@ TEST_FUNCTION(umockcallrecorder_get_last_expected_call_with_1_expected_call_retu
 TEST_FUNCTION(umockcallrecorder_get_last_expected_call_with_2_expected_calls_returns_the_last_expected_call)
 {
     // arrange
-	UMOCKCALL_HANDLE result;
+    UMOCKCALL_HANDLE result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_2);
@@ -1427,7 +1448,7 @@ TEST_FUNCTION(umockcallrecorder_clone_with_NULL_returns_NULL)
 TEST_FUNCTION(when_allocating_memory_for_call_recorder_fails_umockcallrecorder_clone_fails)
 {
     // arrange
-	UMOCKCALLRECORDER_HANDLE result;
+    UMOCKCALLRECORDER_HANDLE result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     reset_malloc_calls();
     when_shall_malloc_fail = 1;
@@ -1447,7 +1468,7 @@ TEST_FUNCTION(when_allocating_memory_for_call_recorder_fails_umockcallrecorder_c
 TEST_FUNCTION(umockcallrecorder_clone_with_one_expected_call_clones_the_expected_call)
 {
     // arrange
-	UMOCKCALLRECORDER_HANDLE result;
+    UMOCKCALLRECORDER_HANDLE result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
     reset_umockcall_clone_calls();
@@ -1471,7 +1492,7 @@ TEST_FUNCTION(umockcallrecorder_clone_with_one_expected_call_clones_the_expected
 TEST_FUNCTION(umockcallrecorder_clone_with_2_expected_calls_clones_the_expected_call)
 {
     // arrange
-	UMOCKCALLRECORDER_HANDLE result;
+    UMOCKCALLRECORDER_HANDLE result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_2);
@@ -1496,7 +1517,7 @@ TEST_FUNCTION(umockcallrecorder_clone_with_2_expected_calls_clones_the_expected_
 TEST_FUNCTION(when_cloning_the_expected_call_fails_umockcallrecorder_clone_fails)
 {
     // arrange
-	UMOCKCALLRECORDER_HANDLE result;
+    UMOCKCALLRECORDER_HANDLE result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
     reset_umockcall_clone_calls();
@@ -1518,7 +1539,7 @@ TEST_FUNCTION(when_cloning_the_expected_call_fails_umockcallrecorder_clone_fails
 TEST_FUNCTION(when_cloning_the_1st_out_of_2_expected_calls_fails_umockcallrecorder_clone_fails)
 {
     // arrange
-	UMOCKCALLRECORDER_HANDLE result;
+    UMOCKCALLRECORDER_HANDLE result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
     reset_umockcall_clone_calls();
@@ -1542,7 +1563,7 @@ TEST_FUNCTION(when_cloning_the_1st_out_of_2_expected_calls_fails_umockcallrecord
 TEST_FUNCTION(when_cloning_the_2nd_out_of_2_expected_calls_fails_umockcallrecorder_clone_fails)
 {
     // arrange
-	UMOCKCALLRECORDER_HANDLE result;
+    UMOCKCALLRECORDER_HANDLE result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_2);
@@ -1569,7 +1590,7 @@ TEST_FUNCTION(when_cloning_the_2nd_out_of_2_expected_calls_fails_umockcallrecord
 TEST_FUNCTION(when_allocating_memory_for_expected_calls_fails_umockcallrecorder_clone_fails)
 {
     // arrange
-	UMOCKCALLRECORDER_HANDLE result;
+    UMOCKCALLRECORDER_HANDLE result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
     reset_umockcall_clone_calls();
@@ -1593,7 +1614,7 @@ TEST_FUNCTION(when_allocating_memory_for_expected_calls_fails_umockcallrecorder_
 TEST_FUNCTION(umockcallrecorder_clone_with_one_actual_call_succeeds)
 {
     // arrange
-	UMOCKCALLRECORDER_HANDLE result;
+    UMOCKCALLRECORDER_HANDLE result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     (void)umockcallrecorder_add_actual_call(call_recorder, test_expected_umockcall_1, &matched_call);
@@ -1618,7 +1639,7 @@ TEST_FUNCTION(umockcallrecorder_clone_with_one_actual_call_succeeds)
 TEST_FUNCTION(umockcallrecorder_clone_with_2_actual_calls_succeeds)
 {
     // arrange
-	UMOCKCALLRECORDER_HANDLE result;
+    UMOCKCALLRECORDER_HANDLE result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     (void)umockcallrecorder_add_actual_call(call_recorder, test_expected_umockcall_1, &matched_call);
@@ -1644,7 +1665,7 @@ TEST_FUNCTION(umockcallrecorder_clone_with_2_actual_calls_succeeds)
 TEST_FUNCTION(when_cloning_actual_call_fails_umockcallrecorder_clone_fails)
 {
     // arrange
-	UMOCKCALLRECORDER_HANDLE result;
+    UMOCKCALLRECORDER_HANDLE result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     (void)umockcallrecorder_add_actual_call(call_recorder, test_expected_umockcall_1, &matched_call);
@@ -1667,7 +1688,7 @@ TEST_FUNCTION(when_cloning_actual_call_fails_umockcallrecorder_clone_fails)
 TEST_FUNCTION(when_cloning_the_1st_of_2_actual_calls_fails_umockcallrecorder_clone_fails)
 {
     // arrange
-	UMOCKCALLRECORDER_HANDLE result;
+    UMOCKCALLRECORDER_HANDLE result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     (void)umockcallrecorder_add_actual_call(call_recorder, test_expected_umockcall_1, &matched_call);
@@ -1691,7 +1712,7 @@ TEST_FUNCTION(when_cloning_the_1st_of_2_actual_calls_fails_umockcallrecorder_clo
 TEST_FUNCTION(when_cloning_the_2nd_of_2_actual_calls_fails_umockcallrecorder_clone_fails)
 {
     // arrange
-	UMOCKCALLRECORDER_HANDLE result;
+    UMOCKCALLRECORDER_HANDLE result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     (void)umockcallrecorder_add_actual_call(call_recorder, test_expected_umockcall_1, &matched_call);
@@ -1719,7 +1740,7 @@ TEST_FUNCTION(when_cloning_the_2nd_of_2_actual_calls_fails_umockcallrecorder_clo
 TEST_FUNCTION(when_allocating_memory_for_actual_calls_fails_umockcallrecorder_clone_fails)
 {
     // arrange
-	UMOCKCALLRECORDER_HANDLE result;
+    UMOCKCALLRECORDER_HANDLE result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     UMOCKCALL_HANDLE matched_call;
     (void)umockcallrecorder_add_actual_call(call_recorder, test_expected_umockcall_1, &matched_call);
@@ -1746,7 +1767,7 @@ TEST_FUNCTION(when_allocating_memory_for_actual_calls_fails_umockcallrecorder_cl
 TEST_FUNCTION(umockcallrecorder_get_expected_call_count_when_no_expected_calls_are_there_yields_0)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     size_t expected_call_count;
 
@@ -1766,7 +1787,7 @@ TEST_FUNCTION(umockcallrecorder_get_expected_call_count_when_no_expected_calls_a
 TEST_FUNCTION(umockcallrecorder_get_expected_call_count_when_2_expected_calls_are_there_yields_2)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     size_t expected_call_count;
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
@@ -1819,7 +1840,7 @@ TEST_FUNCTION(umockcallrecorder_get_expected_call_with_NULL_expected_call_count_
 TEST_FUNCTION(umockcallrecorder_fail_call_sets_fail_call_to_1_for_the_first_call)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_2);
@@ -1842,7 +1863,7 @@ TEST_FUNCTION(umockcallrecorder_fail_call_sets_fail_call_to_1_for_the_first_call
 TEST_FUNCTION(umockcallrecorder_fail_call_sets_fail_call_to_1_for_the_second_call)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_2);
@@ -1864,7 +1885,7 @@ TEST_FUNCTION(umockcallrecorder_fail_call_sets_fail_call_to_1_for_the_second_cal
 TEST_FUNCTION(two_umockcallrecorder_fail_call_calls_succeed)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_2);
@@ -1899,7 +1920,7 @@ TEST_FUNCTION(umockcallrecorder_fail_call_with_NULL_call_recorder_fails)
 TEST_FUNCTION(umockcallrecorder_fail_call_with_index_too_high_fails)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
 
@@ -1935,7 +1956,7 @@ TEST_FUNCTION(umockcallrecorder_fail_call_with_0_index_when_no_calls_fails)
 TEST_FUNCTION(when_umockcall_set_fail_call_fails_then_umockcallrecorder_fail_call_fails)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
     (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
     umockcall_set_fail_call_call_result = 1;
@@ -1947,6 +1968,142 @@ TEST_FUNCTION(when_umockcall_set_fail_call_fails_then_umockcallrecorder_fail_cal
     ASSERT_ARE_NOT_EQUAL(int, 0, result);
     ASSERT_ARE_EQUAL(size_t, 1, umockcall_set_fail_call_call_count);
     ASSERT_ARE_EQUAL(void_ptr, test_expected_umockcall_1, umockcall_set_fail_call_calls[0].umockcall);
+
+    // cleanup
+    umockcallrecorder_destroy(call_recorder);
+}
+
+TEST_FUNCTION(umockcallrecorder_can_call_fail_index_0_caller_sets_0)
+{
+    // arrange
+    int result;
+    int can_call_fail;
+    UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
+    (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
+    (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_2);
+
+    // act
+    umockcall_get_call_can_fail_result = 0;
+    result = umockcallrecorder_can_call_fail(call_recorder, 0, &can_call_fail);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 0, result);
+    ASSERT_ARE_EQUAL(int, 0, can_call_fail);
+    ASSERT_ARE_EQUAL(int, test_expected_umockcall_1, umockcall_get_call_can_fail_call.umockcall);
+
+    // cleanup
+    umockcallrecorder_destroy(call_recorder);
+}
+
+TEST_FUNCTION(umockcallrecorder_can_call_fail_index_0_caller_sets_1)
+{
+    // arrange
+    int result;
+    int can_call_fail;
+    UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
+    (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
+    (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_2);
+
+    // act
+    umockcall_get_call_can_fail_result = 1;
+    result = umockcallrecorder_can_call_fail(call_recorder, 0, &can_call_fail);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 0, result);
+    ASSERT_ARE_EQUAL(int, 1, can_call_fail);
+    ASSERT_ARE_EQUAL(int, test_expected_umockcall_1, umockcall_get_call_can_fail_call.umockcall);
+
+    // cleanup
+    umockcallrecorder_destroy(call_recorder);
+}
+
+TEST_FUNCTION(umockcallrecorder_can_call_fail_index_1_caller_sets_1)
+{
+    // arrange
+    int result;
+    int can_call_fail;
+    UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
+    (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
+    (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_2);
+
+    // act
+    umockcall_get_call_can_fail_result = 1;
+    result = umockcallrecorder_can_call_fail(call_recorder, 0, &can_call_fail);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 0, result);
+    ASSERT_ARE_EQUAL(int, 1, can_call_fail);
+    ASSERT_ARE_EQUAL(int, test_expected_umockcall_1, umockcall_get_call_can_fail_call.umockcall);
+
+    // cleanup
+    umockcallrecorder_destroy(call_recorder);
+}
+
+TEST_FUNCTION(umockcallrecorder_can_call_fail_with_NULL_call_recorder_fails)
+{
+    // arrange
+    int can_call_fail;
+
+    // act
+    int result = umockcallrecorder_can_call_fail(NULL, 0, &can_call_fail);
+
+    // assert
+    ASSERT_ARE_NOT_EQUAL(int, 0, result);
+    ASSERT_ARE_EQUAL(int, 0, umockcall_get_call_can_fail_call.umockcall);
+}
+
+TEST_FUNCTION(umockcallrecorder_can_call_fail_with_NULL_can_call_fail_fails)
+{
+    // arrange
+    int result;
+    UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
+    (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
+
+    // act
+    result = umockcallrecorder_can_call_fail(call_recorder, 1, NULL);
+
+    // assert
+    ASSERT_ARE_NOT_EQUAL(int, 0, result);
+    ASSERT_ARE_EQUAL(int, 0, umockcall_get_call_can_fail_call.umockcall);
+
+    // cleanup
+    umockcallrecorder_destroy(call_recorder);
+}
+
+TEST_FUNCTION(umockcallrecorder_can_call_fail_with_index_too_high_fails)
+{
+    // arrange
+    int result;
+    int can_call_fail;
+    UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
+    (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
+
+    // act
+    result = umockcallrecorder_can_call_fail(call_recorder, 1, &can_call_fail);
+
+    // assert
+    ASSERT_ARE_NOT_EQUAL(int, 0, result);
+    ASSERT_ARE_EQUAL(int, 0, umockcall_get_call_can_fail_call.umockcall);
+
+    // cleanup
+    umockcallrecorder_destroy(call_recorder);
+}
+
+TEST_FUNCTION(umockcallrecorder_can_call_fail_when_umockcall_fails)
+{
+    // arrange
+    int result;
+    int can_call_fail;
+    UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create();
+    (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
+    umockcall_get_call_can_fail_result = -1;
+
+    // act
+    result = umockcallrecorder_can_call_fail(call_recorder, 0, &can_call_fail);
+
+    // assert
+    ASSERT_ARE_NOT_EQUAL(int, 0, result);
+    ASSERT_ARE_EQUAL(int, test_expected_umockcall_1, umockcall_get_call_can_fail_call.umockcall);
 
     // cleanup
     umockcallrecorder_destroy(call_recorder);

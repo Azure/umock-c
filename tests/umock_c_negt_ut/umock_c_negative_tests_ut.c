@@ -77,7 +77,6 @@ typedef struct umockcallrecorder_destroy_CALL_TAG
 static umockcallrecorder_destroy_CALL* umockcallrecorder_destroy_calls;
 static size_t umockcallrecorder_destroy_call_count;
 
-// (UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t index, int* can_call_fail)
 typedef struct umockecallercorder_can_call_fail_CALL_TAG
 {
     UMOCKCALLRECORDER_HANDLE umock_call_recorder;
@@ -776,7 +775,6 @@ TEST_FUNCTION(umock_c_negative_tests_can_call_fail_when_the_module_is_not_initia
     ASSERT_ARE_EQUAL(int, 1, result);
     ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.umock_call_recorder);
     ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.index);
-
 }
 
 END_TEST_SUITE(umock_c_negative_tests_unittests)

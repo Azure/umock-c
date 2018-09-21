@@ -88,6 +88,16 @@ UMOCKCALLRECORDER_HANDLE umock_c_get_call_recorder(void)
     return umock_c_get_call_recorder_call_result;
 }
 
+typedef struct umockecallercorder_can_call_fail_CALL_TAG
+{
+    UMOCKCALLRECORDER_HANDLE umock_call_recorder;
+    size_t index;
+} umockecallercorder_can_call_fail_CALL;
+
+static int umock_c_set_call_recorder_call_result;
+static umockecallercorder_can_call_fail_CALL umockecallercorder_can_call_fail_call;
+
+
 UMOCKCALLRECORDER_HANDLE umockcallrecorder_clone(UMOCKCALLRECORDER_HANDLE umock_call_recorder)
 {
     umockcallrecorder_clone_CALL* new_calls = (umockcallrecorder_clone_CALL*)realloc(umockcallrecorder_clone_calls, sizeof(umockcallrecorder_clone_CALL) * (umockcallrecorder_clone_call_count + 1));
@@ -140,6 +150,14 @@ int umock_c_set_call_recorder(UMOCKCALLRECORDER_HANDLE call_recorder)
     }
 
     return umock_c_set_call_recorder_call_result;
+}
+
+int umockcallrecorder_can_call_fail(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t index, int* can_call_fail)
+{
+    umockecallercorder_can_call_fail_call.umock_call_recorder = umock_call_recorder;
+    umockecallercorder_can_call_fail_call.index = index;
+    (void)can_call_fail;
+    return 0;
 }
 
 void umockcallrecorder_destroy(UMOCKCALLRECORDER_HANDLE umock_call_recorder)
@@ -336,5 +354,19 @@ TEST_FUNCTION(umock_c_negative_tests_call_count_when_the_module_is_not_initializ
     ASSERT_ARE_EQUAL(size_t, 0, umockcallrecorder_get_expected_call_count_call_count);
     ASSERT_ARE_EQUAL(size_t, 0, umock_c_indicate_error_call_count);
 }
+
+TEST_FUNCTION(umock_c_negative_tests_can_call_fail_when_the_module_is_not_initialized_returns_default_of_1)
+{
+    // arrange
+
+    // act
+    int result = umock_c_negative_tests_can_call_fail(0);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 1, result);
+    ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.umock_call_recorder);
+    ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.index);
+}
+
 
 END_TEST_SUITE(umock_c_negative_tests_no_init_unittests)

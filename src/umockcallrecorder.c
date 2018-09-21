@@ -639,6 +639,7 @@ int umockcallrecorder_can_call_fail(UMOCKCALLRECORDER_HANDLE umock_call_recorder
     int result;
 
     if ((umock_call_recorder == NULL) ||
+        (can_call_fail == NULL) ||
         (index >= umock_call_recorder->expected_call_count))
     {
         result = __LINE__;
