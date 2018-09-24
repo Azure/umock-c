@@ -1169,6 +1169,7 @@ TEST_FUNCTION(umockcall_get_ignore_all_calls_on_a_cloned_call_retrieves_0)
 
 /* umockcall_set_call_can_fail */
 
+/* Tests_SRS_UMOCKCALL_31_053: [ umockcall_set_call_can_fail shall store the call_can_fail value, associating it with the umockcall call instance. ]*/
 TEST_FUNCTION(umockcall_set_call_can_fail_sets_the_can_fail_property)
 {
     // arrange
@@ -1185,6 +1186,7 @@ TEST_FUNCTION(umockcall_set_call_can_fail_sets_the_can_fail_property)
     umockcall_destroy(call);
 }
 
+/* Tests_SRS_UMOCKCALL_31_051: [ If umockcall is NULL, umockcall_set_call_can_fail shall return -1. ]*/
 TEST_FUNCTION(umockcall_set_call_can_fail_with_NULL_fails)
 {
     // arrange
@@ -1196,6 +1198,7 @@ TEST_FUNCTION(umockcall_set_call_can_fail_with_NULL_fails)
     ASSERT_ARE_NOT_EQUAL(int, 0, result);
 }
 
+/* Tests_SRS_UMOCKCALL_31_052: [ If a value different than 0 and 1 is passed as umockcall_set_call_can_fail, umockcall_set_call_can_fail shall return -1. ]*/
 TEST_FUNCTION(umockcall_set_call_can_fail_with_an_invalid_set_can_fail_value_fails)
 {
     // arrange
@@ -1205,7 +1208,7 @@ TEST_FUNCTION(umockcall_set_call_can_fail_with_an_invalid_set_can_fail_value_fai
     int result = umockcall_set_call_can_fail(call, 2);
 
     // assert
-    ASSERT_ARE_NOT_EQUAL(int, 0, result);
+    ASSERT_ARE_EQUAL(int, -1, result);
 
     // cleanup
     umockcall_destroy(call);
@@ -1213,6 +1216,7 @@ TEST_FUNCTION(umockcall_set_call_can_fail_with_an_invalid_set_can_fail_value_fai
 
 /* umockcall_get_call_can_fail */
 
+/* Tests_SRS_UMOCKCALL_31_055: [ umockcall_get_call_can_fail shall retrieve the call_can_fail value, associated with the umockcall call instance. ]*/
 TEST_FUNCTION(umockcall_get_call_can_fail_retrieves_0)
 {
     // arrange
@@ -1230,6 +1234,7 @@ TEST_FUNCTION(umockcall_get_call_can_fail_retrieves_0)
     umockcall_destroy(call);
 }
 
+/* Tests_SRS_UMOCKCALL_31_055: [ umockcall_get_call_can_fail shall retrieve the call_can_fail value, associated with the umockcall call instance. ]*/
 TEST_FUNCTION(umockcall_get_call_can_fail_calls_retrieves_1)
 {
     // arrange
@@ -1247,6 +1252,7 @@ TEST_FUNCTION(umockcall_get_call_can_fail_calls_retrieves_1)
     umockcall_destroy(call);
 }
 
+/* Tests_SRS_UMOCKCALL_31_054: [ If umockcall is NULL, umockcall_get_call_can_fail shall return -1. ]*/
 TEST_FUNCTION(umockcall_get_call_can_fail_with_NULL_call_fails)
 {
     // arrange
@@ -1258,6 +1264,7 @@ TEST_FUNCTION(umockcall_get_call_can_fail_with_NULL_call_fails)
     ASSERT_ARE_EQUAL(int, -1, result);
 }
 
+/* Tests_SRS_UMOCKCALL_31_055: [ umockcall_get_call_can_fail shall retrieve the call_can_fail value, associated with the umockcall call instance. ]*/
 TEST_FUNCTION(umockcall_get_call_can_fail_on_a_cloned_call_retrieves_1)
 {
     // arrange
@@ -1279,6 +1286,7 @@ TEST_FUNCTION(umockcall_get_call_can_fail_on_a_cloned_call_retrieves_1)
     umockcall_destroy(cloned_call);
 }
 
+/* Tests_SRS_UMOCKCALL_31_055: [ umockcall_get_call_can_fail shall retrieve the call_can_fail value, associated with the umockcall call instance. ]*/
 TEST_FUNCTION(umockcall_get_call_can_fail_on_a_cloned_call_retrieves_0)
 {
     // arrange
@@ -1299,7 +1307,5 @@ TEST_FUNCTION(umockcall_get_call_can_fail_on_a_cloned_call_retrieves_0)
     umockcall_destroy(call);
     umockcall_destroy(cloned_call);
 }
-
-
 
 END_TEST_SUITE(umockcall_unittests)

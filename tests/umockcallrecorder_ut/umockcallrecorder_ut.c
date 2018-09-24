@@ -1973,6 +1973,11 @@ TEST_FUNCTION(when_umockcall_set_fail_call_fails_then_umockcallrecorder_fail_cal
     umockcallrecorder_destroy(call_recorder);
 }
 
+/* umockcallrecorder_can_call_fail */
+
+
+/* Tests_SRS_UMOCKCALLRECORDER_31_059: [ umockcallrecorder_can_call_fail shall return in the can_call_fail argument whether the call can fail or not. ]*/
+/* Tests_SRS_UMOCKCALLRECORDER_31_060: [ On success umockcallrecorder_can_call_fail shall return 0. ]*/
 TEST_FUNCTION(umockcallrecorder_can_call_fail_index_0_caller_sets_0)
 {
     // arrange
@@ -1995,6 +2000,8 @@ TEST_FUNCTION(umockcallrecorder_can_call_fail_index_0_caller_sets_0)
     umockcallrecorder_destroy(call_recorder);
 }
 
+/* Tests_SRS_UMOCKCALLRECORDER_31_059: [ umockcallrecorder_can_call_fail shall return in the can_call_fail argument whether the call can fail or not. ]*/
+/* Tests_SRS_UMOCKCALLRECORDER_31_060: [ On success umockcallrecorder_can_call_fail shall return 0. ]*/
 TEST_FUNCTION(umockcallrecorder_can_call_fail_index_0_caller_sets_1)
 {
     // arrange
@@ -2017,6 +2024,8 @@ TEST_FUNCTION(umockcallrecorder_can_call_fail_index_0_caller_sets_1)
     umockcallrecorder_destroy(call_recorder);
 }
 
+/* Tests_SRS_UMOCKCALLRECORDER_31_059: [ umockcallrecorder_can_call_fail shall return in the can_call_fail argument whether the call can fail or not. ]*/
+/* Tests_SRS_UMOCKCALLRECORDER_31_060: [ On success umockcallrecorder_can_call_fail shall return 0. ]*/
 TEST_FUNCTION(umockcallrecorder_can_call_fail_index_1_caller_sets_1)
 {
     // arrange
@@ -2039,6 +2048,7 @@ TEST_FUNCTION(umockcallrecorder_can_call_fail_index_1_caller_sets_1)
     umockcallrecorder_destroy(call_recorder);
 }
 
+/* Tests_SRS_UMOCKCALLRECORDER_31_056: [ If umock_call_recorder or call_can_fail is NULL, umockcallrecorder_can_call_fail shall return a non-zero value. ]*/
 TEST_FUNCTION(umockcallrecorder_can_call_fail_with_NULL_call_recorder_fails)
 {
     // arrange
@@ -2052,6 +2062,7 @@ TEST_FUNCTION(umockcallrecorder_can_call_fail_with_NULL_call_recorder_fails)
     ASSERT_ARE_EQUAL(int, 0, umockcall_get_call_can_fail_call.umockcall);
 }
 
+/* Tests_SRS_UMOCKCALLRECORDER_31_056: [ If umock_call_recorder or call_can_fail is NULL, umockcallrecorder_can_call_fail shall return a non-zero value. ]*/
 TEST_FUNCTION(umockcallrecorder_can_call_fail_with_NULL_can_call_fail_fails)
 {
     // arrange
@@ -2070,6 +2081,7 @@ TEST_FUNCTION(umockcallrecorder_can_call_fail_with_NULL_can_call_fail_fails)
     umockcallrecorder_destroy(call_recorder);
 }
 
+/* Tests_SRS_UMOCKCALLRECORDER_31_057: [ If index is invalid, umockcallrecorder_can_call_fail shall return a non-zero value. ]*/
 TEST_FUNCTION(umockcallrecorder_can_call_fail_with_index_too_high_fails)
 {
     // arrange
@@ -2089,6 +2101,7 @@ TEST_FUNCTION(umockcallrecorder_can_call_fail_with_index_too_high_fails)
     umockcallrecorder_destroy(call_recorder);
 }
 
+/* Tests_SRS_UMOCKCALLRECORDER_31_058: [ If umockcall_get_call_can_fail returns -1, umockcallrecorder_can_call_fail shall return an error to the caller  ]*/
 TEST_FUNCTION(umockcallrecorder_can_call_fail_when_umockcall_fails)
 {
     // arrange
