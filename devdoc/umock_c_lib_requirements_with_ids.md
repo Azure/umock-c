@@ -893,6 +893,10 @@ TEST_FUNCTION(validate_argument_as_type_sample)
 }
 ```
 
+### call_cannot_fail_func_{name}  
+**SRS_UMOCK_C_LIB_31_209: [** `call_cannot_fail_func__{name}` call modifier shall record that when performing failure case run, this call should be skipped. **]**  
+**SRS_UMOCK_C_LIB_31_210: [** If recording that the call cannot fail is unsuccessful, umock shall raise with the error code UMOCK_C_ERROR.  **]**  
+
 ###  Automatic argument ignore
 
 **SRS_UMOCK_C_LIB_01_205: [** If `IGNORED_PTR_ARG` or `IGNORED_NUM_ARG` is used as an argument value with `STRICT_EXPECTED_CALL`, the argument shall be automatically ignored. **]**

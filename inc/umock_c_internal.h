@@ -743,6 +743,8 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
         return mock_call_modifier; \
     }
 
+/* Codes_SRS_UMOCK_C_LIB_31_209: [ `call_cannot_fail_func__{name}` call modifier shall record that when performing failure case run, this call should be skipped. ]*/
+/* Codes_SRS_UMOCK_C_LIB_31_210: [ If recording that the call cannot fail is unsuccessful, umock shall raise with the error code UMOCK_C_ERROR.  ]*/
 #define IMPLEMENT_SET_CALL_CANNOT_FAIL(return_type, name, ...) \
         static C2(mock_call_modifier_,name) C2(call_cannot_fail_func_,name)(void) \
         { \
@@ -751,7 +753,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
             if (last_expected_call == NULL) \
             { \
                 UMOCK_LOG("Cannot get last expected call."); \
-                umock_c_indicate_error(UMOCK_C_ERROR); \
+                umock_c_indicate_error(UMOCK_C_NULL_ARGUMENT); \
             } \
             else \
             { \

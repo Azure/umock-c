@@ -439,13 +439,13 @@ TEST_FUNCTION(umock_c_negative_tests_can_call_fail_test)
     umock_c_negative_tests_snapshot();
 
     // act
-    ASSERT_ARE_EQUAL_WITH_MSG(int, 0, umock_c_negative_tests_can_call_fail(0), "void_function_no_args indicated it can fail");
-    ASSERT_ARE_EQUAL_WITH_MSG(int, 0, umock_c_negative_tests_can_call_fail(1), "function_mark_cannot_fail_no_args indicated it can fail");
+    ASSERT_ARE_EQUAL(int, 0, umock_c_negative_tests_can_call_fail(0), "void_function_no_args indicated it can fail");
+    ASSERT_ARE_EQUAL(int, 0, umock_c_negative_tests_can_call_fail(1), "function_mark_cannot_fail_no_args indicated it can fail");
 
-    ASSERT_ARE_EQUAL_WITH_MSG(int, 0, umock_c_negative_tests_can_call_fail(2), "void_function_with_args indicated it can fail");
-    ASSERT_ARE_EQUAL_WITH_MSG(int, 1, umock_c_negative_tests_can_call_fail(3), "function_default_no_args wrongly indicated it cannot fail");
-    ASSERT_ARE_EQUAL_WITH_MSG(int, 1, umock_c_negative_tests_can_call_fail(4), "function_default_with_args wrongly indicated it cannot fail");
-    ASSERT_ARE_EQUAL_WITH_MSG(int, 0, umock_c_negative_tests_can_call_fail(5), "function_mark_cannot_fail_with_args indicated it can fail");
+    ASSERT_ARE_EQUAL(int, 0, umock_c_negative_tests_can_call_fail(2), "void_function_with_args indicated it can fail");
+    ASSERT_ARE_EQUAL(int, 1, umock_c_negative_tests_can_call_fail(3), "function_default_no_args wrongly indicated it cannot fail");
+    ASSERT_ARE_EQUAL(int, 1, umock_c_negative_tests_can_call_fail(4), "function_default_with_args wrongly indicated it cannot fail");
+    ASSERT_ARE_EQUAL(int, 0, umock_c_negative_tests_can_call_fail(5), "function_mark_cannot_fail_with_args indicated it can fail");
 }
 
 

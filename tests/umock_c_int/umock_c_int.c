@@ -2839,4 +2839,36 @@ TEST_FUNCTION(IgnoreAllCalls_ignores_only_calls_with_matching_args_2)
     ASSERT_ARE_EQUAL(char_ptr, "[test_dependency_1_arg(43)]", umock_c_get_actual_calls());
 }
 
+/* Tests_SRS_UMOCK_C_LIB_31_209: [`call_cannot_fail_func__{name}` call modifier shall record that when performing failure case run, this call should be skipped. ] */
+TEST_FUNCTION(CallCannotFail_sets_cannot_fail_for_strict_expected_call)
+{
+    // arrange
+    STRICT_EXPECTED_CALL(test_dependency_no_args())
+        .CallCannotFail();
+
+    // act
+    int result = test_dependency_no_args();
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 0, result);
+    ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_expected_calls());
+    ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
+}
+
+/* Tests_SRS_UMOCK_C_LIB_31_209: [`call_cannot_fail_func__{name}` call modifier shall record that when performing failure case run, this call should be skipped. ] */
+TEST_FUNCTION(CallCannotFail_sets_cannot_fail_for_expected_call)
+{
+    // arrange
+    EXPECTED_CALL(test_dependency_no_args())
+        .CallCannotFail();
+
+    // act
+    int result = test_dependency_no_args();
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 0, result);
+    ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_expected_calls());
+    ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
+}
+
 END_TEST_SUITE(umock_c_integrationtests)
