@@ -798,7 +798,7 @@ TEST_FUNCTION(when_the_actual_call_matches_the_2nd_of_2_expected_call_then_the_m
 
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL_WITH_MSG(size_t, 1, umockcall_are_equal_call_count, "Incorrect umock_are_equal call count");
+    ASSERT_ARE_EQUAL(size_t, 1, umockcall_are_equal_call_count, "Incorrect umock_are_equal call count");
     ASSERT_ARE_EQUAL(void_ptr, test_expected_umockcall_2, umockcall_are_equal_calls[0].left);
     ASSERT_ARE_EQUAL(void_ptr, test_actual_umockcall_2, umockcall_are_equal_calls[0].right);
     ASSERT_ARE_EQUAL(void_ptr, test_expected_umockcall_2, matched_call);

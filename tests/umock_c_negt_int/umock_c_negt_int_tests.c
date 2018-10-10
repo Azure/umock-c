@@ -237,7 +237,7 @@ TEST_FUNCTION(negative_tests_with_one_call)
 
         // assert
         sprintf(temp_str, "On failed call %zu", i + 1);
-        ASSERT_ARE_NOT_EQUAL_WITH_MSG(int, 0, result, temp_str);
+        ASSERT_ARE_NOT_EQUAL(int, 0, result, temp_str);
     }
 }
 
@@ -267,7 +267,7 @@ TEST_FUNCTION(negative_tests_with_2_calls)
 
         // assert
         sprintf(temp_str, "On failed call %zu", i + 1);
-        ASSERT_ARE_NOT_EQUAL_WITH_MSG(int, 0, result, temp_str);
+        ASSERT_ARE_NOT_EQUAL(int, 0, result, temp_str);
     }
 }
 
@@ -294,7 +294,7 @@ TEST_FUNCTION(negative_tests_with_1_call_with_void_return_dependency)
 
         // assert
         sprintf(temp_str, "On failed call %zu", i + 1);
-        ASSERT_ARE_EQUAL_WITH_MSG(int, 0, result, temp_str);
+        ASSERT_ARE_EQUAL(int, 0, result, temp_str);
     }
 }
 
@@ -322,7 +322,7 @@ TEST_FUNCTION(negative_tests_with_1_call_with_void_ptr_return_dependency)
 
         // assert
         sprintf(temp_str, "On failed call %zu", i + 1);
-        ASSERT_ARE_NOT_EQUAL_WITH_MSG(int, 0, result, temp_str);
+        ASSERT_ARE_NOT_EQUAL(int, 0, result, temp_str);
     }
 }
 
@@ -350,7 +350,7 @@ TEST_FUNCTION(negative_tests_with_1_call_with_ignored_arguments_takes_the_ignore
 
         // assert
         sprintf(temp_str, "On failed call %zu", i + 1);
-        ASSERT_ARE_NOT_EQUAL_WITH_MSG(int, 0, result, temp_str);
+        ASSERT_ARE_NOT_EQUAL(int, 0, result, temp_str);
     }
 }
 
@@ -382,7 +382,7 @@ TEST_FUNCTION(negative_tests_with_9_calls_works)
 
         // assert
         sprintf(temp_str, "On failed call %zu", i + 1);
-        ASSERT_ARE_NOT_EQUAL_WITH_MSG(int, 0, result, temp_str);
+        ASSERT_ARE_NOT_EQUAL(int, 0, result, temp_str);
     }
 }
 
