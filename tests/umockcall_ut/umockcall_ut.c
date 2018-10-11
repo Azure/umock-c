@@ -1220,7 +1220,7 @@ TEST_FUNCTION(umockcall_set_call_can_fail_with_an_invalid_set_can_fail_value_fai
 TEST_FUNCTION(umockcall_get_call_can_fail_retrieves_0)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     (void)umockcall_set_call_can_fail(call, 0);
 
@@ -1238,7 +1238,7 @@ TEST_FUNCTION(umockcall_get_call_can_fail_retrieves_0)
 TEST_FUNCTION(umockcall_get_call_can_fail_calls_retrieves_1)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     (void)umockcall_set_call_can_fail(call, 1);
 
@@ -1268,8 +1268,8 @@ TEST_FUNCTION(umockcall_get_call_can_fail_with_NULL_call_fails)
 TEST_FUNCTION(umockcall_get_call_can_fail_on_a_cloned_call_retrieves_1)
 {
     // arrange
-	UMOCKCALL_HANDLE cloned_call;
-	int result;
+    UMOCKCALL_HANDLE cloned_call;
+    int result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     (void)umockcall_set_call_can_fail(call, 1);
     test_mock_call_data_copy_expected_result = (void*)0x4243;
@@ -1290,8 +1290,8 @@ TEST_FUNCTION(umockcall_get_call_can_fail_on_a_cloned_call_retrieves_1)
 TEST_FUNCTION(umockcall_get_call_can_fail_on_a_cloned_call_retrieves_0)
 {
     // arrange
-	int result;
-	UMOCKCALL_HANDLE cloned_call;
+    int result;
+    UMOCKCALL_HANDLE cloned_call;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     (void)umockcall_set_call_can_fail(call, 0);
     test_mock_call_data_copy_expected_result = (void*)0x4243;

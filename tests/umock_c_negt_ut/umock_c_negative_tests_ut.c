@@ -699,7 +699,6 @@ TEST_FUNCTION(umock_c_negative_tests_fail_call_calls_the_call_recorder_fail_call
     ASSERT_ARE_EQUAL(int, 0, result);
     ASSERT_ARE_EQUAL(void_ptr, test_call_recorder, umockecallercorder_can_call_fail_call.umock_call_recorder);
     ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.index);
-
 }
 
 TEST_FUNCTION(umock_c_negative_tests_fail_call_calls_the_call_recorder_fail_index_10_result_1)
@@ -742,7 +741,6 @@ TEST_FUNCTION(when_getting_the_call_recorder_fails_umock_c_negative_tests_can_ca
     ASSERT_ARE_EQUAL(int, 1, result);
     ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.umock_call_recorder);
     ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.index);
-
 }
 
 TEST_FUNCTION(when_failing_the_call_fails_umock_c_negative_tests_fail_call_returns_default_of_1)

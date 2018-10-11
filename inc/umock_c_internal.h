@@ -748,19 +748,19 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 #define IMPLEMENT_SET_CALL_CANNOT_FAIL(return_type, name, ...) \
         static C2(mock_call_modifier_,name) C2(call_cannot_fail_func_,name)(void) \
         { \
-            UMOCKCALL_HANDLE last_expected_call = umock_c_get_last_expected_call(); \
             DECLARE_MOCK_CALL_MODIFIER(name) \
+            UMOCKCALL_HANDLE last_expected_call = umock_c_get_last_expected_call(); \
             if (last_expected_call == NULL) \
             { \
                 UMOCK_LOG("Cannot get last expected call."); \
-                umock_c_indicate_error(UMOCK_C_NULL_ARGUMENT); \
+                umock_c_indicate_error(UMOCK_C_ERROR); \
             } \
             else \
             { \
                 C2(mock_call_, name)* mock_call_data = (C2(mock_call_, name)*)umockcall_get_call_data(last_expected_call); \
                 if (mock_call_data == NULL) \
                 { \
-                    UMOCK_LOG("ValidateArgumentBuffer called without having an expected call."); \
+                    UMOCK_LOG("call_cannot_fail called without having an expected call."); \
                     umock_c_indicate_error(UMOCK_C_ERROR); \
                 } \
                 else \
