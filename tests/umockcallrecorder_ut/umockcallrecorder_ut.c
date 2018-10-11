@@ -1994,7 +1994,7 @@ TEST_FUNCTION(umockcallrecorder_can_call_fail_index_0_caller_sets_0)
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
     ASSERT_ARE_EQUAL(int, 0, can_call_fail);
-    ASSERT_ARE_EQUAL(int, test_expected_umockcall_1, umockcall_get_call_can_fail_call.umockcall);
+    ASSERT_ARE_EQUAL(void_ptr, test_expected_umockcall_1, umockcall_get_call_can_fail_call.umockcall);
 
     // cleanup
     umockcallrecorder_destroy(call_recorder);
@@ -2018,7 +2018,7 @@ TEST_FUNCTION(umockcallrecorder_can_call_fail_index_0_caller_sets_1)
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
     ASSERT_ARE_EQUAL(int, 1, can_call_fail);
-    ASSERT_ARE_EQUAL(int, test_expected_umockcall_1, umockcall_get_call_can_fail_call.umockcall);
+    ASSERT_ARE_EQUAL(void_ptr, test_expected_umockcall_1, umockcall_get_call_can_fail_call.umockcall);
 
     // cleanup
     umockcallrecorder_destroy(call_recorder);
@@ -2042,7 +2042,7 @@ TEST_FUNCTION(umockcallrecorder_can_call_fail_index_1_caller_sets_1)
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
     ASSERT_ARE_EQUAL(int, 1, can_call_fail);
-    ASSERT_ARE_EQUAL(int, test_expected_umockcall_1, umockcall_get_call_can_fail_call.umockcall);
+    ASSERT_ARE_EQUAL(void_ptr, test_expected_umockcall_1, umockcall_get_call_can_fail_call.umockcall);
 
     // cleanup
     umockcallrecorder_destroy(call_recorder);
@@ -2059,7 +2059,7 @@ TEST_FUNCTION(umockcallrecorder_can_call_fail_with_NULL_call_recorder_fails)
 
     // assert
     ASSERT_ARE_NOT_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 0, umockcall_get_call_can_fail_call.umockcall);
+    ASSERT_ARE_EQUAL(void_ptr, 0, umockcall_get_call_can_fail_call.umockcall);
 }
 
 /* Tests_SRS_UMOCKCALLRECORDER_31_056: [ If umock_call_recorder or call_can_fail is NULL, umockcallrecorder_can_call_fail shall return a non-zero value. ]*/
@@ -2075,7 +2075,7 @@ TEST_FUNCTION(umockcallrecorder_can_call_fail_with_NULL_can_call_fail_fails)
 
     // assert
     ASSERT_ARE_NOT_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 0, umockcall_get_call_can_fail_call.umockcall);
+    ASSERT_ARE_EQUAL(void_ptr, 0, umockcall_get_call_can_fail_call.umockcall);
 
     // cleanup
     umockcallrecorder_destroy(call_recorder);
@@ -2095,7 +2095,7 @@ TEST_FUNCTION(umockcallrecorder_can_call_fail_with_index_too_high_fails)
 
     // assert
     ASSERT_ARE_NOT_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 0, umockcall_get_call_can_fail_call.umockcall);
+    ASSERT_ARE_EQUAL(void_ptr, 0, umockcall_get_call_can_fail_call.umockcall);
 
     // cleanup
     umockcallrecorder_destroy(call_recorder);
@@ -2116,7 +2116,7 @@ TEST_FUNCTION(umockcallrecorder_can_call_fail_when_umockcall_fails)
 
     // assert
     ASSERT_ARE_NOT_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, test_expected_umockcall_1, umockcall_get_call_can_fail_call.umockcall);
+    ASSERT_ARE_EQUAL(void_ptr, test_expected_umockcall_1, umockcall_get_call_can_fail_call.umockcall);
 
     // cleanup
     umockcallrecorder_destroy(call_recorder);
