@@ -802,8 +802,8 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
         else \
         { \
             (void)umock_c_add_expected_call(mock_call); \
+            (void)umockcall_set_call_can_fail(mock_call, IF(IS_NOT_VOID(return_type), 1, 0)); \
         } \
-        (void)umockcall_set_call_can_fail(mock_call, IF(IS_NOT_VOID(return_type), 1, 0)); \
 		return mock_call_modifier; \
 	} \
 
