@@ -746,6 +746,7 @@ TEST_FUNCTION(when_getting_the_call_recorder_fails_umock_c_negative_tests_can_ca
 TEST_FUNCTION(when_failing_the_call_fails_umock_c_negative_tests_fail_call_returns_default_of_1)
 {
     // arrange
+    int result;
     (void)umock_c_negative_tests_init();
     umockcallrecorder_clone_call_result = test_cloned_call_recorder;
     umock_c_negative_tests_snapshot();
@@ -754,7 +755,7 @@ TEST_FUNCTION(when_failing_the_call_fails_umock_c_negative_tests_fail_call_retur
     umockcallrecorder_can_call_fail_result = __LINE__;
 
     // act
-    int result = umock_c_negative_tests_can_call_fail(0);
+    result = umock_c_negative_tests_can_call_fail(0);
 
     // assert
     ASSERT_ARE_EQUAL(int, 1, result);
