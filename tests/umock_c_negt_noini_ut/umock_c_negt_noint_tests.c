@@ -94,7 +94,6 @@ typedef struct umockecallercorder_can_call_fail_CALL_TAG
     size_t index;
 } umockecallercorder_can_call_fail_CALL;
 
-static int umock_c_set_call_recorder_call_result;
 static umockecallercorder_can_call_fail_CALL umockecallercorder_can_call_fail_call;
 
 
