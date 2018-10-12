@@ -354,6 +354,7 @@ TEST_FUNCTION(umock_c_negative_tests_call_count_when_the_module_is_not_initializ
     ASSERT_ARE_EQUAL(size_t, 0, umock_c_indicate_error_call_count);
 }
 
+/* Tests_SRS_UMOCK_C_NEGATIVE_TESTS_31_026: [ If the module was not previously initialized, umock_c_negative_tests_can_call_fail shall return 1. ]*/
 TEST_FUNCTION(umock_c_negative_tests_can_call_fail_when_the_module_is_not_initialized_returns_default_of_1)
 {
     // arrange

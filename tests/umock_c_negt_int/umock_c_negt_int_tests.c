@@ -426,6 +426,7 @@ TEST_FUNCTION(SetFailReturn_suppresses_paired_calls_tracking_for_mockable_functi
     // no explicit assert, no leak expected
 }
 
+/* Tests_SRS_UMOCK_C_LIB_31_209: [ `call_cannot_fail_func__{name}` call modifier shall record that when performing failure case run, this call should be skipped. ]*/
 TEST_FUNCTION(umock_c_negative_tests_can_call_fail_test)
 {
     // arrange   

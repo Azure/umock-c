@@ -7,19 +7,19 @@ umock_c_negative_tests is an addon to umock_c that exposes APIs used to automate
 # Exposed API
 
 ```c
-    extern int umock_c_negative_tests_init(void);
-    extern void umock_c_negative_tests_deinit(void);
-    extern void umock_c_negative_tests_snapshot(void);
-    extern void umock_c_negative_tests_reset(void);
-    extern void umock_c_negative_tests_fail_call(size_t index);
-    extern size_t umock_c_negative_tests_call_count(void);
-    extern int umock_c_negative_tests_can_call_fail(size_t index);
+    int umock_c_negative_tests_init(void);
+    void umock_c_negative_tests_deinit(void);
+    void umock_c_negative_tests_snapshot(void);
+    void umock_c_negative_tests_reset(void);
+    void umock_c_negative_tests_fail_call(size_t index);
+    size_t umock_c_negative_tests_call_count(void);
+    int umock_c_negative_tests_can_call_fail(size_t index);
 ```
 
 ## umock_c_negative_tests_init
 
 ```c
-extern int umock_c_negative_tests_init(void);
+int umock_c_negative_tests_init(void);
 ```
 
 **SRS_UMOCK_C_NEGATIVE_TESTS_01_001: [** umock_c_negative_tests_init shall initialize the umock_c negative tests library. **]**
@@ -31,7 +31,7 @@ extern int umock_c_negative_tests_init(void);
 ## umock_c_negative_tests_deinit
 
 ```c
-extern void umock_c_negative_tests_deinit(void);
+void umock_c_negative_tests_deinit(void);
 ```
 
 **SRS_UMOCK_C_NEGATIVE_TESTS_01_002: [** umock_c_negative_tests_deinit shall free all resources associated with the negative tests module. **]**
@@ -41,7 +41,7 @@ extern void umock_c_negative_tests_deinit(void);
 ## umock_c_negative_tests_snapshot
 
 ```c
-extern void umock_c_negative_tests_snapshot(void);
+void umock_c_negative_tests_snapshot(void);
 ```
 
 **SRS_UMOCK_C_NEGATIVE_TESTS_01_006: [** umock_c_negative_tests_snapshot shall make a copy of the current call recorder for umock_c with all its recorded calls. **]**
@@ -59,7 +59,7 @@ extern void umock_c_negative_tests_snapshot(void);
 ## umock_c_negative_tests_reset
 
 ```c
-extern void umock_c_negative_tests_reset(void);
+void umock_c_negative_tests_reset(void);
 ```
 
 **SRS_UMOCK_C_NEGATIVE_TESTS_01_011: [** umock_c_negative_tests_reset shall reset the call recorder used by umock_c to the call recorder stored in umock_c_negative_tests_reset. **]**
@@ -75,7 +75,7 @@ extern void umock_c_negative_tests_reset(void);
 ## umock_c_negative_tests_fail_call
 
 ```c
-extern void umock_c_negative_tests_fail_call(size_t index);
+void umock_c_negative_tests_fail_call(size_t index);
 ```
 
 **SRS_UMOCK_C_NEGATIVE_TESTS_01_017: [** umock_c_negative_tests_fail_call shall call umockcallrecorder_fail_call on the currently used call recorder used by umock_c. **]**
@@ -91,7 +91,7 @@ extern void umock_c_negative_tests_fail_call(size_t index);
 ## umock_c_negative_tests_call_count
 
 ```c
-extern size_t umock_c_negative_tests_call_count(void);
+size_t umock_c_negative_tests_call_count(void);
 ```
 
 XX**SRS_UMOCK_C_NEGATIVE_TESTS_01_021: [** umock_c_negative_tests_call_count shall return the count of expected calls for the current snapshot call recorder by calling umockcallrecorder_get_expected_call_count. **]**
@@ -106,11 +106,12 @@ XX**SRS_UMOCK_C_NEGATIVE_TESTS_01_021: [** umock_c_negative_tests_call_count sha
 ## umock_c_negative_tests_can_call_fail
 
 ```c
-    extern int umock_c_negative_tests_can_call_fail(size_t index);
+    int umock_c_negative_tests_can_call_fail(size_t index);
 ```
 
+**SRS_UMOCK_C_NEGATIVE_TESTS_31_030: [** If the module was not previously initialized, umock_c_negative_tests_can_call_fail shall return 0.  **]**
 
-**SRS_UMOCK_C_NEGATIVE_TESTS_31_026: [** If the module was not previously initialized, umock_c_negative_tests_can_call_fail shall return 0.  **]**
+**SRS_UMOCK_C_NEGATIVE_TESTS_31_026: [** If the module was not previously initialized, umock_c_negative_tests_can_call_fail shall return 1.  **]**
 
 **SRS_UMOCK_C_NEGATIVE_TESTS_31_027: [** If umock_c_get_call_recorder fails, umock_c_negative_tests_can_call_fail shall indicate the error via the umock error callback with error code UMOCK_C_ERROR.  **]**
 

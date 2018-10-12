@@ -212,9 +212,9 @@ extern int umockcallrecorder_can_call_fail(UMOCKCALLRECORDER_HANDLE umock_call_r
 
 **SRS_UMOCKCALLRECORDER_31_056: [** If umock_call_recorder or call_can_fail is NULL, umockcallrecorder_can_call_fail shall return a non-zero value. **]**
 
-**SRS_UMOCKCALLRECORDER_31_057: [** If index is invalid, umockcallrecorder_can_call_fail shall return a non-zero value. **]**
+**SRS_UMOCKCALLRECORDER_31_057: [** If index is greater or equal to the current expected calls count, umockcallrecorder_can_call_fail shall return a non-zero value. **]**
 
-**SRS_UMOCKCALLRECORDER_31_057: [** umockcallrecorder_can_call_fail shall determine whether given call can fail or not by calling umockcall_set_fail_call. **]**
+**SRS_UMOCKCALLRECORDER_31_061: [** umockcallrecorder_can_call_fail shall determine whether given call can fail or not by calling umockcall_get_call_can_fail. **]**
 
 **SRS_UMOCKCALLRECORDER_31_058: [** If umockcall_get_call_can_fail returns -1, umockcallrecorder_can_call_fail shall return an error to the caller  **]**
 

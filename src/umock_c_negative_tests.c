@@ -199,14 +199,13 @@ size_t umock_c_negative_tests_call_count(void)
     return result;
 }
 
-
 int umock_c_negative_tests_can_call_fail(size_t index)
 {
     int can_call_fail = 1;
 
     if (umock_c_negative_tests_state != UMOCK_C_NEGATIVE_TESTS_STATE_INITIALIZED)
     {
-        /* Codes_SRS_UMOCK_C_NEGATIVE_TESTS_31_026: [ If the module was not previously initialized, umock_c_negative_tests_can_call_fail shall return 0. ]*/
+        /* Codes_SRS_UMOCK_C_NEGATIVE_TESTS_31_026: [ If the module was not previously initialized, umock_c_negative_tests_can_call_fail shall return 1. ]*/
         UMOCK_LOG("umock_c_negative_tests_fail_call: Not initialized.");
         umock_c_indicate_error(UMOCK_C_ERROR);
     }

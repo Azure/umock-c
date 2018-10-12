@@ -641,16 +641,16 @@ int umockcallrecorder_can_call_fail(UMOCKCALLRECORDER_HANDLE umock_call_recorder
     /* Codes_SRS_UMOCKCALLRECORDER_31_056: [ If umock_call_recorder or call_can_fail is NULL, umockcallrecorder_can_call_fail shall return a non-zero value. ]*/
     if ((umock_call_recorder == NULL) ||
         (can_call_fail == NULL) ||
+        /* Codes_SRS_UMOCKCALLRECORDER_31_057: [ If index is greater or equal to the current expected calls count, umockcallrecorder_can_call_fail shall return a non-zero value. ]*/
         (index >= umock_call_recorder->expected_call_count))
     {
-        /* Codes_SRS_UMOCKCALLRECORDER_31_057: [ If index is invalid, umockcallrecorder_can_call_fail shall return a non-zero value. ]*/
         result = __LINE__;
         UMOCK_LOG("umockcallrecorder_can_call_fail: NULL Invalid arguments, umock_call_recorder = %p, index = %zu",
             umock_call_recorder, index);
     }
     else
     {
-        /* Codes_SRS_UMOCKCALLRECORDER_31_057: [ umockcallrecorder_can_call_fail shall determine whether given call can fail or not by calling umockcall_set_fail_call. ]*/
+        /* Codes_SRS_UMOCKCALLRECORDER_31_061: [ umockcallrecorder_can_call_fail shall determine whether given call can fail or not by calling umockcall_get_call_can_fail. ]*/
         int can_call_fail_result = umockcall_get_call_can_fail(umock_call_recorder->expected_calls[index].umockcall);
         if (can_call_fail_result == -1)
         {

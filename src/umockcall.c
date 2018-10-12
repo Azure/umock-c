@@ -417,7 +417,7 @@ int umockcall_get_call_can_fail(UMOCKCALL_HANDLE umockcall)
     if (umockcall == NULL)
     {
         /* Codes_SRS_UMOCKCALL_31_054: [ If umockcall is NULL, umockcall_get_call_can_fail shall return -1. ]*/
-        UMOCK_LOG("NULL umokcall argument.");
+        UMOCK_LOG("NULL umockcall argument.");
         result = -1;
     }
     else
