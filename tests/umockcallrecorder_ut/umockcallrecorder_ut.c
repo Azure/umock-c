@@ -877,7 +877,7 @@ TEST_FUNCTION(if_matching_fails_subsequent_actual_calls_are_not_matched)
     umockcallrecorder_destroy(call_recorder);
 }
 
-/* Tests_SRS_UMOCKCALLRECORDER_01_057: [ If any expected call has `ignore_all_calls` set and the actual call is equal to it when comparing the 2 calls, then the call shall be considered matched and not added to the actual calls list. ]*/
+/* Tests_SRS_UMOCKCALLRECORDER_01_057: [ If any expected call has ignore_all_calls set and the actual call is equal to it when comparing the 2 calls, then the call shall be considered matched and not added to the actual calls list. ]*/
 TEST_FUNCTION(if_expected_call_has_ignore_all_calls_the_actual_call_is_not_recorded)
 {
     // arrange
@@ -901,7 +901,7 @@ TEST_FUNCTION(if_expected_call_has_ignore_all_calls_the_actual_call_is_not_recor
     umockcallrecorder_destroy(call_recorder);
 }
 
-/* Tests_SRS_UMOCKCALLRECORDER_01_057: [ If any expected call has `ignore_all_calls` set and the actual call is equal to it when comparing the 2 calls, then the call shall be considered matched and not added to the actual calls list. ]*/
+/* Tests_SRS_UMOCKCALLRECORDER_01_057: [ If any expected call has ignore_all_calls set and the actual call is equal to it when comparing the 2 calls, then the call shall be considered matched and not added to the actual calls list. ]*/
 TEST_FUNCTION(if_expected_call_has_ignore_all_calls_2_actual_calls_are_not_recorded)
 {
     // arrange
@@ -926,7 +926,7 @@ TEST_FUNCTION(if_expected_call_has_ignore_all_calls_2_actual_calls_are_not_recor
     umockcallrecorder_destroy(call_recorder);
 }
 
-/* Tests_SRS_UMOCKCALLRECORDER_01_058: [ If getting `ignore_all_calls` by calling `umockcall_get_ignore_all_calls` fails, `umockcallrecorder_add_actual_call` shall fail and return a non-zero value. ]*/
+/* Tests_SRS_UMOCKCALLRECORDER_01_058: [ If getting ignore_all_calls by calling umockcall_get_ignore_all_calls fails, umockcallrecorder_add_actual_call shall fail and return a non-zero value. ]*/
 TEST_FUNCTION(if_expected_call_has_ignore_all_calls_and_umockcall_get_ignore_all_calls_fails_then_umockcallrecorder_get_actual_calls_fails)
 {
     // arrange
@@ -1301,8 +1301,8 @@ TEST_FUNCTION(umockcallrecorder_get_expected_calls_when_the_actual_call_does_not
     umockcallrecorder_destroy(call_recorder);
 }
 
-/* Tests_SRS_UMOCKCALLRECORDER_01_054: [ Calls that have the `ignore_all_calls` property set shall not be reported in the expected call list. ]*/
-/* Tests_SRS_UMOCKCALLRECORDER_01_055: [ Getting the `ignore_all_calls` property shall be done by calling `umockcall_get_ignore_all_calls`. ]*/
+/* Tests_SRS_UMOCKCALLRECORDER_01_054: [ Calls that have the ignore_all_calls property set shall not be reported in the expected call list. ]*/
+/* Tests_SRS_UMOCKCALLRECORDER_01_055: [ Getting the ignore_all_calls property shall be done by calling umockcall_get_ignore_all_calls. ]*/
 TEST_FUNCTION(umockcallrecorder_get_expected_calls_with_1_expectd_call_with_ignore_all_calls_set_returns_an_empty_string)
 {
     // arrange
@@ -1324,7 +1324,7 @@ TEST_FUNCTION(umockcallrecorder_get_expected_calls_with_1_expectd_call_with_igno
     umockcallrecorder_destroy(call_recorder);
 }
 
-/* Tests_SRS_UMOCKCALLRECORDER_01_056: [ If `umockcall_get_ignore_all_calls` returns a negative value then `umockcallrecorder_get_expected_calls` shall fail and return NULL. ]*/
+/* Tests_SRS_UMOCKCALLRECORDER_01_056: [ If umockcall_get_ignore_all_calls returns a negative value then umockcallrecorder_get_expected_calls shall fail and return NULL. ]*/
 TEST_FUNCTION(when_getting_the_ignore_all_cals_fails_umockcallrecorder_get_expected_calls_fails)
 {
     // arrange

@@ -166,7 +166,7 @@ int umockcallrecorder_add_actual_call(UMOCKCALLRECORDER_HANDLE umock_call_record
             int ignore_all_calls = umockcall_get_ignore_all_calls(umock_call_recorder->expected_calls[i].umockcall);
             if (ignore_all_calls < 0)
             {
-                /* Codes_SRS_UMOCKCALLRECORDER_01_058: [ If getting `ignore_all_calls` by calling `umockcall_get_ignore_all_calls` fails, `umockcallrecorder_add_actual_call` shall fail and return a non-zero value. ]*/
+                /* Codes_SRS_UMOCKCALLRECORDER_01_058: [ If getting ignore_all_calls by calling umockcall_get_ignore_all_calls fails, umockcallrecorder_add_actual_call shall fail and return a non-zero value. ]*/
                 UMOCK_LOG("umockcallrecorder: Cannot get the ignore_all_calls flag.");
                 is_error = 1;
                 break;
@@ -174,7 +174,7 @@ int umockcallrecorder_add_actual_call(UMOCKCALLRECORDER_HANDLE umock_call_record
             else
             {
                 if ((umock_call_recorder->expected_calls[i].is_matched == 0) ||
-                    /* Codes_SRS_UMOCKCALLRECORDER_01_057: [ If any expected call has `ignore_all_calls` set and the actual call is equal to it when comparing the 2 calls, then the call shall be considered matched and not added to the actual calls list. ]*/
+                    /* Codes_SRS_UMOCKCALLRECORDER_01_057: [ If any expected call has ignore_all_calls set and the actual call is equal to it when comparing the 2 calls, then the call shall be considered matched and not added to the actual calls list. ]*/
                     (ignore_all_calls > 0))
                 {
                     /* Codes_SRS_UMOCKCALLRECORDER_01_017: [ Comparing the calls shall be done by calling umockcall_are_equal. ]*/
@@ -269,7 +269,7 @@ const char* umockcallrecorder_get_expected_calls(UMOCKCALLRECORDER_HANDLE umock_
 
         for (i = 0; i < umock_call_recorder->expected_call_count; i++)
         {
-            /* Codes_SRS_UMOCKCALLRECORDER_01_055: [ Getting the `ignore_all_calls` property shall be done by calling `umockcall_get_ignore_all_calls`. ]*/
+            /* Codes_SRS_UMOCKCALLRECORDER_01_055: [ Getting the ignore_all_calls property shall be done by calling umockcall_get_ignore_all_calls. ]*/
             int ignore_all_calls = umockcall_get_ignore_all_calls(umock_call_recorder->expected_calls[i].umockcall);
             if (ignore_all_calls < 0)
             {
@@ -279,7 +279,7 @@ const char* umockcallrecorder_get_expected_calls(UMOCKCALLRECORDER_HANDLE umock_
             else
             {
                 if ((umock_call_recorder->expected_calls[i].is_matched == 0) &&
-                    /* Codes_SRS_UMOCKCALLRECORDER_01_054: [ Calls that have the `ignore_all_calls` property set shall not be reported in the expected call list. ]*/
+                    /* Codes_SRS_UMOCKCALLRECORDER_01_054: [ Calls that have the ignore_all_calls property set shall not be reported in the expected call list. ]*/
                     (ignore_all_calls == 0))
                 {
                     /* Codes_SRS_UMOCKCALLRECORDER_01_028: [ The string for each call shall be obtained by calling umockcall_stringify. ]*/

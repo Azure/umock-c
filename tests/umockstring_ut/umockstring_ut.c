@@ -100,9 +100,9 @@ TEST_FUNCTION_CLEANUP(test_function_cleanup)
 
 /* umockstring_clone */
 
-/* Tests_UMOCK_STRING_01_001: [ `umockstring_clone` shall allocate memory for the cloned string (including the NULL terminator). ]*/
-/* Tests_UMOCK_STRING_01_002: [ `umockstring_clone` shall copy the string to the newly allocated memory (including the NULL terminator). ]*/
-/* Tests_UMOCK_STRING_01_003: [ On success `umockstring_clone` shall return a pointer to the newly allocated memory containing the copy of the string. ]*/
+/* Tests_UMOCK_STRING_01_001: [ umockstring_clone shall allocate memory for the cloned string (including the NULL terminator). ]*/
+/* Tests_UMOCK_STRING_01_002: [ umockstring_clone shall copy the string to the newly allocated memory (including the NULL terminator). ]*/
+/* Tests_UMOCK_STRING_01_003: [ On success umockstring_clone shall return a pointer to the newly allocated memory containing the copy of the string. ]*/
 TEST_FUNCTION(umockstring_clone_with_an_empty_string_succeeds)
 {
     // arrange
@@ -120,9 +120,9 @@ TEST_FUNCTION(umockstring_clone_with_an_empty_string_succeeds)
     free(result);
 }
 
-/* Tests_UMOCK_STRING_01_001: [ `umockstring_clone` shall allocate memory for the cloned string (including the NULL terminator). ]*/
-/* Tests_UMOCK_STRING_01_002: [ `umockstring_clone` shall copy the string to the newly allocated memory (including the NULL terminator). ]*/
-/* Tests_UMOCK_STRING_01_003: [ On success `umockstring_clone` shall return a pointer to the newly allocated memory containing the copy of the string. ]*/
+/* Tests_UMOCK_STRING_01_001: [ umockstring_clone shall allocate memory for the cloned string (including the NULL terminator). ]*/
+/* Tests_UMOCK_STRING_01_002: [ umockstring_clone shall copy the string to the newly allocated memory (including the NULL terminator). ]*/
+/* Tests_UMOCK_STRING_01_003: [ On success umockstring_clone shall return a pointer to the newly allocated memory containing the copy of the string. ]*/
 TEST_FUNCTION(umockstring_clone_with_a_one_char_string_succeeds)
 {
     // arrange
@@ -140,9 +140,9 @@ TEST_FUNCTION(umockstring_clone_with_a_one_char_string_succeeds)
     free(result);
 }
 
-/* Tests_UMOCK_STRING_01_001: [ `umockstring_clone` shall allocate memory for the cloned string (including the NULL terminator). ]*/
-/* Tests_UMOCK_STRING_01_002: [ `umockstring_clone` shall copy the string to the newly allocated memory (including the NULL terminator). ]*/
-/* Tests_UMOCK_STRING_01_003: [ On success `umockstring_clone` shall return a pointer to the newly allocated memory containing the copy of the string. ]*/
+/* Tests_UMOCK_STRING_01_001: [ umockstring_clone shall allocate memory for the cloned string (including the NULL terminator). ]*/
+/* Tests_UMOCK_STRING_01_002: [ umockstring_clone shall copy the string to the newly allocated memory (including the NULL terminator). ]*/
+/* Tests_UMOCK_STRING_01_003: [ On success umockstring_clone shall return a pointer to the newly allocated memory containing the copy of the string. ]*/
 TEST_FUNCTION(umockstring_clone_with_a_longer_string_succeeds)
 {
     // arrange
@@ -160,7 +160,7 @@ TEST_FUNCTION(umockstring_clone_with_a_longer_string_succeeds)
     free(result);
 }
 
-/* Tests_UMOCK_STRING_01_004: [ If allocating the memory fails, `umockstring_clone` shall return NULL. ]*/
+/* Tests_UMOCK_STRING_01_004: [ If allocating the memory fails, umockstring_clone shall return NULL. ]*/
 TEST_FUNCTION(when_allocating_memory_fails_umockstring_clone_fails)
 {
     // arrange
@@ -177,7 +177,7 @@ TEST_FUNCTION(when_allocating_memory_fails_umockstring_clone_fails)
     ASSERT_ARE_EQUAL(size_t, strlen("Management takes the code out of you") + 1, test_malloc_calls[0].size);
 }
 
-/* Tests_UMOCK_STRING_01_005: [ If `umockstring_clone` is called with a NULL `source`, it shall return NULL. ]*/
+/* Tests_UMOCK_STRING_01_005: [ If umockstring_clone is called with a NULL source, it shall return NULL. ]*/
 TEST_FUNCTION(umockstring_clone_called_with_NULL_fails)
 {
     // arrange

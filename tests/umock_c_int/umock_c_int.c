@@ -2564,7 +2564,7 @@ TEST_FUNCTION(using_a_type_registered_with_a_register_call_only_with_the_first_a
 
 /* ValidateArgumentValue_{arg_name}_AsType */
 
-/* Tests_SRS_UMOCK_C_LIB_01_199: [ `ValidateArgumentValue_{arg_name}_AsType` shall ensure that validation of the argument `arg_name` is done as if the argument is of type `type_name`. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_199: [ ValidateArgumentValue_{arg_name}_AsType shall ensure that validation of the argument arg_name is done as if the argument is of type type_name. ]*/
 TEST_FUNCTION(validate_argument_value_as_type_validates_the_value_pointed_by_arg_value_int)
 {
     // arrange
@@ -2584,7 +2584,7 @@ TEST_FUNCTION(validate_argument_value_as_type_validates_the_value_pointed_by_arg
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_200: [ If `type_name` is NULL, umock_c shall raise an error with the code UMOCK_C_NULL_ARGUMENT. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_200: [ If type_name is NULL, umock_c shall raise an error with the code UMOCK_C_NULL_ARGUMENT. ]*/
 TEST_FUNCTION(ValidateArgumentValue_argument_AsType_with_NULL_yields_an_error)
 {
     // arrange
@@ -2602,7 +2602,7 @@ TEST_FUNCTION(ValidateArgumentValue_argument_AsType_with_NULL_yields_an_error)
     //TFS661968 ASSERT_ARE_EQUAL(int, (int)UMOCK_C_NULL_ARGUMENT, test_on_umock_c_error_calls[0].error_code);
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_199: [ `ValidateArgumentValue_{arg_name}_AsType` shall ensure that validation of the argument `arg_name` is done as if the argument is of type `type_name`. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_199: [ ValidateArgumentValue_{arg_name}_AsType shall ensure that validation of the argument arg_name is done as if the argument is of type type_name. ]*/
 TEST_FUNCTION(validate_argument_value_as_type_2_times_with_same_type_does_not_leak)
 {
     // arrange
@@ -2623,7 +2623,7 @@ TEST_FUNCTION(validate_argument_value_as_type_2_times_with_same_type_does_not_le
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_203: [ If `ValidateArgumentValue_{arg_name}_AsType` is used multiple times on the same argument, the last call shall apply. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_203: [ If ValidateArgumentValue_{arg_name}_AsType is used multiple times on the same argument, the last call shall apply. ]*/
 TEST_FUNCTION(validate_argument_value_as_type_2_times_makes_the_last_call_stick)
 {
     // arrange
@@ -2644,8 +2644,8 @@ TEST_FUNCTION(validate_argument_value_as_type_2_times_makes_the_last_call_stick)
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_205: [ If `IGNORED_PTR_ARG` or `IGNORED_NUM_ARG` is used as an argument value with `STRICT_EXPECTED_CALL`, the argument shall be automatically ignored. ]*/
-/* Tests_SRS_UMOCK_C_LIB_01_207: [ `IGNORED_NUM_ARG` shall be defined to 0 so that it can be used for numeric type arguments. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_PTR_ARG or IGNORED_NUM_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_207: [ IGNORED_NUM_ARG shall be defined to 0 so that it can be used for numeric type arguments. ]*/
 TEST_FUNCTION(auto_ignore_ignores_a_numeric_argument)
 {
     // arrange
@@ -2659,8 +2659,8 @@ TEST_FUNCTION(auto_ignore_ignores_a_numeric_argument)
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_205: [ If `IGNORED_PTR_ARG` or `IGNORED_NUM_ARG` is used as an argument value with `STRICT_EXPECTED_CALL`, the argument shall be automatically ignored. ]*/
-/* Tests_SRS_UMOCK_C_LIB_01_206: [ `IGNORED_PTR_ARG` shall be defined as NULL so that it can be used for pointer type arguments. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_PTR_ARG or IGNORED_NUM_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_206: [ IGNORED_PTR_ARG shall be defined as NULL so that it can be used for pointer type arguments. ]*/
 TEST_FUNCTION(auto_ignore_ignores_a_pointer_argument)
 {
     // arrange
@@ -2674,8 +2674,8 @@ TEST_FUNCTION(auto_ignore_ignores_a_pointer_argument)
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_205: [ If `IGNORED_PTR_ARG` or `IGNORED_NUM_ARG` is used as an argument value with `STRICT_EXPECTED_CALL`, the argument shall be automatically ignored. ]*/
-/* Tests_SRS_UMOCK_C_LIB_01_207: [ `IGNORED_NUM_ARG` shall be defined to 0 so that it can be used for numeric type arguments. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_PTR_ARG or IGNORED_NUM_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_207: [ IGNORED_NUM_ARG shall be defined to 0 so that it can be used for numeric type arguments. ]*/
 TEST_FUNCTION(auto_ignore_ignores_a_2nd_numeric_argument)
 {
     // arrange
@@ -2689,8 +2689,8 @@ TEST_FUNCTION(auto_ignore_ignores_a_2nd_numeric_argument)
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_205: [ If `IGNORED_PTR_ARG` or `IGNORED_NUM_ARG` is used as an argument value with `STRICT_EXPECTED_CALL`, the argument shall be automatically ignored. ]*/
-/* Tests_SRS_UMOCK_C_LIB_01_206: [ `IGNORED_PTR_ARG` shall be defined as NULL so that it can be used for pointer type arguments. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_PTR_ARG or IGNORED_NUM_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_206: [ IGNORED_PTR_ARG shall be defined as NULL so that it can be used for pointer type arguments. ]*/
 TEST_FUNCTION(auto_ignore_ignores_a_2nd_pointer_argument)
 {
     // arrange
@@ -2708,8 +2708,8 @@ TEST_FUNCTION(auto_ignore_ignores_a_2nd_pointer_argument)
 
 #define test(a,b) 42
 
-/* Tests_SRS_UMOCK_C_LIB_01_205: [ If `IGNORED_PTR_ARG` or `IGNORED_NUM_ARG` is used as an argument value with `STRICT_EXPECTED_CALL`, the argument shall be automatically ignored. ]*/
-/* Tests_SRS_UMOCK_C_LIB_01_206: [ `IGNORED_PTR_ARG` shall be defined as NULL so that it can be used for pointer type arguments. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_PTR_ARG or IGNORED_NUM_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_206: [ IGNORED_PTR_ARG shall be defined as NULL so that it can be used for pointer type arguments. ]*/
 TEST_FUNCTION(auto_ignore_when_first_arg_is_a_macro_succeeds_for_2nd_arg)
 {
     // arrange
@@ -2723,8 +2723,8 @@ TEST_FUNCTION(auto_ignore_when_first_arg_is_a_macro_succeeds_for_2nd_arg)
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_205: [ If `IGNORED_PTR_ARG` or `IGNORED_NUM_ARG` is used as an argument value with `STRICT_EXPECTED_CALL`, the argument shall be automatically ignored. ]*/
-/* Tests_SRS_UMOCK_C_LIB_01_206: [ `IGNORED_PTR_ARG` shall be defined as NULL so that it can be used for pointer type arguments. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_PTR_ARG or IGNORED_NUM_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_206: [ IGNORED_PTR_ARG shall be defined as NULL so that it can be used for pointer type arguments. ]*/
 TEST_FUNCTION(auto_ignore_when_first_arg_is_a_nested_macro_succeeds_for_2nd_arg)
 {
     // arrange
@@ -2740,8 +2740,8 @@ TEST_FUNCTION(auto_ignore_when_first_arg_is_a_nested_macro_succeeds_for_2nd_arg)
 
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1600
-/* Tests_SRS_UMOCK_C_LIB_01_205: [ If `IGNORED_PTR_ARG` or `IGNORED_NUM_ARG` is used as an argument value with `STRICT_EXPECTED_CALL`, the argument shall be automatically ignored. ]*/
-/* Tests_SRS_UMOCK_C_LIB_01_206: [ `IGNORED_PTR_ARG` shall be defined as NULL so that it can be used for pointer type arguments. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_PTR_ARG or IGNORED_NUM_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_206: [ IGNORED_PTR_ARG shall be defined as NULL so that it can be used for pointer type arguments. ]*/
 TEST_FUNCTION(auto_ignore_when_first_arg_is_a_struct_succeeds_for_2nd_arg)
 {
 #ifdef _MSC_VER
@@ -2876,7 +2876,7 @@ TEST_FUNCTION(IgnoreAllCalls_ignores_only_calls_with_matching_args_2)
     ASSERT_ARE_EQUAL(char_ptr, "[test_dependency_1_arg(43)]", umock_c_get_actual_calls());
 }
 
-/* Tests_SRS_UMOCK_C_LIB_31_209: [`call_cannot_fail_func__{name}` call modifier shall record that when performing failure case run, this call should be skipped. ] */
+/* Tests_SRS_UMOCK_C_LIB_31_209: [call_cannot_fail_func__{name} call modifier shall record that when performing failure case run, this call should be skipped. ] */
 TEST_FUNCTION(CallCannotFail_sets_cannot_fail_for_strict_expected_call)
 {
     // arrange
@@ -2893,7 +2893,7 @@ TEST_FUNCTION(CallCannotFail_sets_cannot_fail_for_strict_expected_call)
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
-/* Tests_SRS_UMOCK_C_LIB_31_209: [`call_cannot_fail_func__{name}` call modifier shall record that when performing failure case run, this call should be skipped. ] */
+/* Tests_SRS_UMOCK_C_LIB_31_209: [call_cannot_fail_func__{name} call modifier shall record that when performing failure case run, this call should be skipped. ] */
 TEST_FUNCTION(CallCannotFail_sets_cannot_fail_for_expected_call)
 {
     // arrange

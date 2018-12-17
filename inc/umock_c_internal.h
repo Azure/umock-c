@@ -673,8 +673,8 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
         return mock_call_modifier; \
     }
 
-/* Codes_SRS_UMOCK_C_LIB_01_199: [ `ValidateArgumentValue_{arg_name}_AsType` shall ensure that validation of the argument `arg_name` is done as if the argument is of type `type_name`. ]*/
-/* Codes_SRS_UMOCK_C_LIB_01_200: [ If `type_name` is NULL, umock_c shall raise an error with the code UMOCK_C_NULL_ARGUMENT. ]*/
+/* Codes_SRS_UMOCK_C_LIB_01_199: [ ValidateArgumentValue_{arg_name}_AsType shall ensure that validation of the argument arg_name is done as if the argument is of type type_name. ]*/
+/* Codes_SRS_UMOCK_C_LIB_01_200: [ If type_name is NULL, umock_c shall raise an error with the code UMOCK_C_NULL_ARGUMENT. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_202: [ If storing the argument value as the new type fails, umock_c shall raise an error with the code UMOCK_C_COPY_ARGUMENT_ERROR. ]*/
 #define IMPLEMENT_VALIDATE_ARGUMENT_VALUE_AS_TYPE_BY_NAME_FUNCTION(name, arg_type, arg_name) \
     static C2(mock_call_modifier_,name) C4(validate_argument_value_as_type_func_,name,_,arg_name)(const char* type_name) \
@@ -743,7 +743,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
         return mock_call_modifier; \
     }
 
-/* Codes_SRS_UMOCK_C_LIB_31_209: [ `call_cannot_fail_func__{name}` call modifier shall record that when performing failure case run, this call should be skipped. ]*/
+/* Codes_SRS_UMOCK_C_LIB_31_209: [ call_cannot_fail_func__{name} call modifier shall record that when performing failure case run, this call should be skipped. ]*/
 /* Codes_SRS_UMOCK_C_LIB_31_210: [ If recording that the call cannot fail is unsuccessful, umock shall raise with the error code UMOCK_C_ERROR.  ]*/
 #define IMPLEMENT_SET_CALL_CANNOT_FAIL(return_type, name, ...) \
         static C2(mock_call_modifier_,name) C2(call_cannot_fail_func_,name)(void) \
@@ -873,9 +873,9 @@ typedef struct MOCK_CALL_METADATA_TAG
 #define UNUSED_ARG(arg_type, arg_name) \
     (void)arg_name;
 
-/* Codes_SRS_UMOCK_C_LIB_01_205: [ If `IGNORED_PTR_ARG` or `IGNORED_NUM_ARG` is used as an argument value with `STRICT_EXPECTED_CALL`, the argument shall be automatically ignored. ]*/
-/* Codes_SRS_UMOCK_C_LIB_01_206: [ `IGNORED_PTR_ARG` shall be defined as NULL so that it can be used for pointer type arguments. ]*/
-/* Codes_SRS_UMOCK_C_LIB_01_207: [ `IGNORED_NUM_ARG` shall be defined to 0 so that it can be used for numeric type arguments. ]*/
+/* Codes_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_PTR_ARG or IGNORED_NUM_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
+/* Codes_SRS_UMOCK_C_LIB_01_206: [ IGNORED_PTR_ARG shall be defined as NULL so that it can be used for pointer type arguments. ]*/
+/* Codes_SRS_UMOCK_C_LIB_01_207: [ IGNORED_NUM_ARG shall be defined to 0 so that it can be used for numeric type arguments. ]*/
 #define AUTO_IGNORE_ARG(arg_type, arg_name) \
     if (umockautoignoreargs_is_call_argument_ignored(call_as_string, arg_index++, &is_ignored) != 0) \
     { \
@@ -1269,7 +1269,7 @@ typedef struct MOCK_CALL_METADATA_TAG
 /* Codes_SRS_UMOCK_C_LIB_01_188: [ The create call shall have a non-void return type. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_191: [ At each create_call a memory block shall be allocated so that it can be reported as a leak by any memory checker. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_192: [ If any error occurs during the create_call related then umock_c shall raise an error with the code UMOCK_C_ERROR. ]*/
-/* Codes_SRS_UMOCK_C_LIB_01_204: [ Tracking of paired calls shall not be done if the actual call to the `create_call` is using the `SetFailReturn` call modifier. ]*/
+/* Codes_SRS_UMOCK_C_LIB_01_204: [ Tracking of paired calls shall not be done if the actual call to the create_call is using the SetFailReturn call modifier. ]*/
 #define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK(modifiers, return_type, name, ...) \
     MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE(return_type, name, __VA_ARGS__) \
     MOCKABLE_FUNCTION_BODY_WITHOUT_RETURN(modifiers, return_type, name, __VA_ARGS__) \
@@ -1302,7 +1302,7 @@ typedef struct MOCK_CALL_METADATA_TAG
 /* Codes_SRS_UMOCK_C_LIB_01_188: [ The create call shall have a non-void return type. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_191: [ At each create_call a memory block shall be allocated so that it can be reported as a leak by any memory checker. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_192: [ If any error occurs during the create_call related then umock_c shall raise an error with the code UMOCK_C_ERROR. ]*/
-/* Codes_SRS_UMOCK_C_LIB_01_204: [ Tracking of paired calls shall not be done if the actual call to the `create_call` is using the `SetFailReturn` call modifier. ]*/
+/* Codes_SRS_UMOCK_C_LIB_01_204: [ Tracking of paired calls shall not be done if the actual call to the create_call is using the SetFailReturn call modifier. ]*/
 #define MOCK_FUNCTION_END(...) \
 			IF(COUNT_ARG(__VA_ARGS__), if (result_value_set == 0) \
 			{ \

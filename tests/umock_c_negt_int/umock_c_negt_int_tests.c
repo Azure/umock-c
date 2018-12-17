@@ -382,7 +382,7 @@ TEST_FUNCTION(negative_tests_with_9_calls_works)
     }
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_204: [ Tracking of paired calls shall not be done if the actual call to the `create_call` is using the `SetFailReturn` call modifier. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_204: [ Tracking of paired calls shall not be done if the actual call to the create_call is using the SetFailReturn call modifier. ]*/
 TEST_FUNCTION(SetFailReturn_suppresses_paired_calls_tracking)
 {
     REGISTER_UMOCKC_PAIRED_CREATE_DESTROY_CALLS(some_create, some_destroy);
@@ -402,7 +402,7 @@ TEST_FUNCTION(SetFailReturn_suppresses_paired_calls_tracking)
     // no explicit assert, no leak expected
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_204: [ Tracking of paired calls shall not be done if the actual call to the `create_call` is using the `SetFailReturn` call modifier. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_204: [ Tracking of paired calls shall not be done if the actual call to the create_call is using the SetFailReturn call modifier. ]*/
 TEST_FUNCTION(SetFailReturn_suppresses_paired_calls_tracking_for_mockable_functions)
 {
     REGISTER_UMOCKC_PAIRED_CREATE_DESTROY_CALLS(some_other_create, some_other_destroy);
@@ -422,7 +422,7 @@ TEST_FUNCTION(SetFailReturn_suppresses_paired_calls_tracking_for_mockable_functi
     // no explicit assert, no leak expected
 }
 
-/* Tests_SRS_UMOCK_C_LIB_31_209: [ `call_cannot_fail_func__{name}` call modifier shall record that when performing failure case run, this call should be skipped. ]*/
+/* Tests_SRS_UMOCK_C_LIB_31_209: [ call_cannot_fail_func__{name} call modifier shall record that when performing failure case run, this call should be skipped. ]*/
 TEST_FUNCTION(umock_c_negative_tests_can_call_fail_test)
 {
     // arrange   

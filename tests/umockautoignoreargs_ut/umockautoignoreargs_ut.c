@@ -99,7 +99,7 @@ TEST_FUNCTION_CLEANUP(test_function_cleanup)
 
 /* umockautoignoreargs_is_call_argument_ignored */
 
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_002: [ If `call` or `is_argument_ignored` is NULL, `umockautoignoreargs_is_call_argument_ignored` shall fail and return a non-zero value. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_002: [ If call or is_argument_ignored is NULL, umockautoignoreargs_is_call_argument_ignored shall fail and return a non-zero value. ]*/
 TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_NULL_call_fails)
 {
     // arrange
@@ -113,7 +113,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_NULL_call_fails)
     ASSERT_ARE_NOT_EQUAL(int, 0, result);
 }
 
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_002: [ If `call` or `is_argument_ignored` is NULL, `umockautoignoreargs_is_call_argument_ignored` shall fail and return a non-zero value. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_002: [ If call or is_argument_ignored is NULL, umockautoignoreargs_is_call_argument_ignored shall fail and return a non-zero value. ]*/
 TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_NULL_is_argument_ignored_argument_fails)
 {
     // arrange
@@ -127,7 +127,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_NULL_is_argument
     ASSERT_ARE_NOT_EQUAL(int, 0, result);
 }
 
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_004: [ If `umockautoignoreargs_is_call_argument_ignored` fails parsing the `call` argument it shall fail and return a non-zero value. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_004: [ If umockautoignoreargs_is_call_argument_ignored fails parsing the call argument it shall fail and return a non-zero value. ]*/
 TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_when_no_lparen_is_found_fails)
 {
     // arrange
@@ -141,7 +141,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_when_no_lparen_is_fou
     ASSERT_ARE_NOT_EQUAL(int, 0, result);
 }
 
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_009: [ If the number of arguments parsed from `call` is less than `argument_index`, `umockautoignoreargs_is_call_argument_ignored` shall fail and return a non-zero value. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_009: [ If the number of arguments parsed from call is less than argument_index, umockautoignoreargs_is_call_argument_ignored shall fail and return a non-zero value. ]*/
 TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_1_when_no_args_in_call_fails)
 {
     // arrange
@@ -155,8 +155,8 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_1_when_no_arg
     ASSERT_ARE_NOT_EQUAL(int, 0, result);
 }
 
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_006: [ If the argument value is `IGNORED_PTR_ARG` then `is_argument_ignored` shall be set to 1. ]*/
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ `umockautoignoreargs_is_call_argument_ignored` shall determine whether argument `argument_index` shall be ignored or not. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_006: [ If the argument value is IGNORED_PTR_ARG then is_argument_ignored shall be set to 1. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ umockautoignoreargs_is_call_argument_ignored shall determine whether argument argument_index shall be ignored or not. ]*/
 TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_1_when_1_IGNORED_PTR_ARG)
 {
     // arrange
@@ -171,8 +171,8 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_1_when_1_IGNO
     ASSERT_ARE_EQUAL(int, 1, is_ignored);
 }
 
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_007: [ If the argument value is `IGNORED_NUM_ARG` then `is_argument_ignored` shall be set to 1. ]*/
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ `umockautoignoreargs_is_call_argument_ignored` shall determine whether argument `argument_index` shall be ignored or not. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_007: [ If the argument value is IGNORED_NUM_ARG then is_argument_ignored shall be set to 1. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ umockautoignoreargs_is_call_argument_ignored shall determine whether argument argument_index shall be ignored or not. ]*/
 TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_1_when_1_IGNORED_NUM_ARG)
 {
     // arrange
@@ -187,8 +187,8 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_1_when_1_IGNO
     ASSERT_ARE_EQUAL(int, 1, is_ignored);
 }
 
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_006: [ If the argument value is `IGNORED_PTR_ARG` then `is_argument_ignored` shall be set to 1. ]*/
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ `umockautoignoreargs_is_call_argument_ignored` shall determine whether argument `argument_index` shall be ignored or not. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_006: [ If the argument value is IGNORED_PTR_ARG then is_argument_ignored shall be set to 1. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ umockautoignoreargs_is_call_argument_ignored shall determine whether argument argument_index shall be ignored or not. ]*/
 TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_2_with_IGNORED_PTR_ARG)
 {
     // arrange
@@ -203,9 +203,9 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_2_with_IGNORE
     ASSERT_ARE_EQUAL(int, 1, is_ignored);
 }
 
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_007: [ If the argument value is `IGNORED_NUM_ARG` then `is_argument_ignored` shall be set to 1. ]*/
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ `umockautoignoreargs_is_call_argument_ignored` shall determine whether argument `argument_index` shall be ignored or not. ]*/
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_005: [ If `umockautoignoreargs_is_call_argument_ignored` was able to parse the `argument_index`th argument it shall succeed and return 0, while writing whether the argument is ignored in the `is_argument_ignored` output argument. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_007: [ If the argument value is IGNORED_NUM_ARG then is_argument_ignored shall be set to 1. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ umockautoignoreargs_is_call_argument_ignored shall determine whether argument argument_index shall be ignored or not. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_005: [ If umockautoignoreargs_is_call_argument_ignored was able to parse the argument_indexth argument it shall succeed and return 0, while writing whether the argument is ignored in the is_argument_ignored output argument. ]*/
 TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_2_with_IGNORED_NUM_ARG)
 {
     // arrange
@@ -220,9 +220,9 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_2_with_IGNORE
     ASSERT_ARE_EQUAL(int, 1, is_ignored);
 }
 
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_008: [ If the argument value is any other value then `is_argument_ignored` shall be set to 0. ]*/
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ `umockautoignoreargs_is_call_argument_ignored` shall determine whether argument `argument_index` shall be ignored or not. ]*/
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_005: [ If `umockautoignoreargs_is_call_argument_ignored` was able to parse the `argument_index`th argument it shall succeed and return 0, while writing whether the argument is ignored in the `is_argument_ignored` output argument. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_008: [ If the argument value is any other value then is_argument_ignored shall be set to 0. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ umockautoignoreargs_is_call_argument_ignored shall determine whether argument argument_index shall be ignored or not. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_005: [ If umockautoignoreargs_is_call_argument_ignored was able to parse the argument_indexth argument it shall succeed and return 0, while writing whether the argument is ignored in the is_argument_ignored output argument. ]*/
 TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_2_no_match)
 {
     // arrange
@@ -237,7 +237,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_2_no_match)
     ASSERT_ARE_EQUAL(int, 0, is_ignored);
 }
 
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ `umockautoignoreargs_is_call_argument_ignored` shall parse the `call` string as a function call: function_name(arg1, arg2, ...). ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ umockautoignoreargs_is_call_argument_ignored shall parse the call string as a function call: function_name(arg1, arg2, ...). ]*/
 TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_a_space_before_lparen_succeeds)
 {
     // arrange
@@ -252,7 +252,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_a_space_before_l
     ASSERT_ARE_EQUAL(int, 1, is_ignored);
 }
 
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ `umockautoignoreargs_is_call_argument_ignored` shall parse the `call` string as a function call: function_name(arg1, arg2, ...). ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ umockautoignoreargs_is_call_argument_ignored shall parse the call string as a function call: function_name(arg1, arg2, ...). ]*/
 TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_a_space_after_lparen_succeeds)
 {
     // arrange
@@ -267,7 +267,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_a_space_after_lp
     ASSERT_ARE_EQUAL(int, 1, is_ignored);
 }
 
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ `umockautoignoreargs_is_call_argument_ignored` shall parse the `call` string as a function call: function_name(arg1, arg2, ...). ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ umockautoignoreargs_is_call_argument_ignored shall parse the call string as a function call: function_name(arg1, arg2, ...). ]*/
 TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_a_space_before_comma_succeeds)
 {
     // arrange
@@ -282,7 +282,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_a_space_before_c
     ASSERT_ARE_EQUAL(int, 1, is_ignored);
 }
 
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ `umockautoignoreargs_is_call_argument_ignored` shall parse the `call` string as a function call: function_name(arg1, arg2, ...). ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ umockautoignoreargs_is_call_argument_ignored shall parse the call string as a function call: function_name(arg1, arg2, ...). ]*/
 TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_a_space_before_right_paren_succeeds)
 {
     // arrange
@@ -297,7 +297,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_a_space_before_r
     ASSERT_ARE_EQUAL(int, 1, is_ignored);
 }
 
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ `umockautoignoreargs_is_call_argument_ignored` shall parse the `call` string as a function call: function_name(arg1, arg2, ...). ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ umockautoignoreargs_is_call_argument_ignored shall parse the call string as a function call: function_name(arg1, arg2, ...). ]*/
 TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_2nd_arg_when_first_argument_is_a_function_call)
 {
     // arrange
@@ -312,7 +312,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_2nd_arg_when_firs
     ASSERT_ARE_EQUAL(int, 1, is_ignored);
 }
 
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ `umockautoignoreargs_is_call_argument_ignored` shall parse the `call` string as a function call: function_name(arg1, arg2, ...). ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ umockautoignoreargs_is_call_argument_ignored shall parse the call string as a function call: function_name(arg1, arg2, ...). ]*/
 TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_2nd_arg_when_first_argument_has_a_structre)
 {
     // arrange
