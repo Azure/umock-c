@@ -30,7 +30,7 @@ extern "C" {
         UMOCK_C_REGISTER_TYPE_FAILED, \
         UMOCK_C_ERROR
 
-DEFINE_ENUM(UMOCK_C_ERROR_CODE, UMOCK_C_ERROR_CODE_VALUES)
+MU_DEFINE_ENUM(UMOCK_C_ERROR_CODE, UMOCK_C_ERROR_CODE_VALUES)
 
 /* This is the type for the error callback by which umock_c shall indicate errors to the user */
 typedef void(*ON_UMOCK_C_ERROR)(UMOCK_C_ERROR_CODE error_code);
@@ -39,26 +39,26 @@ typedef void(*ON_UMOCK_C_ERROR)(UMOCK_C_ERROR_CODE error_code);
 #define IGNORED_NUM_ARG (0)
 
 #define REGISTER_GLOBAL_MOCK_HOOK(mock_function, mock_hook_function) \
-    C2(set_global_mock_hook_,mock_function)(mock_hook_function);
+    MU_C2(set_global_mock_hook_,mock_function)(mock_hook_function);
 
 #define REGISTER_GLOBAL_MOCK_RETURN(mock_function, return_value) \
-    C2(set_global_mock_return_,mock_function)(return_value);
+    MU_C2(set_global_mock_return_,mock_function)(return_value);
 
 #define REGISTER_GLOBAL_MOCK_FAIL_RETURN(mock_function, fail_return_value) \
-    C2(set_global_mock_fail_return_,mock_function)(fail_return_value);
+    MU_C2(set_global_mock_fail_return_,mock_function)(fail_return_value);
 
 #define REGISTER_GLOBAL_MOCK_RETURNS(mock_function, return_value, fail_return_value) \
-    C2(set_global_mock_returns_,mock_function)(return_value, fail_return_value);
+    MU_C2(set_global_mock_returns_,mock_function)(return_value, fail_return_value);
 
 /* Codes_SRS_UMOCK_C_LIB_01_013: [STRICT_EXPECTED_CALL shall record that a certain call is expected.] */
 #define STRICT_EXPECTED_CALL(call) \
-	C2(get_auto_ignore_args_function_, call)(C2(umock_c_strict_expected_,call), #call)
+	MU_C2(get_auto_ignore_args_function_, call)(MU_C2(umock_c_strict_expected_,call), #call)
 
 #define EXPECTED_CALL(call) \
-	C2(umock_c_expected_,call)
+	MU_C2(umock_c_expected_,call)
 
 #define DECLARE_UMOCK_POINTER_TYPE_FOR_TYPE(value_type, alias) \
-    char* C3(stringify_func_,alias,ptr)(const value_type** value) \
+    char* MU_C3(stringify_func_,alias,ptr)(const value_type** value) \
     { \
         char temp_buffer[32]; \
         char* result; \
@@ -77,16 +77,16 @@ typedef void(*ON_UMOCK_C_ERROR)(UMOCK_C_ERROR_CODE error_code);
         } \
         return result; \
     } \
-    int C3(are_equal_func_,alias,ptr)(const value_type** left, const value_type** right) \
+    int MU_C3(are_equal_func_,alias,ptr)(const value_type** left, const value_type** right) \
     { \
         return *left == *right; \
     } \
-    int C3(copy_func_,alias,ptr)(value_type** destination, const value_type** source) \
+    int MU_C3(copy_func_,alias,ptr)(value_type** destination, const value_type** source) \
     { \
         *destination = (value_type*)*source; \
         return 0; \
     } \
-    void C3(free_func_,alias,ptr)(value_type** value) \
+    void MU_C3(free_func_,alias,ptr)(value_type** value) \
     { \
         (void)value; \
     } \
@@ -108,7 +108,7 @@ extern int umock_c_set_call_recorder(UMOCKCALLRECORDER_HANDLE umockc_call_record
     int are_equal_func(const value_type* left, const value_type* right); \
     int copy_func(value_type* destination, const value_type* source); \
     void free_func(value_type* value); \
-    if (umocktypes_register_type(TOSTRING(value_type), (UMOCKTYPE_STRINGIFY_FUNC)stringify_func, (UMOCKTYPE_ARE_EQUAL_FUNC)are_equal_func, (UMOCKTYPE_COPY_FUNC)copy_func, (UMOCKTYPE_FREE_FUNC)free_func) != 0) \
+    if (umocktypes_register_type(MU_TOSTRING(value_type), (UMOCKTYPE_STRINGIFY_FUNC)stringify_func, (UMOCKTYPE_ARE_EQUAL_FUNC)are_equal_func, (UMOCKTYPE_COPY_FUNC)copy_func, (UMOCKTYPE_FREE_FUNC)free_func) != 0) \
     { \
         umock_c_indicate_error(UMOCK_C_REGISTER_TYPE_FAILED); \
     } \
@@ -116,26 +116,26 @@ extern int umock_c_set_call_recorder(UMOCKCALLRECORDER_HANDLE umockc_call_record
 
 /* Codes_SRS_UMOCK_C_LIB_01_066: [If only the value_type is specified in the macro invocation then the stringify, are_equal, copy and free function names shall be automatically derived from the type as: umockvalue_stringify_value_type, umockvalue_are_equal_value_type, umockvalue_copy_value_type, umockvalue_free_value_type.]*/
 #define REGISTER_UMOCK_VALUE_TYPE_ONLY_TYPE(value_type) \
-    REGISTER_UMOCK_VALUE_TYPE_ALL (value_type, C2(umock_stringify_,value_type), C2(umock_are_equal_,value_type), C2(umock_copy_,value_type), C2(umock_free_,value_type))
+    REGISTER_UMOCK_VALUE_TYPE_ALL (value_type, MU_C2(umock_stringify_,value_type), MU_C2(umock_are_equal_,value_type), MU_C2(umock_copy_,value_type), MU_C2(umock_free_,value_type))
 
 #if _MSC_VER
 #define REGISTER_UMOCK_VALUE_TYPE(...) \
-    IF(DIV2(COUNT_ARG(__VA_ARGS__)), REGISTER_UMOCK_VALUE_TYPE_ALL, REGISTER_UMOCK_VALUE_TYPE_ONLY_TYPE) LPAREN __VA_ARGS__)
+    MU_IF(MU_DIV2(MU_COUNT_ARG(__VA_ARGS__)), REGISTER_UMOCK_VALUE_TYPE_ALL, REGISTER_UMOCK_VALUE_TYPE_ONLY_TYPE) MU_LPAREN __VA_ARGS__)
 #else
 #define REGISTER_UMOCK_VALUE_TYPE(...) \
-    IF(DIV2(COUNT_ARG(__VA_ARGS__)), REGISTER_UMOCK_VALUE_TYPE_ALL, REGISTER_UMOCK_VALUE_TYPE_ONLY_TYPE) (__VA_ARGS__)
+    MU_IF(MU_DIV2(MU_COUNT_ARG(__VA_ARGS__)), REGISTER_UMOCK_VALUE_TYPE_ALL, REGISTER_UMOCK_VALUE_TYPE_ONLY_TYPE) (__VA_ARGS__)
 #endif
 
 /* Codes_SRS_UMOCK_C_LIB_01_149: [ REGISTER_UMOCK_ALIAS_TYPE registers a new alias type for another type. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_198: [ If REGISTER_UMOCK_ALIAS_TYPE fails, the on_error callback shall be called with UMOCK_C_REGISTER_TYPE_FAILED. ]*/
 #define REGISTER_UMOCK_ALIAS_TYPE(value_type, is_value_type) \
-    if (umocktypes_register_alias_type(TOSTRING(value_type), TOSTRING(is_value_type)) != 0) \
+    if (umocktypes_register_alias_type(MU_TOSTRING(value_type), MU_TOSTRING(is_value_type)) != 0) \
     { \
         umock_c_indicate_error(UMOCK_C_REGISTER_TYPE_FAILED); \
     } \
 
 #define UMOCK_TYPE(value_type) \
-    (const char*)(const void*)(const value_type*)(const void*)TOSTRING(value_type)
+    (const char*)(const void*)(const value_type*)(const void*)MU_TOSTRING(value_type)
 
 #include "umock_c_internal.h"
 #include "umock_c_prod.h"

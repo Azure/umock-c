@@ -16,12 +16,12 @@
 
 #ifdef MAX_UMOCK_TYPE_STRINGIFY_SIZE
 #define IMPLEMENT_STRINGIFY(type, function_postfix, printf_specifier) \
-    char* C2(umocktypes_stringify_,function_postfix)(type* value) \
+    char* MU_C2(umocktypes_stringify_,function_postfix)(type* value) \
     { \
         char* result; \
         if (value == NULL) \
         { \
-            UMOCK_LOG(TOSTRING(C2(umocktypes_stringify_,function_postfix)) ": NULL value."); \
+            UMOCK_LOG(MU_TOSTRING(MU_C2(umocktypes_stringify_,function_postfix)) ": NULL value."); \
             result = NULL; \
         } \
         else \
@@ -31,7 +31,7 @@
             result = (char*)umockalloc_malloc(length + 1); \
             if (result == NULL) \
             { \
-                UMOCK_LOG(TOSTRING(C2(umocktypes_stringify_,function_postfix)) ": Cannot allocate memory for result string."); \
+                UMOCK_LOG(MU_TOSTRING(MU_C2(umocktypes_stringify_,function_postfix)) ": Cannot allocate memory for result string."); \
             } \
             else \
             { \
@@ -42,12 +42,12 @@
     }
 #else /* MAX_STRINGIFY_SIZE */
 #define IMPLEMENT_STRINGIFY(type, function_postfix, printf_specifier) \
-    char* C2(umocktypes_stringify_,function_postfix)(type* value) \
+    char* MU_C2(umocktypes_stringify_,function_postfix)(type* value) \
     { \
         char* result; \
         if (value == NULL) \
         { \
-            UMOCK_LOG(TOSTRING(C2(umocktypes_stringify_,function_postfix)) ": NULL value."); \
+            UMOCK_LOG(MU_TOSTRING(MU_C2(umocktypes_stringify_,function_postfix)) ": NULL value."); \
             result = NULL; \
         } \
         else \
@@ -56,7 +56,7 @@
             result = (char*)umockalloc_malloc(length + 1); \
             if (result == NULL) \
             { \
-                UMOCK_LOG(TOSTRING(C2(umocktypes_stringify_,function_postfix)) ": Cannot allocate memory for result string."); \
+                UMOCK_LOG(MU_TOSTRING(MU_C2(umocktypes_stringify_,function_postfix)) ": Cannot allocate memory for result string."); \
             } \
             else \
             { \
@@ -68,12 +68,12 @@
 #endif /* MAX_STRINGIFY_SIZE */
 
 #define IMPLEMENT_ARE_EQUAL(type, function_postfix) \
-    int C2(umocktypes_are_equal_,function_postfix)(type* left, type* right) \
+    int MU_C2(umocktypes_are_equal_,function_postfix)(type* left, type* right) \
     { \
         int result; \
         if ((left == NULL) || (right == NULL)) \
         { \
-            UMOCK_LOG(TOSTRING(C2(umocktypes_are_equal_,function_postfix)) ": Bad arguments: left = %p, right = %p", left, right); \
+            UMOCK_LOG(MU_TOSTRING(MU_C2(umocktypes_are_equal_,function_postfix)) ": Bad arguments: left = %p, right = %p", left, right); \
             result = -1; \
         } \
         else \
@@ -84,13 +84,13 @@
     }
 
 #define IMPLEMENT_COPY(type, function_postfix) \
-    int C2(umocktypes_copy_,function_postfix)(type* destination, type* source) \
+    int MU_C2(umocktypes_copy_,function_postfix)(type* destination, type* source) \
     { \
         int result; \
         if ((destination == NULL) || \
             (source == NULL)) \
         { \
-            UMOCK_LOG(TOSTRING(C2(umocktypes_are_equal_,function_postfix)) ": Bad arguments: destination = %p, source = %p", destination, source); \
+            UMOCK_LOG(MU_TOSTRING(MU_C2(umocktypes_are_equal_,function_postfix)) ": Bad arguments: destination = %p, source = %p", destination, source); \
             result = __LINE__; \
         } \
         else \
@@ -102,7 +102,7 @@
     }
 
 #define IMPLEMENT_FREE(type, function_postfix) \
-    void C2(umocktypes_free_,function_postfix)(type* value) \
+    void MU_C2(umocktypes_free_,function_postfix)(type* value) \
     { \
         (void)value; \
     }
