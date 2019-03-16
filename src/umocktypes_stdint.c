@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <inttypes.h>
-#include "macro_utils.h"
+#include "azure_macro_utils/macro_utils.h"
 #include "umocktypes.h"
 #include "umocktypes_stdint.h"
 #include "umockalloc.h"
