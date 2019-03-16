@@ -876,6 +876,44 @@ TEST_FUNCTION(validate_argument_as_type_sample)
 }
 ```
 
+### CaptureArgumentValue_{arg_name}(arg_type* arg_value)
+
+The `CaptureArgumentValue_{arg_name}` shall copy the value of the argument at the time of the call to `arg_value`.
+If `arg_value` is NULL, `umock_c` shall raise an error with the code `UMOCK_C_NULL_ARGUMENT`.
+The `CaptureArgumentValue_{arg_name}` shall not change the how the argument is validated.
+
+Example:
+
+Given a function with the prototype:
+
+```c
+void function_with_int_arg(int a);
+```
+
+```c
+TEST_FUNCTION(capture_argument_sample)
+{
+    // arrange
+    int captured_arg_value = 0;
+
+    STRICT_EXPECTED_CALL(function_with_int_arg(0))
+        .CaptureArgumentValue_a(&captured_arg_value);
+
+    captured_arg_value = 43;
+
+    // act
+    function_with_int_arg(42);
+
+    // assert: captured value should be 43
+    ASSERT_ARE_EQUAL(int, 43, captured_arg_value);
+}
+```
+
+### call_cannot_fail_func_{name}  
+
+`call_cannot_fail_func__{name}` call modifier shall record that when performing failure case run, this call should be skipped.
+If recording that the call cannot fail is unsuccessful, umock shall raise with the error code UMOCK_C_ERROR.
+
 ### Automatic argument ignore
 
 If `IGNORED_PTR_ARG` or `IGNORED_NUM_ARG` is used as an argument value with `STRICT_EXPECTED_CALL`, the argument shall be automatically ignored.

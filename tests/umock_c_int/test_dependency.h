@@ -40,6 +40,7 @@ extern "C" {
     /* Tests_SRS_UMOCK_C_LIB_01_004: [If ENABLE_MOCKS is defined, MOCKABLE_FUNCTION shall generate the declaration of the function and code for the mocked function, thus allowing setting up of expectations in test functions.] */
     MOCKABLE_FUNCTION(, int, test_dependency_no_args);
     MOCKABLE_FUNCTION(, int, test_dependency_1_arg, int, a);
+    MOCKABLE_FUNCTION(, void, test_dependency_1_arg_no_return, int, a);
     MOCKABLE_FUNCTION(, int, test_dependency_2_args, int, a, int, b);
     MOCKABLE_FUNCTION(, int, test_dependency_struct_arg, TEST_STRUCT, s);
     MOCKABLE_FUNCTION(, int, test_dependency_struct_with_2_members, TEST_STRUCT_WITH_2_MEMBERS, s, int, a);

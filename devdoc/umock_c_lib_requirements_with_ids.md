@@ -893,6 +893,39 @@ TEST_FUNCTION(validate_argument_as_type_sample)
 }
 ```
 
+### CaptureArgumentValue_{arg_name}(arg_type* arg_value)
+
+**SRS_UMOCK_C_LIB_01_209: [** The `CaptureArgumentValue_{arg_name}` shall copy the value of the argument at the time of the call to `arg_value`. **]**
+**SRS_UMOCK_C_LIB_01_210: [** If `arg_value` is NULL, `umock_c` shall raise an error with the code `UMOCK_C_NULL_ARGUMENT`. **]**
+**SRS_UMOCK_C_LIB_01_211: [** The `CaptureArgumentValue_{arg_name}` shall not change the how the argument is validated. **]**
+
+Example:
+
+Given a function with the prototype:
+
+```c
+void function_with_int_arg(int a);
+```
+
+```c
+TEST_FUNCTION(capture_argument_sample)
+{
+    // arrange
+    int captured_arg_value = 0;
+
+    STRICT_EXPECTED_CALL(function_with_int_arg(0))
+        .CaptureArgumentValue_a(&captured_arg_value);
+
+    captured_arg_value = 43;
+
+    // act
+    function_with_int_arg(42);
+
+    // assert: captured value should be 43
+    ASSERT_ARE_EQUAL(int, 43, captured_arg_value);
+}
+```
+
 ### call_cannot_fail_func_{name}  
 
 XX**SRS_UMOCK_C_LIB_31_209: [** `call_cannot_fail_func__{name}` call modifier shall record that when performing failure case run, this call should be skipped. **]**  

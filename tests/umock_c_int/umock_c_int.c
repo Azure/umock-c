@@ -2911,4 +2911,90 @@ TEST_FUNCTION(CallCannotFail_sets_cannot_fail_for_expected_call)
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
+/* CaptureArgumentValue_{arg_name}(arg_type* arg_value) */
+
+/* Tests_SRS_UMOCK_C_LIB_01_210: [ If arg_value is NULL, umock_c shall raise an error with the code UMOCK_C_NULL_ARGUMENT. ]*/
+TEST_FUNCTION(CaptureArgumentValue_with_NULL_arg_value_indicates_an_error)
+{
+    // arrange
+    EXPECTED_CALL(test_dependency_1_arg_no_return(IGNORED_NUM_ARG))
+        .CaptureArgumentValue_a(NULL);
+
+    // act
+    test_dependency_1_arg_no_return(43);
+
+    // assert
+    // gah, there is a TFS item apparently since forever to fix this issue: the extra ERROR notification should not happen
+    ASSERT_ARE_EQUAL(size_t, 2, test_on_umock_c_error_call_count);
+    ASSERT_ARE_EQUAL(UMOCK_C_ERROR_CODE, UMOCK_C_ERROR, test_on_umock_c_error_calls[0].error_code);
+    ASSERT_ARE_EQUAL(UMOCK_C_ERROR_CODE, UMOCK_C_NULL_ARGUMENT, test_on_umock_c_error_calls[1].error_code);
+}
+
+/* Tests_SRS_UMOCK_C_LIB_01_209: [ The CaptureArgumentValue_{arg_name} shall copy the value of the argument at the time of the call to arg_value. ]*/
+TEST_FUNCTION(CaptureArgumentValue_captures_the_argument_value)
+{
+    // arrange
+    int captured_arg_value = 42;
+
+    STRICT_EXPECTED_CALL(test_dependency_1_arg_no_return(IGNORED_NUM_ARG))
+        .CaptureArgumentValue_a(&captured_arg_value);
+
+    // act
+    test_dependency_1_arg_no_return(43);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 43, captured_arg_value);
+    ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_expected_calls());
+    ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
+}
+
+/* Tests_SRS_UMOCK_C_LIB_01_209: [ The CaptureArgumentValue_{arg_name} shall copy the value of the argument at the time of the call to arg_value. ]*/
+TEST_FUNCTION(CaptureArgumentValue_does_not_capture_when_matching_does_not_happen)
+{
+    // arrange
+    int captured_arg_value = 42;
+
+    STRICT_EXPECTED_CALL(test_dependency_1_arg_no_return(41))
+        .CaptureArgumentValue_a(&captured_arg_value);
+
+    // act
+    test_dependency_1_arg_no_return(43);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 42, captured_arg_value);
+}
+
+/* Tests_SRS_UMOCK_C_LIB_01_209: [ The CaptureArgumentValue_{arg_name} shall copy the value of the argument at the time of the call to arg_value. ]*/
+TEST_FUNCTION(CaptureArgumentValue_does_not_capture_when_matching_does_not_happen_on_another_argument)
+{
+    // arrange
+    int captured_arg_value = 42;
+
+    STRICT_EXPECTED_CALL(test_dependency_2_args(IGNORED_NUM_ARG, 41))
+        .CaptureArgumentValue_a(&captured_arg_value);
+
+    // act
+    test_dependency_2_args(43, 42);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 42, captured_arg_value);
+}
+
+/* Tests_SRS_UMOCK_C_LIB_01_211: [ The CaptureArgumentValue_{arg_name} shall not change the how the argument is validated. ]*/
+TEST_FUNCTION(CaptureArgumentValue_does_not_disable_argument_validation)
+{
+    // arrange
+    int captured_arg_value = 42;
+
+    EXPECTED_CALL(test_dependency_2_args(41, 41))
+        .ValidateAllArguments()
+        .CaptureArgumentValue_a(&captured_arg_value);
+
+    // act
+    test_dependency_2_args(43, 41);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 42, captured_arg_value);
+}
+
 END_TEST_SUITE(umock_c_integrationtests)
