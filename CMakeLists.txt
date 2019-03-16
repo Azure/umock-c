@@ -81,7 +81,10 @@ IF(WIN32)
     add_definitions(/WX)
 ENDIF()
 
-add_library(umock_c ${umock_c_c_files} ${umock_c_h_files})
+FILE(GLOB umock_c_md_files "devdoc/*.md")
+SOURCE_GROUP(devdoc FILES ${umock_c_md_files})
+
+add_library(umock_c ${umock_c_c_files} ${umock_c_h_files} ${umock_c_md_files})
 
 set_target_properties(umock_c
                PROPERTIES
