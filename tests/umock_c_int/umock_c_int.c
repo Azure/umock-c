@@ -2997,4 +2997,23 @@ TEST_FUNCTION(CaptureArgumentValue_does_not_disable_argument_validation)
     ASSERT_ARE_EQUAL(int, 42, captured_arg_value);
 }
 
+/* Tests_SRS_UMOCK_C_LIB_01_211: [ The CaptureArgumentValue_{arg_name} shall not change the how the argument is validated. ]*/
+TEST_FUNCTION(CaptureArgumentValue_captures_for_a_function_that_returns_something)
+{
+    // arrange
+    int captured_arg_value = 42;
+    int result;
+
+    EXPECTED_CALL(test_dependency_1_arg(41))
+        .CaptureArgumentValue_a(&captured_arg_value)
+        .SetReturn(44);
+
+    // act
+    result = test_dependency_1_arg(43);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 43, captured_arg_value);
+    ASSERT_ARE_EQUAL(int, 44, result);
+}
+
 END_TEST_SUITE(umock_c_integrationtests)

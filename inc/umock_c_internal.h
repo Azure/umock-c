@@ -11,7 +11,6 @@ extern "C" {
 #include <stdlib.h>
 #endif
 
-#include <windows.h>
 #include <stdio.h>
 
 #include "macro_utils.h"

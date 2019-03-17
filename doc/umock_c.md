@@ -882,6 +882,8 @@ The `CaptureArgumentValue_{arg_name}` shall copy the value of the argument at th
 If `arg_value` is NULL, `umock_c` shall raise an error with the code `UMOCK_C_NULL_ARGUMENT`.
 The `CaptureArgumentValue_{arg_name}` shall not change the how the argument is validated.
 
+The copy is done using the copy functions registered with umock for the argument type.
+
 Example:
 
 Given a function with the prototype:

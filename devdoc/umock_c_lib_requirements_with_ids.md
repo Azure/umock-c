@@ -895,9 +895,11 @@ TEST_FUNCTION(validate_argument_as_type_sample)
 
 ### CaptureArgumentValue_{arg_name}(arg_type* arg_value)
 
-**SRS_UMOCK_C_LIB_01_209: [** The `CaptureArgumentValue_{arg_name}` shall copy the value of the argument at the time of the call to `arg_value`. **]**
-**SRS_UMOCK_C_LIB_01_210: [** If `arg_value` is NULL, `umock_c` shall raise an error with the code `UMOCK_C_NULL_ARGUMENT`. **]**
+XX**SRS_UMOCK_C_LIB_01_209: [** The `CaptureArgumentValue_{arg_name}` shall copy the value of the argument at the time of the call to `arg_value`. **]**
+XX**SRS_UMOCK_C_LIB_01_210: [** If `arg_value` is NULL, `umock_c` shall raise an error with the code `UMOCK_C_NULL_ARGUMENT`. **]**
 **SRS_UMOCK_C_LIB_01_211: [** The `CaptureArgumentValue_{arg_name}` shall not change the how the argument is validated. **]**
+
+The copy is done using the copy functions registered with umock for the argument type.
 
 Example:
 
