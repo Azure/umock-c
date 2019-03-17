@@ -80,6 +80,9 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 #define COPY_OVERRIDE_ARGUMENT_TYPE(arg_type, arg_name) \
     result->MU_C2(override_argument_type_, arg_name) = (typed_mock_call_data->MU_C2(override_argument_type_, arg_name) == NULL) ? NULL : umockstring_clone(typed_mock_call_data->MU_C2(override_argument_type_, arg_name));
 
+#define COPY_CAPTURE_ARG_VALUE(arg_type, arg_name) \
+    result->MU_C2(capture_arg_value_pointer_, arg_name) = typed_mock_call_data->MU_C2(capture_arg_value_pointer_, arg_name);
+
 #define COPY_ARG_VALUE(arg_type, arg_name) umocktypes_copy(GET_USED_ARGUMENT_TYPE(typed_mock_call_data, arg_name, arg_type), (void*)&result->arg_name, (void*)&typed_mock_call_data->arg_name);
 #define COPY_OUT_ARG_BUFFERS(count, arg_type, arg_name) \
     result->out_arg_buffers[COUNT_OF(result->out_arg_buffers) - MU_DIV2(count)] = &result->MU_C2(out_arg_buffer_,arg_name); \
@@ -1180,6 +1183,7 @@ typedef struct MOCK_CALL_METADATA_TAG
         MU_FOR_EACH_2_COUNTED(COPY_VALIDATE_ARG_BUFFERS, __VA_ARGS__) \
         MU_FOR_EACH_2(COPY_VALIDATE_ARG_VALUE, __VA_ARGS__) \
         MU_FOR_EACH_2(COPY_OVERRIDE_ARGUMENT_TYPE, __VA_ARGS__) \
+        MU_FOR_EACH_2(COPY_CAPTURE_ARG_VALUE, __VA_ARGS__) \
         MU_IF(IS_NOT_VOID(return_type), \
         result->return_value_set = typed_mock_call_data_result->return_value_set; \
         result->fail_return_value_set = typed_mock_call_data_result->fail_return_value_set; \
@@ -1244,6 +1248,7 @@ typedef struct MOCK_CALL_METADATA_TAG
         MU_FOR_EACH_2_COUNTED(CLEAR_OUT_ARG_BUFFERS, __VA_ARGS__) \
         MU_FOR_EACH_2_COUNTED(CLEAR_VALIDATE_ARG_BUFFERS, __VA_ARGS__) \
         MU_FOR_EACH_2(CLEAR_VALIDATE_ARG_VALUE, __VA_ARGS__) \
+        MU_FOR_EACH_2(CLEAR_CAPTURE_ARG_VALUE, __VA_ARGS__) \
         MU_FOR_EACH_2(CLEAR_OVERRIDE_ARGUMENT_TYPE, __VA_ARGS__) \
         MU_IF(IS_NOT_VOID(return_type),mock_call_data->return_value_set = RETURN_VALUE_NOT_SET; \
         mock_call_data->captured_return_value = NULL; \
