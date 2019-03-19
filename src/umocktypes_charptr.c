@@ -3,7 +3,7 @@
 
 #include <string.h>
 #include "umocktypes.h"
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils.h"
 #include "umocktypes_charptr.h"
 #include "umockalloc.h"
 #include "umock_log.h"

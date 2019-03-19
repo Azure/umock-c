@@ -10,7 +10,7 @@ extern "C" {
 #else
 #include <stdlib.h>
 #endif
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils.h"
 #include "umockcallrecorder.h"
 
 /* Define UMOCK_STATIC to static to make mocks private to compilation unit */

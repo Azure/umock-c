@@ -4,7 +4,7 @@
 #ifndef UMOCKTYPES_STDINT_H
 #define UMOCKTYPES_STDINT_H
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils.h"
 #ifdef __cplusplus
 #include <cstdint>
 extern "C" {
