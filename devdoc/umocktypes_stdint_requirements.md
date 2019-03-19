@@ -13,10 +13,10 @@ Currently the supported types are:
 extern int umocktypes_c_register_types(void);
 
 #define UMOCKTYPES_STDINT_HANDLERS(type, function_postfix) \
-    extern char* C2(umocktypes_stringify_,function_postfix)(const type* value); \
-    extern int C2(umocktypes_are_equal_, function_postfix)(const type* left, const type* right); \
-    extern int C2(umocktypes_copy_, function_postfix)(type* destination, const type* source); \
-    extern void C2(umocktypes_free_, function_postfix)(type* value);
+    extern char* MU_C2(umocktypes_stringify_,function_postfix)(const type* value); \
+    extern int MU_C2(umocktypes_are_equal_, function_postfix)(const type* left, const type* right); \
+    extern int MU_C2(umocktypes_copy_, function_postfix)(type* destination, const type* source); \
+    extern void MU_C2(umocktypes_free_, function_postfix)(type* value);
 
 UMOCKTYPES_STDINT_HANDLERS(uint8_t, uint8_t)
 UMOCKTYPES_STDINT_HANDLERS(int8_t, int8_t)
