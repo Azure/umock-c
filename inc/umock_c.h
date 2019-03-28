@@ -5,8 +5,8 @@
 #define UMOCK_C_H
 
 #ifdef __cplusplus
-extern "C" {
 #include <cstdlib>
+extern "C" {
 #else
 #include <stdlib.h>
 #endif
@@ -52,10 +52,10 @@ typedef void(*ON_UMOCK_C_ERROR)(UMOCK_C_ERROR_CODE error_code);
 
 /* Codes_SRS_UMOCK_C_LIB_01_013: [STRICT_EXPECTED_CALL shall record that a certain call is expected.] */
 #define STRICT_EXPECTED_CALL(call) \
-	MU_C2(get_auto_ignore_args_function_, call)(MU_C2(umock_c_strict_expected_,call), #call)
+    MU_C2(get_auto_ignore_args_function_, call)(MU_C2(umock_c_strict_expected_,call), #call)
 
 #define EXPECTED_CALL(call) \
-	MU_C2(umock_c_expected_,call)
+    MU_C2(umock_c_expected_,call)
 
 #define DECLARE_UMOCK_POINTER_TYPE_FOR_TYPE(value_type, alias) \
     char* MU_C3(stringify_func_,alias,ptr)(const value_type** value) \
