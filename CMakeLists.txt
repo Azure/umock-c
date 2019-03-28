@@ -49,7 +49,7 @@ if(NOT ${use_installed_dependencies})
         include_directories(deps/azure-macro-utils-c/inc)
     endif()
 
-    if(${original_run_e2e_tests} OR ${original_run_unittests})
+    if(${original_run_int_tests} OR ${original_run_unittests})
         if (NOT TARGET testrunnerswitcher)
             add_subdirectory(deps/testrunner)
         endif()
