@@ -33,7 +33,7 @@
 
 #else
 
-#include "macro_utils.h"
+#include "azure_macro_utils/macro_utils.h"
 
 #define UMOCK_C_PROD_ARG_IN_SIGNATURE(count, arg_type, arg_name) arg_type arg_name MU_IFCOMMA(count)
 

@@ -34,8 +34,37 @@ endif()
 include (CTest)
 include (CheckIncludeFiles)
 
+#do not add or build any tests of the dependencies
+set(original_run_e2e_tests ${run_e2e_tests})
+set(original_run_int_tests ${run_int_tests})
+set(original_run_unittests ${run_unittests})
+
+set(run_e2e_tests OFF)
+set(run_int_tests OFF)
+set(run_unittests OFF)
+
+if(NOT ${use_installed_dependencies})
+    if ((NOT TARGET azure_macro_utils_c) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/azure-macro-utils-c/CMakeLists.txt))
+        add_subdirectory(deps/azure-macro-utils-c)
+        include_directories(deps/azure-macro-utils-c/inc)
+    endif()
+
+    if(${original_run_e2e_tests} OR ${original_run_unittests})
+        if (NOT TARGET testrunnerswitcher)
+            add_subdirectory(deps/testrunner)
+        endif()
+        if (NOT TARGET ctest)
+            add_subdirectory(deps/ctest)
+        endif()
+    endif()
+endif()
+
 # Add dependencies or submodules if use_installed_dependencies is OFF
 include(dependencies.cmake)
+
+set(run_e2e_tests ${original_run_e2e_tests})
+set(run_int_tests ${original_run_int_tests})
+set(run_unittests ${original_run_unittests})
 
 set(umock_c_c_files
 ./src/umock_c.c

@@ -13,7 +13,7 @@ extern "C" {
 
 #include <stdio.h>
 
-#include "macro_utils.h"
+#include "azure_macro_utils/macro_utils.h"
 #include "umocktypes.h"
 #include "umockcall.h"
 #include "umockcallrecorder.h"
