@@ -68,40 +68,41 @@ set(run_int_tests ${original_run_int_tests})
 set(run_unittests ${original_run_unittests})
 
 set(umock_c_c_files
-./src/umock_c.c
-./src/umock_c_negative_tests.c
-./src/umockalloc.c
-./src/umockcall.c
-./src/umockcallrecorder.c
-./src/umocktypename.c
-./src/umocktypes.c
-./src/umocktypes_bool.c
-./src/umocktypes_c.c
-./src/umocktypes_stdint.c
-./src/umocktypes_charptr.c
-./src/umockcallpairs.c
-./src/umockstring.c
-./src/umockautoignoreargs.c
-./src/umock_log.c
+    ./src/umock_c.c
+    ./src/umock_c_negative_tests.c
+    ./src/umockalloc.c
+    ./src/umockcall.c
+    ./src/umockcallrecorder.c
+    ./src/umocktypename.c
+    ./src/umocktypes.c
+    ./src/umocktypes_bool.c
+    ./src/umocktypes_c.c
+    ./src/umocktypes_stdint.c
+    ./src/umocktypes_charptr.c
+    ./src/umockcallpairs.c
+    ./src/umockstring.c
+    ./src/umockautoignoreargs.c
+    ./src/umock_log.c
 )
 
 set(umock_c_h_files
-./inc/umock_c/umock_c.h
-./inc/umock_c/umock_c_internal.h
-./inc/umock_c/umock_c_negative_tests.h
-./inc/umock_c/umockalloc.h
-./inc/umock_c/umockcall.h
-./inc/umock_c/umockcallrecorder.h
-./inc/umock_c/umocktypename.h
-./inc/umock_c/umocktypes.h
-./inc/umock_c/umocktypes_bool.h
-./inc/umock_c/umocktypes_c.h
-./inc/umock_c/umocktypes_stdint.h
-./inc/umock_c/umocktypes_charptr.h
-./inc/umock_c/umockcallpairs.h
-./inc/umock_c/umockstring.h
-./inc/umock_c/umockautoignoreargs.h
-./inc/umock_c/umock_log.h
+    ./inc/umock_c/umock_c.h
+    ./inc/umock_c/umock_c_internal.h
+    ./inc/umock_c/umock_c_negative_tests.h
+    ./inc/umock_c/umock_c_prod.h
+    ./inc/umock_c/umockalloc.h
+    ./inc/umock_c/umockcall.h
+    ./inc/umock_c/umockcallrecorder.h
+    ./inc/umock_c/umocktypename.h
+    ./inc/umock_c/umocktypes.h
+    ./inc/umock_c/umocktypes_bool.h
+    ./inc/umock_c/umocktypes_c.h
+    ./inc/umock_c/umocktypes_stdint.h
+    ./inc/umock_c/umocktypes_charptr.h
+    ./inc/umock_c/umockcallpairs.h
+    ./inc/umock_c/umockstring.h
+    ./inc/umock_c/umockautoignoreargs.h
+    ./inc/umock_c/umock_log.h
 )
 
 IF(WIN32)
@@ -118,7 +119,7 @@ add_library(umock_c ${umock_c_c_files} ${umock_c_h_files} ${umock_c_md_files})
 
 set_target_properties(umock_c
                PROPERTIES
-               FOLDER "test_tools") 
+               FOLDER "test_tools")
 
 #these are the include folders
 #the following "set" statetement exports across the project a global variable called UMOCK_C_INC_FOLDER that expands to whatever needs to included when using umock_c library
