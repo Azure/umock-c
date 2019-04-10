@@ -11,7 +11,7 @@ extern "C" {
 #include <stdlib.h>
 #endif
 #include "azure_macro_utils/macro_utils.h"
-#include "umockcallrecorder.h"
+#include "umock_c/umockcallrecorder.h"
 
 /* Define UMOCK_STATIC to static to make mocks private to compilation unit */
 #ifndef UMOCK_STATIC
@@ -137,8 +137,8 @@ extern int umock_c_set_call_recorder(UMOCKCALLRECORDER_HANDLE umockc_call_record
 #define UMOCK_TYPE(value_type) \
     (const char*)(const void*)(const value_type*)(const void*)MU_TOSTRING(value_type)
 
-#include "umock_c_internal.h"
-#include "umock_c_prod.h"
+#include "umock_c/umock_c_internal.h"
+#include "umock_c/umock_c_prod.h"
 
 #ifdef __cplusplus
 }

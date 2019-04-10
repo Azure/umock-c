@@ -14,15 +14,15 @@ extern "C" {
 #include <stdio.h>
 
 #include "azure_macro_utils/macro_utils.h"
-#include "umocktypes.h"
-#include "umockcall.h"
-#include "umockcallrecorder.h"
-#include "umock_c.h"
-#include "umock_log.h"
-#include "umockalloc.h"
-#include "umockcallpairs.h"
-#include "umockstring.h"
-#include "umockautoignoreargs.h"
+#include "umock_c/umocktypes.h"
+#include "umock_c/umockcall.h"
+#include "umock_c/umockcallrecorder.h"
+#include "umock_c/umock_c.h"
+#include "umock_c/umock_log.h"
+#include "umock_c/umockalloc.h"
+#include "umock_c/umockcallpairs.h"
+#include "umock_c/umockstring.h"
+#include "umock_c/umockautoignoreargs.h"
 
 extern void umock_c_indicate_error(UMOCK_C_ERROR_CODE error_code);
 extern UMOCKCALL_HANDLE umock_c_get_last_expected_call(void);
