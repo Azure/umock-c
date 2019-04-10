@@ -4,7 +4,7 @@
 #ifndef TEST_DEPENDENCY_H
 #define TEST_DEPENDENCY_H
 
-#include "umock_c_prod.h"
+#include "umock_c/umock_c_prod.h"
 
 #ifdef __cplusplus
 #include <cstddef>

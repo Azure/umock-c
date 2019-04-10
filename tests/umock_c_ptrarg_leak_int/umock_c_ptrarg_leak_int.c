@@ -13,8 +13,8 @@
 
 #define ENABLE_MOCKS
 
-#include "umock_c.h"
-#include "umocktypes_charptr.h"
+#include "umock_c/umock_c.h"
+#include "umock_c/umocktypes_charptr.h"
 
 MOCKABLE_FUNCTION(, int, a_char_star_arg_function, char*, x);
 

@@ -5,8 +5,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-#include "umock_log.h"
-#include "umock_c_internal.h"
+#include "umock_c/umock_log.h"
+#include "umock_c/umock_c_internal.h"
 
 void UMOCK_LOG(const char* format, ...)
 {

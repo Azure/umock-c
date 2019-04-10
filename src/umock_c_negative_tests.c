@@ -2,11 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include <stddef.h>
-#include "umock_c_negative_tests.h"
-#include "umock_c.h"
-#include "umockcall.h"
-#include "umockcallrecorder.h"
-#include "umock_log.h"
+#include "umock_c/umock_c_negative_tests.h"
+#include "umock_c/umock_c.h"
+#include "umock_c/umockcall.h"
+#include "umock_c/umockcallrecorder.h"
+#include "umock_c/umock_log.h"
 
 static UMOCKCALLRECORDER_HANDLE snapshot_call_recorder;
 typedef enum UMOCK_C_NEGATIVE_TESTS_STATE_TAG

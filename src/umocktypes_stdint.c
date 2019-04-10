@@ -7,10 +7,10 @@
 #include <string.h>
 #include <inttypes.h>
 #include "azure_macro_utils/macro_utils.h"
-#include "umocktypes.h"
-#include "umocktypes_stdint.h"
-#include "umockalloc.h"
-#include "umock_log.h"
+#include "umock_c/umocktypes.h"
+#include "umock_c/umocktypes_stdint.h"
+#include "umock_c/umockalloc.h"
+#include "umock_c/umock_log.h"
 
 #define IMPLEMENT_STRINGIFY(type, function_postfix, printf_specifier) \
     char* MU_C2(umocktypes_stringify_,function_postfix)(type* value) \

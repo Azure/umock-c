@@ -3,10 +3,10 @@
 
 #include <string.h>
 #include <stddef.h>
-#include "umockcallpairs.h"
-#include "umockalloc.h"
-#include "umock_log.h"
-#include "umocktypes.h"
+#include "umock_c/umockcallpairs.h"
+#include "umock_c/umockalloc.h"
+#include "umock_c/umock_log.h"
+#include "umock_c/umocktypes.h"
 
 int umockcallpairs_track_create_paired_call(PAIRED_HANDLES* paired_handles, const void* handle, const char* handle_type, size_t handle_type_size)
 {

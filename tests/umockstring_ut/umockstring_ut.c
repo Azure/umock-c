@@ -10,8 +10,8 @@
 #endif
 
 #include "testrunnerswitcher.h"
-#include "umockstring.h"
-#include "umock_log.h"
+#include "umock_c/umockstring.h"
+#include "umock_c/umock_log.h"
 
 void UMOCK_LOG(const char* format, ...)
 {

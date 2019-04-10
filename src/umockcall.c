@@ -3,9 +3,9 @@
 
 #include <stddef.h>
 #include <string.h>
-#include "umockcall.h"
-#include "umockalloc.h"
-#include "umock_log.h"
+#include "umock_c/umockcall.h"
+#include "umock_c/umockalloc.h"
+#include "umock_c/umock_log.h"
 
 typedef struct UMOCKCALL_TAG
 {

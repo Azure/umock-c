@@ -32,12 +32,12 @@ Tests_SRS_UMOCK_C_LIB_01_147: [ Type names are case sensitive. ]
 Tests_SRS_UMOCK_C_LIB_01_194: [ If the first argument passed to destroy_call is not found in the list of tracked handles (returned by create_call) then umock_c shall raise an error with the code UMOCK_C_INVALID_PAIRED_CALLS. ]
 */
 
-#include "umock_c.h"
+#include "umock_c/umock_c.h"
 #define ENABLE_MOCKS
 #include "test_dependency.h"
 
 /* Tests_SRS_UMOCK_C_LIB_01_067: [char\* and const char\* shall be supported out of the box through a separate header, umockvalue_charptr.h.]*/
-#include "umocktypes_charptr.h"
+#include "umock_c/umocktypes_charptr.h"
 
 typedef struct test_on_umock_c_error_CALL_TAG
 {

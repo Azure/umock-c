@@ -2,11 +2,11 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include <string.h>
-#include "umocktypes.h"
+#include "umock_c/umocktypes.h"
 #include "azure_macro_utils/macro_utils.h"
-#include "umocktypes_charptr.h"
-#include "umockalloc.h"
-#include "umock_log.h"
+#include "umock_c/umocktypes_charptr.h"
+#include "umock_c/umockalloc.h"
+#include "umock_c/umock_log.h"
 
 char* umocktypes_stringify_charptr(const char** value)
 {

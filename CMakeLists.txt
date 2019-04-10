@@ -86,22 +86,22 @@ set(umock_c_c_files
 )
 
 set(umock_c_h_files
-./inc/umock_c.h
-./inc/umock_c_internal.h
-./inc/umock_c_negative_tests.h
-./inc/umockalloc.h
-./inc/umockcall.h
-./inc/umockcallrecorder.h
-./inc/umocktypename.h
-./inc/umocktypes.h
-./inc/umocktypes_bool.h
-./inc/umocktypes_c.h
-./inc/umocktypes_stdint.h
-./inc/umocktypes_charptr.h
-./inc/umockcallpairs.h
-./inc/umockstring.h
-./inc/umockautoignoreargs.h
-./inc/umock_log.h
+./inc/umock_c/umock_c.h
+./inc/umock_c/umock_c_internal.h
+./inc/umock_c/umock_c_negative_tests.h
+./inc/umock_c/umockalloc.h
+./inc/umock_c/umockcall.h
+./inc/umock_c/umockcallrecorder.h
+./inc/umock_c/umocktypename.h
+./inc/umock_c/umocktypes.h
+./inc/umock_c/umocktypes_bool.h
+./inc/umock_c/umocktypes_c.h
+./inc/umock_c/umocktypes_stdint.h
+./inc/umock_c/umocktypes_charptr.h
+./inc/umock_c/umockcallpairs.h
+./inc/umock_c/umockstring.h
+./inc/umock_c/umockautoignoreargs.h
+./inc/umock_c/umock_log.h
 )
 
 IF(WIN32)
@@ -130,7 +130,7 @@ CHECK_INCLUDE_FILES(stdint.h HAVE_STDINT_H)
 CHECK_INCLUDE_FILES(stdbool.h HAVE_STDBOOL_H)
 
 if ((NOT HAVE_STDINT_H) OR (NOT HAVE_STDBOOL_H))
-    include_directories(${UMOCK_C_INC_FOLDER}/aux_inc)
+    include_directories(${UMOCK_C_INC_FOLDER}/umock_c/aux_inc)
 endif()
 
 include("configs/umock_cFunctions.cmake")
@@ -156,7 +156,7 @@ if(${use_installed_dependencies})
         RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}/../bin
         INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
     )
-    install(FILES ${umock_c_h_files} "./inc/umock_c_prod.h" DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+    install(FILES ${umock_c_h_files} "./inc/umock_c/umock_c_prod.h" DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
     include(CMakePackageConfigHelpers)
 

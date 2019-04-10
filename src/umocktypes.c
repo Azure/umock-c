@@ -4,10 +4,10 @@
 #include <ctype.h>
 #include <stddef.h>
 #include <string.h>
-#include "umocktypes.h"
-#include "umocktypename.h"
-#include "umockalloc.h"
-#include "umock_log.h"
+#include "umock_c/umocktypes.h"
+#include "umock_c/umocktypename.h"
+#include "umock_c/umockalloc.h"
+#include "umock_c/umock_log.h"
 
 typedef struct UMOCK_VALUE_TYPE_HANDLERS_TAG
 {

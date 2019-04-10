@@ -11,7 +11,7 @@
 #endif
 
 #include "testrunnerswitcher.h"
-#include "umock_c.h"
+#include "umock_c/umock_c.h"
 
 #define ENABLE_MOCKS
 

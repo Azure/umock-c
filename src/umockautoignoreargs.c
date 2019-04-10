@@ -4,9 +4,9 @@
 #include <stddef.h>
 #include <string.h>
 #include <ctype.h>
-#include "umockalloc.h"
-#include "umockautoignoreargs.h"
-#include "umock_log.h"
+#include "umock_c/umockalloc.h"
+#include "umock_c/umockautoignoreargs.h"
+#include "umock_c/umock_log.h"
 
 static const char ignore_ptr_arg_string[] = "IGNORED_PTR_ARG";
 static const char ignore_num_arg_string[] = "IGNORED_NUM_ARG";

@@ -3,9 +3,9 @@
 
 #include <stddef.h>
 #include <string.h>
-#include "umockalloc.h"
-#include "umockstring.h"
-#include "umock_log.h"
+#include "umock_c/umockalloc.h"
+#include "umock_c/umockstring.h"
+#include "umock_c/umock_log.h"
 
 char* umockstring_clone(const char* source)
 {

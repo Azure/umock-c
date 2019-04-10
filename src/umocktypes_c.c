@@ -5,10 +5,10 @@
 #include <stddef.h>
 #include <string.h>
 #include "azure_macro_utils/macro_utils.h"
-#include "umocktypes.h"
-#include "umocktypes_c.h"
-#include "umockalloc.h"
-#include "umock_log.h"
+#include "umock_c/umocktypes.h"
+#include "umock_c/umocktypes_c.h"
+#include "umock_c/umockalloc.h"
+#include "umock_c/umock_log.h"
 
 #ifdef _MSC_VER
 #define snprintf _snprintf

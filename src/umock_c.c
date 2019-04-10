@@ -1,12 +1,12 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "umock_c.h"
-#include "umockcall.h"
-#include "umocktypes.h"
-#include "umocktypes_c.h"
-#include "umockcallrecorder.h"
-#include "umock_log.h"
+#include "umock_c/umock_c.h"
+#include "umock_c/umockcall.h"
+#include "umock_c/umocktypes.h"
+#include "umock_c/umocktypes_c.h"
+#include "umock_c/umockcallrecorder.h"
+#include "umock_c/umock_log.h"
 
 typedef enum UMOCK_C_STATE_TAG
 {

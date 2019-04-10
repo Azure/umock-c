@@ -3,9 +3,9 @@
 
 #include <ctype.h>
 #include <stddef.h>
-#include "umocktypename.h"
-#include "umockalloc.h"
-#include "umock_log.h"
+#include "umock_c/umocktypename.h"
+#include "umock_c/umockalloc.h"
+#include "umock_c/umock_log.h"
 
 char* umocktypename_normalize(const char* type_name)
 {

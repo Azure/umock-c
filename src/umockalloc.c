@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdio.h>
-#include "umockalloc.h"
+#include "umock_c/umockalloc.h"
 
 void* umockalloc_malloc(size_t size)
 {

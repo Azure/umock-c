@@ -3,11 +3,11 @@
 
 #include <stddef.h>
 #include <string.h>
-#include "umockcallrecorder.h"
-#include "umockcall.h"
-#include "umocktypes.h"
-#include "umockalloc.h"
-#include "umock_log.h"
+#include "umock_c/umockcallrecorder.h"
+#include "umock_c/umockcall.h"
+#include "umock_c/umocktypes.h"
+#include "umock_c/umockalloc.h"
+#include "umock_c/umock_log.h"
 
 typedef struct UMOCK_EXPECTED_CALL_TAG
 {

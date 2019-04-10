@@ -11,12 +11,12 @@
 
 #include "testrunnerswitcher.h"
 
-#include "umock_c.h"
-#include "umock_c_negative_tests.h"
+#include "umock_c/umock_c.h"
+#include "umock_c/umock_c_negative_tests.h"
 
 #define ENABLE_MOCKS
 #include "test_dependency.h"
-#include "umocktypes_charptr.h"
+#include "umock_c/umocktypes_charptr.h"
 
 static TEST_MUTEX_HANDLE test_mutex;
 

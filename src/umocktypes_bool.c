@@ -5,10 +5,10 @@
 #include <stddef.h>
 #include <string.h>
 #include "azure_macro_utils/macro_utils.h"
-#include "umocktypes.h"
-#include "umock_c.h"
-#include "umockalloc.h"
-#include "umocktypes_bool.h"
+#include "umock_c/umocktypes.h"
+#include "umock_c/umock_c.h"
+#include "umock_c/umockalloc.h"
+#include "umock_c/umocktypes_bool.h"
 
 /* Codes_SRS_UMOCKTYPES_BOOL_01_002: [ umocktypes_stringify_bool shall return the string representation of value. ]*/
 char* umocktypes_stringify_bool(const bool* value)

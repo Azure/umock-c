@@ -26,7 +26,7 @@ set(${theseTestsName}_c_files
 )
 
 set(${theseTestsName}_h_files
-../../inc/umock_c_negative_tests.h
+../../inc/umock_c/umock_c_negative_tests.h
 test_dependency.h
 )
 

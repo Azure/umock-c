@@ -11,7 +11,7 @@
 
 #include "testrunnerswitcher.h"
 
-#include "umock_c.h"
+#include "umock_c/umock_c.h"
 
 MOCKABLE_FUNCTION(, int, test_generate_signature, int, a, double, b, char*, s);
 MOCKABLE_FUNCTION(, void, test_generate_signature_void_return, int, a);
