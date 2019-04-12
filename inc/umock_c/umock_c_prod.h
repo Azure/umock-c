@@ -29,7 +29,7 @@
 #define MOCKABLE_FUNCTION(modifiers, result, function, ...) \
     MU_IF(ENABLE_MOCK_FILTERING_SWITCH,MU_IF(MU_C2(please_mock_, function),MOCKABLE_FUNCTION_DISABLED,MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK), MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK) (modifiers, result, function, __VA_ARGS__)
 
-#include "umock_c.h"
+#include "umock_c/umock_c.h"
 
 #else
 
