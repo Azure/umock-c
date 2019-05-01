@@ -187,4 +187,7 @@ if(${use_installed_dependencies})
         DESTINATION
             ${package_location}
     )
+else()
+    install(FILES ${umock_c_h_files}
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/umock_c)
 endif()
