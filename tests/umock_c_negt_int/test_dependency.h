@@ -29,6 +29,8 @@ typedef void* SOME_OTHER_HANDLE;
     MOCKABLE_FUNCTION(, int, function_mark_cannot_fail_no_args);
     MOCKABLE_FUNCTION(, int, function_mark_cannot_fail_with_args, int, x);
 
+    MOCKABLE_FUNCTION_WITH_RETURNS(, int, 42, 43, function_with_returns);
+
 #ifdef __cplusplus
 }
 #endif

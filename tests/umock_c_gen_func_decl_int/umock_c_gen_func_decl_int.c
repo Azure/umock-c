@@ -16,6 +16,9 @@
 MOCKABLE_FUNCTION(, int, test_generate_signature, int, a, double, b, char*, s);
 MOCKABLE_FUNCTION(, void, test_generate_signature_void_return, int, a);
 MOCKABLE_FUNCTION(, void, test_generate_signature_no_args);
+MOCKABLE_FUNCTION_WITH_RETURNS(, int, 42, 43, test_generate_signature_with_returns, int, a, double, b, char*, s);
+MOCKABLE_FUNCTION_WITH_RETURNS(, int, 42, 43, test_generate_signature_no_args_with_returns);
+MOCKABLE_FUNCTION_WITH_RETURNS(, void*, (void*)0x4243, NULL, test_generate_signature_with_returns_returning_ptr);
 
 int test_generate_signature(int a, double b, char* s)
 {
@@ -32,6 +35,24 @@ void test_generate_signature_void_return(int a)
 
 void test_generate_signature_no_args(void)
 {
+}
+
+int test_generate_signature_with_returns(int a, double b, char* s)
+{
+    (void)a;
+    (void)b;
+    (void)s;
+    return 42;
+}
+
+int test_generate_signature_no_args_with_returns(void)
+{
+    return 42;
+}
+
+void* test_generate_signature_with_returns_returning_ptr(void)
+{
+    return (void*)0x4242;
 }
 
 static TEST_MUTEX_HANDLE test_mutex_generate_funcs;
@@ -97,6 +118,42 @@ TEST_FUNCTION(when_ENABLE_MOCKS_is_not_on_MOCKABLE_FUNCTION_generates_a_standard
 
     // assert
     // no explicit assert
+}
+
+/* Tests_SRS_UMOCK_C_LIB_01_213: [ The macro shall generate a function signature in case `ENABLE_MOCKS` is not defined. ]*/
+TEST_FUNCTION(when_ENABLE_MOCKS_is_not_on_MOCKABLE_FUNCTION_generates_a_standard_function_declaration_for_MOCKABLE_FUNCTION_WITH_RETURNS_with_args)
+{
+    // arrange
+
+    // act
+    int result = test_generate_signature_with_returns(1, 0.42, "42");
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 42, result);
+}
+
+/* Tests_SRS_UMOCK_C_LIB_01_213: [ The macro shall generate a function signature in case `ENABLE_MOCKS` is not defined. ]*/
+TEST_FUNCTION(when_ENABLE_MOCKS_is_not_on_MOCKABLE_FUNCTION_generates_a_standard_function_declaration_for_MOCKABLE_FUNCTION_WITH_RETURNS_no_args)
+{
+    // arrange
+
+    // act
+    int result = test_generate_signature_no_args_with_returns();
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 42, result);
+}
+
+/* Tests_SRS_UMOCK_C_LIB_01_213: [ The macro shall generate a function signature in case `ENABLE_MOCKS` is not defined. ]*/
+TEST_FUNCTION(when_ENABLE_MOCKS_is_not_on_MOCKABLE_FUNCTION_generates_a_standard_function_declaration_for_MOCKABLE_FUNCTION_WITH_RETURNS_with_ptr_return)
+{
+    // arrange
+
+    // act
+    void* result = test_generate_signature_with_returns_returning_ptr();
+
+    // assert
+    ASSERT_ARE_EQUAL(void_ptr, 0x4242, result);
 }
 
 END_TEST_SUITE(umock_c_generate_function_declaration_integrationtests)

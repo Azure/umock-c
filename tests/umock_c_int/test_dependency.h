@@ -75,6 +75,10 @@ extern "C" {
 
     MOCKABLE_FUNCTION(, void, test_mock_function_with_enum_type, TEST_ENUM, enum_type);
 
+    MOCKABLE_FUNCTION_WITH_RETURNS(, int, 42, 43, test_dependency_with_returns_no_args_returning_int);
+    MOCKABLE_FUNCTION_WITH_RETURNS(, void*, (void*)0x4242, (void*)0x4243, test_dependency_with_returns_no_args_returning_void_ptr);
+    MOCKABLE_FUNCTION_WITH_RETURNS(, TEST_STRUCT, { 0x42 }, { 0x43 }, test_dependency_with_returns_no_args_returning_struct);
+
 #ifdef __cplusplus
 }
 #endif

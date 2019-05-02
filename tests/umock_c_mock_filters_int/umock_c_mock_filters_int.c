@@ -31,6 +31,16 @@ static void test_on_umock_c_error(UMOCK_C_ERROR_CODE error_code)
     ASSERT_FAIL("umock error");
 }
 
+int do_not_actually_mock(void)
+{
+    return 0x42;
+}
+
+int do_not_actually_mock_with_returns(void)
+{
+    return 0x42;
+}
+
 BEGIN_TEST_SUITE(umock_c_mock_filters_int_tests)
 
 TEST_SUITE_INITIALIZE(suite_init)
@@ -60,11 +70,6 @@ TEST_FUNCTION_CLEANUP(test_function_cleanup)
     TEST_MUTEX_RELEASE(test_mutex);
 }
 
-int do_not_actually_mock(void)
-{
-    return 0x42;
-}
-
 TEST_FUNCTION(call_the_not_mocked_function)
 {
     // arrange
@@ -72,6 +77,19 @@ TEST_FUNCTION(call_the_not_mocked_function)
 
     // act
     result = do_not_actually_mock();
+
+    // assert
+    ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
+    ASSERT_ARE_EQUAL(int, 0x42, result);
+}
+
+TEST_FUNCTION(call_the_not_mocked_function_with_returns)
+{
+    // arrange
+    int result;
+
+    // act
+    result = do_not_actually_mock_with_returns();
 
     // assert
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());

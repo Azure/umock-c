@@ -3016,4 +3016,67 @@ TEST_FUNCTION(CaptureArgumentValue_captures_for_a_function_that_returns_somethin
     ASSERT_ARE_EQUAL(int, 44, result);
 }
 
+/* MOCKABLE_FUNCTION_WITH_RETURNS */
+
+/* Tests_SRS_UMOCK_C_LIB_01_212: [ `MOCKABLE_FUNCTION_WITH_RETURNS` shall be used to wrap function definitions, allowing the user to declare a function that can be mocked and aditionally declares the values that are to be returned in case of success and failure. ]*/
+TEST_FUNCTION(MOCKABLE_FUNCTION_WITH_RETURNS_with_one_arg_and_int_return_registers_the_success_return_value)
+{
+    // arrange
+    int result;
+
+    STRICT_EXPECTED_CALL(test_dependency_with_returns_no_args_returning_int());
+
+    // act
+    result = test_dependency_with_returns_no_args_returning_int();
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 42, result);
+}
+
+/* Tests_SRS_UMOCK_C_LIB_01_212: [ `MOCKABLE_FUNCTION_WITH_RETURNS` shall be used to wrap function definitions, allowing the user to declare a function that can be mocked and aditionally declares the values that are to be returned in case of success and failure. ]*/
+TEST_FUNCTION(MOCKABLE_FUNCTION_WITH_RETURNS_with_one_arg_and_void_ptr_return_registers_the_success_return_value)
+{
+    // arrange
+    void* result;
+
+    STRICT_EXPECTED_CALL(test_dependency_with_returns_no_args_returning_void_ptr());
+
+    // act
+    result = test_dependency_with_returns_no_args_returning_void_ptr();
+
+    // assert
+    ASSERT_ARE_EQUAL(void_ptr, (void*)0x4242, result);
+}
+
+/* Tests_SRS_UMOCK_C_LIB_01_212: [ `MOCKABLE_FUNCTION_WITH_RETURNS` shall be used to wrap function definitions, allowing the user to declare a function that can be mocked and aditionally declares the values that are to be returned in case of success and failure. ]*/
+TEST_FUNCTION(MOCKABLE_FUNCTION_WITH_RETURNS_with_one_arg_and_struct_return_registers_the_success_return_value)
+{
+    // arrange
+    TEST_STRUCT result;
+
+    STRICT_EXPECTED_CALL(test_dependency_with_returns_no_args_returning_struct());
+
+    // act
+    result = test_dependency_with_returns_no_args_returning_struct();
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 0x42, result.x);
+}
+
+/* Tests_SRS_UMOCK_C_LIB_01_212: [ `MOCKABLE_FUNCTION_WITH_RETURNS` shall be used to wrap function definitions, allowing the user to declare a function that can be mocked and aditionally declares the values that are to be returned in case of success and failure. ]*/
+TEST_FUNCTION(SetReturn_overrides_MOCKABLE_FUNCTION_WITH_RETURNS)
+{
+    // arrange
+    int result;
+
+    STRICT_EXPECTED_CALL(test_dependency_with_returns_no_args_returning_int())
+        .SetReturn(44);
+
+    // act
+    result = test_dependency_with_returns_no_args_returning_int();
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 44, result);
+}
+
 END_TEST_SUITE(umock_c_integrationtests)

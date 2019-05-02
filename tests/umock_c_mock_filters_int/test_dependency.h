@@ -12,6 +12,7 @@ extern "C" {
 
     MOCKABLE_FUNCTION(, int, the_mocked_one);
     MOCKABLE_FUNCTION(, int, do_not_actually_mock);
+    MOCKABLE_FUNCTION_WITH_RETURNS(, int, 1, 2, do_not_actually_mock_with_returns);
 
 #ifdef __cplusplus
 }
