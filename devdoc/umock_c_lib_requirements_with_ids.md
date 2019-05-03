@@ -77,7 +77,7 @@ typedef void(*ON_UMOCK_C_ERROR)(UMOCK_C_ERROR_CODE error_code);
 #define MOCKABLE_FUNCTION(modifiers, result, function, ...) \
 	...
 
-#define MOCKABLE_FUNCTION_WITH_RETURNS(modifiers, result, success_return_value, failure_return_value, function, ...) \
+#define MOCKABLE_FUNCTION_WITH_RETURNS(modifiers, result, function, ...)(success_return_value, failure_return_value) \
 	...
 
 #define REGISTER_GLOBAL_MOCK_HOOK(mock_function, mock_hook_function) \
@@ -133,7 +133,7 @@ int FAR test_function(int arg1);
 ### MOCKABLE_FUNCTION_WITH_RETURNS
 
 ```c
-#define MOCKABLE_FUNCTION_WITH_RETURNS(modifiers, result, success_return_value, failure_return_value, function, ...) \
+#define MOCKABLE_FUNCTION_WITH_RETURNS(modifiers, result, function, ...)(success_return_value, failure_return_value) \
 ```
 
 **SRS_UMOCK_C_LIB_01_212: [** `MOCKABLE_FUNCTION_WITH_RETURNS` shall be used to wrap function definitions, allowing the user to declare a function that can be mocked and aditionally declares the values that are to be returned in case of success and failure. **]**
@@ -143,7 +143,7 @@ int FAR test_function(int arg1);
 Example:
 
 ```c
-MOCKABLE_FUNCTION_WITH_RETURNS(FAR, int, 0, 42, test_function, int, arg1)
+MOCKABLE_FUNCTION_WITH_RETURNS(FAR, int, test_function, int, arg1)(0, 42)
 ```
 
 **SRS_UMOCK_C_LIB_01_214: [** Specifying the return values for success and failure shall be equivalent to calling `REGISTER_GLOBAL_MOCK_RETURNS`. **]**

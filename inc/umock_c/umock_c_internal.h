@@ -873,7 +873,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 #define IMPLEMENT_REGISTER_GLOBAL_MOCK_RETURN(return_type, name, ...) \
     MU_IF(IS_NOT_VOID(return_type), UMOCK_STATIC void MU_C2(set_global_mock_return_, name)(return_type return_value) \
     { \
-        MU_C2(mock_call_default_result_,name) = return_value; \
+        MU_C2(get_mock_call_return_values_,name)()->success_value = return_value; \
     }, ) \
 
 /* Codes_SRS_UMOCK_C_LIB_01_111: [The REGISTER_GLOBAL_MOCK_FAIL_RETURN shall register a fail return value to be returned by a mock function when marked as failed in the expected calls.]*/
@@ -882,7 +882,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 #define IMPLEMENT_REGISTER_GLOBAL_MOCK_FAIL_RETURN(return_type, name, ...) \
     MU_IF(IS_NOT_VOID(return_type), UMOCK_STATIC void MU_C2(set_global_mock_fail_return_, name)(return_type fail_return_value) \
     { \
-        MU_C2(mock_call_fail_result_,name) = fail_return_value; \
+        MU_C2(get_mock_call_return_values_,name)()->failure_value = fail_return_value; \
     }, ) \
 
 /* Codes_SRS_UMOCK_C_LIB_01_113: [The REGISTER_GLOBAL_MOCK_RETURNS shall register both a success and a fail return value associated with a mock function.]*/
@@ -891,15 +891,15 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 #define IMPLEMENT_REGISTER_GLOBAL_MOCK_RETURNS(return_type, name, ...) \
     MU_IF(IS_NOT_VOID(return_type), UMOCK_STATIC void MU_C2(set_global_mock_returns_, name)(return_type return_value, return_type fail_return_value) \
     { \
-        MU_C2(mock_call_default_result_,name) = return_value; \
-        MU_C2(mock_call_fail_result_,name) = fail_return_value; \
+        MU_C2(get_mock_call_return_values_,name)()->success_value = return_value; \
+        MU_C2(get_mock_call_return_values_,name)()->failure_value = fail_return_value; \
     }, ) \
 
 #define DECLARE_VALIDATE_ONE_ARGUMENT_FUNC_TYPE(name) \
     typedef struct MU_C2(_mock_call_modifier_, name) (*MU_C2(validate_one_argument_func_type_, name))(void);
 
 #define COPY_RETURN_VALUE(return_type, name) \
-    result = MU_C2(mock_call_default_result_, name);
+    result = MU_C2(get_mock_call_return_values_, name)()->success_value;
 
 typedef struct MOCK_CALL_ARG_METADATA_TAG
 {
@@ -970,7 +970,7 @@ typedef struct MOCK_CALL_METADATA_TAG
 /* Codes_SRS_UMOCK_C_LIB_01_139: [ - If a global return value has been specified then it shall be returned. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_140: [ - Otherwise the value of a static variable of the same type as the return type shall be returned. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_188: [ The create call shall have a non-void return type. ]*/
-#define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE(return_type, success_return_value, failure_return_value, name, ...) \
+#define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE(do_returns, return_type, name, ...) \
     typedef return_type (*MU_C2(mock_hook_func_type_, name))(MU_IF(MU_COUNT_ARG(__VA_ARGS__),,void) MU_FOR_EACH_2_COUNTED(ARG_IN_SIGNATURE, __VA_ARGS__)); \
     static MU_C2(mock_hook_func_type_,name) MU_C2(mock_hook_,name) = NULL; \
     static TRACK_CREATE_FUNC_TYPE MU_C2(track_create_destroy_pair_malloc_,name) = NULL; \
@@ -982,7 +982,25 @@ typedef struct MOCK_CALL_METADATA_TAG
     static const MOCK_CALL_METADATA MU_C2(mock_call_metadata_,name) = {MU_TOSTRING(return_type), MU_TOSTRING(name), MU_DIV2(MU_COUNT_ARG(__VA_ARGS__)), \
         MU_C2(mock_call_args_metadata_,name) }; \
     struct MU_C2(_mock_call_modifier_,name); \
-    MU_IF(IS_NOT_VOID(return_type),typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(set_return_func_type_,name))(return_type return_value); \
+    MU_IF(IS_NOT_VOID(return_type), \
+    typedef struct MU_C3(UMOCK_RETURNS_VALUES_STRUCT_, name, _TAG) \
+    { \
+        return_type success_value; \
+        return_type failure_value; \
+        int initialized : 1; \
+    } MU_C2(UMOCK_RETURNS_VALUES_STRUCT_, name); \
+    static MU_C2(UMOCK_RETURNS_VALUES_STRUCT_, name) MU_C2(mock_call_return_values_, name); \
+    static MU_C2(UMOCK_RETURNS_VALUES_STRUCT_, name)* MU_C2(get_mock_call_return_values_, name)(void); \
+        MU_IF(IS_NOT_VOID(return_type), \
+        MU_IF(do_returns,, \
+            static MU_C2(UMOCK_RETURNS_VALUES_STRUCT_, name)* MU_C2(get_mock_call_return_values_, name)(void) \
+            { \
+                MU_C2(UMOCK_RETURNS_VALUES_STRUCT_, name)* result = &MU_C2(mock_call_return_values_, name); \
+                return result; \
+            } \
+        ) \
+    ,) \
+typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(set_return_func_type_,name))(return_type return_value); \
     typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(set_fail_return_func_type_,name))(return_type return_value); \
     typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(call_cannot_fail_func_type_,name))(void); \
     typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(capture_return_func_type_,name))(return_type* captured_return_value);,) \
@@ -1198,8 +1216,7 @@ typedef struct MOCK_CALL_METADATA_TAG
         },) \
         return result; \
     } \
-    MU_IF(IS_NOT_VOID(return_type),static return_type MU_C2(mock_call_default_result_,name) MU_IF(MU_COUNT_ARG(success_return_value), = success_return_value,); \
-    static return_type MU_C2(mock_call_fail_result_,name) MU_IF(MU_COUNT_ARG(failure_return_value), = failure_return_value,); \
+    MU_IF(IS_NOT_VOID(return_type), \
     IMPLEMENT_SET_RETURN_FUNCTION(return_type, name, __VA_ARGS__) \
     IMPLEMENT_SET_FAIL_RETURN_FUNCTION(return_type, name, __VA_ARGS__) \
     IMPLEMENT_SET_CALL_CANNOT_FAIL(return_type, name, __VA_ARGS__) \
@@ -1240,7 +1257,7 @@ typedef struct MOCK_CALL_METADATA_TAG
         MU_IF(IS_NOT_VOID(return_type),TRACK_CREATE_FUNC_TYPE track_create_destroy_pair_malloc_local = MU_C2(track_create_destroy_pair_malloc_,name); \
             PAIRED_HANDLES* used_paired_handles_local = MU_C2(used_paired_handles_,name); \
             const char* return_type_string =MU_TOSTRING(return_type);,) \
-        MU_IF(IS_NOT_VOID(return_type),return_type result = MU_C2(mock_call_default_result_,name);,) \
+        MU_IF(IS_NOT_VOID(return_type),return_type result = MU_C2(get_mock_call_return_values_,name)()->success_value;,) \
         MU_C2(mock_call_,name)* matched_call_data; \
         MU_C2(mock_call_,name)* mock_call_data = (MU_C2(mock_call_,name)*)umockalloc_malloc(sizeof(MU_C2(mock_call_,name))); \
         MU_FOR_EACH_2(COPY_ARG_TO_MOCK_STRUCT, __VA_ARGS__) \
@@ -1286,7 +1303,7 @@ typedef struct MOCK_CALL_METADATA_TAG
                         } \
                         else \
                         { \
-                            result = MU_C2(mock_call_fail_result_, name); \
+                            result = MU_C2(get_mock_call_return_values_, name)()->failure_value; \
                         } \
                         result_value_set = 1; \
                         fail_result_value_set = 1; \
@@ -1331,12 +1348,22 @@ typedef struct MOCK_CALL_METADATA_TAG
         },) \
         {
 
+#define UMOCK_GENERATE_DEFAULT_RETURNS(success_return_value, failure_return_value) \
+            = { success_return_value, failure_return_value }; \
+            if (!result->initialized) \
+            { \
+                result->success_value = temp.success_value; \
+                result->failure_value = temp.failure_value; \
+            } \
+            return result; \
+        } \
+
 /* Codes_SRS_UMOCK_C_LIB_01_188: [ The create call shall have a non-void return type. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_191: [ At each create_call a memory block shall be allocated so that it can be reported as a leak by any memory checker. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_192: [ If any error occurs during the create_call related then umock_c shall raise an error with the code UMOCK_C_ERROR. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_204: [ Tracking of paired calls shall not be done if the actual call to the create_call is using the SetFailReturn call modifier. ]*/
-#define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK(modifiers, return_type, success_return_value, failure_return_value, name, ...) \
-    MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE(return_type, success_return_value, failure_return_value, name, __VA_ARGS__) \
+#define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK(do_returns, modifiers, return_type, name, ...) \
+    MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE(do_returns, return_type, name, __VA_ARGS__) \
     MOCKABLE_FUNCTION_BODY_WITHOUT_RETURN(modifiers, return_type, name, __VA_ARGS__) \
             MU_IF(IS_NOT_VOID(return_type), \
             if (result_value_set == 0) \
@@ -1358,10 +1385,18 @@ typedef struct MOCK_CALL_METADATA_TAG
             return result;,) \
         } \
     } \
+    MU_IF(IS_NOT_VOID(return_type), \
+        MU_IF(do_returns, \
+            static MU_C2(UMOCK_RETURNS_VALUES_STRUCT_, name)* MU_C2(get_mock_call_return_values_, name)(void) \
+            { \
+                MU_C2(UMOCK_RETURNS_VALUES_STRUCT_, name)* result = &MU_C2(mock_call_return_values_, name); \
+                const MU_C2(UMOCK_RETURNS_VALUES_STRUCT_, name) temp \
+                UMOCK_GENERATE_DEFAULT_RETURNS,) \
+        ,) \
 
 /* Codes_SRS_UMOCK_C_LIB_01_150: [ MOCK_FUNCTION_WITH_CODE shall define a mock function and allow the user to embed code between this define and a MOCK_FUNCTION_END call. ]*/
 #define MOCK_FUNCTION_WITH_CODE(modifiers, return_type, name, ...) \
-    MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE(return_type, , , name, __VA_ARGS__) \
+    MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE(0, return_type, name, __VA_ARGS__) \
     MOCKABLE_FUNCTION_BODY_WITHOUT_RETURN(modifiers, return_type, name, __VA_ARGS__) \
 
 /* Codes_SRS_UMOCK_C_LIB_01_188: [ The create call shall have a non-void return type. ]*/

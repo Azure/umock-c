@@ -16,9 +16,9 @@
 MOCKABLE_FUNCTION(, int, test_generate_signature, int, a, double, b, char*, s);
 MOCKABLE_FUNCTION(, void, test_generate_signature_void_return, int, a);
 MOCKABLE_FUNCTION(, void, test_generate_signature_no_args);
-MOCKABLE_FUNCTION_WITH_RETURNS(, int, 42, 43, test_generate_signature_with_returns, int, a, double, b, char*, s);
-MOCKABLE_FUNCTION_WITH_RETURNS(, int, 42, 43, test_generate_signature_no_args_with_returns);
-MOCKABLE_FUNCTION_WITH_RETURNS(, void*, (void*)0x4243, NULL, test_generate_signature_with_returns_returning_ptr);
+MOCKABLE_FUNCTION_WITH_RETURNS(, int, test_generate_signature_with_returns, int, a, double, b, char*, s)(42, 43);
+MOCKABLE_FUNCTION_WITH_RETURNS(, int, test_generate_signature_no_args_with_returns)(42, 43);
+MOCKABLE_FUNCTION_WITH_RETURNS(, void*, test_generate_signature_with_returns_returning_ptr)((void*)0x4243, NULL);
 
 int test_generate_signature(int a, double b, char* s)
 {
