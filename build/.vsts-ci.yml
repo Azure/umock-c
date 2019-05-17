@@ -26,9 +26,9 @@ jobs:
     name: 'aziotbld-win03'
   steps:
   - script: |
-     if exist jenkins\windows_c.cmd (
+     if exist build\windows_c.cmd (
       call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\VsDevCmd.bat"
-      call jenkins\windows_c.cmd)
+      call build\windows_c.cmd)
     displayName: 'build'
     env:
       IOTHUB_CONNECTION_STRING: $(IOTHUB-CONNECTION-STRING)
@@ -55,9 +55,9 @@ jobs:
   displayName: raspberrypi
   steps:
   - script: |
-     if [ -f "jenkins/raspberrypi_c.sh" ]
+     if [ -f "build/raspberrypi_c.sh" ]
      then
-      sudo ./jenkins/raspberrypi_c.sh
+      sudo ./build/raspberrypi_c.sh
      fi 
     displayName: 'build'  
   - script: sudo rm -rf $(Agent.BuildDirectory)/*
@@ -69,9 +69,9 @@ jobs:
   displayName: 'gcc4.4'
   steps:
   - script: |
-     if [ -f "jenkins/linux_c_gcc44.sh" ]
+     if [ -f "build/linux_c_gcc44.sh" ]
      then
-      sudo ./jenkins/linux_c_gcc44.sh
+      sudo ./build/linux_c_gcc44.sh
      fi
     env:
       IOTHUB_CONNECTION_STRING: $(IOTHUB-CONNECTION-STRING)
@@ -90,9 +90,9 @@ jobs:
   displayName: 'gcc-4.6'
   steps:
   - script: |
-     if [ -f "jenkins/linux_c_gcc44.sh" ]
+     if [ -f "build/linux_c_gcc44.sh" ]
      then
-      sudo ./jenkins/linux_c_gcc44.sh
+      sudo ./build/linux_c_gcc44.sh
      fi
     env:
       IOTHUB_CONNECTION_STRING: $(IOTHUB-CONNECTION-STRING)
@@ -113,9 +113,9 @@ jobs:
   displayName: 'linux-options'
   steps:
   - script: | 
-     if [ -f "jenkins/linux_c_option_test.sh" ]
+     if [ -f "build/linux_c_option_test.sh" ]
      then 
-      sudo ./jenkins/linux_c_option_test.sh
+      sudo ./build/linux_c_option_test.sh
      fi
     displayName: 'build'
     condition: always()
@@ -127,9 +127,9 @@ jobs:
     name: 'win'
   steps:
   - script: |
-     if exist jenkins\windowsce_c.cmd (
+     if exist build\windowsce_c.cmd (
       call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\VsDevCmd.bat"
-      call jenkins\windowsce_c.cmd)
+      call build\windowsce_c.cmd)
     displayName: 'build'
   - script: cd .. && rd /Q /S $(Agent.BuildDirectory)\s
     displayName: 'cleanup'
@@ -139,9 +139,9 @@ jobs:
     name: 'aziotbld-win03'
   steps:
   - script: |
-     if exist jenkins\windows_c_build_as_dynamic.cmd (
+     if exist build\windows_c_build_as_dynamic.cmd (
       call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\VsDevCmd.bat"
-      call jenkins\windows_c_build_as_dynamic.cmd)
+      call build\windows_c_build_as_dynamic.cmd)
     displayName: 'build'
     env:
       IOTHUB_CONNECTION_STRING: $(IOTHUB-CONNECTION-STRING)
@@ -168,9 +168,9 @@ jobs:
     name: OSX
   steps:
   - script: |
-     if [ -f "jenkins/osx_gcc_openssl.sh" ]
+     if [ -f "build/osx_gcc_openssl.sh" ]
      then
-      ./jenkins/osx_gcc_openssl.sh
+      ./build/osx_gcc_openssl.sh
      fi
     displayName: 'build'  
     env:
@@ -201,11 +201,11 @@ jobs:
   displayName: 'clang'
   steps:
   - script: |
-     if [ -f "jenkins/ubuntu_clang.sh" ]
+     if [ -f "build/ubuntu_clang.sh" ]
      then
       export OPENSSL_ia32cap=0x00000000
       sudo chmod -R 755 .
-      sudo -E ./jenkins/ubuntu_clang.sh
+      sudo -E ./build/ubuntu_clang.sh
      fi
     displayName: 'build'
     env:
@@ -236,11 +236,11 @@ jobs:
   displayName: 'ubuntu1604'
   steps:
   - script: |
-     if [ -f "jenkins/ubuntu1604_c.sh" ]
+     if [ -f "build/ubuntu1604_c.sh" ]
      then
       export OPENSSL_ia32cap=0x00000000
       sudo chmod -R 755 .
-      sudo -E ./jenkins/ubuntu1604_c.sh
+      sudo -E ./build/ubuntu1604_c.sh
      fi
     displayName: 'build'
     env:
@@ -271,11 +271,11 @@ jobs:
   displayName: 'linux_install_deps'
   steps:
   - script: |
-     if [ -f "jenkins/linux_install_deps.sh" ]
+     if [ -f "build/linux_install_deps.sh" ]
      then
-      sudo chmod 755 jenkins/linux_install_deps.sh
-      sudo -E ./jenkins/linux_install_deps.sh
-      sudo jenkins/linux_install_deps.sh
+      sudo chmod 755 build/linux_install_deps.sh
+      sudo -E ./build/linux_install_deps.sh
+      sudo build/linux_install_deps.sh
      fi
     displayName: 'build'
     env:
@@ -306,11 +306,11 @@ jobs:
   displayName: 'debian'
   steps:
   - script: |
-     if [ -f "jenkins/debian_c.sh" ]
+     if [ -f "build/debian_c.sh" ]
      then
-      sudo chmod 755 jenkins/debian_c.sh
+      sudo chmod 755 build/debian_c.sh
       sudo -E ./debian_c.sh
-      sudo jenkins/debian_c.sh
+      sudo build/debian_c.sh
      fi
     displayName: 'build'
     env:
@@ -341,11 +341,11 @@ jobs:
   displayName: 'wolfssl'
   steps:
   - script: |
-     if [ -f "jenkins/linux_wolfssl.sh" ]
+     if [ -f "build/linux_wolfssl.sh" ]
      then
       LD_LIBRARY_PATH=/usr/local/lib
       LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/my_library/
-      sudo jenkins/linux_wolfssl.sh
+      sudo build/linux_wolfssl.sh
      fi
     displayName: 'build'
     env:
@@ -375,9 +375,9 @@ jobs:
   displayName: 'windowsx64'
   steps:
   - script: |
-     if exist jenkins\windows_c.cmd (
+     if exist build\windows_c.cmd (
       call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\VsDevCmd.bat"
-      call jenkins\windows_c.cmd --platform x64)
+      call build\windows_c.cmd --platform x64)
     displayName: 'build'
     env:
       IOTHUB_CONNECTION_STRING: $(IOTHUB-CONNECTION-STRING)
@@ -405,10 +405,10 @@ jobs:
     name: OSX
   steps:
   - script: |
-     if [ -f "jenkins/osx_xcode_native.sh" ]
+     if [ -f "build/osx_xcode_native.sh" ]
      then
       DYLD_LIBRARY_PATH=/usr/local/Cellar/curl/7.61.0/lib
-      ./jenkins/osx_xcode_native.sh
+      ./build/osx_xcode_native.sh
      fi
     displayName: 'build'  
     env:
