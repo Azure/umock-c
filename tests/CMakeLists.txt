@@ -4,7 +4,7 @@
 cmake_minimum_required(VERSION 2.8.11)
 
 #unit tests
-if(${run_int_tests})
+if(${run_unittests})
     add_subdirectory(umockalloc_ut)
     add_subdirectory(umockstring_ut)
     add_subdirectory(umockautoignoreargs_ut)
