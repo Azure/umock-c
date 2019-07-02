@@ -333,6 +333,10 @@ MOCK_FUNCTION_END()
 MOCK_FUNCTION_WITH_CODE(, volatile void*, mock_function_with_code_with_volatile_ptr_return);
 MOCK_FUNCTION_END(NULL)
 
+MOCK_FUNCTION_WITH_CODE(, const TEST_STRUCT*, mock_function_with_code_return_const_struct_ptr);
+MOCK_FUNCTION_END(NULL)
+
+
 BEGIN_TEST_SUITE(umock_c_integrationtests)
 
 TEST_SUITE_INITIALIZE(suite_init)

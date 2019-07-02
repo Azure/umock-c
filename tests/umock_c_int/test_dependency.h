@@ -46,6 +46,7 @@ extern "C" {
     MOCKABLE_FUNCTION(, void, test_dependency_1_arg_no_return, int, a);
     MOCKABLE_FUNCTION(, int, test_dependency_2_args, int, a, int, b);
     MOCKABLE_FUNCTION(, int, test_dependency_struct_arg, TEST_STRUCT, s);
+    MOCKABLE_FUNCTION(, const TEST_STRUCT*, test_dependency_return_const_struct_ptr);
     MOCKABLE_FUNCTION(, int, test_dependency_struct_with_2_members, TEST_STRUCT_WITH_2_MEMBERS, s, int, a);
     MOCKABLE_FUNCTION(, int, test_dependency_char_star_arg, char*, s);
     MOCKABLE_FUNCTION(, int, test_dependency_1_out_arg, int*, a);
