@@ -23,7 +23,7 @@ rem if you plan to use a different SDK you need to change SDKNAME to the name of
 set SDKNAME=TORADEX_CE800
 set PROCESSOR=arm
 
-cmake -Drun_unittests:bool=ON -Duse_cppunittests:bool=OFF -DWINCE=TRUE -DCMAKE_SYSTEM_NAME=WindowsCE -DCMAKE_SYSTEM_VERSION=8.0 -DCMAKE_SYSTEM_PROCESSOR=%PROCESSOR% -DCMAKE_GENERATOR_TOOLSET=CE800 -DCMAKE_GENERATOR_PLATFORM=%SDKNAME% %build-root%
+cmake -Drun_unittests:bool=ON -Duse_cppunittest:bool=OFF -DWINCE=TRUE -DCMAKE_SYSTEM_NAME=WindowsCE -DCMAKE_SYSTEM_VERSION=8.0 -DCMAKE_SYSTEM_PROCESSOR=%PROCESSOR% -DCMAKE_GENERATOR_TOOLSET=CE800 -DCMAKE_GENERATOR_PLATFORM=%SDKNAME% %build-root%
 
 if not %errorlevel%==0 exit /b %errorlevel%
 
