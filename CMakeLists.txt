@@ -106,6 +106,7 @@ set(umock_c_h_files
     ./inc/umock_c/umocktypes_c.h
     ./inc/umock_c/umocktypes_stdint.h
     ./inc/umock_c/umocktypes_charptr.h
+    ./inc/umocktypes_struct.h
     ./inc/umock_c/umockcallpairs.h
     ./inc/umock_c/umockstring.h
     ./inc/umock_c/umockautoignoreargs.h
