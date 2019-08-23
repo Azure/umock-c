@@ -24,9 +24,9 @@ extern void mock_free(void* ptr);
 #include "azure_macro_utils/macro_utils.h"
 
 #include "testrunnerswitcher.h"
-#include "umocktypes_struct.h"
-#include "umocktypes_c.h"
-#include "umock_c.h"
+#include "umock_c/umocktypes_struct.h"
+#include "umock_c/umocktypes_c.h"
+#include "umock_c/umock_c.h"
 
 void UMOCK_LOG(const char* format, ...)
 {
@@ -193,8 +193,6 @@ TEST_SUITE_INITIALIZE(suite_init)
 {
     int result;
 
-    TEST_INITIALIZE_MEMORY_DEBUG(global_mutex);
-
     test_mutex = TEST_MUTEX_CREATE();
     ASSERT_IS_NOT_NULL(test_mutex);
 
@@ -211,7 +209,6 @@ TEST_SUITE_CLEANUP(suite_cleanup)
     umock_c_deinit();
 
     TEST_MUTEX_DESTROY(test_mutex);
-    TEST_DEINITIALIZE_MEMORY_DEBUG(global_mutex);
 }
 
 TEST_FUNCTION_INITIALIZE(test_function_init)

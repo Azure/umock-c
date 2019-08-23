@@ -45,8 +45,8 @@ set(run_unittests OFF)
 if(${use_installed_dependencies})
     find_package(azure_macro_utils_c REQUIRED CONFIG)
 else()
-    if (NOT TARGET azure_macro_utils_c) 
-	if (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/azure-macro-utils-c/CMakeLists.txt)
+    if (NOT TARGET azure_macro_utils_c)
+    if (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/azure-macro-utils-c/CMakeLists.txt)
             add_subdirectory(deps/azure-macro-utils-c)
         else()
             message(FATAL_ERROR "Could not find azure_macro_utils_c")
@@ -106,7 +106,7 @@ set(umock_c_h_files
     ./inc/umock_c/umocktypes_c.h
     ./inc/umock_c/umocktypes_stdint.h
     ./inc/umock_c/umocktypes_charptr.h
-    ./inc/umocktypes_struct.h
+    ./inc/umock_c/umocktypes_struct.h
     ./inc/umock_c/umockcallpairs.h
     ./inc/umock_c/umockstring.h
     ./inc/umock_c/umockautoignoreargs.h
