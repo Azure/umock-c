@@ -50,7 +50,7 @@ extern "C" {
         { \
             MU_FOR_EACH_1(MU_DEFINE_ENUMERATION_CONSTANT_AS_STRING, __VA_ARGS__) \
         }; \
-        static enum_name MU_C2(enum_name,_values)[] = \
+        static const enum_name MU_C2(enum_name,_values)[] = \
         { \
             __VA_ARGS__ \
         }; \
@@ -63,7 +63,7 @@ extern "C" {
             size_t i; \
             for (i = 0; i < sizeof(MU_C2(enum_name,_strings)) / sizeof(MU_C2(enum_name,_strings)[0]); i++) \
             { \
-                if (MU_C2(enum_name,_values)[i] == (int)*value) \
+                if (MU_C2(enum_name,_values)[i] == *value) \
                 { \
                     break; \
                 } \
