@@ -9,6 +9,7 @@
 #include <string.h>
 #endif
 
+#include "azure_macro_utils/macro_utils.h"
 #include "testrunnerswitcher.h"
 #include "umock_c/umocktypes.h"
 #include "umock_c/umock_log.h"
@@ -22,6 +23,14 @@ typedef struct umocktypename_normalize_CALL_TAG
 {
     char* type_name;
 } umocktypename_normalize_CALL;
+
+#define TEST_BLAH_ENUM_TYPE_VALUES \
+    TEST_ENUM_TYPE_VALUE_1, \
+    TEST_ENUM_TYPE_VALUE_2
+
+MU_DEFINE_ENUM(TEST_BLAH_ENUM_TYPE, TEST_BLAH_ENUM_TYPE_VALUES);
+
+IMPLEMENT_UMOCK_C_ENUM_TYPE(TEST_BLAH_ENUM_TYPE, TEST_BLAH_ENUM_TYPE_VALUES);
 
 #define umocktypename_normalize_max_calls 5
 
@@ -1702,6 +1711,22 @@ TEST_FUNCTION(umocktypes_free_with_a_non_pointer_type_that_is_not_registered_doe
     ASSERT_ARE_EQUAL(size_t, 1, umocktypename_normalize_call_count);
     ASSERT_ARE_EQUAL(char_ptr, "const char", umocktypename_normalize_calls[0].type_name);
     ASSERT_ARE_EQUAL(size_t, 0, test_free_func_testtype_call_count);
+}
+
+/* Tests_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE shall implement umock_c handlers for an enum type. ]*/
+TEST_FUNCTION(stringify_for_enum_returns_the_desired_string)
+{
+    // arrange
+    TEST_BLAH_ENUM_TYPE test_blah_value = TEST_ENUM_TYPE_VALUE_1;
+    char* result;
+    (void)umocktypes_init();
+    REGISTER_TYPE(TEST_BLAH_ENUM_TYPE, TEST_BLAH_ENUM_TYPE);
+
+    // act
+    result = umocktypes_stringify_TEST_BLAH_ENUM_TYPE(&test_blah_value);
+
+    // assert
+    ASSERT_ARE_EQUAL(char_ptr, "TEST_ENUM_TYPE_VALUE_1", result);
 }
 
 END_TEST_SUITE(umocktypes_unittests)

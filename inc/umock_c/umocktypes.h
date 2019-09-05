@@ -12,7 +12,8 @@
 
 #include "azure_macro_utils/macro_utils.h"
 
-#include "umockalloc.h"
+#include "umock_c/umock_c.h"
+#include "umock_c/umockalloc.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,13 +42,17 @@ extern "C" {
             (UMOCKTYPE_FREE_FUNC)MU_C2(umocktypes_free_,function_postfix))
 
 /* Codes_SRS_UMOCK_C_LIB_01_181: [ If a value that is not part of the enum is used, it shall be treated as an int value. ]*/
-#define IMPLEMENT_UMOCK_C_ENUM_STRINGIFY(type, ...) \
-    UMOCK_STATIC char* MU_C2(umocktypes_stringify_,type)(const type* value) \
+#define IMPLEMENT_UMOCK_C_ENUM_STRINGIFY(enum_name, ...) \
+    UMOCK_STATIC char* MU_C2(umocktypes_stringify_,enum_name)(const enum_name* value) \
     { \
         char* result; \
-        static const char *MU_C2(enum_name,_strings)[]= \
+        static const char *MU_C2(enum_name,_strings)[] = \
         { \
             MU_FOR_EACH_1(MU_DEFINE_ENUMERATION_CONSTANT_AS_STRING, __VA_ARGS__) \
+        }; \
+        static enum_name MU_C2(enum_name,_values)[] = \
+        { \
+            __VA_ARGS__ \
         }; \
         if (value == NULL) \
         { \
@@ -55,9 +60,17 @@ extern "C" {
         } \
         else \
         { \
-            if ((int)*value < (int)(sizeof(MU_C2(enum_name,_strings)) / sizeof(MU_C2(enum_name,_strings)[0]))) \
+            size_t i; \
+            for (i = 0; i < sizeof(MU_C2(enum_name,_strings)) / sizeof(MU_C2(enum_name,_strings)[0]); i++) \
             { \
-                size_t length = strlen(MU_C2(enum_name_, strings)[*value]); \
+                if (MU_C2(enum_name,_values)[i] == (int)*value) \
+                { \
+                    break; \
+                } \
+            } \
+            if (i < sizeof(MU_C2(enum_name,_strings)) / sizeof(MU_C2(enum_name,_strings)[0])) \
+            { \
+                size_t length = strlen(MU_C2(enum_name, _strings)[i]); \
                 if (length == 0) \
                 { \
                     result = NULL; \
@@ -67,7 +80,7 @@ extern "C" {
                     result = (char*)umockalloc_malloc(length + 1); \
                     if (result != NULL) \
                     { \
-                        (void)memcpy(result, MU_C2(enum_name_, strings)[*value], length + 1); \
+                        (void)memcpy(result, MU_C2(enum_name, _strings)[i], length + 1); \
                     } \
                 } \
             } \
