@@ -41,19 +41,28 @@ extern "C" {
             (UMOCKTYPE_COPY_FUNC)MU_C2(umocktypes_copy_,function_postfix), \
             (UMOCKTYPE_FREE_FUNC)MU_C2(umocktypes_free_,function_postfix))
 
+#define ADD_UMOCK_STRINGIFY_VALUE(count, enum_value) \
+    int MU_C2(my_, enum_value); \
+
+#define ADD_UMOCK_STRINGIFY_ASSIGN_VALUE(count, enum_value) \
+    enum_values[enum_values_count - count] = MU_C2(my_, enum_value);
+
+#define PUT_UMOCK_ENUM_VALUE_IN_ARRAY(count, enum_value) \
+    MU_C2(enum_value_, count) ,
+
 /* Codes_SRS_UMOCK_C_LIB_01_181: [ If a value that is not part of the enum is used, it shall be treated as an int value. ]*/
 #define IMPLEMENT_UMOCK_C_ENUM_STRINGIFY(enum_name, ...) \
     UMOCK_STATIC char* MU_C2(umocktypes_stringify_,enum_name)(const enum_name* value) \
     { \
         char* result; \
+        MU_FOR_EACH_1_COUNTED(ADD_UMOCK_STRINGIFY_VALUE, __VA_ARGS__) \
         static const char *MU_C2(enum_name,_strings)[] = \
         { \
             MU_FOR_EACH_1(MU_DEFINE_ENUMERATION_CONSTANT_AS_STRING, __VA_ARGS__) \
         }; \
-        static const enum_name MU_C2(enum_name,_values)[] = \
-        { \
-            __VA_ARGS__ \
-        }; \
+        static size_t enum_values_count = MU_COUNT_ARG(__VA_ARGS__); \
+        static enum_name enum_values[MU_COUNT_ARG(__VA_ARGS__)]; \
+        MU_FOR_EACH_1_COUNTED(ADD_UMOCK_STRINGIFY_ASSIGN_VALUE, __VA_ARGS__) \
         if (value == NULL) \
         { \
             result = NULL; \
@@ -63,7 +72,7 @@ extern "C" {
             size_t i; \
             for (i = 0; i < sizeof(MU_C2(enum_name,_strings)) / sizeof(MU_C2(enum_name,_strings)[0]); i++) \
             { \
-                if (MU_C2(enum_name,_values)[i] == *value) \
+                if (enum_values[i] == *value) \
                 { \
                     break; \
                 } \
