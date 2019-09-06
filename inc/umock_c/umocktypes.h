@@ -96,6 +96,27 @@ extern "C" {
         return result; \
     }
 
+#define IMPLEMENT_UMOCK_C_ENUM_2_STRINGIFY(enum_name, ...) \
+    UMOCK_STATIC char* MU_C2(umocktypes_stringify_,enum_name)(const enum_name* value) \
+    { \
+        char* result; \
+        const char* enum_string = MU_ENUM_TO_STRING_2(enum_name, (*value)); \
+        size_t length = strlen(enum_string); \
+        if (length == 0) \
+        { \
+            result = NULL; \
+        } \
+        else \
+        { \
+            result = (char*)umockalloc_malloc(length + 1); \
+            if (result != NULL) \
+            { \
+                (void)memcpy(result, enum_string, length + 1); \
+            } \
+        } \
+        return result; \
+    }
+
 #define IMPLEMENT_UMOCK_C_ENUM_ARE_EQUAL(type) \
     UMOCK_STATIC int MU_C2(umocktypes_are_equal_,type)(const type* left, const type* right) \
     { \
@@ -138,6 +159,12 @@ extern "C" {
 /* Codes_SRS_UMOCK_C_LIB_01_180: [ The variable arguments are a list making up the enum values. ]*/
 #define IMPLEMENT_UMOCK_C_ENUM_TYPE(type, ...) \
     IMPLEMENT_UMOCK_C_ENUM_STRINGIFY(type, __VA_ARGS__) \
+    IMPLEMENT_UMOCK_C_ENUM_ARE_EQUAL(type) \
+    IMPLEMENT_UMOCK_C_ENUM_COPY(type) \
+    IMPLEMENT_UMOCK_C_ENUM_FREE(type)
+
+#define IMPLEMENT_UMOCK_C_ENUM_2_TYPE(type, ...) \
+    IMPLEMENT_UMOCK_C_ENUM_2_STRINGIFY(type, __VA_ARGS__) \
     IMPLEMENT_UMOCK_C_ENUM_ARE_EQUAL(type) \
     IMPLEMENT_UMOCK_C_ENUM_COPY(type) \
     IMPLEMENT_UMOCK_C_ENUM_FREE(type)
