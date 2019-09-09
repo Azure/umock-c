@@ -3,7 +3,7 @@
 
 # Overview
 
-umocktypes_struct is a module that exposes stringify, equality, copy, and free for structs in umock_c. It performs member-by-member operations.
+umocktypes_struct is a module that exposes stringify, an equality comparer, copy, and free for structs in umock_c. It performs member-by-member operations.
 
 # Exposed API
 
