@@ -12,7 +12,8 @@
 
 #include "azure_macro_utils/macro_utils.h"
 
-#include "umockalloc.h"
+#include "umock_c/umock_c.h"
+#include "umock_c/umockalloc.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,13 +42,17 @@ extern "C" {
             (UMOCKTYPE_FREE_FUNC)MU_C2(umocktypes_free_,function_postfix))
 
 /* Codes_SRS_UMOCK_C_LIB_01_181: [ If a value that is not part of the enum is used, it shall be treated as an int value. ]*/
-#define IMPLEMENT_UMOCK_C_ENUM_STRINGIFY(type, ...) \
-    UMOCK_STATIC char* MU_C2(umocktypes_stringify_,type)(const type* value) \
+#define IMPLEMENT_UMOCK_C_ENUM_STRINGIFY(enum_name, ...) \
+    UMOCK_STATIC char* MU_C2(umocktypes_stringify_,enum_name)(const enum_name* value) \
     { \
         char* result; \
-        static const char *MU_C2(enum_name,_strings)[]= \
+        static const char *MU_C2(enum_name,_strings)[] = \
         { \
             MU_FOR_EACH_1(MU_DEFINE_ENUMERATION_CONSTANT_AS_STRING, __VA_ARGS__) \
+        }; \
+        static const enum_name MU_C2(enum_name,_values)[] = \
+        { \
+            __VA_ARGS__ \
         }; \
         if (value == NULL) \
         { \
@@ -55,9 +60,17 @@ extern "C" {
         } \
         else \
         { \
-            if ((int)*value < (int)(sizeof(MU_C2(enum_name,_strings)) / sizeof(MU_C2(enum_name,_strings)[0]))) \
+            size_t i; \
+            for (i = 0; i < sizeof(MU_C2(enum_name,_strings)) / sizeof(MU_C2(enum_name,_strings)[0]); i++) \
             { \
-                size_t length = strlen(MU_C2(enum_name_, strings)[*value]); \
+                if (MU_C2(enum_name,_values)[i] == *value) \
+                { \
+                    break; \
+                } \
+            } \
+            if (i < sizeof(MU_C2(enum_name,_strings)) / sizeof(MU_C2(enum_name,_strings)[0])) \
+            { \
+                size_t length = strlen(MU_C2(enum_name, _strings)[i]); \
                 if (length == 0) \
                 { \
                     result = NULL; \
@@ -67,7 +80,7 @@ extern "C" {
                     result = (char*)umockalloc_malloc(length + 1); \
                     if (result != NULL) \
                     { \
-                        (void)memcpy(result, MU_C2(enum_name_, strings)[*value], length + 1); \
+                        (void)memcpy(result, MU_C2(enum_name, _strings)[i], length + 1); \
                     } \
                 } \
             } \
@@ -78,6 +91,27 @@ extern "C" {
                 { \
                     (void)sprintf(result, "%d", (int)*value); \
                 } \
+            } \
+        } \
+        return result; \
+    }
+
+#define IMPLEMENT_UMOCK_C_ENUM_2_STRINGIFY(enum_name, ...) \
+    UMOCK_STATIC char* MU_C2(umocktypes_stringify_,enum_name)(const enum_name* value) \
+    { \
+        char* result; \
+        const char* enum_string = MU_ENUM_TO_STRING_2(enum_name, (*value)); \
+        size_t length = strlen(enum_string); \
+        if (length == 0) \
+        { \
+            result = NULL; \
+        } \
+        else \
+        { \
+            result = (char*)umockalloc_malloc(length + 1); \
+            if (result != NULL) \
+            { \
+                (void)memcpy(result, enum_string, length + 1); \
             } \
         } \
         return result; \
@@ -125,6 +159,12 @@ extern "C" {
 /* Codes_SRS_UMOCK_C_LIB_01_180: [ The variable arguments are a list making up the enum values. ]*/
 #define IMPLEMENT_UMOCK_C_ENUM_TYPE(type, ...) \
     IMPLEMENT_UMOCK_C_ENUM_STRINGIFY(type, __VA_ARGS__) \
+    IMPLEMENT_UMOCK_C_ENUM_ARE_EQUAL(type) \
+    IMPLEMENT_UMOCK_C_ENUM_COPY(type) \
+    IMPLEMENT_UMOCK_C_ENUM_FREE(type)
+
+#define IMPLEMENT_UMOCK_C_ENUM_2_TYPE(type, ...) \
+    IMPLEMENT_UMOCK_C_ENUM_2_STRINGIFY(type, __VA_ARGS__) \
     IMPLEMENT_UMOCK_C_ENUM_ARE_EQUAL(type) \
     IMPLEMENT_UMOCK_C_ENUM_COPY(type) \
     IMPLEMENT_UMOCK_C_ENUM_FREE(type)

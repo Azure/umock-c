@@ -11,6 +11,7 @@ umocktypes_ut.c
 
 set(${theseTestsName}_c_files
 umocktypes_mocked.c
+../../src/umockalloc.c
 )
 
 set(${theseTestsName}_h_files
