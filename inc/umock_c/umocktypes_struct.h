@@ -86,7 +86,7 @@ extern "C" {
                     result = (char*)umockalloc_malloc((size_needed + 1) * sizeof(char)); \
                     if (result == NULL) \
                     { \
-                        UMOCK_LOG("umockalloc_malloc(%z) failed", (size_needed + 1) * sizeof(char)); \
+                        UMOCK_LOG("umockalloc_malloc(%zu) failed", (size_needed + 1) * sizeof(char)); \
                     } \
                     else \
                     { \
