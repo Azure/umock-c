@@ -848,11 +848,12 @@ TEST_FUNCTION(umocktypes_charptr_register_types_registers_all_types)
 
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(size_t, 2, umocktypes_register_type_call_count);
+    ASSERT_ARE_EQUAL(size_t, 3, umocktypes_register_type_call_count);
     ASSERT_ARE_EQUAL(char_ptr, "char*", umocktypes_register_type_calls[0].type);
     ASSERT_ARE_EQUAL(char_ptr, "const char*", umocktypes_register_type_calls[1].type);
+    ASSERT_ARE_EQUAL(char_ptr, "char const*", umocktypes_register_type_calls[2].type);
 
-    for (i = 0; i < 2; i++)
+    for (i = 0; i < 3; i++)
     {
         ASSERT_IS_NOT_NULL(umocktypes_register_type_calls[i].stringify_func);
         ASSERT_IS_NOT_NULL(umocktypes_register_type_calls[i].are_equal_func);
@@ -866,7 +867,7 @@ TEST_FUNCTION(when_the_underlying_register_fails_umocktypes_charptr_register_typ
 {
     size_t i;
 
-    for (i = 0; i < 2; i++)
+    for (i = 0; i < 3; i++)
     {
         // arrange
         int result;
