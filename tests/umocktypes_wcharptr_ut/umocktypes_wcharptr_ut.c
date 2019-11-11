@@ -218,7 +218,7 @@ TEST_FUNCTION(umocktypes_stringify_wcharptr_with_a_non_empty_string_returns_the_
     char* result = umocktypes_stringify_wcharptr(&input);
 
     // assert
-    ASSERT_ARE_EQUAL(wchar_ptr, "\"test42\"", result);
+    ASSERT_ARE_EQUAL(char_ptr, "\"test42\"", result);
 
     // cleanup
     free(result);

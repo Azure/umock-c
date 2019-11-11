@@ -3,6 +3,7 @@
 
 #include <errno.h>
 #include <string.h>
+#include <stddef.h>
 #include <stdlib.h>
 #include <wchar.h>
 #include "umock_c/umocktypes.h"
