@@ -53,7 +53,6 @@ char* umocktypes_stringify_wcharptr(const wchar_t** value)
                 }
                 else
                 {
-                    result[0] = '\"';
                     size_t num_characters2 = wcsrtombs(result + 1, &same_as_source, num_characters + 1, &state);
                     if (num_characters2 != num_characters)
                     {
@@ -63,6 +62,7 @@ char* umocktypes_stringify_wcharptr(const wchar_t** value)
                     }
                     else
                     {
+                        result[0] = '\"';
                         result[num_characters + 1] = '\"';
                         result[num_characters + 2] = '\0';
                         // OK
@@ -205,7 +205,6 @@ char* umocktypes_stringify_const_wcharptr(const wchar_t** value)
                 /* Codes_SRS_UMOCKTYPES_WCHARPTR_01_021: [ If allocating a new string to hold the string representation fails, umocktypes_stringify_const_wcharptr shall return NULL. ]*/
                 if (result != NULL)
                 {
-                    result[0] = '\"';
                     size_t num_characters2 = wcsrtombs(result + 1, &same_as_source, num_characters + 1, &state);
                     if (num_characters2 != num_characters)
                     {
@@ -215,6 +214,7 @@ char* umocktypes_stringify_const_wcharptr(const wchar_t** value)
                     }
                     else
                     {
+                        result[0] = '\"';
                         result[num_characters + 1] = '\"';
                         result[num_characters + 2] = '\0';
                         // OK

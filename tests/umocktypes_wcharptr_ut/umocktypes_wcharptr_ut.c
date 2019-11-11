@@ -355,12 +355,11 @@ TEST_FUNCTION(umocktypes_are_equal_wcharptr_with_string_being_the_same_returns_1
     wchar_t* input1_data = (wchar_t*)malloc(7 * sizeof(wchar_t));
     wchar_t* input2_data = (wchar_t*)malloc(7 * sizeof(wchar_t));
     int result;
+    const wchar_t* input1 = input1_data;
+    const wchar_t* input2 = input2_data;
 
     (void)wcscpy(input1_data, L"test42");
     (void)wcscpy(input2_data, L"test42");
-
-    const wchar_t* input1 = input1_data;
-    const wchar_t* input2 = input2_data;
 
     // act
     result = umocktypes_are_equal_wcharptr(&input1, &input2);
@@ -381,11 +380,11 @@ TEST_FUNCTION(umocktypes_are_equal_wcharptr_with_string_being_different_returns_
     wchar_t* input2_data = (wchar_t*)malloc(7 * sizeof(wchar_t));
     int result;
 
-    (void)wcscpy(input1_data, L"test42");
-    (void)wcscpy(input2_data, L"test43");
-
     const wchar_t* input1 = input1_data;
     const wchar_t* input2 = input2_data;
+
+    (void)wcscpy(input1_data, L"test42");
+    (void)wcscpy(input2_data, L"test43");
 
     // act
     result = umocktypes_are_equal_wcharptr(&input1, &input2);
@@ -406,11 +405,11 @@ TEST_FUNCTION(umocktypes_are_equal_wcharptr_with_string_being_different_in_case_
     wchar_t* input2_data = (wchar_t*)malloc(5 * sizeof(wchar_t));
     int result;
 
-    (void)wcscpy(input1_data, L"Test");
-    (void)wcscpy(input2_data, L"test");
-
     const wchar_t* input1 = input1_data;
     const wchar_t* input2 = input2_data;
+
+    (void)wcscpy(input1_data, L"Test");
+    (void)wcscpy(input2_data, L"test");
 
     // act
     result = umocktypes_are_equal_wcharptr(&input1, &input2);
@@ -666,11 +665,11 @@ TEST_FUNCTION(umocktypes_are_equal_const_wcharptr_with_string_being_the_same_ret
     wchar_t* input2_data = (wchar_t*)malloc(7 * sizeof(wchar_t));
     int result;
 
-    (void)wcscpy(input1_data, L"test42");
-    (void)wcscpy(input2_data, L"test42");
-
     const wchar_t* input1 = input1_data;
     const wchar_t* input2 = input2_data;
+
+    (void)wcscpy(input1_data, L"test42");
+    (void)wcscpy(input2_data, L"test42");
 
     // act
     result = umocktypes_are_equal_const_wcharptr(&input1, &input2);
@@ -691,11 +690,11 @@ TEST_FUNCTION(umocktypes_are_equal_const_wcharptr_with_string_being_different_re
     wchar_t* input2_data = (wchar_t*)malloc(7 * sizeof(wchar_t));
     int result;
 
-    (void)wcscpy(input1_data, L"test42");
-    (void)wcscpy(input2_data, L"test43");
-
     const wchar_t* input1 = input1_data;
     const wchar_t* input2 = input2_data;
+
+    (void)wcscpy(input1_data, L"test42");
+    (void)wcscpy(input2_data, L"test43");
 
     // act
     result = umocktypes_are_equal_const_wcharptr(&input1, &input2);
@@ -716,11 +715,11 @@ TEST_FUNCTION(umocktypes_are_equal_const_wcharptr_with_string_being_different_in
     wchar_t* input2_data = (wchar_t*)malloc(5 * sizeof(wchar_t));
     int result;
 
-    (void)wcscpy(input1_data, L"Test");
-    (void)wcscpy(input2_data, L"test");
-
     const wchar_t* input1 = input1_data;
     const wchar_t* input2 = input2_data;
+
+    (void)wcscpy(input1_data, L"Test");
+    (void)wcscpy(input2_data, L"test");
 
     // act
     result = umocktypes_are_equal_const_wcharptr(&input1, &input2);
