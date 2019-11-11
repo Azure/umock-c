@@ -86,6 +86,7 @@ set(umock_c_c_files
     ./src/umocktypes_c.c
     ./src/umocktypes_stdint.c
     ./src/umocktypes_charptr.c
+    ./src/umocktypes_wcharptr.c
     ./src/umockcallpairs.c
     ./src/umockstring.c
     ./src/umockautoignoreargs.c
@@ -107,6 +108,7 @@ set(umock_c_h_files
     ./inc/umock_c/umocktypes_stdint.h
     ./inc/umock_c/umocktypes_charptr.h
     ./inc/umock_c/umocktypes_struct.h
+    ./inc/umock_c/umocktypes_wcharptr.h
     ./inc/umock_c/umockcallpairs.h
     ./inc/umock_c/umockstring.h
     ./inc/umock_c/umockautoignoreargs.h
