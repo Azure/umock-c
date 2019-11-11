@@ -139,7 +139,7 @@ char* umockcall_stringify(UMOCKCALL_HANDLE umockcall)
 
     if (umockcall == NULL)
     {
-        /* Codes_SRS_UMOCKCALL_01_020: [ If the underlying umockcall_data_stringify call fails, umockcall_stringify shall fail and return NULL. ]*/
+        /* Codes_SRS_UMOCKCALL_01_017: [ If the umockcall argument is NULL, umockcall_stringify shall return NULL. ]*/
         UMOCK_LOG("umockcall: NULL umockcall in stringify.");
         result = NULL;
     }
@@ -155,10 +155,10 @@ char* umockcall_stringify(UMOCKCALL_HANDLE umockcall)
         }
         else
         {
-            /* Codes_SRS_UMOCKCALL_01_016: [ umockcall_stringify shall return a string representation of the mock call in the form \[function_name(arguments)\]. ] */
+            /* Codes_SRS_UMOCKCALL_01_016: [ umockcall_stringify shall return a string representation of the mock call in the form "[function_name(arguments)]". ] */
             size_t function_name_length = strlen(umockcall->function_name);
             size_t stringified_args_length = strlen(stringified_args);
-        
+
             /* 4 because () and [] */
             size_t call_length = function_name_length + stringified_args_length + 4;
 
@@ -190,11 +190,13 @@ void* umockcall_get_call_data(UMOCKCALL_HANDLE umockcall)
 
     if (umockcall == NULL)
     {
+        /* Codes_SRS_UMOCKCALL_01_023: [ If umockcall is NULL, umockcall_get_call_data shall return NULL. ]*/
         UMOCK_LOG("umockcall: NULL umockcall in getting call data.");
         umockcall_data = NULL;
     }
     else
     {
+        /* Codes_SRS_UMOCKCALL_01_022: [ umockcall_get_call_data shall return the associated umock call data that was passed to umockcall_create. ]*/
         umockcall_data = umockcall->umockcall_data;
     }
 
@@ -279,6 +281,7 @@ int umockcall_set_fail_call(UMOCKCALL_HANDLE umockcall, int fail_call)
         switch (fail_call)
         {
         default:
+            /* Codes_SRS_UMOCKCALL_01_040: [ If a value different than 0 and 1 is passed as fail_call, umockcall_set_fail_call shall return a non-zero value. ]*/
             UMOCK_LOG("umockcall_set_fail_call: Invalid fail_call value: %d.", fail_call);
             result = __LINE__;
             break;

@@ -26,10 +26,10 @@ char* umocktypes_stringify_bool(const bool* value)
         const char* stringified_bool = *value ? "true" : "false";
         size_t length = strlen(stringified_bool);
 
-        /* Codes_SRS_UMOCKTYPES_BOOL_01_004: [ If allocating a new string to hold the string representation fails, umocktypes_stringify_bool shall return NULL. ]*/
         result = (char*)umockalloc_malloc(length + 1);
         if (result == NULL)
         {
+            /* Codes_SRS_UMOCKTYPES_BOOL_01_004: [ If allocating a new string to hold the string representation fails, umocktypes_stringify_bool shall return NULL. ]*/
             UMOCK_LOG("umocktypes_stringify_bool: Cannot allocate memory for result.");
         }
         else

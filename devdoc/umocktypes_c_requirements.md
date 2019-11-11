@@ -43,9 +43,9 @@ int umocktypes_c_register_types(void);
 
 **SRS_UMOCKTYPES_C_01_001: [** umocktypes_c_register_types shall register support for all the types in the module. **]**
 
-**SRS_UMOCKTYPES_C_01_170: [** On success, umocktypes_c_register_types shall return 0. **]**
+**SRS_UMOCKTYPES_C_42_001: [** On success, umocktypes_c_register_types shall return 0. **]**
 
-**SRS_UMOCKTYPES_C_01_171: [** If registering any of the types fails, umocktypes_c_register_types shall fail and return a non-zero value. **]**
+**SRS_UMOCKTYPES_C_42_002: [** If registering any of the types fails, umocktypes_c_register_types shall fail and return a non-zero value. **]**
 
 ## umocktypes_stringify_char
 
@@ -58,8 +58,6 @@ char* umocktypes_stringify_char(const char* value);
 **SRS_UMOCKTYPES_C_01_003: [** If value is NULL, umocktypes_stringify_char shall return NULL. **]**
 
 **SRS_UMOCKTYPES_C_01_004: [** If allocating a new string to hold the string representation fails, umocktypes_stringify_char shall return NULL. **]**
-
-**SRS_UMOCKTYPES_C_01_005: [** If any other error occurs when creating the string representation, umocktypes_stringify_char shall return NULL. **]**
 
 ## umocktypes_are_equal_char
 
@@ -107,8 +105,6 @@ char* umocktypes_stringify_unsignedchar(const unsigned char* value);
 
 **SRS_UMOCKTYPES_C_01_016: [** If allocating a new string to hold the string representation fails, umocktypes_stringify_unsignedchar shall return NULL. **]**
 
-**SRS_UMOCKTYPES_C_01_017: [** If any other error occurs when creating the string representation, umocktypes_stringify_unsignedchar shall return NULL. **]**
-
 ## umocktypes_are_equal_unsignedchar
 
 ```c
@@ -154,8 +150,6 @@ char* umocktypes_stringify_short(const short* value);
 **SRS_UMOCKTYPES_C_01_027: [** If value is NULL, umocktypes_stringify_short shall return NULL. **]**
 
 **SRS_UMOCKTYPES_C_01_028: [** If allocating a new string to hold the string representation fails, umocktypes_stringify_short shall return NULL. **]**
-
-**SRS_UMOCKTYPES_C_01_029: [** If any other error occurs when creating the string representation, umocktypes_stringify_short shall return NULL. **]**
 
 ## umocktypes_are_equal_short
 
@@ -203,8 +197,6 @@ char* umocktypes_stringify_unsignedshort(const unsigned short* value);
 
 **SRS_UMOCKTYPES_C_01_040: [** If allocating a new string to hold the string representation fails, umocktypes_stringify_unsignedshort shall return NULL. **]**
 
-**SRS_UMOCKTYPES_C_01_041: [** If any other error occurs when creating the string representation, umocktypes_stringify_unsignedshort shall return NULL. **]**
-
 ## umocktypes_are_equal_unsignedshort
 
 ```c
@@ -250,8 +242,6 @@ char* umocktypes_stringify_int(const int* value);
 **SRS_UMOCKTYPES_C_01_051: [** If value is NULL, umocktypes_stringify_int shall return NULL. **]**
 
 **SRS_UMOCKTYPES_C_01_052: [** If allocating a new string to hold the string representation fails, umocktypes_stringify_int shall return NULL. **]**
-
-**SRS_UMOCKTYPES_C_01_053: [** If any other error occurs when creating the string representation, umocktypes_stringify_int shall return NULL. **]**
 
 ## umocktypes_are_equal_int
 
@@ -299,8 +289,6 @@ char* umocktypes_stringify_unsignedint(const unsigned int* value);
 
 **SRS_UMOCKTYPES_C_01_064: [** If allocating a new string to hold the string representation fails, umocktypes_stringify_unsignedint shall return NULL. **]**
 
-**SRS_UMOCKTYPES_C_01_065: [** If any other error occurs when creating the string representation, umocktypes_stringify_unsignedint shall return NULL. **]**
-
 ## umocktypes_are_equal_unsignedint
 
 ```c
@@ -346,8 +334,6 @@ char* umocktypes_stringify_long(const long* value);
 **SRS_UMOCKTYPES_C_01_075: [** If value is NULL, umocktypes_stringify_long shall return NULL. **]**
 
 **SRS_UMOCKTYPES_C_01_076: [** If allocating a new string to hold the string representation fails, umocktypes_stringify_long shall return NULL. **]**
-
-**SRS_UMOCKTYPES_C_01_077: [** If any other error occurs when creating the string representation, umocktypes_stringify_long shall return NULL. **]**
 
 ## umocktypes_are_equal_long
 
@@ -395,8 +381,6 @@ char* umocktypes_stringify_unsignedlong(const unsigned long* value);
 
 **SRS_UMOCKTYPES_C_01_088: [** If allocating a new string to hold the string representation fails, umocktypes_stringify_unsignedlong shall return NULL. **]**
 
-**SRS_UMOCKTYPES_C_01_089: [** If any other error occurs when creating the string representation, umocktypes_stringify_unsignedlong shall return NULL. **]**
-
 ## umocktypes_are_equal_unsignedlong
 
 ```c
@@ -442,8 +426,6 @@ char* umocktypes_stringify_longlong(const long long* value);
 **SRS_UMOCKTYPES_C_01_099: [** If value is NULL, umocktypes_stringify_longlong shall return NULL. **]**
 
 **SRS_UMOCKTYPES_C_01_100: [** If allocating a new string to hold the string representation fails, umocktypes_stringify_longlong shall return NULL. **]**
-
-**SRS_UMOCKTYPES_C_01_101: [** If any other error occurs when creating the string representation, umocktypes_stringify_longlong shall return NULL. **]**
 
 ## umocktypes_are_equal_longlong
 
@@ -491,8 +473,6 @@ char* umocktypes_stringify_unsignedlonglong(const unsigned long long* value);
 
 **SRS_UMOCKTYPES_C_01_112: [** If allocating a new string to hold the string representation fails, umocktypes_stringify_unsignedlonglong shall return NULL. **]**
 
-**SRS_UMOCKTYPES_C_01_113: [** If any other error occurs when creating the string representation, umocktypes_stringify_unsignedlonglong shall return NULL. **]**
-
 ## umocktypes_are_equal_unsignedlonglong
 
 ```c
@@ -538,8 +518,6 @@ char* umocktypes_stringify_float(const float* value);
 **SRS_UMOCKTYPES_C_01_123: [** If value is NULL, umocktypes_stringify_float shall return NULL. **]**
 
 **SRS_UMOCKTYPES_C_01_124: [** If allocating a new string to hold the string representation fails, umocktypes_stringify_float shall return NULL. **]**
-
-**SRS_UMOCKTYPES_C_01_125: [** If any other error occurs when creating the string representation, umocktypes_stringify_float shall return NULL. **]**
 
 ## umocktypes_are_equal_float
 
@@ -587,8 +565,6 @@ char* umocktypes_stringify_double(const double* value);
 
 **SRS_UMOCKTYPES_C_01_136: [** If allocating a new string to hold the string representation fails, umocktypes_stringify_double shall return NULL. **]**
 
-**SRS_UMOCKTYPES_C_01_137: [** If any other error occurs when creating the string representation, umocktypes_stringify_double shall return NULL. **]**
-
 ## umocktypes_are_equal_double
 
 ```c
@@ -634,8 +610,6 @@ char* umocktypes_stringify_longdouble(const long double* value);
 **SRS_UMOCKTYPES_C_01_147: [** If value is NULL, umocktypes_stringify_longdouble shall return NULL. **]**
 
 **SRS_UMOCKTYPES_C_01_148: [** If allocating a new string to hold the string representation fails, umocktypes_stringify_longdouble shall return NULL. **]**
-
-**SRS_UMOCKTYPES_C_01_149: [** If any other error occurs when creating the string representation, umocktypes_stringify_longdouble shall return NULL. **]**
 
 ## umocktypes_are_equal_longdouble
 
@@ -683,8 +657,6 @@ char* umocktypes_stringify_size_t(const size_t* value);
 
 **SRS_UMOCKTYPES_C_01_160: [** If allocating a new string to hold the string representation fails, umocktypes_stringify_size_t shall return NULL. **]**
 
-**SRS_UMOCKTYPES_C_01_161: [** If any other error occurs when creating the string representation, umocktypes_stringify_size_t shall return NULL. **]**
-
 ## umocktypes_are_equal_size_t
 
 ```c
@@ -730,8 +702,6 @@ char* umocktypes_stringify_void_ptr(const void** value);
 **SRS_UMOCKTYPES_C_01_171: [** If value is NULL, umocktypes_stringify_void_ptr shall return NULL. **]**
 
 **SRS_UMOCKTYPES_C_01_172: [** If allocating a new string to hold the string representation fails, umocktypes_stringify_void_ptr shall return NULL. **]**
-
-**SRS_UMOCKTYPES_C_01_173: [** If any other error occurs when creating the string representation, umocktypes_stringify_void_ptr shall return NULL. **]**
 
 ## umocktypes_are_equal_void_ptr
 

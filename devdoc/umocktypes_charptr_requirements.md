@@ -51,6 +51,10 @@ char* umocktypes_stringify_charptr(const char** value);
 int umocktypes_are_equal_charptr(const char** left, const char** right);
 ```
 
+**SRS_UMOCKTYPES_CHARPTR_42_001: [** If left is NULL, umocktypes_are_equal_charptr shall return -1. **]**
+
+**SRS_UMOCKTYPES_CHARPTR_42_002: [** If right is NULL, umocktypes_are_equal_charptr shall return -1. **]**
+
 **SRS_UMOCKTYPES_CHARPTR_01_005: [** umocktypes_are_equal_charptr shall compare the 2 strings pointed to by left and right. **]**
 
 **SRS_UMOCKTYPES_CHARPTR_01_006: [** The comparison shall be case sensitive. **]**

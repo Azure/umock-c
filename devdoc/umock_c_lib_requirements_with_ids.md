@@ -661,7 +661,7 @@ int umockvalue_charptr_register_types(void);
 ```
  **]**
 
-umockvalue_charptr_register_types returns 0 on success and non-zero on failure.
+**SRS_UMOCK_C_LIB_01_070: [** umockvalue_charptr_register_types returns 0 on success and non-zero on failure. **]**
 
 ### #umockvalue_stdint
 

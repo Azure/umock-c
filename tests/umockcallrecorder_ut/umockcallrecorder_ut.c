@@ -590,6 +590,7 @@ TEST_FUNCTION(when_allocating_memory_fails_umockcallrecorder_add_expected_call_f
 /* umockcallrecorder_add_actual_call */
 
 /* Tests_SRS_UMOCKCALLRECORDER_01_014: [ umockcallrecorder_add_actual_call shall check whether the call mock_call matches any of the expected calls maintained by umock_call_recorder. ]*/
+/* Tests_SRS_UMOCKCALLRECORDER_01_015: [ If the call does not match any of the expected calls, then umockcallrecorder_add_actual_call shall add the mock_call call to the actual call list maintained by umock_call_recorder. ]*/
 /* Tests_SRS_UMOCKCALLRECORDER_01_018: [ When no error is encountered, umockcallrecorder_add_actual_call shall return 0. ]*/
 TEST_FUNCTION(umockcallrecorder_add_actual_call_without_any_expected_calls_succeeds)
 {
@@ -609,6 +610,7 @@ TEST_FUNCTION(umockcallrecorder_add_actual_call_without_any_expected_calls_succe
 }
 
 /* Tests_SRS_UMOCKCALLRECORDER_01_014: [ umockcallrecorder_add_actual_call shall check whether the call mock_call matches any of the expected calls maintained by umock_call_recorder. ]*/
+/* Tests_SRS_UMOCKCALLRECORDER_01_015: [ If the call does not match any of the expected calls, then umockcallrecorder_add_actual_call shall add the mock_call call to the actual call list maintained by umock_call_recorder. ]*/
 /* Tests_SRS_UMOCKCALLRECORDER_01_018: [ When no error is encountered, umockcallrecorder_add_actual_call shall return 0. ]*/
 /* Tests_SRS_UMOCKCALLRECORDER_01_017: [ Comparing the calls shall be done by calling umockcall_are_equal. ]*/
 TEST_FUNCTION(umockcallrecorder_add_actual_call_with_a_call_that_does_not_match_succeeds)
@@ -1601,7 +1603,7 @@ TEST_FUNCTION(when_allocating_memory_for_expected_calls_fails_umockcallrecorder_
     // assert
     ASSERT_IS_NULL(result);
     ASSERT_ARE_EQUAL(size_t, 0, umockcall_clone_call_count);
-    
+
     // cleanup
     umockcallrecorder_destroy(call_recorder);
 }
@@ -1972,6 +1974,7 @@ TEST_FUNCTION(when_umockcall_set_fail_call_fails_then_umockcallrecorder_fail_cal
 
 /* umockcallrecorder_can_call_fail */
 
+/* Tests_SRS_UMOCKCALLRECORDER_31_061: [ umockcallrecorder_can_call_fail shall determine whether given call can fail or not by calling umockcall_get_call_can_fail. ]*/
 /* Tests_SRS_UMOCKCALLRECORDER_31_059: [ umockcallrecorder_can_call_fail shall return in the can_call_fail argument whether the call can fail or not. ]*/
 /* Tests_SRS_UMOCKCALLRECORDER_31_060: [ On success umockcallrecorder_can_call_fail shall return 0. ]*/
 TEST_FUNCTION(umockcallrecorder_can_call_fail_index_0_caller_sets_0)
@@ -1996,6 +1999,7 @@ TEST_FUNCTION(umockcallrecorder_can_call_fail_index_0_caller_sets_0)
     umockcallrecorder_destroy(call_recorder);
 }
 
+/* Tests_SRS_UMOCKCALLRECORDER_31_061: [ umockcallrecorder_can_call_fail shall determine whether given call can fail or not by calling umockcall_get_call_can_fail. ]*/
 /* Tests_SRS_UMOCKCALLRECORDER_31_059: [ umockcallrecorder_can_call_fail shall return in the can_call_fail argument whether the call can fail or not. ]*/
 /* Tests_SRS_UMOCKCALLRECORDER_31_060: [ On success umockcallrecorder_can_call_fail shall return 0. ]*/
 TEST_FUNCTION(umockcallrecorder_can_call_fail_index_0_caller_sets_1)
@@ -2020,6 +2024,7 @@ TEST_FUNCTION(umockcallrecorder_can_call_fail_index_0_caller_sets_1)
     umockcallrecorder_destroy(call_recorder);
 }
 
+/* Tests_SRS_UMOCKCALLRECORDER_31_061: [ umockcallrecorder_can_call_fail shall determine whether given call can fail or not by calling umockcall_get_call_can_fail. ]*/
 /* Tests_SRS_UMOCKCALLRECORDER_31_059: [ umockcallrecorder_can_call_fail shall return in the can_call_fail argument whether the call can fail or not. ]*/
 /* Tests_SRS_UMOCKCALLRECORDER_31_060: [ On success umockcallrecorder_can_call_fail shall return 0. ]*/
 TEST_FUNCTION(umockcallrecorder_can_call_fail_index_1_caller_sets_1)

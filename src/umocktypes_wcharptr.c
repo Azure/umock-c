@@ -77,9 +77,12 @@ int umocktypes_are_equal_wcharptr(const wchar_t** left, const wchar_t** right)
 {
     int result;
 
-    if ((left == NULL) || (right == NULL))
+    if (
+        /* Codes_SRS_UMOCKTYPES_WCHARPTR_42_001: [ If left is NULL, umocktypes_are_equal_wcharptr shall return -1. ]*/
+        (left == NULL) ||
+        /* Codes_SRS_UMOCKTYPES_WCHARPTR_42_002: [ If right is NULL, umocktypes_are_equal_wcharptr shall return -1. ]*/
+        (right == NULL))
     {
-        /* Codes_SRS_UMOCKTYPES_WCHARPTR_20_001: [ If any of the arguments is NULL, umocktypes_are_equal_wcharptr shall return -1. ]*/
         UMOCK_LOG("umocktypes_are_equal_wcharptr: Bad arguments:left = %p, right = %p.", left, right);
         result = -1;
     }

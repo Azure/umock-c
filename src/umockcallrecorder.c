@@ -160,6 +160,7 @@ int umockcallrecorder_add_actual_call(UMOCKCALLRECORDER_HANDLE umock_call_record
 
         *matched_call = NULL;
 
+        /* Codes_SRS_UMOCKCALLRECORDER_01_014: [ umockcallrecorder_add_actual_call shall check whether the call mock_call matches any of the expected calls maintained by umock_call_recorder. ]*/
         /* Codes_SRS_UMOCK_C_LIB_01_115: [ umock_c shall compare calls in order. ]*/
         for (i = 0; i < umock_call_recorder->expected_call_count; i++)
         {
@@ -221,11 +222,12 @@ int umockcallrecorder_add_actual_call(UMOCKCALLRECORDER_HANDLE umock_call_record
         {
             if (i == umock_call_recorder->expected_call_count)
             {
+                /* Codes_SRS_UMOCKCALLRECORDER_01_015: [ If the call does not match any of the expected calls, then umockcallrecorder_add_actual_call shall add the mock_call call to the actual call list maintained by umock_call_recorder. ]*/
                 /* an unexpected call */
-                /* Codes_SRS_UMOCKCALLRECORDER_01_014: [ umockcallrecorder_add_actual_call shall check whether the call mock_call matches any of the expected calls maintained by umock_call_recorder. ]*/
                 UMOCKCALL_HANDLE* new_actual_calls = (UMOCKCALL_HANDLE*)umockalloc_realloc(umock_call_recorder->actual_calls, sizeof(UMOCKCALL_HANDLE) * (umock_call_recorder->actual_call_count + 1));
                 if (new_actual_calls == NULL)
                 {
+                    /* Codes_SRS_UMOCKCALLRECORDER_01_020: [ If allocating memory for the actual calls fails, umockcallrecorder_add_actual_call shall fail and return a non-zero value. ]*/
                     UMOCK_LOG("umockcallrecorder: Cannot allocate memory for actual calls.");
                     result = __LINE__;
                 }
@@ -273,6 +275,7 @@ const char* umockcallrecorder_get_expected_calls(UMOCKCALLRECORDER_HANDLE umock_
             int ignore_all_calls = umockcall_get_ignore_all_calls(umock_call_recorder->expected_calls[i].umockcall);
             if (ignore_all_calls < 0)
             {
+                /* Codes_SRS_UMOCKCALLRECORDER_01_056: [ If umockcall_get_ignore_all_calls returns a negative value then umockcallrecorder_get_expected_calls shall fail and return NULL. ]*/
                 UMOCK_LOG("umockcallrecorder: Cannot get the ignore_all_calls flag.");
                 break;
             }

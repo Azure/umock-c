@@ -56,16 +56,19 @@ int umocktypes_are_equal_charptr(const char** left, const char** right)
 {
     int result;
 
-	if ((left == NULL) || (right == NULL))
-	{
-		/* Codes_SRS_UMOCKTYPES_CHARPTR_20_001: [ If any of the arguments is NULL, umocktypes_are_equal_charptr shall return -1. ]*/
-		UMOCK_LOG("umocktypes_are_equal_charptr: Bad arguments:left = %p, right = %p.", left, right);
-		result = -1;
-	}
-	else if (*left == *right)
+    if (
+        /* Codes_SRS_UMOCKTYPES_CHARPTR_42_001: [ If left is NULL, umocktypes_are_equal_charptr shall return -1. ]*/
+        (left == NULL) ||
+        /* Codes_SRS_UMOCKTYPES_CHARPTR_42_002: [ If right is NULL, umocktypes_are_equal_charptr shall return -1. ]*/
+        (right == NULL))
     {
-		/* Codes_SRS_UMOCKTYPES_CHARPTR_01_007: [ If left and right are equal, umocktypes_are_equal_charptr shall return 1. ]*/
-		result = 1;
+        UMOCK_LOG("umocktypes_are_equal_charptr: Bad arguments:left = %p, right = %p.", left, right);
+        result = -1;
+    }
+    else if (*left == *right)
+    {
+        /* Codes_SRS_UMOCKTYPES_CHARPTR_01_007: [ If left and right are equal, umocktypes_are_equal_charptr shall return 1. ]*/
+        result = 1;
     }
     else if ((*left == NULL) || (*right == NULL))
     {

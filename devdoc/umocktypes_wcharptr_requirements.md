@@ -50,6 +50,9 @@ char* umocktypes_stringify_wcharptr(const wchar_t** value);
 ```c
 int umocktypes_are_equal_wcharptr(const wchar_t** left, const wchar_t** right);
 ```
+**SRS_UMOCKTYPES_WCHARPTR_42_001: [** If `left` is `NULL`, `umocktypes_are_equal_wcharptr` shall return -1. **]**
+
+**SRS_UMOCKTYPES_WCHARPTR_42_002: [** If `right` is `NULL`, `umocktypes_are_equal_wcharptr` shall return -1. **]**
 
 **SRS_UMOCKTYPES_WCHARPTR_01_005: [** `umocktypes_are_equal_wcharptr` shall compare the 2 strings pointed to by `left` and `right`. **]**
 

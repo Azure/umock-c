@@ -2199,7 +2199,7 @@ TEST_FUNCTION(the_value_for_a_function_that_returns_a_char_ptr_set_by_macro_is_f
 
 /* REGISTER_UMOCK_ALIAS_TYPE */
 
-/* Tests SRS_UMOCK_C_LIB_01_149: [ REGISTER_UMOCK_ALIAS_TYPE registers a new alias type for another type. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_149: [ REGISTER_UMOCK_ALIAS_TYPE registers a new alias type for another type. ]*/
 TEST_FUNCTION(registering_an_alias_type_works)
 {
     // arrange

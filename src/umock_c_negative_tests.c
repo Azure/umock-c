@@ -29,6 +29,7 @@ int umock_c_negative_tests_init(void)
     }
     else
     {
+        /* Codes_SRS_UMOCK_C_NEGATIVE_TESTS_01_001: [ umock_c_negative_tests_init shall initialize the umock_c negative tests library. ]*/
         /* Codes_SRS_UMOCK_C_NEGATIVE_TESTS_01_004: [ On success, umock_c_negative_tests_init shall return 0. ]*/
         umock_c_negative_tests_state = UMOCK_C_NEGATIVE_TESTS_STATE_INITIALIZED;
         result = 0;
@@ -189,6 +190,7 @@ size_t umock_c_negative_tests_call_count(void)
             /* Codes_SRS_UMOCK_C_NEGATIVE_TESTS_01_021: [ umock_c_negative_tests_call_count shall return the count of expected calls for the current snapshot call recorder by calling umockcallrecorder_get_expected_call_count. ]*/
             if (umockcallrecorder_get_expected_call_count(snapshot_call_recorder, &result) != 0)
             {
+                /* Codes_SRS_UMOCK_C_NEGATIVE_TESTS_01_023: [ If umockcallrecorder_get_expected_call_count fails, umock_c_negative_tests_fail_call shall return 0 and indicate the error via the umock error callback with error code UMOCK_C_ERROR. ]*/
                 UMOCK_LOG("umock_c_negative_tests_call_count: Getting the expected call count from the recorder failed.");
                 umock_c_indicate_error(UMOCK_C_ERROR);
                 result = 0;

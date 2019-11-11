@@ -319,7 +319,7 @@ TEST_FUNCTION(umockcall_create_with_NULL_call_data_are_equal_function_fails)
 TEST_FUNCTION(when_allocating_memory_for_the_call_fails_then_umockcall_create_fails)
 {
     // arrange
-	UMOCKCALL_HANDLE result;
+    UMOCKCALL_HANDLE result;
     when_shall_malloc_fail = 1;
 
     // act
@@ -333,7 +333,7 @@ TEST_FUNCTION(when_allocating_memory_for_the_call_fails_then_umockcall_create_fa
 TEST_FUNCTION(when_allocating_memory_for_the_function_name_fails_then_umockcall_create_fails)
 {
     // arrange
-	UMOCKCALL_HANDLE result;
+    UMOCKCALL_HANDLE result;
     when_shall_malloc_fail = 2;
 
     // act
@@ -467,7 +467,7 @@ TEST_FUNCTION(when_only_right_is_NULL_umockcall_are_equal_returns_0)
 TEST_FUNCTION(when_the_function_name_does_not_match_then_umockcall_are_equal_returns_0)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALL_HANDLE call1 = umockcall_create("test_function_1", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     UMOCKCALL_HANDLE call2 = umockcall_create("test_function_2", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
 
@@ -490,7 +490,7 @@ TEST_FUNCTION(when_the_function_name_does_not_match_then_umockcall_are_equal_ret
 TEST_FUNCTION(when_the_underlying_are_equal_returns_0_umockcall_are_equal_returns_0)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALL_HANDLE call1 = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     UMOCKCALL_HANDLE call2 = umockcall_create("test_function", (void*)0x4243, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
 
@@ -514,7 +514,7 @@ TEST_FUNCTION(when_the_underlying_are_equal_returns_0_umockcall_are_equal_return
 TEST_FUNCTION(when_the_underlying_are_equal_returns_minus_1_umockcall_are_equal_returns_minus_1)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALL_HANDLE call1 = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     UMOCKCALL_HANDLE call2 = umockcall_create("test_function", (void*)0x4243, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
 
@@ -538,7 +538,7 @@ TEST_FUNCTION(when_the_underlying_are_equal_returns_minus_1_umockcall_are_equal_
 TEST_FUNCTION(when_the_underlying_are_equal_returns_2_umockcall_are_equal_returns_minus_1)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALL_HANDLE call1 = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     UMOCKCALL_HANDLE call2 = umockcall_create("test_function", (void*)0x4243, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
 
@@ -562,7 +562,7 @@ TEST_FUNCTION(when_the_underlying_are_equal_returns_2_umockcall_are_equal_return
 TEST_FUNCTION(when_the_are_equal_function_pointers_are_different_umockcall_are_equal_returns_0)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALL_HANDLE call1 = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     UMOCKCALL_HANDLE call2 = umockcall_create("test_function", (void*)0x4243, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, another_test_mock_call_data_are_equal);
 
@@ -582,13 +582,14 @@ TEST_FUNCTION(when_the_are_equal_function_pointers_are_different_umockcall_are_e
 
 /* umockcall_stringify */
 
-/* Tests_SRS_UMOCKCALL_01_016: [ umockcall_stringify shall return a string representation of the mock call in the form \[function_name(arguments)\]. ] */
+/* Tests_SRS_UMOCKCALL_01_016: [ umockcall_stringify shall return a string representation of the mock call in the form "[function_name(arguments)]". ] */
 /* Tests_SRS_UMOCKCALL_01_018: [ The returned string shall be a newly allocated string and it is to be freed by the caller. ]*/
 /* Tests_SRS_UMOCKCALL_01_019: [ To obtain the arguments string, umockcall_stringify shall call the umockcall_data_stringify function passed to umockcall_create and pass to it the umockcall_data pointer (also given in umockcall_create). ]*/
+/* Tests_SRS_UMOCKCALL_01_030: [ umockcall_stringify shall free the string obtained from umockcall_data_stringify. ]*/
 TEST_FUNCTION(umockcall_stringify_calls_the_underlying_stringify_function_and_returns_the_strinfigied_call)
 {
     // arrange
-	char* result;
+    char* result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
 
     test_mock_call_data_stringify_expected_result = (char*)malloc(1);
@@ -606,13 +607,14 @@ TEST_FUNCTION(umockcall_stringify_calls_the_underlying_stringify_function_and_re
     umockcall_destroy(call);
 }
 
-/* Tests_SRS_UMOCKCALL_01_016: [ umockcall_stringify shall return a string representation of the mock call in the form \[function_name(arguments)\]. ] */
+/* Tests_SRS_UMOCKCALL_01_016: [ umockcall_stringify shall return a string representation of the mock call in the form "[function_name(arguments)]". ] */
 /* Tests_SRS_UMOCKCALL_01_018: [ The returned string shall be a newly allocated string and it is to be freed by the caller. ]*/
 /* Tests_SRS_UMOCKCALL_01_019: [ To obtain the arguments string, umockcall_stringify shall call the umockcall_data_stringify function passed to umockcall_create and pass to it the umockcall_data pointer (also given in umockcall_create). ]*/
+/* Tests_SRS_UMOCKCALL_01_030: [ umockcall_stringify shall free the string obtained from umockcall_data_stringify. ]*/
 TEST_FUNCTION(umockcall_stringify_uses_the_stringified_args_as_obtained_from_the_underlying_stringify_function)
 {
     // arrange
-	char* result;
+    char* result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
 
     test_mock_call_data_stringify_expected_result = (char*)malloc(strlen("45") + 1);
@@ -646,7 +648,7 @@ TEST_FUNCTION(umockcall_stringify_with_NULL_fails_and_returns_NULL)
 TEST_FUNCTION(when_the_underlying_stringify_fails_then_umockcall_stringify_calls_fails)
 {
     // arrange
-	char* result;
+    char* result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
 
     test_mock_call_data_stringify_expected_result = NULL;
@@ -666,7 +668,7 @@ TEST_FUNCTION(when_the_underlying_stringify_fails_then_umockcall_stringify_calls
 TEST_FUNCTION(when_allocating_memory_fails_then_umockcall_stringify_fails)
 {
     // arrange
-	char* result;
+    char* result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     test_mock_call_data_stringify_expected_result = (char*)malloc(strlen("45") + 1);
     reset_malloc_calls();
@@ -702,7 +704,7 @@ TEST_FUNCTION(umockcall_get_call_data_returns_the_call_data_pointer)
     umockcall_destroy(call);
 }
 
-/* Tests_SRS_UMOCKCALL_01_022: [ umockcall_get_call_data shall return the associated umock call data that was passed to umockcall_create. ]*/
+/* Tests_SRS_UMOCKCALL_01_023: [ If umockcall is NULL, umockcall_get_call_data shall return NULL. ]*/
 TEST_FUNCTION(umockcall_get_call_data_with_NULL_returns_NULL)
 {
     // arrange
@@ -723,7 +725,7 @@ TEST_FUNCTION(umockcall_get_call_data_with_NULL_returns_NULL)
 TEST_FUNCTION(umockcall_clone_clones_the_call)
 {
     // arrange
-	UMOCKCALL_HANDLE result;
+    UMOCKCALL_HANDLE result;
     char* stringified;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     test_mock_call_data_copy_expected_result = (void*)0x4243;
@@ -747,7 +749,7 @@ TEST_FUNCTION(umockcall_clone_clones_the_call)
 TEST_FUNCTION(umockcall_clone_with_NULL_handle_returns_NULL)
 {
     // arrange
-	UMOCKCALL_HANDLE result;
+    UMOCKCALL_HANDLE result;
     test_mock_call_data_copy_expected_result = (void*)0x4243;
 
     // act
@@ -761,7 +763,7 @@ TEST_FUNCTION(umockcall_clone_with_NULL_handle_returns_NULL)
 TEST_FUNCTION(when_allocating_memory_fails_umockcall_clone_fails)
 {
     // arrange
-	UMOCKCALL_HANDLE result;
+    UMOCKCALL_HANDLE result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     reset_malloc_calls();
     when_shall_malloc_fail = 1;
@@ -780,7 +782,7 @@ TEST_FUNCTION(when_allocating_memory_fails_umockcall_clone_fails)
 TEST_FUNCTION(when_umockcall_data_copy_fails_then_umockcall_clone_clones_the_call)
 {
     // arrange
-	UMOCKCALL_HANDLE result;
+    UMOCKCALL_HANDLE result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     test_mock_call_data_copy_expected_result = NULL;
 
@@ -798,7 +800,7 @@ TEST_FUNCTION(when_umockcall_data_copy_fails_then_umockcall_clone_clones_the_cal
 TEST_FUNCTION(when_allocating_memory_for_the_function_name_fails_umockcall_clone_fails)
 {
     // arrange
-	UMOCKCALL_HANDLE result;
+    UMOCKCALL_HANDLE result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     reset_malloc_calls();
     when_shall_malloc_fail = 2;
@@ -817,7 +819,7 @@ TEST_FUNCTION(when_allocating_memory_for_the_function_name_fails_umockcall_clone
 TEST_FUNCTION(umockcall_are_equal_on_2_clones_calls_succeeds)
 {
     // arrange
-	UMOCKCALL_HANDLE result;
+    UMOCKCALL_HANDLE result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     test_mock_call_data_copy_expected_result = (void*)0x4243;
 
@@ -838,7 +840,7 @@ TEST_FUNCTION(umockcall_are_equal_on_2_clones_calls_succeeds)
 TEST_FUNCTION(umockcall_clone_on_a_cloned_call_succeeds)
 {
     // arrange
-	UMOCKCALL_HANDLE result;
+    UMOCKCALL_HANDLE result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     UMOCKCALL_HANDLE call2;
     test_mock_call_data_copy_expected_result = (void*)0x4243;
@@ -861,7 +863,7 @@ TEST_FUNCTION(umockcall_clone_on_a_cloned_call_succeeds)
 TEST_FUNCTION(freeing_a_cloned_call_succeeds)
 {
     // arrange
-	UMOCKCALL_HANDLE cloned_call;
+    UMOCKCALL_HANDLE cloned_call;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     test_mock_call_data_copy_expected_result = (void*)0x4243;
     cloned_call = umockcall_clone(call);
@@ -883,7 +885,7 @@ TEST_FUNCTION(freeing_a_cloned_call_succeeds)
 TEST_FUNCTION(umockcall_set_fail_call_sets_the_fail_call_property)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
 
     // act
@@ -931,7 +933,7 @@ TEST_FUNCTION(umockcall_set_fail_call_with_an_invalid_fail_call_value_fails)
 TEST_FUNCTION(umockcall_get_fail_call_retrieves_0)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     (void)umockcall_set_fail_call(call, 0);
 
@@ -949,7 +951,7 @@ TEST_FUNCTION(umockcall_get_fail_call_retrieves_0)
 TEST_FUNCTION(umockcall_get_fail_call_retrieves_1)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     (void)umockcall_set_fail_call(call, 1);
 
@@ -979,8 +981,8 @@ TEST_FUNCTION(umockcall_get_fail_call_with_NULL_call_fails)
 TEST_FUNCTION(umockcall_get_fail_call_on_a_cloned_call_retrieves_1)
 {
     // arrange
-	int result;
-	UMOCKCALL_HANDLE cloned_call;
+    int result;
+    UMOCKCALL_HANDLE cloned_call;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     (void)umockcall_set_fail_call(call, 1);
     test_mock_call_data_copy_expected_result = (void*)0x4243;
@@ -1001,8 +1003,8 @@ TEST_FUNCTION(umockcall_get_fail_call_on_a_cloned_call_retrieves_1)
 TEST_FUNCTION(umockcall_get_fail_call_on_a_cloned_call_retrieves_0)
 {
     // arrange
-	int result;
-	UMOCKCALL_HANDLE cloned_call;
+    int result;
+    UMOCKCALL_HANDLE cloned_call;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     (void)umockcall_set_fail_call(call, 0);
     test_mock_call_data_copy_expected_result = (void*)0x4243;
@@ -1073,7 +1075,7 @@ TEST_FUNCTION(umockcall_set_ignore_all_calls_with_an_invalid_ignore_all_calls_va
 TEST_FUNCTION(umockcall_get_ignore_all_calls_retrieves_0)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     (void)umockcall_set_ignore_all_calls(call, 0);
 
@@ -1091,7 +1093,7 @@ TEST_FUNCTION(umockcall_get_ignore_all_calls_retrieves_0)
 TEST_FUNCTION(umockcall_get_ignore_all_calls_retrieves_1)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     (void)umockcall_set_ignore_all_calls(call, 1);
 
@@ -1121,8 +1123,8 @@ TEST_FUNCTION(umockcall_get_ignore_all_calls_with_NULL_call_fails)
 TEST_FUNCTION(umockcall_get_ignore_all_calls_on_a_cloned_call_retrieves_1)
 {
     // arrange
-	UMOCKCALL_HANDLE cloned_call;
-	int result;
+    UMOCKCALL_HANDLE cloned_call;
+    int result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     (void)umockcall_set_ignore_all_calls(call, 1);
     test_mock_call_data_copy_expected_result = (void*)0x4243;
@@ -1143,8 +1145,8 @@ TEST_FUNCTION(umockcall_get_ignore_all_calls_on_a_cloned_call_retrieves_1)
 TEST_FUNCTION(umockcall_get_ignore_all_calls_on_a_cloned_call_retrieves_0)
 {
     // arrange
-	int result;
-	UMOCKCALL_HANDLE cloned_call;
+    int result;
+    UMOCKCALL_HANDLE cloned_call;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     (void)umockcall_set_fail_call(call, 0);
     test_mock_call_data_copy_expected_result = (void*)0x4243;

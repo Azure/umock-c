@@ -109,8 +109,6 @@ XX**SRS_UMOCK_C_NEGATIVE_TESTS_01_021: [** umock_c_negative_tests_call_count sha
     int umock_c_negative_tests_can_call_fail(size_t index);
 ```
 
-**SRS_UMOCK_C_NEGATIVE_TESTS_31_030: [** If the module was not previously initialized, umock_c_negative_tests_can_call_fail shall return 0.  **]**
-
 **SRS_UMOCK_C_NEGATIVE_TESTS_31_026: [** If the module was not previously initialized, umock_c_negative_tests_can_call_fail shall return 1.  **]**
 
 **SRS_UMOCK_C_NEGATIVE_TESTS_31_027: [** If umock_c_get_call_recorder fails, umock_c_negative_tests_can_call_fail shall indicate the error via the umock error callback with error code UMOCK_C_ERROR.  **]**

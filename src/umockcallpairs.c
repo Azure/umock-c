@@ -142,6 +142,7 @@ int umockcallpairs_track_destroy_paired_call(PAIRED_HANDLES* paired_handles, con
 
         if (i == paired_handles->paired_handle_count)
         {
+            /* Codes_SRS_UMOCKCALLPAIRS_01_015: [ If the handle is not found in the array then umockcallpairs_track_destroy_paired_call shall fail and return a non-zero value. ]*/
             result = __LINE__;
             UMOCK_LOG("umock_track_create_destroy_paired_calls_free: could not find handle");
         }

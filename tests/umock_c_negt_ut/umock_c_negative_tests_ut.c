@@ -302,7 +302,7 @@ TEST_FUNCTION(umock_c_negative_tests_init_succeeds)
 TEST_FUNCTION(umock_c_negative_tests_init_after_init_fails)
 {
     // arrange
-	int result;
+    int result;
     (void)umock_c_negative_tests_init();
 
     // act
@@ -607,7 +607,7 @@ TEST_FUNCTION(umock_c_negative_tests_fail_call_when_not_initialized_does_nothing
 TEST_FUNCTION(umock_c_negative_tests_call_count_gets_the_expected_call_count_from_the_current_recorder)
 {
     // arrange
-	size_t result;
+    size_t result;
     (void)umock_c_negative_tests_init();
     umock_c_negative_tests_snapshot();
     reset_all_calls();
@@ -626,7 +626,7 @@ TEST_FUNCTION(umock_c_negative_tests_call_count_gets_the_expected_call_count_fro
 TEST_FUNCTION(umock_c_negative_tests_call_count_when_no_snapshot_was_done_indicates_an_error)
 {
     // arrange
-	size_t result;
+    size_t result;
     (void)umock_c_negative_tests_init();
     reset_all_calls();
 
@@ -644,7 +644,7 @@ TEST_FUNCTION(umock_c_negative_tests_call_count_when_no_snapshot_was_done_indica
 TEST_FUNCTION(when_umockcallrecorder_get_expected_call_count_fails_umock_c_negative_tests_call_count_indicates_an_error)
 {
     // arrange
-	size_t result;
+    size_t result;
     (void)umock_c_negative_tests_init();
     umock_c_negative_tests_snapshot();
     reset_all_calls();
@@ -676,7 +676,7 @@ TEST_FUNCTION(umock_c_negative_tests_call_count_when_the_module_is_not_initializ
     ASSERT_ARE_EQUAL(size_t, 0, umock_c_indicate_error_call_count);
 }
 
-
+/* Tests_SRS_UMOCK_C_NEGATIVE_TESTS_31_028: [ Whether the call can fail for the given index shall made by calling umockcallrecorder_can_call_fail. ]*/
 TEST_FUNCTION(umock_c_negative_tests_fail_call_calls_the_call_recorder_fail_call_index_0_result_0)
 {
     // arrange
@@ -697,6 +697,7 @@ TEST_FUNCTION(umock_c_negative_tests_fail_call_calls_the_call_recorder_fail_call
     ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.index);
 }
 
+/* Tests_SRS_UMOCK_C_NEGATIVE_TESTS_31_028: [ Whether the call can fail for the given index shall made by calling umockcallrecorder_can_call_fail. ]*/
 TEST_FUNCTION(umock_c_negative_tests_fail_call_calls_the_call_recorder_fail_index_10_result_1)
 {
     // arrange
@@ -717,6 +718,7 @@ TEST_FUNCTION(umock_c_negative_tests_fail_call_calls_the_call_recorder_fail_inde
     ASSERT_ARE_EQUAL(void_ptr, 10, umockecallercorder_can_call_fail_call.index);
 }
 
+/* Tests_SRS_UMOCK_C_NEGATIVE_TESTS_31_027: [ If umock_c_get_call_recorder fails, umock_c_negative_tests_can_call_fail shall indicate the error via the umock error callback with error code UMOCK_C_ERROR. ]*/
 TEST_FUNCTION(when_getting_the_call_recorder_fails_umock_c_negative_tests_can_call_fail_returns_default_of_1)
 {
     // arrange
@@ -728,7 +730,7 @@ TEST_FUNCTION(when_getting_the_call_recorder_fails_umock_c_negative_tests_can_ca
 
     umock_c_get_call_recorder_call_result = NULL;
     // The error hit should mean default of 1, not 'umockcallrecorder_can_call_fail_paramater_result', returned.
-    umockcallrecorder_can_call_fail_paramater_result = 0; 
+    umockcallrecorder_can_call_fail_paramater_result = 0;
 
     // act
     result = umock_c_negative_tests_can_call_fail(0);
@@ -739,6 +741,7 @@ TEST_FUNCTION(when_getting_the_call_recorder_fails_umock_c_negative_tests_can_ca
     ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.index);
 }
 
+/* Tests_SRS_UMOCK_C_NEGATIVE_TESTS_31_029: [ If umockcallrecorder_can_call_fail fails, umock_c_negative_tests_fail_call shall indicate the error via the umock error callback with error code UMOCK_C_ERROR and return 1. ]*/
 TEST_FUNCTION(when_failing_the_call_fails_umock_c_negative_tests_fail_call_returns_default_of_1)
 {
     // arrange
@@ -759,6 +762,7 @@ TEST_FUNCTION(when_failing_the_call_fails_umock_c_negative_tests_fail_call_retur
     ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.index);
 }
 
+/* Tests_SRS_UMOCK_C_NEGATIVE_TESTS_31_026: [ If the module was not previously initialized, umock_c_negative_tests_can_call_fail shall return 1. ]*/
 TEST_FUNCTION(umock_c_negative_tests_can_call_fail_when_the_module_is_not_initialized_returns_default_of_1)
 {
     // arrange

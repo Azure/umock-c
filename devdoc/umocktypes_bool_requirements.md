@@ -40,8 +40,6 @@ char* umocktypes_stringify_bool(const bool* value);
 
 **SRS_UMOCKTYPES_BOOL_01_004: [** If allocating a new string to hold the string representation fails, umocktypes_stringify_bool shall return NULL. **]**
 
-**SRS_UMOCKTYPES_BOOL_01_005: [** If any other error occurs when creating the string representation, umocktypes_stringify_bool shall return NULL. **]**
-
 ##umocktypes_are_equal_bool
 
 ```c

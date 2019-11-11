@@ -79,7 +79,7 @@ int umockcall_are_equal(UMOCKCALL_HANDLE left, UMOCKCALL_HANDLE right);
 char* umockcall_stringify(UMOCKCALL_HANDLE umockcall);
 ```
 
-**SRS_UMOCKCALL_01_016: [** umockcall_stringify shall return a string representation of the mock call in the form \[function_name(arguments)\]. **]**
+**SRS_UMOCKCALL_01_016: [** umockcall_stringify shall return a string representation of the mock call in the form `"[function_name(arguments)]"`. **]**
 
 **SRS_UMOCKCALL_01_018: [** The returned string shall be a newly allocated string and it is to be freed by the caller. **]**
 

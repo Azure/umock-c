@@ -265,7 +265,8 @@ TEST_FUNCTION(umocktypes_are_equal_charptr_with_same_pointer_returns_1)
     ASSERT_ARE_EQUAL(int, 1, result);
 }
 
-/* Tests_SRS_UMOCKTYPES_CHARPTR_20_001: [ If any of the arguments is NULL, umocktypes_are_equal_charptr shall return -1. ]*/
+/* Tests_SRS_UMOCKTYPES_CHARPTR_42_001: [ If left is NULL, umocktypes_are_equal_charptr shall return -1. ]*/
+/* Tests_SRS_UMOCKTYPES_CHARPTR_42_002: [ If right is NULL, umocktypes_are_equal_charptr shall return -1. ]*/
 TEST_FUNCTION(umocktypes_are_equal_charptrptr_both_NULL_pointer_returns_error)
 {
     // arrange
@@ -277,7 +278,7 @@ TEST_FUNCTION(umocktypes_are_equal_charptrptr_both_NULL_pointer_returns_error)
     ASSERT_ARE_EQUAL(int, -1, result);
 }
 
-/* Tests_SRS_UMOCKTYPES_CHARPTR_20_001: [ If any of the arguments is NULL, umocktypes_are_equal_charptr shall return -1. ]*/
+/* Tests_SRS_UMOCKTYPES_CHARPTR_42_001: [ If left is NULL, umocktypes_are_equal_charptr shall return -1. ]*/
 TEST_FUNCTION(umocktypes_are_equal_charptr_with_leftptrptr_NULL_returns_error)
 {
     // arrange
@@ -290,7 +291,7 @@ TEST_FUNCTION(umocktypes_are_equal_charptr_with_leftptrptr_NULL_returns_error)
     ASSERT_ARE_EQUAL(int, -1, result);
 }
 
-/* Tests_SRS_UMOCKTYPES_CHARPTR_20_001: [ If any of the arguments is NULL, umocktypes_are_equal_charptr shall return -1. ]*/
+/* Tests_SRS_UMOCKTYPES_CHARPTR_42_002: [ If right is NULL, umocktypes_are_equal_charptr shall return -1. ]*/
 TEST_FUNCTION(umocktypes_are_equal_charptr_with_rightptrptr_NULL_returns_error)
 {
     // arrange
