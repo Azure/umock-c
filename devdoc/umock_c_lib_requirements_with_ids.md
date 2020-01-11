@@ -644,6 +644,8 @@ REGISTER_UMOCK_ALIAS_TYPE(value_type, is_value_type)
 
 X**SRS_UMOCK_C_LIB_01_149: [** REGISTER_UMOCK_ALIAS_TYPE registers a new alias type for another type. **]** That means that the handlers used for is_value_type will also be used for the new alias value_type.
 
+X**SRS_UMOCK_C_LIB_02_001: [** If the types do not have the same size the on_error callback shall be called with UMOCK_C_REGISTER_TYPE_FAILED.  **]**
+
 X**SRS_UMOCK_C_LIB_01_198: [** If REGISTER_UMOCK_ALIAS_TYPE fails, the on_error callback shall be called with UMOCK_C_REGISTER_TYPE_FAILED. **]**
 
 ### Extra optional C types
