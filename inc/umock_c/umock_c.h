@@ -112,10 +112,6 @@ int umock_c_set_call_recorder(UMOCKCALLRECORDER_HANDLE umockc_call_recorder);
 /* Codes_SRS_UMOCK_C_LIB_01_197: [ If REGISTER_UMOCK_VALUE_TYPE fails, the on_error callback shall be called with UMOCK_C_REGISTER_TYPE_FAILED. ]*/
 #define REGISTER_UMOCK_VALUE_TYPE_ALL(value_type, stringify_func, are_equal_func, copy_func, free_func) \
 { \
-    char* stringify_func(const value_type* value); \
-    int are_equal_func(const value_type* left, const value_type* right); \
-    int copy_func(value_type* destination, const value_type* source); \
-    void free_func(value_type* value); \
     if (umocktypes_register_type(MU_TOSTRING(value_type), (UMOCKTYPE_STRINGIFY_FUNC)stringify_func, (UMOCKTYPE_ARE_EQUAL_FUNC)are_equal_func, (UMOCKTYPE_COPY_FUNC)copy_func, (UMOCKTYPE_FREE_FUNC)free_func) != 0) \
     { \
         umock_c_indicate_error(UMOCK_C_REGISTER_TYPE_FAILED); \
@@ -135,7 +131,7 @@ int umock_c_set_call_recorder(UMOCKCALLRECORDER_HANDLE umockc_call_recorder);
 #endif
 
 /* Codes_SRS_UMOCK_C_LIB_01_149: [ REGISTER_UMOCK_ALIAS_TYPE registers a new alias type for another type. ]*/
-/* Codes_SRS_UMOCK_C_LIB_02_001: [ If the types do not have the same size the on_error callback shall be called with UMOCK_C_REGISTER_TYPE_FAILED. */
+/* Codes_SRS_UMOCK_C_LIB_02_001: [ If the types do not have the same size the on_error callback shall be called with UMOCK_C_REGISTER_TYPE_FAILED. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_198: [ If REGISTER_UMOCK_ALIAS_TYPE fails, the on_error callback shall be called with UMOCK_C_REGISTER_TYPE_FAILED. ]*/
 #define REGISTER_UMOCK_ALIAS_TYPE(value_type, is_value_type) \
     if ((sizeof(value_type)!=sizeof(is_value_type)) || umocktypes_register_alias_type(MU_TOSTRING(value_type), MU_TOSTRING(is_value_type)) != 0) \

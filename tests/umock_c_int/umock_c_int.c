@@ -276,6 +276,7 @@ MOCK_FUNCTION_WITH_CODE(, char*, test_mock_function_returning_string_with_code);
 MOCK_FUNCTION_END("a")
 
 typedef int funkytype;
+typedef unsigned char type_of_1_byte;
 
 /* Tests_SRS_UMOCK_C_LIB_01_150: [ MOCK_FUNCTION_WITH_CODE shall define a mock function and allow the user to embed code between this define and a MOCK_FUNCTION_END call. ]*/
 MOCK_FUNCTION_WITH_CODE(, funkytype, test_mock_function_with_funkytype, funkytype, x);
@@ -2216,6 +2217,30 @@ TEST_FUNCTION(registering_an_alias_type_works)
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_expected_calls());
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
+
+
+/* Tests_SRS_UMOCK_C_LIB_02_001: [ If the types do not have the same size the on_error callback shall be called with UMOCK_C_REGISTER_TYPE_FAILED. ]*/
+TEST_FUNCTION(registering_an_alias_type_fails_on_different_sizes)
+{
+    /// arrange
+
+#ifdef _MSC_VER 
+#pragma warning( push )
+#pragma warning( disable : 4127 ) /*warning C4127: conditional expression is constant*/ /*generated in REGISTER_UMOCK_ALIAS_TYPE because sizeof operator is evaluated at compile time (at least for Visual Studio... )*/
+#endif
+
+    /// act
+    REGISTER_UMOCK_ALIAS_TYPE(type_of_1_byte, int);
+
+#ifdef _MSC_VER 
+#pragma warning( pop )
+#endif
+
+    /// assert
+    ASSERT_ARE_EQUAL(size_t, 1, test_on_umock_c_error_call_count);
+    ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_expected_calls());
+}
+
 
 /* Tests_SRS_UMOCK_C_LIB_01_153: [ If no custom handler has beed registered for a pointer type, it shall be trated as void*. ] */
 TEST_FUNCTION(when_an_unregistered_pointer_type_is_used_it_defaults_to_void_ptr)
