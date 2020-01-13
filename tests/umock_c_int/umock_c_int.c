@@ -2226,7 +2226,7 @@ TEST_FUNCTION(registering_an_alias_type_fails_on_different_sizes)
 
 #ifdef _MSC_VER 
 #pragma warning( push )
-#pragma warning( disable : 4127 ) /*warning C4127: conditional expression is constant*/ /*generated in REGISTER_UMOCK_ALIAS_TYPE because sizeof operator is evaluated at compile time (at least for Visual Studio... )*/
+#pragma warning( disable : 4127 ) /*warning C4127: conditional expression is constant*/ /*generated in REGISTER_UMOCK_ALIAS_TYPE because sizeof operator is evaluated at compile time (at least for Visual Studio... ) */
 #endif
 
     /// act
