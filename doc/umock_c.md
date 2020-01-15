@@ -195,15 +195,36 @@ Note that it is possible (and sometimes necessary) to undefine ENABLE_MOCKS:
 
 ### ENABLE_MOCK_FILTERING
 
-`ENABLE_MOCK_FILTERING` is a define that allows specifying that only some of the functions that are mockable be actually mocked. This is usefull when it is not desired to generate mock functions for all the functions declared in a header.
+`ENABLE_MOCK_FILTERING` is a define that enables filtering which mockable functions get mock functions generated. This is useful when it is not desired to generate mock functions for all the functions declared in a header (increased number of mock functions puts strains on some compilers and linkers).
 
-This is specially useful if a header contains a huge number of functions and only a small subset of those are actually used by the module under test.
+If `ENABLE_MOCK_FILTERING` is defined, by default no mocks are generated. In order to enable generating a mock for a mockable function, one has to nicely ask the framework to do so by having a define for each function that should get mocks generated.
 
-Be nice to the framework, say please!
-Each of the functions that are to be mocked have to be flagged by a #define, like below:
+The define is of the form `please_mock_{function_name}`:
 
 ```c
-#define please_mock_the_mocked_one MOCK_ENABLED
+#define please_mock_{function_name} MOCK_ENABLED
+```
+
+Example:
+
+Assume that several mockable functions are declared in a header `my_header.h`:
+
+```c
+MOCKABLE_FUNCTION(, void, function_1)
+MOCKABLE_FUNCTION(, void, function_2)
+MOCKABLE_FUNCTION(, void, function_3)
+```
+
+If one wants to only generate the mocks for `function_2`, one would write in the translation unit before including above header:
+
+```c
+#define ENABLE_MOCK_FILTERING
+
+#define please_mock_function_2 MOCK_ENABLED
+
+#define ENABLE_MOCKS
+#include "my_header.h"
+#undef ENABLE_MOCKS
 ```
 
 ### UMOCK_STATIC
