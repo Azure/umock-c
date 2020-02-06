@@ -3108,4 +3108,38 @@ TEST_FUNCTION(SetReturn_overrides_MOCKABLE_FUNCTION_WITH_RETURNS)
     ASSERT_ARE_EQUAL(int, 44, result);
 }
 
+#define WRAPPER_MACRO(a) a
+
+/* Tests_SRS_UMOCK_C_LIB_01_205: [ If `IGNORED_PTR_ARG` or `IGNORED_NUM_ARG` is used as an argument value with `STRICT_EXPECTED_CALL`, the argument shall be automatically ignored. ]*/
+TEST_FUNCTION(IGNORED_PTR_ARG_works_with_another_macro_wrapping_function_name)
+{
+    // arrange
+    unsigned char x[1] = { 42 };
+
+    STRICT_EXPECTED_CALL(WRAPPER_MACRO(test_dependency_buffer_arg)(IGNORED_PTR_ARG));
+
+    // act
+    WRAPPER_MACRO(test_dependency_buffer_arg)(x);
+
+    // assert
+    ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_expected_calls());
+    ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
+}
+
+/* Tests_SRS_UMOCK_C_LIB_01_205: [ If `IGNORED_PTR_ARG` or `IGNORED_NUM_ARG` is used as an argument value with `STRICT_EXPECTED_CALL`, the argument shall be automatically ignored. ]*/
+TEST_FUNCTION(IGNORED_NUM_ARG_works_with_another_macro_wrapping_function_name)
+{
+    // arrange
+    int x = 42;
+
+    STRICT_EXPECTED_CALL(WRAPPER_MACRO(test_dependency_1_arg_no_return)(IGNORED_NUM_ARG));
+
+    // act
+    WRAPPER_MACRO(test_dependency_1_arg_no_return)(x);
+
+    // assert
+    ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_expected_calls());
+    ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
+}
+
 END_TEST_SUITE(umock_c_integrationtests)
