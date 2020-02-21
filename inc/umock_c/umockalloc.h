@@ -15,6 +15,7 @@ extern "C" {
 #endif
 
 void* umockalloc_malloc(size_t size);
+void* umockalloc_calloc(size_t nmemb, size_t size);
 void* umockalloc_realloc(void* ptr, size_t size);
 void umockalloc_free(void* ptr);
 
