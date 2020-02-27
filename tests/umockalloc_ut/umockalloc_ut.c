@@ -25,6 +25,16 @@ static test_malloc_CALL* test_malloc_calls;
 static size_t test_malloc_call_count;
 static void* test_malloc_expected_result;
 
+typedef struct test_calloc_CALL_TAG
+{
+    size_t size;
+    size_t nmemb;
+} test_calloc_CALL;
+
+static test_calloc_CALL* test_calloc_calls;
+static size_t test_calloc_call_count;
+static void* test_calloc_expected_result;
+
 typedef struct test_realloc_CALL_TAG
 {
     size_t size;
@@ -58,6 +68,20 @@ extern "C" {
         }
 
         return test_malloc_expected_result;
+    }
+
+    void* mock_calloc(size_t nmemb, size_t size)
+    {
+        test_calloc_CALL* new_calls = (test_calloc_CALL*)realloc(test_calloc_calls, sizeof(test_calloc_CALL) * (test_calloc_call_count + 1));
+        if (new_calls != NULL)
+        {
+            test_calloc_calls = new_calls;
+            test_calloc_calls[test_calloc_call_count].nmemb = nmemb;
+            test_calloc_calls[test_calloc_call_count].size = size;
+            test_calloc_call_count++;
+        }
+
+        return test_calloc_expected_result;
     }
 
     void* mock_realloc(void* ptr, size_t size)
@@ -117,6 +141,10 @@ TEST_FUNCTION_INITIALIZE(test_function_init)
     test_malloc_call_count = 0;
     test_malloc_expected_result = (void*)0x4242;
 
+    test_calloc_calls = NULL;
+    test_calloc_call_count = 0;
+    test_calloc_expected_result = (void*)0x4242;
+
     test_realloc_calls = NULL;
     test_realloc_call_count = 0;
     test_realloc_expected_result = (void*)0x4243;
@@ -127,6 +155,10 @@ TEST_FUNCTION_CLEANUP(test_function_cleanup)
     free(test_malloc_calls);
     test_malloc_calls = NULL;
     test_malloc_call_count = 0;
+
+    free(test_calloc_calls);
+    test_calloc_calls = NULL;
+    test_calloc_call_count = 0;
 
     free(test_realloc_calls);
     test_realloc_calls = NULL;
@@ -191,10 +223,101 @@ TEST_FUNCTION(when_malloc_returns_NULL_umockalloc_malloc_returns_NULL)
     ASSERT_ARE_EQUAL(size_t, 43, test_malloc_calls[0].size);
 }
 
+/* umockalloc_calloc */
+
+/* Tests_SRS_UMOCKALLOC_09_001: [ umockalloc_calloc shall call calloc, while passing the number of members and size arguments to calloc. ] */
+/* Tests_SRS_UMOCKALLOC_09_002: [ umockalloc_calloc shall return the result of calloc. ]*/
+TEST_FUNCTION(umockalloc_calloc_calls_calloc)
+{
+    // arrange
+	void* result;
+    test_calloc_expected_result = (void*)0x4242;
+
+    // act
+    result = umockalloc_calloc(1, 42);
+
+    // assert
+    ASSERT_ARE_EQUAL(void_ptr, (void*)0x4242, result);
+    ASSERT_ARE_EQUAL(size_t, 1, test_calloc_call_count);
+    ASSERT_ARE_EQUAL(size_t, 42, test_calloc_calls[0].size);
+    ASSERT_ARE_EQUAL(size_t, 1, test_calloc_calls[0].nmemb);
+}
+
+/* Tests_SRS_UMOCKALLOC_09_001: [ umockalloc_calloc shall call calloc, while passing the number of members and size arguments to calloc. ] */
+/* Tests_SRS_UMOCKALLOC_09_002: [ umockalloc_calloc shall return the result of calloc. ]*/
+TEST_FUNCTION(umockalloc_calloc_calls_calloc_other_value)
+{
+    // arrange
+	void* result;
+    test_calloc_expected_result = (void*)0x5252;
+
+    // act
+    result = umockalloc_calloc(1, 43);
+
+    // assert
+    ASSERT_ARE_EQUAL(void_ptr, (void*)0x5252, result);
+    ASSERT_ARE_EQUAL(size_t, 1, test_calloc_call_count);
+    ASSERT_ARE_EQUAL(size_t, 43, test_calloc_calls[0].size);
+    ASSERT_ARE_EQUAL(size_t, 1, test_calloc_calls[0].nmemb);
+}
+
+/* Tests_SRS_UMOCKALLOC_09_001: [ umockalloc_calloc shall call calloc, while passing the number of members and size arguments to calloc. ] */
+/* Tests_SRS_UMOCKALLOC_09_002: [ umockalloc_calloc shall return the result of calloc. ]*/
+TEST_FUNCTION(umockalloc_calloc_calls_calloc_2_members)
+{
+    // arrange
+	void* result;
+    test_calloc_expected_result = (void*)0x4242;
+
+    // act
+    result = umockalloc_calloc(2, 40);
+
+    // assert
+    ASSERT_ARE_EQUAL(void_ptr, (void*)0x4242, result);
+    ASSERT_ARE_EQUAL(size_t, 1, test_calloc_call_count);
+    ASSERT_ARE_EQUAL(size_t, 40, test_calloc_calls[0].size);
+    ASSERT_ARE_EQUAL(size_t, 2, test_calloc_calls[0].nmemb);
+}
+
+/* Tests_SRS_UMOCKALLOC_09_001: [ umockalloc_calloc shall call calloc, while passing the number of members and size arguments to calloc. ] */
+/* Tests_SRS_UMOCKALLOC_09_002: [ umockalloc_calloc shall return the result of calloc. ]*/
+TEST_FUNCTION(umockalloc_calloc_calls_calloc_0_members)
+{
+    // arrange
+    void* result;
+    test_calloc_expected_result = NULL;
+
+    // act
+    result = umockalloc_calloc(0, 40);
+
+    // assert
+    ASSERT_IS_NULL(result);
+    ASSERT_ARE_EQUAL(size_t, 1, test_calloc_call_count);
+    ASSERT_ARE_EQUAL(size_t, 40, test_calloc_calls[0].size);
+    ASSERT_ARE_EQUAL(size_t, 0, test_calloc_calls[0].nmemb);
+}
+
+/* Tests_SRS_UMOCKALLOC_09_001: [ umockalloc_malloc shall call malloc, while passing the size argument to malloc. ] */
+TEST_FUNCTION(when_calloc_returns_NULL_umockalloc_calloc_returns_NULL)
+{
+    // arrange
+	void* result;
+    test_calloc_expected_result = NULL;
+
+    // act
+    result = umockalloc_calloc(1, 43);
+
+    // assert
+    ASSERT_IS_NULL(result);
+    ASSERT_ARE_EQUAL(size_t, 1, test_calloc_call_count);
+    ASSERT_ARE_EQUAL(size_t, 43, test_calloc_calls[0].size);
+    ASSERT_ARE_EQUAL(size_t, 1, test_calloc_calls[0].nmemb);
+}
+
 /* umockalloc_realloc */
 
-/* Tests_SRS_UMOCKALLOC_01_003: [ umockalloc_realloc shall call realloc, while passing the ptr and size arguments to realloc. ] */
-/* Tests_SRS_UMOCKALLOC_01_004: [ umockalloc_realloc shall return the result of realloc. ]*/
+/* Tests_SRS_UMOCKALLOC_01_005: [ umockalloc_realloc shall call realloc, while passing the ptr and size arguments to realloc. ] */
+/* Tests_SRS_UMOCKALLOC_01_006: [ umockalloc_realloc shall return the result of realloc. ]*/
 TEST_FUNCTION(umockalloc_realloc_calls_realloc)
 {
     // arrange
@@ -211,8 +334,8 @@ TEST_FUNCTION(umockalloc_realloc_calls_realloc)
     ASSERT_ARE_EQUAL(void_ptr, (void*)0x2222, test_realloc_calls[0].ptr);
 }
 
-/* Tests_SRS_UMOCKALLOC_01_003: [ umockalloc_realloc shall call realloc, while passing the ptr and size arguments to realloc. ] */
-/* Tests_SRS_UMOCKALLOC_01_004: [ umockalloc_realloc shall return the result of realloc. ]*/
+/* Tests_SRS_UMOCKALLOC_01_005: [ umockalloc_realloc shall call realloc, while passing the ptr and size arguments to realloc. ] */
+/* Tests_SRS_UMOCKALLOC_01_006: [ umockalloc_realloc shall return the result of realloc. ]*/
 TEST_FUNCTION(umockalloc_realloc_calls_realloc_other_value)
 {
     // arrange
@@ -229,8 +352,8 @@ TEST_FUNCTION(umockalloc_realloc_calls_realloc_other_value)
     ASSERT_ARE_EQUAL(void_ptr, (void*)0x3232, test_realloc_calls[0].ptr);
 }
 
-/* Tests_SRS_UMOCKALLOC_01_003: [ umockalloc_realloc shall call realloc, while passing the ptr and size arguments to realloc. ] */
-/* Tests_SRS_UMOCKALLOC_01_004: [ umockalloc_realloc shall return the result of realloc. ]*/
+/* Tests_SRS_UMOCKALLOC_01_005: [ umockalloc_realloc shall call realloc, while passing the ptr and size arguments to realloc. ] */
+/* Tests_SRS_UMOCKALLOC_01_006: [ umockalloc_realloc shall return the result of realloc. ]*/
 TEST_FUNCTION(when_realloc_returns_NULL_umockalloc_realloc_returns_NULL)
 {
     // arrange
@@ -247,8 +370,8 @@ TEST_FUNCTION(when_realloc_returns_NULL_umockalloc_realloc_returns_NULL)
     ASSERT_ARE_EQUAL(void_ptr, (void*)0x3232, test_realloc_calls[0].ptr);
 }
 
-/* Tests_SRS_UMOCKALLOC_01_003: [ umockalloc_realloc shall call realloc, while passing the ptr and size arguments to realloc. ] */
-/* Tests_SRS_UMOCKALLOC_01_004: [ umockalloc_realloc shall return the result of realloc. ]*/
+/* Tests_SRS_UMOCKALLOC_01_005: [ umockalloc_realloc shall call realloc, while passing the ptr and size arguments to realloc. ] */
+/* Tests_SRS_UMOCKALLOC_01_006: [ umockalloc_realloc shall return the result of realloc. ]*/
 TEST_FUNCTION(umockalloc_realloc_with_NULL_and_0_size_calls_the_underlying_realloc)
 {
     // arrange
@@ -267,7 +390,7 @@ TEST_FUNCTION(umockalloc_realloc_with_NULL_and_0_size_calls_the_underlying_reall
 
 /* umockalloc_free */
 
-/* Tests_SRS_UMOCKALLOC_01_005: [ umockalloc_free shall call free, while passing the ptr argument to free. ]*/
+/* Tests_SRS_UMOCKALLOC_01_007: [ umockalloc_free shall call free, while passing the ptr argument to free. ]*/
 TEST_FUNCTION(umockalloc_free_calls_free)
 {
     // arrange
@@ -280,7 +403,7 @@ TEST_FUNCTION(umockalloc_free_calls_free)
     ASSERT_ARE_EQUAL(void_ptr, (void*)0x4242, test_free_calls[0].ptr);
 }
 
-/* Tests_SRS_UMOCKALLOC_01_005: [ umockalloc_free shall call free, while passing the ptr argument to free. ]*/
+/* Tests_SRS_UMOCKALLOC_01_007: [ umockalloc_free shall call free, while passing the ptr argument to free. ]*/
 TEST_FUNCTION(umockalloc_free_with_NULL_calls_free_with_NULL)
 {
     // arrange
