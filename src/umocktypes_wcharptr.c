@@ -12,6 +12,13 @@
 #include "umock_c/umockalloc.h"
 #include "umock_c/umock_log.h"
 
+void static mbstate_t_init(mbstate_t* ps)
+{
+    const wchar_t empty[] = L"";
+    const wchar_t* srcp = empty;
+    wcsrtombs(NULL, &srcp, 0, ps);
+}
+
 char* umocktypes_stringify_wcharptr(const wchar_t** value)
 {
     char* result;
@@ -36,12 +43,8 @@ char* umocktypes_stringify_wcharptr(const wchar_t** value)
         {
             /* Codes_SRS_UMOCKTYPES_WCHARPTR_01_002: [ umocktypes_stringify_wcharptr shall return a string containing the string representation of value, enclosed by quotes ("value"). ] */
             const wchar_t* same_as_source = *value;
-            
-            #if defined (_clang_)
-                mbstate_t state = { {0} };
-            #else
-                mbstate_t state = { 0 };
-            #endif
+            mbstate_t state;
+            mbstate_t_init(&state);
             size_t num_characters = wcsrtombs(NULL, &same_as_source, 0, &state);
             if (num_characters == (size_t)(-1))
             {
@@ -197,11 +200,8 @@ char* umocktypes_stringify_const_wcharptr(const wchar_t** value)
         {
             /* Codes_SRS_UMOCKTYPES_WCHARPTR_01_019: [ umocktypes_stringify_const_wcharptr shall return a string containing the string representation of value, enclosed by quotes ("value"). ] */
             const wchar_t* same_as_source = *value;
-            #if defined (_clang_)
-                mbstate_t state = { {0} };
-            #else
-                mbstate_t state = { 0 };
-            #endif
+            mbstate_t state;
+            mbstate_t_init(&state);
             size_t num_characters = wcsrtombs(NULL, &same_as_source, 0, &state);
             if (num_characters == (size_t)(-1))
             {
