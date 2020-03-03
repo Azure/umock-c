@@ -14,6 +14,7 @@
 
 void static mbstate_t_init(mbstate_t* ps)
 {
+    (void)memset(ps, 0, sizeof(ps));
     const wchar_t empty[] = L"";
     const wchar_t* srcp = empty;
     wcsrtombs(NULL, &srcp, 0, ps);
