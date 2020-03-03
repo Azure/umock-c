@@ -22,6 +22,14 @@ void* my_malloc(size_t size)
     return malloc(size);
 }
 
+static size_t my_calloc_count;
+
+void* my_calloc(size_t nmemb, size_t size)
+{
+    my_calloc_count++;
+    return calloc(nmemb, size);
+}
+
 static size_t my_realloc_count;
 
 void* my_realloc(void* ptr, size_t size)
@@ -39,6 +47,7 @@ void my_free(void* ptr)
 }
 
 #define malloc my_malloc
+#define calloc my_calloc
 #define realloc my_realloc
 #define free my_free
 
@@ -91,6 +100,7 @@ TEST_FUNCTION_INITIALIZE(test_function_init)
 
     umock_c_reset_all_calls();
     my_malloc_count = 0;
+    my_calloc_count = 0;
     my_realloc_count = 0;
     my_free_count = 0;
 }
@@ -110,6 +120,7 @@ TEST_FUNCTION(when_malloc_is_hooked_no_calls_are_made_to_it)
 
     // assert
     ASSERT_ARE_EQUAL(size_t, 0, my_malloc_count);
+    ASSERT_ARE_EQUAL(size_t, 0, my_calloc_count);
     ASSERT_ARE_EQUAL(size_t, 0, my_realloc_count);
     ASSERT_ARE_EQUAL(size_t, 0, my_free_count);
 }

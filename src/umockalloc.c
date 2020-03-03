@@ -13,6 +13,13 @@ void* umockalloc_malloc(size_t size)
     return malloc(size);
 }
 
+void* umockalloc_calloc(size_t nmemb, size_t size)
+{
+    /* Codes_SRS_UMOCKALLOC_09_001: [ umockalloc_calloc shall call calloc, while passing the number of members and size arguments to calloc. ] */
+    /* Codes_SRS_UMOCKALLOC_09_002: [ umockalloc_calloc shall return the result of calloc. ]*/
+    return calloc(nmemb, size);
+}
+
 void* umockalloc_realloc(void* ptr, size_t size)
 {
     /* Codes_SRS_UMOCKALLOC_01_003: [ umockalloc_realloc shall call realloc, while passing the ptr and size arguments to realloc. ] */
