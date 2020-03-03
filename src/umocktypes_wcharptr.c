@@ -37,7 +37,7 @@ char* umocktypes_stringify_wcharptr(const wchar_t** value)
             /* Codes_SRS_UMOCKTYPES_WCHARPTR_01_002: [ umocktypes_stringify_wcharptr shall return a string containing the string representation of value, enclosed by quotes ("value"). ] */
             const wchar_t* same_as_source = *value;
             
-            #if defined (_clang_major_) || (_clang_minor_)
+            #if defined (_clang_)
                 mbstate_t state = { {0} };
             #else
                 mbstate_t state = { 0 };
@@ -197,7 +197,7 @@ char* umocktypes_stringify_const_wcharptr(const wchar_t** value)
         {
             /* Codes_SRS_UMOCKTYPES_WCHARPTR_01_019: [ umocktypes_stringify_const_wcharptr shall return a string containing the string representation of value, enclosed by quotes ("value"). ] */
             const wchar_t* same_as_source = *value;
-            #if defined (_clang_major_) || (_clang_minor_)
+            #if defined (_clang_)
                 mbstate_t state = { {0} };
             #else
                 mbstate_t state = { 0 };
