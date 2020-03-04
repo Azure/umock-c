@@ -12,9 +12,9 @@
 #include "umock_c/umockalloc.h"
 #include "umock_c/umock_log.h"
 
-void static mbstate_t_init(mbstate_t* ps)
+static void mbstate_t_init(mbstate_t* ps)
 {
-    (void)memset(ps, 0, sizeof(ps));
+    (void)memset(ps, 0, sizeof(*ps));
     const wchar_t empty[] = L"";
     const wchar_t* srcp = empty;
     (void)wcsrtombs(NULL, &srcp, 0, ps);
