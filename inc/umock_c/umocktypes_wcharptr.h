@@ -26,8 +26,6 @@ extern "C" {
     int umocktypes_copy_const_wcharptr(const wchar_t** destination, const wchar_t** source);
     void umocktypes_free_const_wcharptr(const wchar_t** value);
 
-    void static mbstate_t_init(mbstate_t* ps);
-
 #ifdef __cplusplus
 }
 #endif
