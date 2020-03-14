@@ -67,7 +67,7 @@ int umockautoignoreargs_is_call_argument_ignored(const char* call, size_t argume
 
         if (
             (is_error) ||
-            /* Codes_SRS_UMOCKAUTOIGNOREARGS_01_011: [ If a valid scope of the rightmost parenthesis set cannot be formed (imbalanced parenthesis for example), `umockautoignoreargs_is_call_argument_ignored` shall fail and return a non-zero value. ]*/
+            /* Codes_SRS_UMOCKAUTOIGNOREARGS_01_011: [ If a valid scope of the rightmost parenthesis set cannot be formed (imbalanced parenthesis for example), umockautoignoreargs_is_call_argument_ignored shall fail and return a non-zero value. ]*/
             (paren_scope_count > 0)
             )
         {

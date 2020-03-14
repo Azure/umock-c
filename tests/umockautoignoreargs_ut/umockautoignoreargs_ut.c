@@ -424,7 +424,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_when_another_value_is
     ASSERT_ARE_EQUAL(int, 1, is_ignored);
 }
 
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_011: [ If a valid scope of the rightmost parenthesis set cannot be formed (imbalanced parenthesis for example), `umockautoignoreargs_is_call_argument_ignored` shall fail and return a non-zero value. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_011: [ If a valid scope of the rightmost parenthesis set cannot be formed (imbalanced parenthesis for example), umockautoignoreargs_is_call_argument_ignored shall fail and return a non-zero value. ]*/
 TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_not_enough_LPARENs_for_args_fails)
 {
     // arrange
