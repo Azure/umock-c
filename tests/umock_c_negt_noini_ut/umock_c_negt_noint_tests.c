@@ -364,5 +364,17 @@ TEST_FUNCTION(umock_c_negative_tests_can_call_fail_when_the_module_is_not_initia
     ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.index);
 }
 
+/* Tests_SRS_UMOCK_C_NEGATIVE_TESTS_02_001: [ If umock_c_negative_tests is not initialized then umock_c_negative_tests_get_fail_call shall return SIZE_MAX. ]*/
+TEST_FUNCTION(umock_c_negative_tests_get_fail_call_returns_SIZE_MAX_when_not_initialized)
+{
+    ///arrange 
+    size_t fail_call;
 
+    ///act
+    fail_call = umock_c_negative_tests_get_fail_call();
+
+    ///assert
+    ASSERT_ARE_EQUAL(size_t, SIZE_MAX, fail_call);
+
+}
 END_TEST_SUITE(umock_c_negative_tests_no_init_unittests)

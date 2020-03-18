@@ -480,4 +480,47 @@ TEST_FUNCTION(SetFailReturns_overrides_MOCKABLE_FUNCTION_WITH_RETURNS)
     ASSERT_ARE_EQUAL(int, 44, result);
 }
 
+/* Tests_SRS_UMOCK_C_NEGATIVE_TESTS_02_003: [ umock_c_negative_tests_get_fail_call shall return parameter index of the last call to umock_c_negative_tests_fail_call ]*/
+TEST_FUNCTION(umock_c_negative_tests_get_fail_call_returns_last_index_of_umock_c_negative_tests_fail_call)
+{
+    ///arrange
+    STRICT_EXPECTED_CALL(function_with_returns())
+        .SetFailReturn(44);
+    STRICT_EXPECTED_CALL(function_with_returns())
+        .SetFailReturn(44);
+    umock_c_negative_tests_snapshot();
+
+    umock_c_negative_tests_reset();
+    umock_c_negative_tests_fail_call(1);
+    size_t last_fail_call = 4;
+
+    ///act
+    last_fail_call = umock_c_negative_tests_get_fail_call();
+
+    ///assert
+    ASSERT_ARE_EQUAL(size_t, 1, last_fail_call);
+
+}
+
+/* Tests_SRS_UMOCK_C_NEGATIVE_TESTS_02_002: [ umock_c_negative_tests_reset shall set the return value of umock_c_negative_tests_get_fail_call to SIZE_MAX. ]*/
+TEST_FUNCTION(umock_c_negative_tests_get_fail_call_is_reset_by_umock_c_negative_tests_reset)
+{
+    ///arrange
+    STRICT_EXPECTED_CALL(function_with_returns())
+        .SetFailReturn(44);
+    STRICT_EXPECTED_CALL(function_with_returns())
+        .SetFailReturn(44);
+    umock_c_negative_tests_snapshot();
+
+    umock_c_negative_tests_fail_call(1);
+    umock_c_negative_tests_reset();
+    size_t last_fail_call = 4;
+
+    ///act
+    last_fail_call = umock_c_negative_tests_get_fail_call();
+
+    ///assert
+    ASSERT_ARE_EQUAL(size_t, SIZE_MAX, last_fail_call);
+}
+
 END_TEST_SUITE(umock_c_negative_tests_integrationtests)

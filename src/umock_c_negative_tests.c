@@ -2,11 +2,14 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include <stddef.h>
-#include "umock_c/umock_c_negative_tests.h"
+#include <stdint.h>
+
 #include "umock_c/umock_c.h"
 #include "umock_c/umockcall.h"
 #include "umock_c/umockcallrecorder.h"
 #include "umock_c/umock_log.h"
+
+#include "umock_c/umock_c_negative_tests.h"
 
 static UMOCKCALLRECORDER_HANDLE snapshot_call_recorder;
 typedef enum UMOCK_C_NEGATIVE_TESTS_STATE_TAG
@@ -16,6 +19,9 @@ typedef enum UMOCK_C_NEGATIVE_TESTS_STATE_TAG
 } UMOCK_C_NEGATIVE_TESTS_STATE;
 
 static UMOCK_C_NEGATIVE_TESTS_STATE umock_c_negative_tests_state = UMOCK_C_NEGATIVE_TESTS_STATE_NOT_INITIALIZED;
+
+/*Codes_SRS_UMOCK_C_NEGATIVE_TESTS_02_001: [ If umock_c_negative_tests is not initialized then umock_c_negative_tests_get_fail_call shall return SIZE_MAX. ]*/
+static size_t fail_call = SIZE_MAX; /*remembers the last requested call to fail (when umock_c_negative_tests_fail_call is called) */
 
 int umock_c_negative_tests_init(void)
 {
@@ -51,6 +57,9 @@ void umock_c_negative_tests_deinit(void)
         }
 
         umock_c_negative_tests_state = UMOCK_C_NEGATIVE_TESTS_STATE_NOT_INITIALIZED;
+
+        /*Codes_SRS_UMOCK_C_NEGATIVE_TESTS_02_001: [ If umock_c_negative_tests is not initialized then umock_c_negative_tests_get_fail_call shall return SIZE_MAX. ]*/
+        fail_call = SIZE_MAX;
     }
 }
 
@@ -126,6 +135,11 @@ void umock_c_negative_tests_reset(void)
                 UMOCK_LOG("umock_c_negative_tests_reset: Failed setting the call recorder to the snapshot one.");
                 umock_c_indicate_error(UMOCK_C_ERROR);
             }
+            else
+            {
+                /*Codes_SRS_UMOCK_C_NEGATIVE_TESTS_02_002: [ umock_c_negative_tests_reset shall set the return value of umock_c_negative_tests_get_fail_call to SIZE_MAX. ]*/
+                fail_call = SIZE_MAX;
+            }
         }
     }
 }
@@ -159,8 +173,19 @@ void umock_c_negative_tests_fail_call(size_t index)
                 UMOCK_LOG("umock_c_negative_tests_fail_call: Cannot get call recorder.");
                 umock_c_indicate_error(UMOCK_C_ERROR);
             }
+            else
+            {
+                /*Codes_SRS_UMOCK_C_NEGATIVE_TESTS_02_003: [ umock_c_negative_tests_get_fail_call shall return parameter index of the last call to umock_c_negative_tests_fail_call ]*/
+                fail_call = index;
+            }
         }
     }
+}
+
+size_t umock_c_negative_tests_get_fail_call(void)
+{
+    /*Codes_SRS_UMOCK_C_NEGATIVE_TESTS_02_003: [ umock_c_negative_tests_get_fail_call shall return parameter index of the last call to umock_c_negative_tests_fail_call ]*/
+    return fail_call;
 }
 
 /* Codes_SRS_UMOCK_C_LIB_01_176: [ umock_c_negative_tests_call_count shall provide the number of expected calls, so that the test code can iterate through all negative cases. ]*/

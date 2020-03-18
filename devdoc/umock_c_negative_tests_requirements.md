@@ -12,6 +12,7 @@ umock_c_negative_tests is an addon to umock_c that exposes APIs used to automate
     void umock_c_negative_tests_snapshot(void);
     void umock_c_negative_tests_reset(void);
     void umock_c_negative_tests_fail_call(size_t index);
+    size_t umock_c_negative_tests_get_fail_call(void);
     size_t umock_c_negative_tests_call_count(void);
     int umock_c_negative_tests_can_call_fail(size_t index);
 ```
@@ -89,6 +90,19 @@ void umock_c_negative_tests_fail_call(size_t index);
 **SRS_UMOCK_C_NEGATIVE_TESTS_01_020: [** If the module was not previously initialized, umock_c_negative_tests_fail_call shall do nothing. **]**
 
 ## umock_c_negative_tests_call_count
+
+## umock_c_negative_tests_get_fail_call
+```c
+size_t umock_c_negative_tests_get_fail_call(void);
+```
+
+`umock_c_negative_tests_get_fail_call` returns the last `index` passed to `umock_c_negative_tests_fail_call`.
+
+**SRS_UMOCK_C_NEGATIVE_TESTS_02_001: [** If `umock_c_negative_tests` is not initialized then `umock_c_negative_tests_get_fail_call` shall return `SIZE_MAX`. **]**
+
+**SRS_UMOCK_C_NEGATIVE_TESTS_02_002: [** `umock_c_negative_tests_reset` shall set the return value of `umock_c_negative_tests_get_fail_call` to `SIZE_MAX`. **]**
+
+**SRS_UMOCK_C_NEGATIVE_TESTS_02_003: [** `umock_c_negative_tests_get_fail_call` shall return parameter `index` of the last call to `umock_c_negative_tests_fail_call` **]**
 
 ```c
 size_t umock_c_negative_tests_call_count(void);
