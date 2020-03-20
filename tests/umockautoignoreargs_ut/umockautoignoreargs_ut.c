@@ -291,22 +291,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_2nd_arg_when_firs
 }
 
 /* Tests_SRS_UMOCKAUTOIGNOREARGS_01_010: [ umockautoignoreargs_is_call_argument_ignored shall look for the arguments as being the string contained in the scope of the rightmost parenthesis set in call. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_ignored_ptr_arg_when_other_parens_are_present_in_function_call)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_ARG)", 1, &is_ignored);
-
-    // assert
-    ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 1, is_ignored);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_010: [ umockautoignoreargs_is_call_argument_ignored shall look for the arguments as being the string contained in the scope of the rightmost parenthesis set in call. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_ignored_num_arg_when_other_parens_are_present_in_function_call)
+TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_ignored_arg_when_other_parens_are_present_in_function_call)
 {
     // arrange
     int result;
