@@ -35,8 +35,8 @@ MU_DEFINE_ENUM(UMOCK_C_ERROR_CODE, UMOCK_C_ERROR_CODE_VALUES)
 /* This is the type for the error callback by which umock_c shall indicate errors to the user */
 typedef void(*ON_UMOCK_C_ERROR)(UMOCK_C_ERROR_CODE error_code);
 
-#define IGNORED_PTR_ARG (NULL)
-#define IGNORED_NUM_ARG (0)
+// Always use 0 as it does not really matter what value we pass since the argument will be ignored anyway
+#define IGNORED_ARG (0)
 
 #define REGISTER_GLOBAL_MOCK_HOOK(mock_function, mock_hook_function) \
     MU_C2(set_global_mock_hook_,mock_function)(mock_hook_function);

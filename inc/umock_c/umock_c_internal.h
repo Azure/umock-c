@@ -931,9 +931,8 @@ typedef struct MOCK_CALL_METADATA_TAG
 #define UNUSED_ARG(arg_type, arg_name) \
     (void)arg_name;
 
-/* Codes_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_PTR_ARG or IGNORED_NUM_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
-/* Codes_SRS_UMOCK_C_LIB_01_206: [ IGNORED_PTR_ARG shall be defined as NULL so that it can be used for pointer type arguments. ]*/
-/* Codes_SRS_UMOCK_C_LIB_01_207: [ IGNORED_NUM_ARG shall be defined to 0 so that it can be used for numeric type arguments. ]*/
+/* Codes_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
+/* Codes_SRS_UMOCK_C_LIB_01_207: [ IGNORED_ARG shall be defined to 0 so that it can be used for numeric and pointer type arguments. ]*/
 #define AUTO_IGNORE_ARG(arg_type, arg_name) \
     if (umockautoignoreargs_is_call_argument_ignored(call_as_string, arg_index++, &is_ignored) != 0) \
     { \

@@ -40,8 +40,6 @@ For this example, the arg list would be `arg1, some_call(x), ...`.
 
 **SRS_UMOCKAUTOIGNOREARGS_01_005: [** If `umockautoignoreargs_is_call_argument_ignored` was able to parse the `argument_index`th argument it shall succeed and return 0, while writing whether the argument is ignored in the `is_argument_ignored` output argument. **]**
 
-**SRS_UMOCKAUTOIGNOREARGS_01_006: [** If the argument value is `IGNORED_PTR_ARG` then `is_argument_ignored` shall be set to 1. **]**
-
-**SRS_UMOCKAUTOIGNOREARGS_01_007: [** If the argument value is `IGNORED_NUM_ARG` then `is_argument_ignored` shall be set to 1. **]**
+**SRS_UMOCKAUTOIGNOREARGS_01_007: [** If the argument value is `IGNORED_ARG` then `is_argument_ignored` shall be set to 1. **]**
 
 **SRS_UMOCKAUTOIGNOREARGS_01_008: [** If the argument value is any other value then `is_argument_ignored` shall be set to 0. **]**

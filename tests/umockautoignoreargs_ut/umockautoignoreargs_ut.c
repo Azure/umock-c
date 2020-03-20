@@ -150,65 +150,33 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_1_when_no_arg
     ASSERT_ARE_NOT_EQUAL(int, 0, result);
 }
 
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_006: [ If the argument value is IGNORED_PTR_ARG then is_argument_ignored shall be set to 1. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_007: [ If the argument value is IGNORED_ARG then is_argument_ignored shall be set to 1. ]*/
 /* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ umockautoignoreargs_is_call_argument_ignored shall determine whether argument argument_index shall be ignored or not. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_1_when_1_IGNORED_PTR_ARG)
+TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_1_when_1_IGNORED_ARG)
 {
     // arrange
     int result;
     int is_ignored;
 
     // act
-    result = umockautoignoreargs_is_call_argument_ignored("a(IGNORED_PTR_ARG)", 1, &is_ignored);
+    result = umockautoignoreargs_is_call_argument_ignored("a(IGNORED_ARG)", 1, &is_ignored);
 
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
     ASSERT_ARE_EQUAL(int, 1, is_ignored);
 }
 
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_007: [ If the argument value is IGNORED_NUM_ARG then is_argument_ignored shall be set to 1. ]*/
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ umockautoignoreargs_is_call_argument_ignored shall determine whether argument argument_index shall be ignored or not. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_1_when_1_IGNORED_NUM_ARG)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("a(IGNORED_NUM_ARG)", 1, &is_ignored);
-
-    // assert
-    ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 1, is_ignored);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_006: [ If the argument value is IGNORED_PTR_ARG then is_argument_ignored shall be set to 1. ]*/
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ umockautoignoreargs_is_call_argument_ignored shall determine whether argument argument_index shall be ignored or not. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_2_with_IGNORED_PTR_ARG)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("a(0, IGNORED_PTR_ARG)", 2, &is_ignored);
-
-    // assert
-    ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 1, is_ignored);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_007: [ If the argument value is IGNORED_NUM_ARG then is_argument_ignored shall be set to 1. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_007: [ If the argument value is IGNORED_ARG then is_argument_ignored shall be set to 1. ]*/
 /* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ umockautoignoreargs_is_call_argument_ignored shall determine whether argument argument_index shall be ignored or not. ]*/
 /* Tests_SRS_UMOCKAUTOIGNOREARGS_01_005: [ If umockautoignoreargs_is_call_argument_ignored was able to parse the argument_indexth argument it shall succeed and return 0, while writing whether the argument is ignored in the is_argument_ignored output argument. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_2_with_IGNORED_NUM_ARG)
+TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_2_with_IGNORED_ARG)
 {
     // arrange
     int result;
     int is_ignored;
 
     // act
-    result = umockautoignoreargs_is_call_argument_ignored("a(\"a\", IGNORED_NUM_ARG)", 2, &is_ignored);
+    result = umockautoignoreargs_is_call_argument_ignored("a(\"a\", IGNORED_ARG)", 2, &is_ignored);
 
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
@@ -240,7 +208,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_a_space_before_l
     int is_ignored;
 
     // act
-    result = umockautoignoreargs_is_call_argument_ignored("a (\"a\", IGNORED_PTR_ARG)", 2, &is_ignored);
+    result = umockautoignoreargs_is_call_argument_ignored("a (\"a\", IGNORED_ARG)", 2, &is_ignored);
 
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
@@ -255,7 +223,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_a_space_after_lp
     int is_ignored;
 
     // act
-    result = umockautoignoreargs_is_call_argument_ignored("a( \"a\", IGNORED_PTR_ARG)", 2, &is_ignored);
+    result = umockautoignoreargs_is_call_argument_ignored("a( \"a\", IGNORED_ARG)", 2, &is_ignored);
 
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
@@ -270,7 +238,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_a_space_before_c
     int is_ignored;
 
     // act
-    result = umockautoignoreargs_is_call_argument_ignored("a(\"a\" , IGNORED_PTR_ARG)", 2, &is_ignored);
+    result = umockautoignoreargs_is_call_argument_ignored("a(\"a\" , IGNORED_ARG)", 2, &is_ignored);
 
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
@@ -285,7 +253,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_a_space_before_r
     int is_ignored;
 
     // act
-    result = umockautoignoreargs_is_call_argument_ignored("a(\"a\", IGNORED_PTR_ARG )", 2, &is_ignored);
+    result = umockautoignoreargs_is_call_argument_ignored("a(\"a\", IGNORED_ARG )", 2, &is_ignored);
 
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
@@ -300,7 +268,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_2nd_arg_when_firs
     int is_ignored;
 
     // act
-    result = umockautoignoreargs_is_call_argument_ignored("a(b(1,2), IGNORED_PTR_ARG)", 2, &is_ignored);
+    result = umockautoignoreargs_is_call_argument_ignored("a(b(1,2), IGNORED_ARG)", 2, &is_ignored);
 
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
@@ -315,7 +283,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_2nd_arg_when_firs
     int is_ignored;
 
     // act
-    result = umockautoignoreargs_is_call_argument_ignored("a({1,2}, IGNORED_PTR_ARG)", 2, &is_ignored);
+    result = umockautoignoreargs_is_call_argument_ignored("a({1,2}, IGNORED_ARG)", 2, &is_ignored);
 
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
@@ -330,7 +298,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_ignored_ptr_arg_w
     int is_ignored;
 
     // act
-    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_PTR_ARG)", 1, &is_ignored);
+    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_ARG)", 1, &is_ignored);
 
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
@@ -345,7 +313,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_ignored_num_arg_w
     int is_ignored;
 
     // act
-    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_NUM_ARG)", 1, &is_ignored);
+    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_ARG)", 1, &is_ignored);
 
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
@@ -360,7 +328,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_when_RPAREN_missing_a
     int is_ignored;
 
     // act
-    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_NUM_ARG(", 1, &is_ignored);
+    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_ARG(", 1, &is_ignored);
 
     // assert
     ASSERT_ARE_NOT_EQUAL(int, 0, result);
@@ -374,7 +342,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_when_extra_LPAREN_at_
     int is_ignored;
 
     // act
-    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_NUM_ARG)(", 1, &is_ignored);
+    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_ARG)(", 1, &is_ignored);
 
     // assert
     ASSERT_ARE_NOT_EQUAL(int, 0, result);
@@ -388,7 +356,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_when_extra_LPAREN_RPA
     int is_ignored;
 
     // act
-    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_NUM_ARG)()", 1, &is_ignored);
+    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_ARG)()", 1, &is_ignored);
 
     // assert
     ASSERT_ARE_NOT_EQUAL(int, 0, result);
@@ -402,7 +370,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_when_another_call_is_
     int is_ignored;
 
     // act
-    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_NUM_ARG, b(0))", 1, &is_ignored);
+    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_ARG, b(0))", 1, &is_ignored);
 
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
@@ -417,7 +385,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_when_another_value_is
     int is_ignored;
 
     // act
-    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_NUM_ARG, (0))", 1, &is_ignored);
+    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_ARG, (0))", 1, &is_ignored);
 
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
@@ -432,7 +400,7 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_not_enough_LPARE
     int is_ignored;
 
     // act
-    result = umockautoignoreargs_is_call_argument_ignored("IGNORED_NUM_ARG, (0))", 1, &is_ignored);
+    result = umockautoignoreargs_is_call_argument_ignored("IGNORED_ARG, (0))", 1, &is_ignored);
 
     // assert
     ASSERT_ARE_NOT_EQUAL(int, 0, result);

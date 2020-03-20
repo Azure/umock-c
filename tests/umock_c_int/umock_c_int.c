@@ -1118,7 +1118,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_copies_bytes_to_the_out_argument_for_a_stric
     // arrange
     int injected_int = 0x42;
     int actual_int = 0;
-    STRICT_EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_ARG))
         .CopyOutArgumentBuffer(1, &injected_int, sizeof(injected_int));
 
 
@@ -1136,7 +1136,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_copies_bytes_to_the_out_argument_for_an_expe
     // arrange
     int injected_int = 0x42;
     int actual_int = 0;
-    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_ARG))
         .CopyOutArgumentBuffer(1, &injected_int, sizeof(injected_int));
 
 
@@ -1155,7 +1155,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_only_copies_bytes_to_the_out_argument_that_w
     int injected_int = 0x42;
     int actual_int_1 = 0;
     int actual_int_2 = 0;
-    EXPECTED_CALL(test_dependency_2_out_args(IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_2_out_args(IGNORED_ARG, IGNORED_ARG))
         .CopyOutArgumentBuffer(1, &injected_int, sizeof(injected_int));
 
 
@@ -1175,7 +1175,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_only_copies_bytes_to_the_second_out_argument
     int injected_int = 0x42;
     int actual_int_1 = 0;
     int actual_int_2 = 0;
-    EXPECTED_CALL(test_dependency_2_out_args(IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_2_out_args(IGNORED_ARG, IGNORED_ARG))
         .CopyOutArgumentBuffer(2, &injected_int, sizeof(injected_int));
 
     // act
@@ -1192,7 +1192,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_copies_the_memory_for_later_use)
     // arrange
     int injected_int = 0x42;
     int actual_int = 0;
-    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_ARG))
         .CopyOutArgumentBuffer(1, &injected_int, sizeof(injected_int));
 
     injected_int = 0;
@@ -1211,7 +1211,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_frees_allocated_buffers_for_previous_CopyOut
     // arrange
     int injected_int = 0x42;
     int actual_int = 0;
-    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_ARG))
         .CopyOutArgumentBuffer(1, &injected_int, sizeof(injected_int))
         .CopyOutArgumentBuffer(1, &injected_int, sizeof(injected_int));
 
@@ -1229,7 +1229,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_with_0_index_triggers_the_error_callback)
     int injected_int = 0x42;
 
     // act
-    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_ARG))
         .CopyOutArgumentBuffer(0, &injected_int, sizeof(injected_int));
 
     // assert
@@ -1244,7 +1244,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_with_index_higher_than_count_of_args_trigger
     int injected_int = 0x42;
 
     // act
-    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_ARG))
         .CopyOutArgumentBuffer(2, &injected_int, sizeof(injected_int));
 
     // assert
@@ -1258,7 +1258,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_with_NULL_bytes_triggers_the_error_callback)
     // arrange
 
     // act
-    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_ARG))
         .CopyOutArgumentBuffer(1, NULL, sizeof(int));
 
     // assert
@@ -1273,7 +1273,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_with_0_length_triggers_the_error_callback)
     int injected_int = 0x42;
 
     // act
-    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_ARG))
         .CopyOutArgumentBuffer(1, &injected_int, 0);
 
     // assert
@@ -1290,7 +1290,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_when_an_error_occurs_preserves_the_previous_
     int injected_int_2 = 0x43;
     int actual_int_1 = 0;
     int actual_int_2 = 0;
-    EXPECTED_CALL(test_dependency_2_out_args(IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_2_out_args(IGNORED_ARG, IGNORED_ARG))
         .CopyOutArgumentBuffer(2, &injected_int, sizeof(injected_int))
         .CopyOutArgumentBuffer(0, &injected_int_2, sizeof(injected_int_2));
 
@@ -1312,7 +1312,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_arg_name_copies_bytes_to_the_out_argument_fo
     // arrange
     int injected_int = 0x42;
     int actual_int = 0;
-    STRICT_EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_ARG))
         .CopyOutArgumentBuffer_a(&injected_int, sizeof(injected_int));
 
 
@@ -1330,7 +1330,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_arg_name_copies_bytes_to_the_out_argument_fo
     // arrange
     int injected_int = 0x42;
     int actual_int = 0;
-    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_ARG))
         .CopyOutArgumentBuffer_a(&injected_int, sizeof(injected_int));
 
     // act
@@ -1348,7 +1348,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_arg_name_only_copies_bytes_to_the_out_argume
     int injected_int = 0x42;
     int actual_int_1 = 0;
     int actual_int_2 = 0;
-    EXPECTED_CALL(test_dependency_2_out_args(IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_2_out_args(IGNORED_ARG, IGNORED_ARG))
         .CopyOutArgumentBuffer_a(&injected_int, sizeof(injected_int));
 
     // act
@@ -1367,7 +1367,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_arg_name_only_copies_bytes_to_the_second_out
     int injected_int = 0x42;
     int actual_int_1 = 0;
     int actual_int_2 = 0;
-    EXPECTED_CALL(test_dependency_2_out_args(IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_2_out_args(IGNORED_ARG, IGNORED_ARG))
         .CopyOutArgumentBuffer_b(&injected_int, sizeof(injected_int));
 
     // act
@@ -1384,7 +1384,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_arg_name_copies_the_memory_for_later_use)
     // arrange
     int injected_int = 0x42;
     int actual_int = 0;
-    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_ARG))
         .CopyOutArgumentBuffer_a(&injected_int, sizeof(injected_int));
 
     injected_int = 0;
@@ -1403,7 +1403,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_arg_name_frees_allocated_buffers_for_previou
     // arrange
     int injected_int = 0x42;
     int actual_int = 0;
-    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_ARG))
         .CopyOutArgumentBuffer_a(&injected_int, sizeof(injected_int))
         .CopyOutArgumentBuffer_a(&injected_int, sizeof(injected_int));
 
@@ -1420,7 +1420,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_arg_name_with_NULL_bytes_triggers_the_error_
     // arrange
 
     // act
-    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_ARG))
         .CopyOutArgumentBuffer_a(NULL, sizeof(int));
 
     // assert
@@ -1435,7 +1435,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_arg_name_with_0_length_triggers_the_error_ca
     int injected_int = 0x42;
 
     // act
-    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_ARG))
         .CopyOutArgumentBuffer_a(&injected_int, 0);
 
     // assert
@@ -1452,7 +1452,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_arg_name_when_an_error_occurs_preserves_the_
     int injected_int_2 = 0x43;
     int actual_int_1 = 0;
     int actual_int_2 = 0;
-    EXPECTED_CALL(test_dependency_2_out_args(IGNORED_PTR_ARG, IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_2_out_args(IGNORED_ARG, IGNORED_ARG))
         .CopyOutArgumentBuffer_b(&injected_int, sizeof(injected_int))
         .CopyOutArgumentBuffer(0, &injected_int_2, sizeof(injected_int_2));
 
@@ -1471,7 +1471,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_arg_name_overrides_the_buffer_for_CopyOutArg
     int injected_int = 0x42;
     int injected_int_2 = 0x43;
     int actual_int = 0;
-    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_ARG))
         .CopyOutArgumentBuffer(1, &injected_int, sizeof(injected_int))
         .CopyOutArgumentBuffer_a(&injected_int_2, sizeof(injected_int_2));
 
@@ -1489,7 +1489,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_overrides_the_buffer_for_CopyOutArgumentBuff
     int injected_int = 0x42;
     int injected_int_2 = 0x43;
     int actual_int = 0;
-    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_ARG))
         .CopyOutArgumentBuffer_a(&injected_int_2, sizeof(injected_int_2))
         .CopyOutArgumentBuffer(1, &injected_int, sizeof(injected_int));
 
@@ -1511,7 +1511,7 @@ TEST_FUNCTION(ValidateArgumentBuffer_checks_the_argument_buffer)
     // arrange
     int expected_int = 0x42;
     int actual_int = 0x42;
-    STRICT_EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(test_dependency_1_out_arg(IGNORED_ARG))
         .ValidateArgumentBuffer(1, &expected_int, sizeof(expected_int));
 
     // act
@@ -1531,7 +1531,7 @@ TEST_FUNCTION(ValidateArgumentBuffer_checks_the_argument_buffer_and_mismatch_is_
     unsigned char expected_buffer[] = { 0x42 };
     unsigned char actual_buffer[] = { 0x43 };
     char actual_string[64];
-    STRICT_EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_PTR_ARG))
+    STRICT_EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_ARG))
         .ValidateArgumentBuffer(1, expected_buffer, sizeof(expected_buffer));
 
     // act
@@ -1552,7 +1552,7 @@ TEST_FUNCTION(ValidateArgumentBuffer_checks_the_argument_buffer_and_mismatch_is_
     unsigned char expected_buffer[] = { 0x42 };
     unsigned char actual_buffer[] = { 0x43 };
     char actual_string[64];
-    EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_ARG))
         .ValidateArgumentBuffer(1, expected_buffer, sizeof(expected_buffer));
 
     // act
@@ -1570,7 +1570,7 @@ TEST_FUNCTION(ValidateArgumentBuffer_with_0_index_triggers_an_error)
     // arrange
     unsigned char expected_buffer[] = { 0x42 };
     unsigned char actual_buffer[] = { 0x43 };
-    EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_ARG))
         .ValidateArgumentBuffer(0, expected_buffer, sizeof(expected_buffer));
 
     // act
@@ -1587,7 +1587,7 @@ TEST_FUNCTION(ValidateArgumentBuffer_with_index_higher_than_the_Arg_count_trigge
     // arrange
     unsigned char expected_buffer[] = { 0x42 };
     unsigned char actual_buffer[] = { 0x43 };
-    EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_ARG))
         .ValidateArgumentBuffer(2, expected_buffer, sizeof(expected_buffer));
 
     // act
@@ -1604,7 +1604,7 @@ TEST_FUNCTION(ValidateArgumentBuffer_with_NULL_buffer_triggers_the_error_callbac
     // arrange
 
     // act
-    EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_ARG))
         .ValidateArgumentBuffer(1, NULL, 1);
 
     // assert
@@ -1619,7 +1619,7 @@ TEST_FUNCTION(ValidateArgumentBuffer_with_0_length_triggers_the_error_callback)
     unsigned char expected_buffer[] = { 0x42 };
 
     // act
-    EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_ARG))
         .ValidateArgumentBuffer(1, expected_buffer, 0);
 
     // assert
@@ -1636,7 +1636,7 @@ TEST_FUNCTION(ValidateArgumentBuffer_with_2_bytes_and_first_byte_different_check
     unsigned char expected_buffer[] = { 0x42, 0x41 };
     unsigned char actual_buffer[] = { 0x43, 0x41 };
     char actual_string[64];
-    EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_ARG))
         .ValidateArgumentBuffer(1, expected_buffer, sizeof(expected_buffer));
 
     // act
@@ -1657,7 +1657,7 @@ TEST_FUNCTION(ValidateArgumentBuffer_with_2_bytes_and_second_byte_different_chec
     unsigned char expected_buffer[] = { 0x42, 0x41 };
     unsigned char actual_buffer[] = { 0x42, 0x42 };
     char actual_string[64];
-    EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_ARG))
         .ValidateArgumentBuffer(1, expected_buffer, sizeof(expected_buffer));
 
     // act
@@ -1675,7 +1675,7 @@ TEST_FUNCTION(ValidateArgumentBuffer_copies_the_bytes_to_compare)
     // arrange
     unsigned char expected_buffer[] = { 0x42 };
     unsigned char actual_buffer[] = { 0x42 };
-    EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_ARG))
         .ValidateArgumentBuffer(1, expected_buffer, sizeof(expected_buffer));
 
     expected_buffer[0] = 0x43;
@@ -1696,7 +1696,7 @@ TEST_FUNCTION(When_ValidateArgumentBuffer_is_called_twice_the_last_buffer_is_use
     unsigned char expected_buffer1[] = { 0x43 };
     unsigned char expected_buffer2[] = { 0x42 };
     unsigned char actual_buffer[] = { 0x42 };
-    EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_PTR_ARG))
+    EXPECTED_CALL(test_dependency_buffer_arg(IGNORED_ARG))
         .ValidateArgumentBuffer(1, expected_buffer1, sizeof(expected_buffer1))
         .ValidateArgumentBuffer(1, expected_buffer2, sizeof(expected_buffer2));
 
@@ -2673,12 +2673,12 @@ TEST_FUNCTION(validate_argument_value_as_type_2_times_makes_the_last_call_stick)
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_PTR_ARG or IGNORED_NUM_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
-/* Tests_SRS_UMOCK_C_LIB_01_207: [ IGNORED_NUM_ARG shall be defined to 0 so that it can be used for numeric type arguments. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_207: [ IGNORED_ARG shall be defined to 0 so that it can be used for numeric and pointer type arguments. ]*/
 TEST_FUNCTION(auto_ignore_ignores_a_numeric_argument)
 {
     // arrange
-    STRICT_EXPECTED_CALL(test_dependency_1_arg(IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(test_dependency_1_arg(IGNORED_ARG));
 
     // act
     (void)test_dependency_1_arg(42);
@@ -2688,12 +2688,12 @@ TEST_FUNCTION(auto_ignore_ignores_a_numeric_argument)
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_PTR_ARG or IGNORED_NUM_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
-/* Tests_SRS_UMOCK_C_LIB_01_206: [ IGNORED_PTR_ARG shall be defined as NULL so that it can be used for pointer type arguments. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_207: [ IGNORED_ARG shall be defined to 0 so that it can be used for numeric and pointer type arguments. ]*/
 TEST_FUNCTION(auto_ignore_ignores_a_pointer_argument)
 {
     // arrange
-    STRICT_EXPECTED_CALL(test_dependency_char_star_arg(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(test_dependency_char_star_arg(IGNORED_ARG));
 
     // act
     (void)test_dependency_char_star_arg("cucu");
@@ -2703,12 +2703,12 @@ TEST_FUNCTION(auto_ignore_ignores_a_pointer_argument)
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_PTR_ARG or IGNORED_NUM_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
-/* Tests_SRS_UMOCK_C_LIB_01_207: [ IGNORED_NUM_ARG shall be defined to 0 so that it can be used for numeric type arguments. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_207: [ IGNORED_ARG shall be defined to 0 so that it can be used for numeric and pointer type arguments. ]*/
 TEST_FUNCTION(auto_ignore_ignores_a_2nd_numeric_argument)
 {
     // arrange
-    STRICT_EXPECTED_CALL(test_dependency_2_args(1, IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(test_dependency_2_args(1, IGNORED_ARG));
 
     // act
     (void)test_dependency_2_args(1, 42);
@@ -2718,14 +2718,14 @@ TEST_FUNCTION(auto_ignore_ignores_a_2nd_numeric_argument)
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_PTR_ARG or IGNORED_NUM_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
-/* Tests_SRS_UMOCK_C_LIB_01_206: [ IGNORED_PTR_ARG shall be defined as NULL so that it can be used for pointer type arguments. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_207: [ IGNORED_ARG shall be defined to 0 so that it can be used for numeric and pointer type arguments. ]*/
 TEST_FUNCTION(auto_ignore_ignores_a_2nd_pointer_argument)
 {
     // arrange
     int a = 42;
     int b = 43;
-    STRICT_EXPECTED_CALL(test_dependency_2_out_args(IGNORED_PTR_ARG, IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(test_dependency_2_out_args(IGNORED_ARG, IGNORED_ARG));
 
     // act
     (void)test_dependency_2_out_args(&a, &b);
@@ -2737,12 +2737,12 @@ TEST_FUNCTION(auto_ignore_ignores_a_2nd_pointer_argument)
 
 #define test(a,b) 42
 
-/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_PTR_ARG or IGNORED_NUM_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
-/* Tests_SRS_UMOCK_C_LIB_01_206: [ IGNORED_PTR_ARG shall be defined as NULL so that it can be used for pointer type arguments. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_207: [ IGNORED_ARG shall be defined to 0 so that it can be used for numeric and pointer type arguments. ]*/
 TEST_FUNCTION(auto_ignore_when_first_arg_is_a_macro_succeeds_for_2nd_arg)
 {
     // arrange
-    STRICT_EXPECTED_CALL(test_dependency_2_args(test(1,2), IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(test_dependency_2_args(test(1,2), IGNORED_ARG));
 
     // act
     (void)test_dependency_2_args(42, 1);
@@ -2752,12 +2752,12 @@ TEST_FUNCTION(auto_ignore_when_first_arg_is_a_macro_succeeds_for_2nd_arg)
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_PTR_ARG or IGNORED_NUM_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
-/* Tests_SRS_UMOCK_C_LIB_01_206: [ IGNORED_PTR_ARG shall be defined as NULL so that it can be used for pointer type arguments. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_207: [ IGNORED_ARG shall be defined to 0 so that it can be used for numeric and pointer type arguments. ]*/
 TEST_FUNCTION(auto_ignore_when_first_arg_is_a_nested_macro_succeeds_for_2nd_arg)
 {
     // arrange
-    STRICT_EXPECTED_CALL(test_dependency_2_args(test(test(1, 2), 4), IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(test_dependency_2_args(test(test(1, 2), 4), IGNORED_ARG));
 
     // act
     (void)test_dependency_2_args(42, 1);
@@ -2769,27 +2769,27 @@ TEST_FUNCTION(auto_ignore_when_first_arg_is_a_nested_macro_succeeds_for_2nd_arg)
 
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1600
-/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_PTR_ARG or IGNORED_NUM_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
-/* Tests_SRS_UMOCK_C_LIB_01_206: [ IGNORED_PTR_ARG shall be defined as NULL so that it can be used for pointer type arguments. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_207: [ IGNORED_ARG shall be defined to 0 so that it can be used for numeric and pointer type arguments. ]*/
 TEST_FUNCTION(auto_ignore_when_first_arg_is_a_struct_succeeds_for_2nd_arg)
 {
 #ifdef _MSC_VER
 #ifdef __cplusplus
     // arrange
-    STRICT_EXPECTED_CALL(test_dependency_struct_with_2_members({ 2, 3 }, IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(test_dependency_struct_with_2_members({ 2, 3 }, IGNORED_ARG));
 
     // act
     (void)test_dependency_struct_with_2_members({ 2, 3 }, 1);
 #else
 	// arrange
-	STRICT_EXPECTED_CALL(test_dependency_struct_with_2_members((struct TEST_STRUCT_WITH_2_MEMBERS_TAG) { 2, 3 }, IGNORED_NUM_ARG));
+	STRICT_EXPECTED_CALL(test_dependency_struct_with_2_members((struct TEST_STRUCT_WITH_2_MEMBERS_TAG) { 2, 3 }, IGNORED_ARG));
 
 	// act
 	(void)test_dependency_struct_with_2_members((struct TEST_STRUCT_WITH_2_MEMBERS_TAG) { 2, 3 }, 1);
 #endif
 #else
     // arrange
-    STRICT_EXPECTED_CALL(test_dependency_struct_with_2_members((struct TEST_STRUCT_WITH_2_MEMBERS_TAG) { 2, 3 }, IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(test_dependency_struct_with_2_members((struct TEST_STRUCT_WITH_2_MEMBERS_TAG) { 2, 3 }, IGNORED_ARG));
 
     // act
     (void)test_dependency_struct_with_2_members((struct TEST_STRUCT_WITH_2_MEMBERS_TAG) { 2, 3 }, 1);
@@ -2946,7 +2946,7 @@ TEST_FUNCTION(CallCannotFail_sets_cannot_fail_for_expected_call)
 TEST_FUNCTION(CaptureArgumentValue_with_NULL_arg_value_indicates_an_error)
 {
     // arrange
-    EXPECTED_CALL(test_dependency_1_arg_no_return(IGNORED_NUM_ARG))
+    EXPECTED_CALL(test_dependency_1_arg_no_return(IGNORED_ARG))
         .CaptureArgumentValue_a(NULL);
 
     // act
@@ -2965,7 +2965,7 @@ TEST_FUNCTION(CaptureArgumentValue_captures_the_argument_value)
     // arrange
     int captured_arg_value = 42;
 
-    STRICT_EXPECTED_CALL(test_dependency_1_arg_no_return(IGNORED_NUM_ARG))
+    STRICT_EXPECTED_CALL(test_dependency_1_arg_no_return(IGNORED_ARG))
         .CaptureArgumentValue_a(&captured_arg_value);
 
     // act
@@ -2999,7 +2999,7 @@ TEST_FUNCTION(CaptureArgumentValue_does_not_capture_when_matching_does_not_happe
     // arrange
     int captured_arg_value = 42;
 
-    STRICT_EXPECTED_CALL(test_dependency_2_args(IGNORED_NUM_ARG, 41))
+    STRICT_EXPECTED_CALL(test_dependency_2_args(IGNORED_ARG, 41))
         .CaptureArgumentValue_a(&captured_arg_value);
 
     // act
@@ -3110,13 +3110,13 @@ TEST_FUNCTION(SetReturn_overrides_MOCKABLE_FUNCTION_WITH_RETURNS)
 
 #define WRAPPER_MACRO(a) a
 
-/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_PTR_ARG or IGNORED_NUM_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
-TEST_FUNCTION(IGNORED_PTR_ARG_works_with_another_macro_wrapping_function_name)
+/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
+TEST_FUNCTION(IGNORED_ARG_works_with_another_macro_wrapping_function_name_pointer_type)
 {
     // arrange
     unsigned char x[1] = { 42 };
 
-    STRICT_EXPECTED_CALL(WRAPPER_MACRO(test_dependency_buffer_arg)(IGNORED_PTR_ARG));
+    STRICT_EXPECTED_CALL(WRAPPER_MACRO(test_dependency_buffer_arg)(IGNORED_ARG));
 
     // act
     WRAPPER_MACRO(test_dependency_buffer_arg)(x);
@@ -3126,13 +3126,13 @@ TEST_FUNCTION(IGNORED_PTR_ARG_works_with_another_macro_wrapping_function_name)
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_PTR_ARG or IGNORED_NUM_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
-TEST_FUNCTION(IGNORED_NUM_ARG_works_with_another_macro_wrapping_function_name)
+/* Tests_SRS_UMOCK_C_LIB_01_205: [ If IGNORED_ARG is used as an argument value with STRICT_EXPECTED_CALL, the argument shall be automatically ignored. ]*/
+TEST_FUNCTION(IGNORED_ARG_works_with_another_macro_wrapping_function_name)
 {
     // arrange
     int x = 42;
 
-    STRICT_EXPECTED_CALL(WRAPPER_MACRO(test_dependency_1_arg_no_return)(IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(WRAPPER_MACRO(test_dependency_1_arg_no_return)(IGNORED_ARG));
 
     // act
     WRAPPER_MACRO(test_dependency_1_arg_no_return)(x);

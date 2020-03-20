@@ -71,8 +71,7 @@ MU_DEFINE_ENUM(UMOCK_C_ERROR_CODE, UMOCK_C_ERROR_CODE_VALUES)
 
 typedef void(*ON_UMOCK_C_ERROR)(UMOCK_C_ERROR_CODE error_code);
 
-#define IGNORED_PTR_ARG (NULL)
-#define IGNORED_NUM_ARG (0)
+#define IGNORED_ARG (0)
 
 #define MOCKABLE_FUNCTION(modifiers, result, function, ...) \
 	...
@@ -981,16 +980,14 @@ X**SRS_UMOCK_C_LIB_31_210: [** If recording that the call cannot fail is unsucce
 
 ###  Automatic argument ignore
 
-**SRS_UMOCK_C_LIB_01_205: [** If `IGNORED_PTR_ARG` or `IGNORED_NUM_ARG` is used as an argument value with `STRICT_EXPECTED_CALL`, the argument shall be automatically ignored. **]**
+**SRS_UMOCK_C_LIB_01_205: [** If `IGNORED_ARG` is used as an argument value with `STRICT_EXPECTED_CALL`, the argument shall be automatically ignored. **]**
 
-**SRS_UMOCK_C_LIB_01_206: [** `IGNORED_PTR_ARG` shall be defined as NULL so that it can be used for pointer type arguments. **]**
-
-**SRS_UMOCK_C_LIB_01_207: [** `IGNORED_NUM_ARG` shall be defined to 0 so that it can be used for numeric type arguments. **]**
+**SRS_UMOCK_C_LIB_01_207: [** `IGNORED_ARG` shall be defined to 0 so that it can be used for numeric and pointer type arguments. **]**
 
 Example:
 
 ```c
-    STRICT_EXPECTED_CALL(function_name(IGNORED_PTR_ARG, 2, IGNORED_NUM_ARG));
+    STRICT_EXPECTED_CALL(function_name(IGNORED_ARG, 2, IGNORED_ARG));
 ```
 
 is equivalent to:

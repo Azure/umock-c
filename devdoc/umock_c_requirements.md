@@ -24,8 +24,7 @@ It exposes a set of macros and APIs that allow:
 
     typedef void(*ON_UMOCK_C_ERROR)(UMOCK_C_ERROR_CODE error_code);
 
-#define IGNORED_PTR_ARG (NULL)
-#define IGNORED_NUM_ARG (0)
+#define IGNORED_ARG (0)
 
 #define MOCKABLE_FUNCTION(result, function, ...) \
     ...

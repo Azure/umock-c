@@ -301,8 +301,8 @@ TEST_FUNCTION(negative_tests_with_1_call_with_void_return_dependency)
 TEST_FUNCTION(negative_tests_with_1_call_with_void_ptr_return_dependency)
 {
     size_t i;
-    STRICT_EXPECTED_CALL(function_3_void_ptr_return(IGNORED_PTR_ARG))
-        .SetReturn((void*)0x42).SetFailReturn(NULL).IgnoreArgument_a();
+    STRICT_EXPECTED_CALL(function_3_void_ptr_return(IGNORED_ARG))
+        .SetReturn((void*)0x42).SetFailReturn(NULL);
     umock_c_negative_tests_snapshot();
 
     for (i = 0; i < umock_c_negative_tests_call_count(); i++)
@@ -329,8 +329,8 @@ TEST_FUNCTION(negative_tests_with_1_call_with_void_ptr_return_dependency)
 TEST_FUNCTION(negative_tests_with_1_call_with_ignored_arguments_takes_the_ignoreargument_flags_into_account)
 {
     size_t i;
-    STRICT_EXPECTED_CALL(function_4_void_ptr_return_non_NULL(IGNORED_PTR_ARG))
-        .SetFailReturn(NULL).IgnoreArgument(1);
+    STRICT_EXPECTED_CALL(function_4_void_ptr_return_non_NULL(IGNORED_ARG))
+        .SetFailReturn(NULL);
     umock_c_negative_tests_snapshot();
 
     for (i = 0; i < umock_c_negative_tests_call_count(); i++)
@@ -359,7 +359,7 @@ TEST_FUNCTION(negative_tests_with_9_calls_works)
     size_t i;
     for (i = 0; i < 9; i++)
     {
-        STRICT_EXPECTED_CALL(function_4_void_ptr_return_non_NULL(IGNORED_PTR_ARG))
+        STRICT_EXPECTED_CALL(function_4_void_ptr_return_non_NULL(IGNORED_ARG))
             .SetFailReturn(NULL).IgnoreArgument(1);
     }
 
