@@ -2,7 +2,7 @@
 	path = deps/ctest
 	url = https://github.com/Azure/azure-ctest.git
 [submodule "deps/testrunner"]
-	path = deps/testrunner
+	path = deps/azure-c-testrunnerswitcher
 	url = https://github.com/Azure/azure-c-testrunnerswitcher.git
 [submodule "deps/azure-macro-utils-c"]
 	path = deps/azure-macro-utils-c
