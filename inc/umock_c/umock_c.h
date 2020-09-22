@@ -122,7 +122,7 @@ int umock_c_set_call_recorder(UMOCKCALLRECORDER_HANDLE umockc_call_recorder);
 #define REGISTER_UMOCK_VALUE_TYPE_ONLY_TYPE(value_type) \
     REGISTER_UMOCK_VALUE_TYPE_ALL (value_type, MU_C2(umock_stringify_,value_type), MU_C2(umock_are_equal_,value_type), MU_C2(umock_copy_,value_type), MU_C2(umock_free_,value_type))
 
-#if _MSC_VER
+#if _MSC_VER && defined(_MSVC_TRADITIONAL) && _MSVC_TRADITIONAL
 #define REGISTER_UMOCK_VALUE_TYPE(...) \
     MU_IF(MU_DIV2(MU_COUNT_ARG(__VA_ARGS__)), REGISTER_UMOCK_VALUE_TYPE_ALL, REGISTER_UMOCK_VALUE_TYPE_ONLY_TYPE) MU_LPAREN __VA_ARGS__)
 #else
