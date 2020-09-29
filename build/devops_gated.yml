@@ -72,7 +72,6 @@ jobs:
     inputs:
       solution: 'build_x64\*.sln'
       msbuildArgs: '/t:restore /t:build /p:ForceImportBeforeCppTargets=$(Build.SourcesDirectory)/vld.props'
-      platform: x64
       configuration: Debug
       maximumCpuCount: true
 
@@ -132,7 +131,6 @@ jobs:
     inputs:
       solution: 'build_x64\*.sln'
       msbuildArgs: '/t:restore /t:build'
-      platform: Win32
       configuration: RelWithDebInfo
       maximumCpuCount: true
 
@@ -293,7 +291,6 @@ jobs:
     displayName: 'Build traceabilitytool only'
     inputs:
       solution: 'build\umock_c.sln'
-      platform: x64
       configuration: RelWithDebInfo
       msbuildArgs: '/t:restore /t:traceabilitytool'
       clean: true
