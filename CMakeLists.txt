@@ -3,6 +3,13 @@
 
 cmake_minimum_required(VERSION 2.8.11)
 
+# canon way of using umock-c from another repo is below. It assumes the using repo has placed umock-c in "deps"
+
+#if ((NOT TARGET umock_c) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/umock-c/CMakeLists.txt))
+#    add_subdirectory(deps/umock-c)
+#    include_directories(${UMOCK_C_INC_FOLDER})
+#endif() 
+
 if(TARGET umock_c)
     return()
 endif()
@@ -22,71 +29,54 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # Build with -fPIC always
 set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
 
-# Build with -Werror
-if(MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /W4")
-elseif(UNIX) # LINUX OR APPLE
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror")
-endif()
 
 include (CTest)
 include (CheckIncludeFiles)
 
+#bring in dependencies
+#do not add or build any tests of the dependencies
 set(original_run_e2e_tests ${run_e2e_tests})
 set(original_run_int_tests ${run_int_tests})
-set(original_run_unittests ${run_unittests})
 set(original_run_perf_tests ${run_perf_tests})
+set(original_run_unittests ${run_unittests})
+set(original_run_traceability ${run_traceability})
 
 set(run_e2e_tests OFF)
 set(run_int_tests OFF)
-set(run_unittests OFF)
 set(run_perf_tests OFF)
+set(run_unittests OFF)
+set(run_traceability OFF)
 
 if ((NOT TARGET azure_c_build_tools) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/azure-c-build-tools/CMakeLists.txt))
     add_subdirectory(deps/azure-c-build-tools)
-endif()
-set_default_build_options()
+    set_default_build_options()
+endif() 
 
 if ((NOT TARGET azure_macro_utils_c) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/azure-macro-utils-c/CMakeLists.txt))
-        add_subdirectory(deps/azure-macro-utils-c)
-        include_directories(deps/azure-macro-utils-c/inc)
-endif()
+    add_subdirectory(deps/azure-macro-utils-c)
+    include_directories(${MACRO_UTILS_INC_FOLDER})
+endif() 
 
 if ((NOT TARGET azure_c_logging) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/azure-c-logging/CMakeLists.txt))
-        add_subdirectory(deps/azure-c-logging)
-        include_directories(deps/azure-c-logging/inc)
-endif()
+    add_subdirectory(deps/azure-c-logging)
+    include_directories(deps/azure-c-logging/inc)
+endif() 
 
 if ((NOT TARGET ctest) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/azure-ctest/CMakeLists.txt))
-        add_subdirectory(deps/azure-ctest)
-        include_directories(deps/azure-ctest/inc)
-endif()
+    add_subdirectory(deps/azure-ctest)
+    include_directories(${CTEST_INC_FOLDER})
+endif() 
 
 if ((NOT TARGET testrunnerswitcher) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/azure-c-testrunnerswitcher/CMakeLists.txt))
-        add_subdirectory(deps/azure-c-testrunnerswitcher)
-        include_directories(deps/azure-c-testrunnerswitcher/inc)
-endif()
-
-if(${original_run_int_tests} OR ${original_run_unittests})
-    if(${use_installed_dependencies})
-        find_package(ctest REQUIRED CONFIG)
-        find_package(testrunnerswitcher REQUIRED CONFIG)
-    else()
-        if (NOT TARGET testrunnerswitcher)
-            add_subdirectory(deps/azure-c-testrunnerswitcher)
-        endif()
-        if (NOT TARGET ctest)
-            add_subdirectory(deps/azure-ctest)
-        endif()
-    endif()
-endif()
+    add_subdirectory(deps/azure-c-testrunnerswitcher)
+    include_directories(${TESTRUNNERSWITCHER_INC_FOLDER})
+endif() 
 
 set(run_e2e_tests ${original_run_e2e_tests})
 set(run_int_tests ${original_run_int_tests})
-set(run_unittests ${original_run_unittests})
 set(run_perf_tests ${original_run_perf_tests})
+set(run_unittests ${original_run_unittests})
+set(run_traceability ${original_run_traceability})
 
 include_directories(${MACRO_UTILS_INC_FOLDER})
 
@@ -132,10 +122,6 @@ set(umock_c_h_files
 )
 
 IF(WIN32)
-    #windows needs this define
-    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
-    # Make warning as error
-    add_definitions(/WX)
 
 set(umock_c_c_files ${umock_c_c_files}
     ./src/umocktypes_windows.c
