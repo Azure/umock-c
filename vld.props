@@ -2,7 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalOptions>/FI "vld.h"</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /FI "vld.h"</AdditionalOptions>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);"c:\Program Files (x86)\Visual Leak Detector\include"</AdditionalIncludeDirectories>
     </ClCompile>
     <Link Condition="'$(Platform)' == 'x86'">
