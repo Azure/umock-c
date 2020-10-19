@@ -91,8 +91,13 @@
 /* Codes_SRS_UMOCK_C_LIB_01_002: [The macro shall generate a function signature in case ENABLE_MOCKS is not defined.] */
 /* Codes_SRS_UMOCK_C_LIB_01_005: [If ENABLE_MOCKS is not defined, MOCKABLE_FUNCTION shall only generate a declaration for the function.] */
 /* Codes_SRS_UMOCK_C_LIB_01_001: [MOCKABLE_FUNCTION shall be used to wrap function definition allowing the user to declare a function that can be mocked.]*/
+#if defined(_MSC_VER) && (_MSC_VER<1920)
 #define MOCKABLE_FUNCTION(modifiers, result, function, ...) \
     MOCKABLE_FUNCTION_SIGNATURE(modifiers, result, function, __VA_ARGS__);
+#else
+#define MOCKABLE_FUNCTION(modifiers, result, function, ...) \
+    MOCKABLE_FUNCTION_SIGNATURE(modifiers, result, function, ##__VA_ARGS__);
+#endif
 
 /* Codes_SRS_UMOCK_C_LIB_01_213: [ The macro shall generate a function signature in case ENABLE_MOCKS is not defined. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_212: [ MOCKABLE_FUNCTION_WITH_RETURNS shall be used to wrap function definitions, allowing the user to declare a function that can be mocked and aditionally declares the values that are to be returned in case of success and failure. ]*/
