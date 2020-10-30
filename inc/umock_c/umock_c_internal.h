@@ -12,7 +12,7 @@
 #include <stdio.h>
 #endif
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 #include "umock_c/umocktypes.h"
 #include "umock_c/umockcall.h"
 #include "umock_c/umockcallrecorder.h"

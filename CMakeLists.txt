@@ -47,28 +47,28 @@ set(run_perf_tests OFF)
 set(run_unittests OFF)
 set(run_traceability OFF)
 
-if ((NOT TARGET azure_c_build_tools) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/azure-c-build-tools/CMakeLists.txt))
-    add_subdirectory(deps/azure-c-build-tools)
+if ((NOT TARGET c_build_tools) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-build-tools/CMakeLists.txt))
+    add_subdirectory(deps/c-build-tools)
     set_default_build_options()
 endif() 
 
-if ((NOT TARGET azure_macro_utils_c) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/azure-macro-utils-c/CMakeLists.txt))
-    add_subdirectory(deps/azure-macro-utils-c)
+if ((NOT TARGET macro_utils_c) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/macro-utils-c/CMakeLists.txt))
+    add_subdirectory(deps/macro-utils-c)
     include_directories(${MACRO_UTILS_INC_FOLDER})
 endif() 
 
-if ((NOT TARGET azure_c_logging) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/azure-c-logging/CMakeLists.txt))
-    add_subdirectory(deps/azure-c-logging)
-    include_directories(deps/azure-c-logging/inc)
+if ((NOT TARGET c_logging) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-logging/CMakeLists.txt))
+    add_subdirectory(deps/c-logging)
+    include_directories(deps/c-logging/inc)
 endif() 
 
-if ((NOT TARGET ctest) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/azure-ctest/CMakeLists.txt))
-    add_subdirectory(deps/azure-ctest)
+if ((NOT TARGET ctest) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/ctest/CMakeLists.txt))
+    add_subdirectory(deps/ctest)
     include_directories(${CTEST_INC_FOLDER})
 endif() 
 
-if ((NOT TARGET testrunnerswitcher) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/azure-c-testrunnerswitcher/CMakeLists.txt))
-    add_subdirectory(deps/azure-c-testrunnerswitcher)
+if ((NOT TARGET testrunnerswitcher) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-testrunnerswitcher/CMakeLists.txt))
+    add_subdirectory(deps/c-testrunnerswitcher)
     include_directories(${TESTRUNNERSWITCHER_INC_FOLDER})
 endif() 
 
@@ -138,7 +138,7 @@ SOURCE_GROUP(devdoc FILES ${umock_c_md_files})
 add_library(umock_c ${umock_c_c_files} ${umock_c_h_files} ${umock_c_md_files})
 
 if(${use_installed_dependencies})
-    target_link_libraries(umock_c azure_macro_utils_c)
+    target_link_libraries(umock_c macro_utils_c)
 endif()
 
 target_include_directories(umock_c

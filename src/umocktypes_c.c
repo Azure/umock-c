@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <string.h>
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 #include "umock_c/umocktypes.h"
 #include "umock_c/umocktypes_c.h"
 #include "umock_c/umockalloc.h"

@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #endif
 
-#include "azure_macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h"
 
 #include "testrunnerswitcher.h"
 #include "umock_c/umocktypes_struct.h"
