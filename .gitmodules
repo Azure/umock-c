@@ -1,3 +1,15 @@
-[submodule "deps/azure-ctest"]
-	path = deps/azure-ctest
-	url = https://github.com/Azure/azure-ctest.git
+[submodule "deps/c-build-tools"]
+	path = deps/c-build-tools
+	url = https://github.com/Azure/c-build-tools
+[submodule "deps/macro-utils-c"]
+	path = deps/macro-utils-c
+	url = https://github.com/Azure/macro-utils-c
+[submodule "deps/c-logging"]
+	path = deps/c-logging
+	url = https://github.com/Azure/c-logging
+[submodule "deps/ctest"]
+	path = deps/ctest
+	url = https://github.com/Azure/ctest
+[submodule "deps/c-testrunnerswitcher"]
+	path = deps/c-testrunnerswitcher
+	url = https://github.com/Azure/c-testrunnerswitcher
