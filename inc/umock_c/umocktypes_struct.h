@@ -32,7 +32,7 @@ extern "C" {
 #define UMOCK_STRUCT_STRINGIFY_STRUCT_FIELD_CLEANUP(count, field_type, field_name) \
     if (MU_C2(temp_, field_name) != NULL) \
     { \
-        umockalloc_free(MU_C2(temp_, field_name)); \
+        umockalloc_free((void*)MU_C2(temp_, field_name)); \
     } \
 
 #define UMOCK_STRUCT_STRINGIFY_STRUCT_FIELD_FORMAT_STRING(count, field_type, field_name) \
@@ -47,7 +47,7 @@ extern "C" {
 
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_012: [ umocktypes_copy_<type> shall call umocktypes_copy for each field in type. ]*/
 #define UMOCK_STRUCT_COPY_STRUCT_FIELD(count, field_type, field_name) \
-    umocktypes_copy(MU_TOSTRING(field_type), &destination->field_name, &source->field_name) |
+    umocktypes_copy(MU_TOSTRING(field_type), (void*)&destination->field_name, &source->field_name) |
 
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_002: [ umocktypes_stringify_<type> shall generate a string containing all stringified fields in type and return it. ]*/
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_004: [ If there are any errors then umocktypes_stringify_<type> shall fail and return NULL. ]*/
@@ -155,7 +155,7 @@ extern "C" {
 
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_015: [ umocktypes_free_<type> shall call umocktypes_free for each field in type. ]*/
 #define UMOCK_STRUCT_FREE_STRUCT_FIELD(count, field_type, field_name) \
-    umocktypes_free(MU_TOSTRING(field_type), &value->field_name);
+    umocktypes_free(MU_TOSTRING(field_type), (void*)&value->field_name);
 
 #define UMOCK_DEFINE_TYPE_STRUCT_FREE(type, ...) \
     static void MU_C2(umocktypes_free_, type)(type* value) \
