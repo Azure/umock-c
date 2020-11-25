@@ -193,14 +193,14 @@ char* umocktypes_stringify_my_const_int_ptr(my_const_int_ptr* value)
     }
     else
     {
-        return umocktypes_stringify_void_ptr((void*)value);
+        return umocktypes_stringify_void_ptr((void**)value);
     }
 }
 
 int umocktypes_are_equal_my_const_int_ptr(my_const_int_ptr* left, my_const_int_ptr* right)
 {
     mock_are_equal_my_const_int_ptr_was_called++;
-    return umocktypes_are_equal_void_ptr((void*)left, (void*)right);
+    return umocktypes_are_equal_void_ptr((void**)left, (void**)right);
 }
 
 int umocktypes_copy_my_const_int_ptr(my_const_int_ptr* destination, my_const_int_ptr* source)
@@ -214,14 +214,14 @@ int umocktypes_copy_my_const_int_ptr(my_const_int_ptr* destination, my_const_int
     }
     else
     {
-        return umocktypes_copy_void_ptr((void*)destination, (void*)source);
+        return umocktypes_copy_void_ptr((void**)destination, (void**)source);
     }
 }
 
 void umocktypes_free_my_const_int_ptr(my_const_int_ptr* value)
 {
     mock_free_my_const_int_ptr_was_called++;
-    umocktypes_free_void_ptr((void*)value);
+    umocktypes_free_void_ptr((void**)value);
 }
 
 void reset_mock_my_const_int_ptr(void)
