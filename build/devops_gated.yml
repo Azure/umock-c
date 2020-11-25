@@ -31,35 +31,11 @@ jobs:
       filename: 'C:\Program Files\Git\bin\git.exe'
       arguments: 'clean -xdff'
 
-  - powershell: |
-     $url = "https://github.com/KindDragon/vld/releases/download/v2.5.1/vld-2.5.1-setup.exe"
-     $outpath = "$(System.ArtifactsDirectory)/vld-2.5.1-setup.exe"
-   
-     $wc = New-Object System.Net.WebClient
-     $wc.DownloadFile($url, $outpath)
-    displayName: 'Download VLD'
-
-  - task: BatchScript@1
-    displayName: 'Install VLD'
-    inputs:
-      filename: '$(System.ArtifactsDirectory)/vld-2.5.1-setup.exe'
-      arguments: '/suppressmsgboxes /verysilent /norestart'
-      modifyEnvironment: true
-
-  - task: BatchScript@1
-    displayName: 'Set VLD path'
-    inputs:
-      filename: 'set_vld_vars.bat'
-      modifyEnvironment: true
-
   - task: BatchScript@1
     displayName: 'Setup VS Vars'
     inputs:
       filename: '"c:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat"'
       modifyEnvironment: true
-
-  - task: NuGetToolInstaller@0
-    displayName: 'Use NuGet 4.3.0 (required for .NET core assemblies)'
 
   - task: CMake@1
     displayName: 'CMake .. -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Duse_cppunittest:bool=OFF -G "Visual Studio 16 2019" -A x64'
@@ -117,9 +93,6 @@ jobs:
       filename: '"c:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat"'
       modifyEnvironment: true
 
-  - task: NuGetToolInstaller@0
-    displayName: 'Use NuGet 4.3.0 (required for .NET core assemblies)'
-
   - task: CMake@1
     displayName: 'CMake .. -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Duse_cppunittest:bool=ON -G "Visual Studio 16 2019" -A x64'
     inputs:
@@ -146,7 +119,7 @@ jobs:
   displayName: 'Build Windows x86 Debug'
   pool:
     name: Azure-MessagingStore
-    demands: 
+    demands:
     - Cmd
     - msbuild
     - visualstudio
@@ -170,35 +143,11 @@ jobs:
       filename: 'C:\Program Files\Git\bin\git.exe'
       arguments: 'clean -xdff'
 
-  - powershell: |
-     $url = "https://github.com/KindDragon/vld/releases/download/v2.5.1/vld-2.5.1-setup.exe"
-     $outpath = "$(System.ArtifactsDirectory)/vld-2.5.1-setup.exe"
-     
-     $wc = New-Object System.Net.WebClient
-     $wc.DownloadFile($url, $outpath)
-    displayName: 'Download VLD'
-
-  - task: BatchScript@1
-    displayName: 'Install VLD'
-    inputs:
-      filename: '$(System.ArtifactsDirectory)/vld-2.5.1-setup.exe'
-      arguments: '/suppressmsgboxes /verysilent /norestart'
-      modifyEnvironment: true
-
-  - task: BatchScript@1
-    displayName: 'Set VLD path'
-    inputs:
-      filename: 'set_vld_vars.bat'
-      modifyEnvironment: true
-
   - task: BatchScript@1
     displayName: 'Setup VS Vars'
     inputs:
       filename: '"c:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat"'
       modifyEnvironment: true
-
-  - task: NuGetToolInstaller@0
-    displayName: 'Use NuGet 4.3.0 (required for .NET core assemblies)'
 
   - task: CMake@1
     displayName: CMake
