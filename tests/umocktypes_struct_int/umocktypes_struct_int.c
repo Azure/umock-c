@@ -387,8 +387,6 @@ TEST_FUNCTION(umocktypes_stringify_MY_STRUCT_WITH_CONST_stringifies_all_fields)
 
     ASSERT_ARE_EQUAL(uint32_t, 1, mock_stringify_my_const_int_ptr_was_called, "my_const_int_ptr should have been stringified");
 
-    ASSERT_ARE_EQUAL(char_ptr, "{MY_STRUCT_WITH_CONST:i=0000000000000000}", result);
-
     // cleanup
     free(result);
 }
