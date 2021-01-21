@@ -1,13 +1,13 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "windows.h"
+#include <stddef.h>                              // for NULL
 
-#include "macro_utils/macro_utils.h"
+#include "windows.h"
 
 #include "umock_c/umockalloc.h"
 #include "umock_c/umock_log.h"
-#include "umock_c/umock_lock_factory.h"
+#include "umock_c/umock_lock_if.h"               // for UMOCK_C_LOCK_HANDLE
 #include "umock_c/umock_lock_factory_default.h"
 
 typedef struct UMOCK_C_LOCK_WINDOWS_TAG

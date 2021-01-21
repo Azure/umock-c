@@ -5,8 +5,9 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
+
 #include "macro_utils/macro_utils.h"
-#include "umock_c/umockalloc.h"
+
 #include "umock_c/umockautoignoreargs.h"
 #include "umock_c/umock_log.h"
 

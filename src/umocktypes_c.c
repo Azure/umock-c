@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 #include <stddef.h>
-#include <string.h>
 #include "macro_utils/macro_utils.h"
 #include "umock_c/umocktypes.h"
 #include "umock_c/umocktypes_c.h"

@@ -1,13 +1,12 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <errno.h>
 #include <string.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include <wchar.h>
+
 #include "umock_c/umocktypes.h"
-#include "macro_utils/macro_utils.h"
 #include "umock_c/umocktypes_wcharptr.h"
 #include "umock_c/umockalloc.h"
 #include "umock_c/umock_log.h"

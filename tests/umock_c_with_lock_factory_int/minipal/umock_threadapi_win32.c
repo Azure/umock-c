@@ -1,6 +1,8 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+#include <stddef.h>
+
 #include "windows.h"
 
 #include "macro_utils/macro_utils.h"
@@ -54,7 +56,7 @@ UMOCK_THREADAPI_RESULT umock_threadapi_join(UMOCK_THREAD_HANDLE thread_handle, i
         if( returnCode != WAIT_OBJECT_0)
         {
             result = UMOCK_THREADAPI_ERROR;
-            LogLastError("Error waiting for Single Object. Return Code: %d. Error Code: %d", returnCode, result);
+            LogLastError("Error waiting for Single Object. Return Code: %lu. Error Code: %" PRI_MU_ENUM "", returnCode, MU_ENUM_VALUE(UMOCK_THREADAPI_RESULT, result));
         }
         else
         {

@@ -4,7 +4,6 @@
 #include <stddef.h>
 #include "umock_c/umock_c_negative_tests.h"
 #include "umock_c/umock_c.h"
-#include "umock_c/umockcall.h"
 #include "umock_c/umockcallrecorder.h"
 #include "umock_c/umock_log.h"
 

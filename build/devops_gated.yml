@@ -292,7 +292,7 @@ jobs:
     displayName: 'Running cmake'
     inputs:
       workingDirectory: 'build_ninja'
-      cmakeArgs: '.. -GNinja -DCMAKE_C_INCLUDE_WHAT_YOU_USE:UNINITIALIZED=include-what-you-use;-Xiwyu;--mapping_file=../deps/c-build-tools/iwyu/rules.imp;--driver-mode=cl -DCMAKE_CXX_INCLUDE_WHAT_YOU_USE:UNINITIALIZED=include-what-you-use;-Xiwyu;--mapping_file=../deps/c-build-tools/iwyu/rules.imp;--driver-mode=cl -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Drun_perf_tests:bool=ON'
+      cmakeArgs: '.. -GNinja -DCMAKE_C_INCLUDE_WHAT_YOU_USE:UNINITIALIZED=include-what-you-use;-Xiwyu;--mapping_file=../deps/c-build-tools/iwyu/rules.imp;--driver-mode=cl -DCMAKE_CXX_INCLUDE_WHAT_YOU_USE:UNINITIALIZED=include-what-you-use;-Xiwyu;--mapping_file=../deps/c-build-tools/iwyu/rules.imp;--driver-mode=cl -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Drun_perf_tests:bool=ON -Duse_cppunittest:bool=ON'
 
   - task: PowerShell@2
     displayName: 'Build solution and check includes'

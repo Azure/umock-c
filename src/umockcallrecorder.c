@@ -12,7 +12,6 @@
 #include "umock_c/umockalloc.h"
 #include "umock_c/umockcallrecorder.h"
 #include "umock_c/umockcall.h"
-#include "umock_c/umocktypes.h"
 
 typedef struct UMOCK_EXPECTED_CALL_TAG
 {

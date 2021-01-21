@@ -4,10 +4,11 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <string.h>
-#include "macro_utils/macro_utils.h"
-#include "umock_c/umocktypes.h"
-#include "umock_c/umock_c.h"
+
+#include "umock_c/umock_log.h"
 #include "umock_c/umockalloc.h"
+#include "umock_c/umocktypes.h"
+
 #include "umock_c/umocktypes_bool.h"
 
 /* Codes_SRS_UMOCKTYPES_BOOL_01_002: [ umocktypes_stringify_bool shall return the string representation of value. ]*/

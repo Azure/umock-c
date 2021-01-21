@@ -7,6 +7,6 @@
 int main(void)
 {
     size_t failedTestCount = 0;
-    RUN_TEST_SUITE(umock_c_generate_function_declaration_integrationtests, failedTestCount);
+    CTEST_RUN_TEST_SUITE(umock_c_generate_function_declaration_integrationtests, failedTestCount);
     return failedTestCount;
 }
