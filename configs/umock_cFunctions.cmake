@@ -2,7 +2,7 @@
 #Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 function(umockc_windows_unittests_add_dll whatIsBuilding)
-    link_directories(${whatIsBuilding}_dll $ENV{VCInstallDir}UnitTest/lib)
+    link_directories(${whatIsBuilding}_dll $ENV{VCInstallDir}auxiliary/vs/unittest/lib $ENV{VCInstallDir}/unittest/lib)
     
     add_library(${whatIsBuilding}_dll SHARED 
         ${${whatIsBuilding}_test_files} 
@@ -14,14 +14,14 @@ function(umockc_windows_unittests_add_dll whatIsBuilding)
                PROPERTIES
                FOLDER "tests/umockc_tests") 
 
-    target_include_directories(${whatIsBuilding}_dll PUBLIC ${sharedutil_include_directories} $ENV{VCInstallDir}UnitTest/include)
+    target_include_directories(${whatIsBuilding}_dll PUBLIC ${sharedutil_include_directories} $ENV{VCInstallDir}auxiliary/vs/unittest/include $ENV{VCInstallDir}unittest/include)
     target_compile_definitions(${whatIsBuilding}_dll PUBLIC -DCPP_UNITTEST)
     SET_SOURCE_FILES_PROPERTIES( ${${whatIsBuilding}_test_files} PROPERTIES LANGUAGE CXX )
     target_link_libraries(${whatIsBuilding}_dll ctest testrunnerswitcher ${ARGN})
 endfunction()
 
 function(umockc_windows_unittests_add_lib whatIsBuilding)
-    link_directories(${whatIsBuilding}_lib $ENV{VCInstallDir}UnitTest/lib)
+    link_directories(${whatIsBuilding}_lib $ENV{VCInstallDir}auxiliary/vs/unittest/lib $ENV{VCInstallDir}unittest/lib)
     
     add_library(${whatIsBuilding}_lib STATIC 
         ${${whatIsBuilding}_test_files} 
