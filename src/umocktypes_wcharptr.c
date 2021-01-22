@@ -3,9 +3,8 @@
 
 #include <string.h>
 #include <stddef.h>
-#include <stdlib.h>
 #include <wchar.h>
-#include <errno.h> // IWYU pragma: keep
+#include <errno.h>
 
 #include "umock_c/umocktypes.h"
 #include "umock_c/umocktypes_wcharptr.h"
