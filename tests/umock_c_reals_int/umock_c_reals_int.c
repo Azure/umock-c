@@ -3,10 +3,8 @@
 
 
 #ifdef __cplusplus
-#include <cstdint>
 #include <cstdlib>
 #else
-#include <stdint.h>
 #include <stdlib.h>
 #endif
 
@@ -14,9 +12,10 @@
 #include "umock_c/umock_c.h"
 
 // This include checks that a header with a MOCKABLE_INTERFACE in it can be expanded when no ENABLE_MOCKS is used
-#include "test_unit_no_reals.h"
+#include "test_unit_no_reals.h" // IWYU pragma: keep
 
-#include "test_dependency_no_enable_mocks.h"
+// Tell IWYU to keep this even though it's in the .c file included
+#include "test_dependency_no_enable_mocks.h" // IWYU pragma: keep
 #include "test_dependency_real_code_no_enable_mocks.c"
 
 #define ENABLE_MOCKS

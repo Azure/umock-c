@@ -302,3 +302,28 @@ jobs:
       script: |
           cmake --build . | tee build.log
           if ((Select-String -Path "./build.log" -Pattern "Warning:") -ne $null) { throw "include check failed" }
+
+- job: includecheck_linux
+  pool:
+    name: Azure-MessagingStore
+    demands:
+      - linux
+
+  steps:
+
+  - bash: |
+     pushd $(Build.Repository.LocalPath)
+     git submodule update --init
+     git submodule foreach --recursive "git clean -xdff"
+     git clean -xdff
+     popd
+    workingDirectory: '$(Build.Repository.LocalPath)'
+    displayName: 'git submodule update and clean'
+
+  - task: Bash@3
+    displayName: 'Build with iwyu'
+    inputs:
+      targetType: filePath
+      filePath: './build/linux/build_linux_iwyu.sh'
+      arguments: '$(Build.Repository.LocalPath)'
+      workingDirectory: '$(Build.Repository.LocalPath)'

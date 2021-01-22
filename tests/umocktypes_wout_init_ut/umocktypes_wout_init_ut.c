@@ -3,8 +3,10 @@
 
 #ifdef __cplusplus
 #include <cstdlib>
+#include <cstring>              // for memcpy, strlen
 #else
 #include <stdlib.h>
+#include <string.h>              // for memcpy, strlen
 #endif
 
 #include "testrunnerswitcher.h"
@@ -360,7 +362,7 @@ TEST_FUNCTION(umocktypes_deinit_if_the_module_was_not_initialized_shall_do_nothi
 TEST_FUNCTION(umocktypes_register_type_when_the_module_is_not_initialized_fails)
 {
     // arrange
-	int result;
+    int result;
     umocktypename_normalize_call_result = "char*";
 
     // act
@@ -391,7 +393,7 @@ TEST_FUNCTION(umocktypes_register_alias_when_module_is_not_initialized_fails)
 TEST_FUNCTION(umocktypes_stringify_when_the_module_is_not_initialized_fails)
 {
     // arrange
-	char* result;
+    char* result;
     umocktypename_normalize_call_result = "char*";
     test_stringify_func_testtype_call_result = "blahblah";
 
@@ -408,7 +410,7 @@ TEST_FUNCTION(umocktypes_stringify_when_the_module_is_not_initialized_fails)
 TEST_FUNCTION(umocktypes_are_equal_when_the_module_is_not_initialized_fails)
 {
     // arrange
-	int result;
+    int result;
     umocktypename_normalize_call_result = "char*";
     test_are_equal_func_testtype_call_result = 0;
 
@@ -427,7 +429,7 @@ TEST_FUNCTION(umocktypes_are_equal_when_the_module_is_not_initialized_fails)
 TEST_FUNCTION(when_the_module_is_not_initialized_then_umocktypes_copy_fails)
 {
     // arrange
-	int result;
+    int result;
     void* destination = (void*)0x4245;
 
     umocktypename_normalize_call_result = NULL;

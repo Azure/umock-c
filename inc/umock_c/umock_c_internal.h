@@ -968,7 +968,6 @@ typedef struct MOCK_CALL_METADATA_TAG
         = { MU_IF(MU_COUNT_ARG(__VA_ARGS__),,NULL) MU_FOR_EACH_2(FILL_ARG_IN_METADATA, __VA_ARGS__) }; \
     static const MOCK_CALL_METADATA MU_C2(mock_call_metadata_,name) = {MU_TOSTRING(return_type), MU_TOSTRING(name), MU_DIV2(MU_COUNT_ARG(__VA_ARGS__)), \
         MU_C2(mock_call_args_metadata_,name) }; \
-    struct MU_C2(_mock_call_modifier_,name); \
     MU_IF(IS_NOT_VOID(return_type), \
     typedef void (*MU_C2(COPY_RETURN_VALUE_FUNC_TYPE, name))(return_type* dst, return_type src); \
     static void MU_C2(copy_return_value_, name)(return_type* dst, return_type src) \

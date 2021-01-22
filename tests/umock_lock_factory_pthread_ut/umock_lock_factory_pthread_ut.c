@@ -2,17 +2,19 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #ifdef __cplusplus
-#include <cstdint>
 #include <cstdlib>
 #else
-#include <stdint.h>
 #include <stdlib.h>
 #endif
 
 #include <pthread.h>
 
+// TEST_DEFINE_ENUM_TYPE will use wchar.h, which we technically get from testrunnerswitcher.h
+// IWYU pragma: no_include <wchar.h>
 #include "testrunnerswitcher.h"
+
 #include "umock_c/umock_lock_factory_default.h"
+#include "umock_c/umock_lock_if.h"               // for UMOCK_C_LOCK_IF_TAG
 #include "umock_c/umock_log.h"
 
 void UMOCK_LOG(const char* format, ...)
@@ -169,6 +171,8 @@ int mock_pthread_rwlock_rdlock(pthread_rwlock_t *rwlock)
         mocked_calls[mocked_call_count].u.mock_pthread_rwlock_rdlock.rwlock = rwlock;
         mocked_call_count++;
     }
+
+    return 0;
 }
 
 int mock_pthread_rwlock_unlock(pthread_rwlock_t *rwlock)
@@ -181,6 +185,8 @@ int mock_pthread_rwlock_unlock(pthread_rwlock_t *rwlock)
         mocked_calls[mocked_call_count].u.mock_pthread_rwlock_unlock.rwlock = rwlock;
         mocked_call_count++;
     }
+
+    return 0;
 }
 
 int mock_pthread_rwlock_wrlock(pthread_rwlock_t *rwlock)
@@ -193,6 +199,8 @@ int mock_pthread_rwlock_wrlock(pthread_rwlock_t *rwlock)
         mocked_calls[mocked_call_count].u.mock_pthread_rwlock_wrlock.rwlock = rwlock;
         mocked_call_count++;
     }
+
+    return 0;
 }
 
 int mock_pthread_rwlock_destroy(pthread_rwlock_t *rwlock)
@@ -205,6 +213,8 @@ int mock_pthread_rwlock_destroy(pthread_rwlock_t *rwlock)
         mocked_calls[mocked_call_count].u.mock_pthread_rwlock_destroy.rwlock = rwlock;
         mocked_call_count++;
     }
+
+    return 0;
 }
 
 static void reset_all_calls(void)

@@ -3,9 +3,11 @@
 
 #ifdef __cplusplus
 #include <cstdlib>
+#include <cstring>              // for memcpy, strlen
 #else
-#include <stdlib.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>              // for memcpy, strlen
 #endif
 
 #include "testrunnerswitcher.h"
@@ -239,7 +241,7 @@ TEST_FUNCTION(umocktypes_stringify_bool_with_NULL_fails)
 TEST_FUNCTION(when_allocating_memory_fails_umocktypes_stringify_bool_fails)
 {
     // arrange
-	char* result;
+    char* result;
     bool input = false;
     when_shall_malloc_fail = 1;
 
@@ -374,7 +376,7 @@ TEST_FUNCTION(umocktypes_bool_register_types_registers_all_types)
 {
     // arrange
     size_t i;
-	int result;
+    int result;
 
     umocktypes_register_type_fail_call_result = 0;
 
@@ -386,7 +388,7 @@ TEST_FUNCTION(umocktypes_bool_register_types_registers_all_types)
     ASSERT_ARE_EQUAL(size_t, 2, umocktypes_register_type_call_count);
     ASSERT_ARE_EQUAL(char_ptr, "bool", umocktypes_register_type_calls[0].type);
     ASSERT_ARE_EQUAL(char_ptr, "_Bool", umocktypes_register_type_calls[1].type);
-    
+
     for (i = 0; i < 2; i++)
     {
         ASSERT_IS_NOT_NULL(umocktypes_register_type_calls[i].stringify_func);
@@ -404,7 +406,7 @@ TEST_FUNCTION(when_the_underlying_register_fails_umocktypes_bool_register_types_
     for (i = 0; i < 2; i++)
     {
         // arrange
-		int result;
+        int result;
         reset_umocktypes_register_type_calls();
         umocktypes_register_type_fail_call_result = 1;
         when_shall_umocktypes_register_typecall_fail = i + 1;

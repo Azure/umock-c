@@ -2,15 +2,16 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #ifdef __cplusplus
-#include <cstdlib>
 #include <cstddef>
-#include <cstdint>
+#include <cstdio>                       // for snprintf
+#include <cstdlib>
 #else
-#include <stdlib.h>
 #include <stddef.h>
-#include <stdint.h>
+#include <stdio.h>                       // for snprintf
+#include <stdlib.h>
 #endif
 
+#include "macro_utils/macro_utils.h" // IWYU pragma: keep
 
 #include "testrunnerswitcher.h"
 
@@ -55,7 +56,6 @@ void my_free(void* ptr)
 
 #include "umock_c/umock_c.h"
 #include "umock_c/umocktypes_charptr.h"
-#include "macro_utils/macro_utils.h"
 
 MU_DEFINE_ENUM_STRINGS(UMOCK_C_ERROR_CODE, UMOCK_C_ERROR_CODE_VALUES)
 

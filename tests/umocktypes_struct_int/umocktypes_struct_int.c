@@ -4,19 +4,24 @@
 #ifdef __cplusplus
 #include <cstdarg>
 #include <cstdint>
+#include <cstdio>                      // for printf, vprintf
 #include <cstdlib>
 #else
 #include <stdarg.h>
 #include <stdint.h>
+#include <stdio.h>                      // for printf, vprintf
 #include <stdlib.h>
 #endif
 
-#include "macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h" // IWYU pragma: keep
 
 #include "testrunnerswitcher.h"
-#include "umock_c/umocktypes_struct.h"
-#include "umock_c/umocktypes_c.h"
+
 #include "umock_c/umock_c.h"
+#include "umock_c/umock_log.h"          // for UMOCK_LOG
+#include "umock_c/umocktypes.h"         // for REGISTER_TYPE
+#include "umock_c/umocktypes_c.h"
+#include "umock_c/umocktypes_struct.h"
 
 void UMOCK_LOG(const char* format, ...)
 {

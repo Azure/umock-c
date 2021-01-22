@@ -2,23 +2,26 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #ifdef __cplusplus
-#include <cstdint>
 #include <cstdlib>
 #else
-#include <stdint.h>
 #include <stdlib.h>
 #endif
 
-#include "macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h" // IWYU pragma: keep
 
+// TEST_DEFINE_ENUM_TYPE will use wchar.h, which we technically get from testrunnerswitcher.h
+// IWYU pragma: no_include <wchar.h>
 #include "testrunnerswitcher.h"
 
+#include "umock_c/umockalloc.h"          // for umockalloc_free, umockalloc_...
+#include "umock_c/umockcall.h"           // for UMOCKCALL_HANDLE, UMOCKCALL_TAG
 #include "umock_c/umockcallrecorder.h"
 #include "umock_c/umocktypes.h"
 #include "umock_c/umocktypes_c.h"
 #include "umock_c/umock_c.h"
 #include "umock_c/umock_log.h"
 #include "umock_c/umock_lock_factory.h"
+#include "umock_c/umock_lock_if.h"       // for UMOCK_C_LOCK_HANDLE
 
 void UMOCK_LOG(const char* format, ...)
 {
@@ -437,7 +440,7 @@ TEST_FUNCTION(when_all_calls_succeed_umock_c_init_succeeds)
 TEST_FUNCTION(when_umocktypes_init_fails_then_umock_c_init_fails)
 {
     // arrange
-	int result;
+    int result;
     umocktypes_init_result = 1;
 
     // act
@@ -453,7 +456,7 @@ TEST_FUNCTION(when_umocktypes_init_fails_then_umock_c_init_fails)
 TEST_FUNCTION(when_umocktypes_c_register_types_fails_then_umock_c_init_fails)
 {
     // arrange
-	int result;
+    int result;
     umocktypes_c_register_types_result = 1;
 
     // act
@@ -470,7 +473,7 @@ TEST_FUNCTION(when_umocktypes_c_register_types_fails_then_umock_c_init_fails)
 TEST_FUNCTION(when_creating_the_call_recorder_fails_then_umock_c_init_fails)
 {
     // arrange
-	int result;
+    int result;
     umockcallrecorder_create_result = NULL;
 
     // act
@@ -489,7 +492,7 @@ TEST_FUNCTION(when_creating_the_call_recorder_fails_then_umock_c_init_fails)
 TEST_FUNCTION(umock_c_init_when_already_initialized_fails)
 {
     // arrange
-	int result;
+    int result;
     umock_c_init(test_on_umock_c_error);
 
     // act
@@ -713,7 +716,7 @@ TEST_FUNCTION(when_the_underlying_call_recorder_reset_all_calls_fails_then_umock
 TEST_FUNCTION(umock_c_get_actual_calls_calls_the_underlying_call_recorder_get_actual_calls)
 {
     // arrange
-	const char* result;
+    const char* result;
     ASSERT_ARE_EQUAL(int, 0, umock_c_init(test_on_umock_c_error));
     reset_all_calls();
     umockcallrecorder_get_actual_calls_result = "[a()]";
@@ -732,7 +735,7 @@ TEST_FUNCTION(umock_c_get_actual_calls_calls_the_underlying_call_recorder_get_ac
 TEST_FUNCTION(when_the_underlying_call_recorder_get_actual_calls_fails_then_umock_c_get_actual_calls_returns_NULL)
 {
     // arrange
-	const char* result;
+    const char* result;
     ASSERT_ARE_EQUAL(int, 0, umock_c_init(test_on_umock_c_error));
     reset_all_calls();
     umockcallrecorder_get_actual_calls_result = NULL;
@@ -766,7 +769,7 @@ TEST_FUNCTION(umock_c_get_actual_calls_when_the_module_is_not_initialized_fails)
 TEST_FUNCTION(umock_c_get_expected_calls_calls_the_underlying_call_recorder_get_expected_calls)
 {
     // arrange
-	const char* result;
+    const char* result;
     ASSERT_ARE_EQUAL(int, 0, umock_c_init(test_on_umock_c_error));
     reset_all_calls();
     umockcallrecorder_get_expected_calls_result = "[a()]";
@@ -785,7 +788,7 @@ TEST_FUNCTION(umock_c_get_expected_calls_calls_the_underlying_call_recorder_get_
 TEST_FUNCTION(when_the_underlying_call_recorder_get_expected_calls_fails_then_umock_c_get_expected_calls_returns_NULL)
 {
     // arrange
-	const char* result;
+    const char* result;
     ASSERT_ARE_EQUAL(int, 0, umock_c_init(test_on_umock_c_error));
     reset_all_calls();
     umockcallrecorder_get_expected_calls_result = NULL;
@@ -819,7 +822,7 @@ TEST_FUNCTION(umock_c_get_expected_calls_when_the_module_is_not_initialized_fail
 TEST_FUNCTION(umock_c_get_last_expected_call_calls_the_underlying_call_recorder_get_last_expected_call)
 {
     // arrange
-	UMOCKCALL_HANDLE result;
+    UMOCKCALL_HANDLE result;
     ASSERT_ARE_EQUAL(int, 0, umock_c_init(test_on_umock_c_error));
     reset_all_calls();
     umockcallrecorder_get_last_expected_call_result = test_expected_call;
@@ -838,7 +841,7 @@ TEST_FUNCTION(umock_c_get_last_expected_call_calls_the_underlying_call_recorder_
 TEST_FUNCTION(when_the_underlying_call_recorder_get_last_expected_call_fails_then_umock_c_get_last_expected_call_returns_NULL)
 {
     // arrange
-	UMOCKCALL_HANDLE result;
+    UMOCKCALL_HANDLE result;
     ASSERT_ARE_EQUAL(int, 0, umock_c_init(test_on_umock_c_error));
     reset_all_calls();
     umockcallrecorder_get_last_expected_call_result = NULL;
@@ -872,7 +875,7 @@ TEST_FUNCTION(umock_c_get_last_expected_call_when_the_module_is_not_initialized_
 TEST_FUNCTION(umock_c_add_expected_call_calls_the_underlying_call_recorder_add_expected_call)
 {
     // arrange
-	int result;
+    int result;
     ASSERT_ARE_EQUAL(int, 0, umock_c_init(test_on_umock_c_error));
     reset_all_calls();
     umockcallrecorder_add_expected_call_result = 0;
@@ -892,7 +895,7 @@ TEST_FUNCTION(umock_c_add_expected_call_calls_the_underlying_call_recorder_add_e
 TEST_FUNCTION(when_the_underlying_call_recorder_add_expected_call_fails_then_umock_c_add_expected_call_returns_NULL)
 {
     // arrange
-	int result;
+    int result;
     ASSERT_ARE_EQUAL(int, 0, umock_c_init(test_on_umock_c_error));
     reset_all_calls();
     umockcallrecorder_add_expected_call_result = 1;
@@ -927,8 +930,8 @@ TEST_FUNCTION(umock_c_add_expected_call_when_the_module_is_not_initialized_fails
 TEST_FUNCTION(umock_c_add_actual_call_calls_the_underlying_call_recorder_add_actual_call)
 {
     // arrange
-	int result;
-	UMOCKCALL_HANDLE matched_call;
+    int result;
+    UMOCKCALL_HANDLE matched_call;
     ASSERT_ARE_EQUAL(int, 0, umock_c_init(test_on_umock_c_error));
     reset_all_calls();
     umockcallrecorder_add_actual_call_result = 0;
@@ -949,7 +952,7 @@ TEST_FUNCTION(umock_c_add_actual_call_calls_the_underlying_call_recorder_add_act
 TEST_FUNCTION(when_the_underlying_call_recorder_add_actual_call_fails_then_umock_c_add_actual_call_returns_NULL)
 {
     // arrange
-	int result;
+    int result;
     UMOCKCALL_HANDLE matched_call;
     ASSERT_ARE_EQUAL(int, 0, umock_c_init(test_on_umock_c_error));
     reset_all_calls();
@@ -987,7 +990,7 @@ TEST_FUNCTION(umock_c_add_actual_call_when_the_module_is_not_initialized_fails)
 TEST_FUNCTION(umock_c_get_call_recorder_returns_a_non_NULL_call_recorder)
 {
     // arrange
-	UMOCKCALLRECORDER_HANDLE result;
+    UMOCKCALLRECORDER_HANDLE result;
     ASSERT_ARE_EQUAL(int, 0, umock_c_init(test_on_umock_c_error));
     reset_all_calls();
 
@@ -1002,7 +1005,7 @@ TEST_FUNCTION(umock_c_get_call_recorder_returns_a_non_NULL_call_recorder)
 TEST_FUNCTION(umock_c_get_call_recorder_when_not_initialized_fails)
 {
     // arrange
-	UMOCKCALLRECORDER_HANDLE result;
+    UMOCKCALLRECORDER_HANDLE result;
     ASSERT_ARE_EQUAL(int, 0, umock_c_init(test_on_umock_c_error));
     umock_c_deinit();
     reset_all_calls();
@@ -1023,7 +1026,7 @@ TEST_FUNCTION(umock_c_get_call_recorder_when_not_initialized_fails)
 TEST_FUNCTION(umock_c_set_call_recorder_replaces_the_recorder)
 {
     // arrange
-	int result;
+    int result;
     ASSERT_ARE_EQUAL(int, 0, umock_c_init(test_on_umock_c_error));
     reset_all_calls();
 
@@ -1043,7 +1046,7 @@ TEST_FUNCTION(umock_c_set_call_recorder_replaces_the_recorder)
 TEST_FUNCTION(umock_c_set_call_recorder_with_NULL_call_recorder_fails)
 {
     // arrange
-	int result;
+    int result;
     ASSERT_ARE_EQUAL(int, 0, umock_c_init(test_on_umock_c_error));
     reset_all_calls();
 
@@ -1059,7 +1062,7 @@ TEST_FUNCTION(umock_c_set_call_recorder_with_NULL_call_recorder_fails)
 TEST_FUNCTION(when_cloning_the_call_recorder_fails_umock_c_set_call_recorder_fails)
 {
     // arrange
-	int result;
+    int result;
     ASSERT_ARE_EQUAL(int, 0, umock_c_init(test_on_umock_c_error));
     reset_all_calls();
     umockcallrecorder_clone_result = NULL;
@@ -1078,7 +1081,7 @@ TEST_FUNCTION(when_cloning_the_call_recorder_fails_umock_c_set_call_recorder_fai
 TEST_FUNCTION(when_the_module_is_not_initialize_umock_c_set_call_recorder_fails)
 {
     // arrange
-	int result;
+    int result;
     ASSERT_ARE_EQUAL(int, 0, umock_c_init(test_on_umock_c_error));
     umock_c_deinit();
     reset_all_calls();

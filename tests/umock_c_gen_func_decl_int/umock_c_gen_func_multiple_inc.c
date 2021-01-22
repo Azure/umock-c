@@ -3,6 +3,7 @@
 
 #define ENABLE_MOCKS
 
+#include "umock_c/umock_c.h"
 #include "umock_c/umock_c_prod.h"
 
 // have a mock

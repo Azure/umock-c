@@ -11,7 +11,10 @@
 
 #include "windows.h"
 
+// TEST_DEFINE_ENUM_TYPE will use wchar.h, which we technically get from testrunnerswitcher.h
+// IWYU pragma: no_include <wchar.h>
 #include "testrunnerswitcher.h"
+
 #include "umock_c/umock_lock_factory_default.h"
 #include "umock_c/umock_log.h"
 

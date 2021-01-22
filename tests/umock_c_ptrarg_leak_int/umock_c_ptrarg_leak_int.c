@@ -1,14 +1,6 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifdef __cplusplus
-#include <cstdint>
-#include <cstdlib>
-#else
-#include <stdint.h>
-#include <stdlib.h>
-#endif
-
 #include "testrunnerswitcher.h"
 
 #define ENABLE_MOCKS

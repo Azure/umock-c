@@ -4,11 +4,9 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-#include "macro_utils/macro_utils.h"
-
 #include "umock_c/umockalloc.h"
 #include "umock_c/umock_log.h"
-#include "umock_c/umock_lock_factory.h"
+#include "umock_c/umock_lock_if.h"               // for UMOCK_C_LOCK_HANDLE
 #include "umock_c/umock_lock_factory_default.h"
 
 typedef struct UMOCK_C_LOCK_PTHREAD_TAG

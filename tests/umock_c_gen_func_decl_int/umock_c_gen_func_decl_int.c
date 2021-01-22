@@ -1,17 +1,9 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifdef __cplusplus
-#include <cstdlib>
-#include <cstdint>
-#else
-#include <stdlib.h>
-#include <stdint.h>
-#endif
-
 #include "testrunnerswitcher.h"
 
-#include "umock_c/umock_c.h"
+#include "umock_c/umock_c_prod.h"  // for MOCKABLE_FUNCTION, MOCKABLE_FUNCTI...
 
 MOCKABLE_FUNCTION(, int, test_generate_signature, int, a, double, b, char*, s);
 MOCKABLE_FUNCTION(, void, test_generate_signature_void_return, int, a);

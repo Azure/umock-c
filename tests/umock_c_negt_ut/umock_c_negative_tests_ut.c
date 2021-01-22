@@ -2,17 +2,17 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #ifdef __cplusplus
-#include <cstdint>
 #include <cstdlib>
 #else
-#include <stdint.h>
 #include <stdlib.h>
 #endif
 
+// TEST_DEFINE_ENUM_TYPE will use wchar.h, which we technically get from testrunnerswitcher.h
+// IWYU pragma: no_include <wchar.h>
 #include "testrunnerswitcher.h"
+
+#include "umock_c/umockalloc.h"              // for umockalloc_free, umockal...
 #include "umock_c/umockcallrecorder.h"
-#include "umock_c/umocktypes.h"
-#include "umock_c/umocktypes_c.h"
 #include "umock_c/umock_c.h"
 #include "umock_c/umock_c_negative_tests.h"
 #include "umock_c/umock_log.h"

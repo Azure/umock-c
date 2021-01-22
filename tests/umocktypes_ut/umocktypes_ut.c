@@ -9,8 +9,10 @@
 #include <string.h>
 #endif
 
-#include "macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h" // IWYU pragma: keep
+
 #include "testrunnerswitcher.h"
+
 #include "umock_c/umocktypes.h"
 #include "umock_c/umock_log.h"
 

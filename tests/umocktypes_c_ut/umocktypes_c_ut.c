@@ -2,15 +2,21 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #ifdef __cplusplus
-#include <cstdlib>
 #include <climits>
+#include <cstdio>                 // for sprintf
+#include <cstdlib>
 #include <cstdint>
+#include <cstring>                // for memcpy, strlen
 #else
-#include <stdlib.h>
 #include <limits.h>
+#include <stdio.h>                 // for sprintf
+#include <stdlib.h>
 #include <stdint.h>
+#include <string.h>                // for memcpy, strlen
 #endif
+
 #include "testrunnerswitcher.h"
+
 #include "umock_c/umocktypes.h"
 #include "umock_c/umocktypes_c.h"
 #include "umock_c/umock_log.h"

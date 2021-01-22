@@ -3,9 +3,11 @@
 
 #ifdef __cplusplus
 #include <cstdlib>
+#include <cstring>                        // for memcpy, strlen
 #include <cwchar>
 #else
 #include <stdlib.h>
+#include <string.h>                       // for memcpy, strlen
 #include <wchar.h>
 #endif
 

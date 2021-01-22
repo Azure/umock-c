@@ -3,13 +3,17 @@
 
 
 #ifdef __cplusplus
-#include <cstdint>
+#include <cstdio>                       // for sprintf
 #include <cstdlib>
+#include <cstring>                      // for memcmp, memcpy
 #else
-#include <stdint.h>
+#include <stdio.h>                       // for sprintf
 #include <stdlib.h>
+#include <string.h>                      // for memcmp, memcpy
 #endif
 
+// TEST_DEFINE_ENUM_TYPE will use wchar.h, which we technically get from testrunnerswitcher.h
+// IWYU pragma: no_include <wchar.h>
 #include "testrunnerswitcher.h"
 
 /* Tested by unit tests for umock_c:
@@ -33,6 +37,8 @@ Tests_SRS_UMOCK_C_LIB_01_194: [ If the first argument passed to destroy_call is 
 */
 
 #include "umock_c/umock_c.h"
+#include "umock_c/umocktypes.h"          // for REGISTER_TYPE, IMPLEMENT_UMO...
+
 #define ENABLE_MOCKS
 #include "test_dependency.h"
 
@@ -2182,7 +2188,7 @@ TEST_FUNCTION(registering_an_alias_type_fails_on_different_sizes)
 {
     /// arrange
 
-#ifdef _MSC_VER 
+#ifdef _MSC_VER
 #pragma warning( push )
 #pragma warning( disable : 4127 ) /*warning C4127: conditional expression is constant*/ /*generated in REGISTER_UMOCK_ALIAS_TYPE because sizeof operator is evaluated at compile time (at least for Visual Studio... ) */
 #endif
@@ -2190,7 +2196,7 @@ TEST_FUNCTION(registering_an_alias_type_fails_on_different_sizes)
     /// act
     REGISTER_UMOCK_ALIAS_TYPE(type_of_1_byte, int);
 
-#ifdef _MSC_VER 
+#ifdef _MSC_VER
 #pragma warning( pop )
 #endif
 

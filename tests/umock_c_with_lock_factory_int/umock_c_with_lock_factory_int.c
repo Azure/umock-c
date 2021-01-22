@@ -3,18 +3,16 @@
 
 #ifdef __cplusplus
 #include <cstddef>
-#include <cstdint>
 #else
-#include <stdlib.h>
 #include <stddef.h>
-#include <stdint.h>
 #endif
 
-#include "macro_utils/macro_utils.h"
+#include "macro_utils/macro_utils.h" // IWYU pragma: keep
 
+// TEST_DEFINE_ENUM_TYPE will use wchar.h, which we technically get from testrunnerswitcher.h
+// IWYU pragma: no_include <wchar.h>
 #include "testrunnerswitcher.h"
 
-#include "umock_c/umock_lock_factory.h"
 #include "umock_c/umock_lock_factory_default.h"
 #include "minipal/umock_threadapi.h"
 

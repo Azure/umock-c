@@ -4,9 +4,11 @@
 #ifdef __cplusplus
 #include <cstdint>
 #include <cstdlib>
+#include <cstring>                     // for memcpy, strlen
 #else
 #include <stdint.h>
 #include <stdlib.h>
+#include <string.h>                     // for memcpy, strlen
 #endif
 
 #include "testrunnerswitcher.h"
@@ -197,7 +199,7 @@ TEST_FUNCTION(umocktypes_stdint_register_types_registers_all_types)
 {
     // arrange
     size_t i;
-	int result;
+    int result;
 
     umocktypes_register_type_fail_call_result = 0;
 
@@ -233,7 +235,7 @@ TEST_FUNCTION(when_the_underlying_register_fails_umocktypes_stdint_register_type
     for (i = 0; i < 1; i++)
     {
         // arrange
-		int result;
+        int result;
         reset_umocktypes_register_type_calls();
         umocktypes_register_type_fail_call_result = 1;
         when_shall_umocktypes_register_typecall_fail = i + 1;
@@ -297,7 +299,7 @@ TEST_FUNCTION(umocktypes_stringify_uint8_t_with_NULL_fails)
 TEST_FUNCTION(when_allocating_memory_fails_umocktypes_stringify_uint8_t_fails)
 {
     // arrange
-	char* result;
+    char* result;
     uint8_t input = 127;
     when_shall_malloc_fail = 1;
 
@@ -474,7 +476,7 @@ TEST_FUNCTION(umocktypes_stringify_int8_t_with_NULL_fails)
 TEST_FUNCTION(when_allocating_memory_fails_umocktypes_stringify_int8_t_fails)
 {
     // arrange
-	char* result;
+    char* result;
     int8_t input = 127;
     when_shall_malloc_fail = 1;
 
@@ -651,7 +653,7 @@ TEST_FUNCTION(umocktypes_stringify_uint16_t_with_NULL_fails)
 TEST_FUNCTION(when_allocating_memory_fails_umocktypes_stringify_uint16_t_fails)
 {
     // arrange
-	char* result;
+    char* result;
     uint16_t input = 127;
     when_shall_malloc_fail = 1;
 
@@ -828,7 +830,7 @@ TEST_FUNCTION(umocktypes_stringify_int16_t_with_NULL_fails)
 TEST_FUNCTION(when_allocating_memory_fails_umocktypes_stringify_int16_t_fails)
 {
     // arrange
-	char* result;
+    char* result;
     int16_t input = 127;
     when_shall_malloc_fail = 1;
 
@@ -1005,7 +1007,7 @@ TEST_FUNCTION(umocktypes_stringify_uint32_t_with_NULL_fails)
 TEST_FUNCTION(when_allocating_memory_fails_umocktypes_stringify_uint32_t_fails)
 {
     // arrange
-	char* result;
+    char* result;
     uint32_t input = 127;
     when_shall_malloc_fail = 1;
 
@@ -1182,7 +1184,7 @@ TEST_FUNCTION(umocktypes_stringify_int32_t_with_NULL_fails)
 TEST_FUNCTION(when_allocating_memory_fails_umocktypes_stringify_int32_t_fails)
 {
     // arrange
-	char* result;
+    char* result;
     int32_t input = 127;
     when_shall_malloc_fail = 1;
 
@@ -1359,7 +1361,7 @@ TEST_FUNCTION(umocktypes_stringify_uint64_t_with_NULL_fails)
 TEST_FUNCTION(when_allocating_memory_fails_umocktypes_stringify_uint64_t_fails)
 {
     // arrange
-	char* result;
+    char* result;
     uint64_t input = 127;
     when_shall_malloc_fail = 1;
 
@@ -1536,7 +1538,7 @@ TEST_FUNCTION(umocktypes_stringify_int64_t_with_NULL_fails)
 TEST_FUNCTION(when_allocating_memory_fails_umocktypes_stringify_int64_t_fails)
 {
     // arrange
-	char* result;
+    char* result;
     int64_t input = 127;
     when_shall_malloc_fail = 1;
 

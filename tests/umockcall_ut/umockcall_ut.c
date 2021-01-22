@@ -3,8 +3,10 @@
 
 #ifdef __cplusplus
 #include <cstdlib>
+#include <cstring>              // for strlen, strcpy
 #else
 #include <stdlib.h>
+#include <string.h>              // for strlen, strcpy
 #endif
 
 #include "testrunnerswitcher.h"

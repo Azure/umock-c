@@ -2,11 +2,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #ifdef __cplusplus
-#include <cstdint>
-#include <cstdlib>
+#include <cstdio>                           // for sprintf
 #else
-#include <stdint.h>
-#include <stdlib.h>
+#include <stdio.h>                           // for sprintf
 #endif
 
 #include "testrunnerswitcher.h"
@@ -16,7 +14,6 @@
 
 #define ENABLE_MOCKS
 #include "test_dependency.h"
-#include "umock_c/umocktypes_charptr.h"
 
 static TEST_MUTEX_HANDLE test_mutex;
 
@@ -28,7 +25,7 @@ static void test_on_umock_c_error(UMOCK_C_ERROR_CODE error_code)
 int function_under_test_1_call(void)
 {
     int result;
-    
+
     if (function_1() != 0)
     {
         result = __LINE__;
@@ -425,7 +422,7 @@ TEST_FUNCTION(SetFailReturn_suppresses_paired_calls_tracking_for_mockable_functi
 /* Tests_SRS_UMOCK_C_LIB_31_209: [ call_cannot_fail_func__{name} call modifier shall record that when performing failure case run, this call should be skipped. ]*/
 TEST_FUNCTION(umock_c_negative_tests_can_call_fail_test)
 {
-    // arrange   
+    // arrange
     STRICT_EXPECTED_CALL(void_function_no_args());
     STRICT_EXPECTED_CALL(function_mark_cannot_fail_no_args()).CallCannotFail();
     STRICT_EXPECTED_CALL(void_function_with_args(12));
