@@ -34,7 +34,7 @@ static void test_on_umock_c_error(UMOCK_C_ERROR_CODE error_code)
 
 static TEST_MUTEX_HANDLE test_mutex;
 
-BEGIN_TEST_SUITE(umock_c_with_lock_factory_integrationtests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -113,4 +113,4 @@ TEST_FUNCTION(expected_calls_and_actual_calls_from_multiple_threads_do_not_crash
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
-END_TEST_SUITE(umock_c_with_lock_factory_integrationtests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)

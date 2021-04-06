@@ -7,6 +7,6 @@
 int main(void)
 {
     size_t failedTestCount = 0;
-    RUN_TEST_SUITE(umock_c_with_lock_factory_integrationtests, failedTestCount);
+    RUN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE, failedTestCount);
     return failedTestCount;
 }
