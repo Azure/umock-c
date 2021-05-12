@@ -54,7 +54,7 @@ extern "C" {
         } \
         else \
         { \
-            int length = snprintf(NULL, 0, "%" PRI_MU_ENUM "", MU_ENUM_VALUE(enum_name, *value)); \
+            int length = snprintf(NULL, 0, "%" PRI_MU_ENUM "", MU_ENUM_VALUE(MU_C2(enum_name,_for_umock), *value)); \
             if (length < 0) \
             { \
                 result = NULL; \
