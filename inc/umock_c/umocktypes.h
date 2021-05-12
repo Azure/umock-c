@@ -43,75 +43,40 @@ extern "C" {
 
 /* Codes_SRS_UMOCK_C_LIB_01_181: [ If a value that is not part of the enum is used, it shall be treated as an int value. ]*/
 #define IMPLEMENT_UMOCK_C_ENUM_STRINGIFY(enum_name, ...) \
+    typedef enum_name MU_C2(enum_name,_for_umock); \
+    MU_DEFINE_ENUM_STRINGS(MU_C2(enum_name,_for_umock), __VA_ARGS__); \
     UMOCK_STATIC char* MU_C2(umocktypes_stringify_,enum_name)(const enum_name* value) \
     { \
         char* result; \
-        static const char *MU_C2(enum_name,_strings)[] = \
-        { \
-            MU_FOR_EACH_1(MU_DEFINE_ENUMERATION_CONSTANT_AS_STRING, __VA_ARGS__) \
-        }; \
-        static const enum_name MU_C2(enum_name,_values)[] = \
-        { \
-            __VA_ARGS__ \
-        }; \
         if (value == NULL) \
         { \
             result = NULL; \
         } \
         else \
         { \
-            size_t i; \
-            for (i = 0; i < sizeof(MU_C2(enum_name,_strings)) / sizeof(MU_C2(enum_name,_strings)[0]); i++) \
+            int length = snprintf(NULL, 0, "%" PRI_MU_ENUM "", MU_ENUM_VALUE(enum_name, *value)); \
+            if (length < 0) \
             { \
-                if (MU_C2(enum_name,_values)[i] == *value) \
-                { \
-                    break; \
-                } \
-            } \
-            if (i < sizeof(MU_C2(enum_name,_strings)) / sizeof(MU_C2(enum_name,_strings)[0])) \
-            { \
-                size_t length = strlen(MU_C2(enum_name, _strings)[i]); \
-                if (length == 0) \
-                { \
-                    result = NULL; \
-                } \
-                else \
-                { \
-                    result = (char*)umockalloc_malloc(length + 1); \
-                    if (result != NULL) \
-                    { \
-                        (void)memcpy(result, MU_C2(enum_name, _strings)[i], length + 1); \
-                    } \
-                } \
+                result = NULL; \
             } \
             else \
             { \
-                result = (char*)umockalloc_malloc(64); \
+                result = (char*)umockalloc_malloc(length + 1); \
                 if (result != NULL) \
                 { \
-                    (void)sprintf(result, "%d", (int)*value); \
+                    if (snprintf(NULL, 0, "%" PRI_MU_ENUM "", MU_ENUM_VALUE(MU_C2(enum_name,_for_umock), *value)) < 0) \
+                    { \
+                        umockalloc_free(result); \
+                    } \
+                    else \
+                    { \
+                        /* return as is */ \
+                    } \
                 } \
-            } \
-        } \
-        return result; \
-    }
-
-#define IMPLEMENT_UMOCK_C_ENUM_2_STRINGIFY(enum_name, ...) \
-    UMOCK_STATIC char* MU_C2(umocktypes_stringify_,enum_name)(const enum_name* value) \
-    { \
-        char* result; \
-        const char* enum_string = MU_ENUM_TO_STRING_2(enum_name, (*value)); \
-        size_t length = strlen(enum_string); \
-        if (length == 0) \
-        { \
-            result = NULL; \
-        } \
-        else \
-        { \
-            result = (char*)umockalloc_malloc(length + 1); \
-            if (result != NULL) \
-            { \
-                (void)memcpy(result, enum_string, length + 1); \
+                else \
+                { \
+                    /* return as is */ \
+                } \
             } \
         } \
         return result; \
