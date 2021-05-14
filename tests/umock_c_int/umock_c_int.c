@@ -289,7 +289,7 @@ static unsigned char*** result_value = (unsigned char***)0x4242;
 MOCK_FUNCTION_WITH_CODE(, unsigned char***, test_mock_function_with_unregistered_ptr_type, unsigned char***, x);
 MOCK_FUNCTION_END(result_value)
 
-IMPLEMENT_UMOCK_C_ENUM_TYPE(TEST_ENUM, TEST_ENUM_VALUE_1, TEST_ENUM_VALUE_2)
+IMPLEMENT_UMOCK_C_ENUM_TYPE_WITHOUT_INVALID(TEST_ENUM, TEST_ENUM_VALUE_1, TEST_ENUM_VALUE_2)
 
 static int test_return_value = 42;
 
@@ -2236,8 +2236,8 @@ TEST_FUNCTION(matching_with_an_enum_type_works)
     test_mock_function_with_enum_type(TEST_ENUM_VALUE_2);
 
     // assert
-    ASSERT_ARE_EQUAL(char_ptr, "[test_mock_function_with_enum_type(TEST_ENUM_VALUE_1)]", umock_c_get_expected_calls());
-    ASSERT_ARE_EQUAL(char_ptr, "[test_mock_function_with_enum_type(TEST_ENUM_VALUE_2)]", umock_c_get_actual_calls());
+    ASSERT_ARE_EQUAL(char_ptr, "[test_mock_function_with_enum_type(TEST_ENUM_VALUE_1 (0))]", umock_c_get_expected_calls());
+    ASSERT_ARE_EQUAL(char_ptr, "[test_mock_function_with_enum_type(TEST_ENUM_VALUE_2 (1))]", umock_c_get_actual_calls());
 }
 
 /* Tests_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE shall implement umock_c handlers for an enum type. ]*/
@@ -2252,8 +2252,8 @@ TEST_FUNCTION(when_the_enum_value_is_not_within_the_enum_the_int_value_is_filled
     test_mock_function_with_enum_type(TEST_ENUM_VALUE_2);
 
     // assert
-    ASSERT_ARE_EQUAL(char_ptr, "[test_mock_function_with_enum_type(2)]", umock_c_get_expected_calls());
-    ASSERT_ARE_EQUAL(char_ptr, "[test_mock_function_with_enum_type(TEST_ENUM_VALUE_2)]", umock_c_get_actual_calls());
+    ASSERT_ARE_EQUAL(char_ptr, "[test_mock_function_with_enum_type(UNKNOWN (2))]", umock_c_get_expected_calls());
+    ASSERT_ARE_EQUAL(char_ptr, "[test_mock_function_with_enum_type(TEST_ENUM_VALUE_2 (1))]", umock_c_get_actual_calls());
 }
 
 /* CaptureReturn */

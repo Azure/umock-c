@@ -1748,7 +1748,7 @@ TEST_FUNCTION(stringify_for_enum_returns_the_desired_string)
     result = umocktypes_stringify_TEST_BLAH_ENUM_TYPE(&test_blah_value);
 
     // assert
-    ASSERT_ARE_EQUAL(char_ptr, "TEST_ENUM_TYPE_VALUE_1", result);
+    ASSERT_ARE_EQUAL(char_ptr, "TEST_ENUM_TYPE_VALUE_1 (1)", result);
 
     // cleanup
     free(result);

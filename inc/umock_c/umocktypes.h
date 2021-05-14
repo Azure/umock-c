@@ -41,10 +41,7 @@ extern "C" {
             (UMOCKTYPE_COPY_FUNC)MU_C2(umocktypes_copy_,function_postfix), \
             (UMOCKTYPE_FREE_FUNC)MU_C2(umocktypes_free_,function_postfix))
 
-/* Codes_SRS_UMOCK_C_LIB_01_181: [ If a value that is not part of the enum is used, it shall be treated as an int value. ]*/
-#define IMPLEMENT_UMOCK_C_ENUM_STRINGIFY(enum_name, ...) \
-    typedef enum_name MU_C2(enum_name,_for_umock); \
-    MU_DEFINE_ENUM_STRINGS(MU_C2(enum_name,_for_umock), __VA_ARGS__); \
+#define IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_COMMON(enum_name, ...) \
     UMOCK_STATIC char* MU_C2(umocktypes_stringify_,enum_name)(const enum_name* value) \
     { \
         char* result; \
@@ -64,7 +61,7 @@ extern "C" {
                 result = (char*)umockalloc_malloc(length + 1); \
                 if (result != NULL) \
                 { \
-                    if (snprintf(NULL, 0, "%" PRI_MU_ENUM "", MU_ENUM_VALUE(MU_C2(enum_name,_for_umock), *value)) < 0) \
+                    if (snprintf(result, length + 1, "%" PRI_MU_ENUM "", MU_ENUM_VALUE(MU_C2(enum_name,_for_umock), *value)) < 0) \
                     { \
                         umockalloc_free(result); \
                     } \
@@ -81,6 +78,16 @@ extern "C" {
         } \
         return result; \
     }
+/* Codes_SRS_UMOCK_C_LIB_01_181: [ If a value that is not part of the enum is used, it shall be treated as an int value. ]*/
+#define IMPLEMENT_UMOCK_C_ENUM_STRINGIFY(enum_name, ...) \
+    typedef enum_name MU_C2(enum_name,_for_umock); \
+    MU_DEFINE_ENUM_STRINGS(MU_C2(enum_name,_for_umock), __VA_ARGS__); \
+    IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_COMMON(enum_name, __VA_ARGS__)
+
+#define IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_WITHOUT_INVALID(enum_name, ...) \
+    typedef enum_name MU_C2(enum_name,_for_umock); \
+    MU_DEFINE_ENUM_STRINGS_WITHOUT_INVALID(MU_C2(enum_name,_for_umock), __VA_ARGS__); \
+    IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_COMMON(enum_name, __VA_ARGS__)
 
 #define IMPLEMENT_UMOCK_C_ENUM_ARE_EQUAL(type) \
     UMOCK_STATIC int MU_C2(umocktypes_are_equal_,type)(const type* left, const type* right) \
@@ -124,6 +131,12 @@ extern "C" {
 /* Codes_SRS_UMOCK_C_LIB_01_180: [ The variable arguments are a list making up the enum values. ]*/
 #define IMPLEMENT_UMOCK_C_ENUM_TYPE(type, ...) \
     IMPLEMENT_UMOCK_C_ENUM_STRINGIFY(type, __VA_ARGS__) \
+    IMPLEMENT_UMOCK_C_ENUM_ARE_EQUAL(type) \
+    IMPLEMENT_UMOCK_C_ENUM_COPY(type) \
+    IMPLEMENT_UMOCK_C_ENUM_FREE(type)
+
+#define IMPLEMENT_UMOCK_C_ENUM_TYPE_WITHOUT_INVALID(type, ...) \
+    IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_WITHOUT_INVALID(type, __VA_ARGS__) \
     IMPLEMENT_UMOCK_C_ENUM_ARE_EQUAL(type) \
     IMPLEMENT_UMOCK_C_ENUM_COPY(type) \
     IMPLEMENT_UMOCK_C_ENUM_FREE(type)
