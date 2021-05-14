@@ -641,7 +641,7 @@ void umockvalue_free_int(int* value)
 IMPLEMENT_UMOCK_C_ENUM_TYPE(type, ...)
 ```
 
-XX**SRS_UMOCK_C_LIB_01_179: [** IMPLEMENT_UMOCK_C_ENUM_TYPE shall implement umock_c handlers for an enum type. **]**
+XX**SRS_UMOCK_C_LIB_01_179: [** IMPLEMENT_UMOCK_C_ENUM_TYPE and IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_WITHOUT_INVALID shall implement umock_c handlers for an enum type. **]**
 XX**SRS_UMOCK_C_LIB_01_180: [** The variable arguments are a list making up the enum values. **]**
 XX**SRS_UMOCK_C_LIB_01_181: [** If a value that is not part of the enum is used, it shall be treated as an int value. **]**
 Note: IMPLEMENT_UMOCK_C_ENUM_TYPE only generates the handlers, registering the handlers still has to be done by using the macro REGISTER_UMOCK_VALUE_TYPE.

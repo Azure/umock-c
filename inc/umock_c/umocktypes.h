@@ -127,7 +127,7 @@ extern "C" {
         (void)value; \
     }
 
-/* Codes_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE shall implement umock_c handlers for an enum type. ]*/
+/* Codes_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE and IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_WITHOUT_INVALID shall implement umock_c handlers for an enum type. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_180: [ The variable arguments are a list making up the enum values. ]*/
 #define IMPLEMENT_UMOCK_C_ENUM_TYPE(type, ...) \
     IMPLEMENT_UMOCK_C_ENUM_STRINGIFY(type, __VA_ARGS__) \

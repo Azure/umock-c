@@ -2224,7 +2224,7 @@ TEST_FUNCTION(when_an_unregistered_pointer_type_is_used_it_defaults_to_void_ptr)
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE shall implement umock_c handlers for an enum type. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE and IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_WITHOUT_INVALID shall implement umock_c handlers for an enum type. ]*/
 /* Tests_SRS_UMOCK_C_LIB_01_180: [ The variable arguments are a list making up the enum values. ]*/
 TEST_FUNCTION(matching_with_an_enum_type_works)
 {
@@ -2240,7 +2240,7 @@ TEST_FUNCTION(matching_with_an_enum_type_works)
     ASSERT_ARE_EQUAL(char_ptr, "[test_mock_function_with_enum_type(TEST_ENUM_VALUE_2 (1))]", umock_c_get_actual_calls());
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE shall implement umock_c handlers for an enum type. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE and IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_WITHOUT_INVALID shall implement umock_c handlers for an enum type. ]*/
 /* Tests_SRS_UMOCK_C_LIB_01_181: [ If a value that is not part of the enum is used, it shall be treated as an int value. ]*/
 TEST_FUNCTION(when_the_enum_value_is_not_within_the_enum_the_int_value_is_filled_in)
 {
