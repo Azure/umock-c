@@ -128,12 +128,6 @@ extern "C" {
     IMPLEMENT_UMOCK_C_ENUM_COPY(type) \
     IMPLEMENT_UMOCK_C_ENUM_FREE(type)
 
-#define IMPLEMENT_UMOCK_C_ENUM_2_TYPE(type, ...) \
-    IMPLEMENT_UMOCK_C_ENUM_2_STRINGIFY(type, __VA_ARGS__) \
-    IMPLEMENT_UMOCK_C_ENUM_ARE_EQUAL(type) \
-    IMPLEMENT_UMOCK_C_ENUM_COPY(type) \
-    IMPLEMENT_UMOCK_C_ENUM_FREE(type)
-
 #ifdef __cplusplus
 }
 #endif
