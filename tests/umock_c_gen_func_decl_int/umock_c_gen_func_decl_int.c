@@ -145,7 +145,7 @@ TEST_FUNCTION(when_ENABLE_MOCKS_is_not_on_MOCKABLE_FUNCTION_generates_a_standard
     void* result = test_generate_signature_with_returns_returning_ptr();
 
     // assert
-    ASSERT_ARE_EQUAL(void_ptr, 0x4242, result);
+    ASSERT_ARE_EQUAL(void_ptr, (void*)0x4242, result);
 }
 
 END_TEST_SUITE(umock_c_generate_function_declaration_integrationtests)

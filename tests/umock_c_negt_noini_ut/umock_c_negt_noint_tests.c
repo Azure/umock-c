@@ -361,5 +361,4 @@ TEST_FUNCTION(umock_c_negative_tests_can_call_fail_when_the_module_is_not_initia
     ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.index);
 }
 
-
 END_TEST_SUITE(umock_c_negative_tests_no_init_unittests)

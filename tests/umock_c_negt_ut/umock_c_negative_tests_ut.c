@@ -694,7 +694,7 @@ TEST_FUNCTION(umock_c_negative_tests_fail_call_calls_the_call_recorder_fail_call
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
     ASSERT_ARE_EQUAL(void_ptr, test_call_recorder, umockecallercorder_can_call_fail_call.umock_call_recorder);
-    ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.index);
+    ASSERT_ARE_EQUAL(size_t, 0, umockecallercorder_can_call_fail_call.index);
 }
 
 /* Tests_SRS_UMOCK_C_NEGATIVE_TESTS_31_028: [ Whether the call can fail for the given index shall made by calling umockcallrecorder_can_call_fail. ]*/
@@ -715,7 +715,7 @@ TEST_FUNCTION(umock_c_negative_tests_fail_call_calls_the_call_recorder_fail_inde
     // assert
     ASSERT_ARE_EQUAL(int, 1, result);
     ASSERT_ARE_EQUAL(void_ptr, test_call_recorder, umockecallercorder_can_call_fail_call.umock_call_recorder);
-    ASSERT_ARE_EQUAL(void_ptr, 10, umockecallercorder_can_call_fail_call.index);
+    ASSERT_ARE_EQUAL(size_t, 10, umockecallercorder_can_call_fail_call.index);
 }
 
 /* Tests_SRS_UMOCK_C_NEGATIVE_TESTS_31_027: [ If umock_c_get_call_recorder fails, umock_c_negative_tests_can_call_fail shall indicate the error via the umock error callback with error code UMOCK_C_ERROR. ]*/
@@ -738,7 +738,7 @@ TEST_FUNCTION(when_getting_the_call_recorder_fails_umock_c_negative_tests_can_ca
     // assert
     ASSERT_ARE_EQUAL(int, 1, result);
     ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.umock_call_recorder);
-    ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.index);
+    ASSERT_ARE_EQUAL(size_t, 0, umockecallercorder_can_call_fail_call.index);
 }
 
 /* Tests_SRS_UMOCK_C_NEGATIVE_TESTS_31_029: [ If umockcallrecorder_can_call_fail fails, umock_c_negative_tests_fail_call shall indicate the error via the umock error callback with error code UMOCK_C_ERROR and return 1. ]*/
@@ -759,7 +759,7 @@ TEST_FUNCTION(when_failing_the_call_fails_umock_c_negative_tests_fail_call_retur
     // assert
     ASSERT_ARE_EQUAL(int, 1, result);
     ASSERT_ARE_EQUAL(void_ptr, test_call_recorder, umockecallercorder_can_call_fail_call.umock_call_recorder);
-    ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.index);
+    ASSERT_ARE_EQUAL(size_t, 0, umockecallercorder_can_call_fail_call.index);
 }
 
 /* Tests_SRS_UMOCK_C_NEGATIVE_TESTS_31_026: [ If the module was not previously initialized, umock_c_negative_tests_can_call_fail shall return 1. ]*/
@@ -773,7 +773,7 @@ TEST_FUNCTION(umock_c_negative_tests_can_call_fail_when_the_module_is_not_initia
     // assert
     ASSERT_ARE_EQUAL(int, 1, result);
     ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.umock_call_recorder);
-    ASSERT_ARE_EQUAL(void_ptr, 0, umockecallercorder_can_call_fail_call.index);
+    ASSERT_ARE_EQUAL(size_t, 0, umockecallercorder_can_call_fail_call.index);
 }
 
 END_TEST_SUITE(umock_c_negative_tests_unittests)
