@@ -14,4 +14,4 @@ set(${theseTestsName}_h_files
     test_dependency.h
 )
 
-umockc_build_test_artifacts(${theseTestsName} ON umock_c)
+umockc_build_test_artifacts(${theseTestsName} umock_c)

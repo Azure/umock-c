@@ -13,4 +13,4 @@ set(${theseTestsName}_c_files
 set(${theseTestsName}_h_files
 )
 
-umockc_build_test_artifacts(${theseTestsName} ON umock_c)
+umockc_build_test_artifacts(${theseTestsName} umock_c)

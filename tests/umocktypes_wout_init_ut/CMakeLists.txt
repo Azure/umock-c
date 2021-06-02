@@ -14,4 +14,4 @@ umocktypes_mocked.c
 set(${theseTestsName}_h_files
 )
 
-umockc_build_test_artifacts(${theseTestsName} ON)
+umockc_build_test_artifacts(${theseTestsName})

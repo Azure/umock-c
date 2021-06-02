@@ -15,4 +15,4 @@ umock_lock_factory_pthread_mocked.c
 set(${theseTestsName}_h_files
 )
 
-umockc_build_test_artifacts(${theseTestsName} ON pthread)
+umockc_build_test_artifacts(${theseTestsName} pthread)

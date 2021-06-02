@@ -55,17 +55,11 @@ function(umockc_windows_unittests_add_exe whatIsBuilding)
     add_test(NAME ${whatIsBuilding} COMMAND ${whatIsBuilding}_exe)
 endfunction()
 
-function(umockc_build_test_artifacts whatIsBuilding use_gballoc)
+function(umockc_build_test_artifacts whatIsBuilding)
     
     #the first argument is what is building
-    #the second argument is whether the tests should be build with gballoc #defines or not
     #the following arguments are a list of libraries to link with
-    
-    if(${use_gballoc})
-        add_definitions(-DGB_MEASURE_MEMORY_FOR_THIS -DGB_DEBUG_ALLOC)
-    else()	
-    endif()
-    
+
     #setting #defines
     if(WIN32)
         add_definitions(-D_CRT_SECURE_NO_WARNINGS)
