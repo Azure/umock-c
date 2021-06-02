@@ -30,7 +30,7 @@ set(${theseTestsName}_h_files
 )
 
 if(UNIX)
-    build_test_artifacts(${theseTestsName} ON "tests/umockc_tests" ADDITIONAL_LIBS pthread)
+    build_test_artifacts(${theseTestsName} "tests/umockc_tests" ADDITIONAL_LIBS pthread)
 else()
-    build_test_artifacts(${theseTestsName} ON "tests/umockc_tests")
+    build_test_artifacts(${theseTestsName} "tests/umockc_tests")
 endif()
