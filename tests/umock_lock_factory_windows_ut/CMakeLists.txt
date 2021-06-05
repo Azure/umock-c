@@ -15,4 +15,4 @@ umock_lock_factory_windows_mocked.c
 set(${theseTestsName}_h_files
 )
 
-umockc_build_test_artifacts(${theseTestsName})
+build_test_artifacts(${theseTestsName} "tests/umockc_tests")

@@ -24,7 +24,7 @@ if(${run_unittests})
     build_test_folder(umock_c_negt_ut)
 
     if(WIN32)
-        add_subdirectory(umock_lock_factory_windows_ut)
+        build_test_folder(umock_lock_factory_windows_ut)
         add_subdirectory(umocktypes_windows_ut)
     endif()
     if(UNIX)
