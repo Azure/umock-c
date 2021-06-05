@@ -384,7 +384,7 @@ static UMOCK_C_LOCK_HANDLE test_lock_factory_create_lock(void* params)
 
 static TEST_MUTEX_HANDLE test_mutex;
 
-BEGIN_TEST_SUITE(umock_c_unittests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -1094,4 +1094,4 @@ TEST_FUNCTION(when_the_module_is_not_initialize_umock_c_set_call_recorder_fails)
     ASSERT_ARE_EQUAL(size_t, 0, mocked_call_count);
 }
 
-END_TEST_SUITE(umock_c_unittests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
