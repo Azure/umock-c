@@ -68,7 +68,7 @@ extern "C" {
 static TEST_MUTEX_HANDLE test_mutex;
 static TEST_MUTEX_HANDLE global_mutex;
 
-BEGIN_TEST_SUITE(umocktypename_unittests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -288,4 +288,4 @@ TEST_FUNCTION(when_allocating_memory_Fails_umocktypename_normalize_fails)
     ASSERT_IS_NULL(result);
 }
 
-END_TEST_SUITE(umocktypename_unittests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
