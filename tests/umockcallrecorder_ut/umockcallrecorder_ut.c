@@ -521,7 +521,7 @@ static void reset_all_calls(void)
 static TEST_MUTEX_HANDLE test_mutex;
 static TEST_MUTEX_HANDLE global_mutex;
 
-BEGIN_TEST_SUITE(umockcallrecorder_unittests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -2814,4 +2814,4 @@ TEST_FUNCTION(umockcallrecorder_can_call_fail_with_lock_functions_setup_locks_an
     umockcallrecorder_destroy(call_recorder);
 }
 
-END_TEST_SUITE(umockcallrecorder_unittests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
