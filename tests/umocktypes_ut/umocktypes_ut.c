@@ -321,7 +321,7 @@ void reset_test_free_testtype_calls(void)
 static TEST_MUTEX_HANDLE test_mutex;
 static TEST_MUTEX_HANDLE global_mutex;
 
-BEGIN_TEST_SUITE(umocktypes_unittests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -1754,4 +1754,4 @@ TEST_FUNCTION(stringify_for_enum_returns_the_desired_string)
     free(result);
 }
 
-END_TEST_SUITE(umocktypes_unittests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
