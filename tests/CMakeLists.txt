@@ -25,7 +25,7 @@ if(${run_unittests})
 
     if(WIN32)
         build_test_folder(umock_lock_factory_windows_ut)
-        add_subdirectory(umocktypes_windows_ut)
+        build_test_folder(umocktypes_windows_ut)
     endif()
     if(UNIX)
         add_subdirectory(umock_lock_factory_pthread_ut)

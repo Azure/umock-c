@@ -244,7 +244,7 @@ static void free_mocked_calls(void)
 static TEST_MUTEX_HANDLE test_mutex;
 static TEST_MUTEX_HANDLE global_mutex;
 
-BEGIN_TEST_SUITE(umocktypes_windows_unittests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -402,4 +402,4 @@ TEST_FUNCTION(when_umocktypes_charptr_register_types_fails_umocktypes_windows_re
     ASSERT_ARE_NOT_EQUAL(int, 0, result);
 }
 
-END_TEST_SUITE(umocktypes_windows_unittests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
