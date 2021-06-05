@@ -163,7 +163,7 @@ void reset_malloc_calls(void)
 
 static TEST_MUTEX_HANDLE test_mutex;
 
-BEGIN_TEST_SUITE(umocktypes_stdint_unittests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -1665,4 +1665,4 @@ TEST_FUNCTION(umocktypes_free_int64_t_does_nothing)
     // no explicit assert
 }
 
-END_TEST_SUITE(umocktypes_stdint_unittests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)

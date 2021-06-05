@@ -164,7 +164,7 @@ void reset_malloc_calls(void)
 static TEST_MUTEX_HANDLE test_mutex;
 static TEST_MUTEX_HANDLE global_mutex;
 
-BEGIN_TEST_SUITE(umocktypes_wcharptr_unittests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -907,4 +907,4 @@ TEST_FUNCTION(when_the_underlying_register_fails_umocktypes_wcharptr_register_ty
     }
 }
 
-END_TEST_SUITE(umocktypes_wcharptr_unittests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
