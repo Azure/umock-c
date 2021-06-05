@@ -169,7 +169,7 @@ void reset_malloc_calls(void)
 static TEST_MUTEX_HANDLE test_mutex;
 static TEST_MUTEX_HANDLE global_mutex;
 
-BEGIN_TEST_SUITE(THIS_TEST_SUITE_NAME)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -3076,4 +3076,4 @@ TEST_FUNCTION(when_the_underlying_register_fails_umocktypes_c_register_types_fai
     }
 }
 
-END_TEST_SUITE(THIS_TEST_SUITE_NAME)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)

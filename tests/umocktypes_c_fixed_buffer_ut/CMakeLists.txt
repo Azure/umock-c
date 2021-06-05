@@ -17,4 +17,4 @@ set(${theseTestsName}_c_files
 set(${theseTestsName}_h_files
 )
 
-umockc_build_test_artifacts(${theseTestsName})
+build_test_artifacts(${theseTestsName} "tests/umockc_tests")
