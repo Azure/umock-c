@@ -179,8 +179,6 @@ if ((NOT HAVE_STDINT_H) OR (NOT HAVE_STDBOOL_H))
     include_directories(${UMOCK_C_INC_FOLDER}/umock_c/aux_inc)
 endif()
 
-include("configs/umock_cFunctions.cmake")
-
 if (${run_unittests} OR ${run_int_tests})
     add_subdirectory(tests)
 endif()

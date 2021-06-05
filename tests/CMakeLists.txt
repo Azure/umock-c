@@ -48,6 +48,6 @@ if(${run_int_tests})
 
     if(WIN32)
         build_test_folder(umock_c_windows_types_int)
-        add_subdirectory(umock_c_reg_win_types_int)
+        build_test_folder(umock_c_reg_win_types_int)
     endif()
 endif()
