@@ -32,7 +32,7 @@ int do_not_actually_mock_with_returns(void)
     return 0x42;
 }
 
-BEGIN_TEST_SUITE(umock_c_mock_filters_int_tests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -86,4 +86,4 @@ TEST_FUNCTION(call_the_not_mocked_function_with_returns)
     ASSERT_ARE_EQUAL(int, 0x42, result);
 }
 
-END_TEST_SUITE(umock_c_mock_filters_int_tests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)

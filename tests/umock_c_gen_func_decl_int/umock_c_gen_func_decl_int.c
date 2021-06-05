@@ -49,7 +49,7 @@ void* test_generate_signature_with_returns_returning_ptr(void)
 
 static TEST_MUTEX_HANDLE test_mutex_generate_funcs;
 
-BEGIN_TEST_SUITE(umock_c_generate_function_declaration_integrationtests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -148,4 +148,4 @@ TEST_FUNCTION(when_ENABLE_MOCKS_is_not_on_MOCKABLE_FUNCTION_generates_a_standard
     ASSERT_ARE_EQUAL(void_ptr, (void*)0x4242, result);
 }
 
-END_TEST_SUITE(umock_c_generate_function_declaration_integrationtests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)

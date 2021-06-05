@@ -167,7 +167,7 @@ int function_under_test_4_call_dep_void_ptr_return_non_NULL(void)
     return result;
 }
 
-BEGIN_TEST_SUITE(umock_c_negative_tests_integrationtests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -477,4 +477,4 @@ TEST_FUNCTION(SetFailReturns_overrides_MOCKABLE_FUNCTION_WITH_RETURNS)
     ASSERT_ARE_EQUAL(int, 44, result);
 }
 
-END_TEST_SUITE(umock_c_negative_tests_integrationtests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
