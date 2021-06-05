@@ -244,7 +244,7 @@ static void reset_all_calls(void)
 static TEST_MUTEX_HANDLE test_mutex;
 static TEST_MUTEX_HANDLE global_mutex;
 
-BEGIN_TEST_SUITE(umockcallpairs_unittests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -650,4 +650,4 @@ TEST_FUNCTION(when_the_handle_is_not_found_umockcallpairs_track_destroy_paired_c
     free(paired_handles.paired_handles);
 }
 
-END_TEST_SUITE(umockcallpairs_unittests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)

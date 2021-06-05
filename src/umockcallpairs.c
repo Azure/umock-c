@@ -154,7 +154,14 @@ int umockcallpairs_track_destroy_paired_call(PAIRED_HANDLES* paired_handles, con
                 umocktypes_free(paired_handles->paired_handles[i].handle_type, paired_handles->paired_handles[i].handle_value);
                 umockalloc_free(paired_handles->paired_handles[i].handle_type);
                 umockalloc_free(paired_handles->paired_handles[i].handle_value);
-                (void)memmove(&paired_handles->paired_handles[i], &paired_handles->paired_handles[i + 1], sizeof(PAIRED_HANDLE) * (paired_handles->paired_handle_count - 1));
+                if(i == paired_handles->paired_handle_count - 1)
+                { 
+                    /*don't move any memory if it is the last one*/
+                }
+                else
+                {
+                    (void)memmove(&paired_handles->paired_handles[i], &paired_handles->paired_handles[i + 1], sizeof(PAIRED_HANDLE) * (paired_handles->paired_handle_count - i - 1));
+                }
                 paired_handles->paired_handle_count--;
                 if (paired_handles->paired_handle_count == 0)
                 {
