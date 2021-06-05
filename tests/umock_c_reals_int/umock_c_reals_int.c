@@ -49,7 +49,7 @@ static void test_on_umock_c_error(UMOCK_C_ERROR_CODE error_code)
 
 static TEST_MUTEX_HANDLE test_mutex;
 
-BEGIN_TEST_SUITE(umock_c_reals_inttests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -192,4 +192,4 @@ TEST_FUNCTION(calling_a_real_function_is_possible)
     ASSERT_ARE_EQUAL(int, 42, result);
 }
 
-END_TEST_SUITE(umock_c_reals_inttests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)

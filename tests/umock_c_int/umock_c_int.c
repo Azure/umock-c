@@ -339,7 +339,7 @@ MOCK_FUNCTION_END(NULL)
 MOCK_FUNCTION_WITH_CODE(, const TEST_STRUCT*, mock_function_with_code_return_const_struct_ptr);
 MOCK_FUNCTION_END(NULL)
 
-BEGIN_TEST_SUITE(umock_c_integrationtests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -3140,4 +3140,4 @@ TEST_FUNCTION(IGNORED_STRUCT_ARG_works_with_nested_struct)
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
-END_TEST_SUITE(umock_c_integrationtests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)

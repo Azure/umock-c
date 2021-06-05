@@ -240,7 +240,7 @@ static void reset_all_calls(void)
 static TEST_MUTEX_HANDLE test_mutex;
 static TEST_MUTEX_HANDLE global_mutex;
 
-BEGIN_TEST_SUITE(umock_lock_factory_pthread_unittests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -518,4 +518,4 @@ TEST_FUNCTION(umock_lock_pthread_destroy_frees_the_resources)
     ASSERT_ARE_EQUAL(TEST_MOCK_CALL_TYPE, TEST_MOCK_CALL_TYPE_mock_free, mocked_calls[1].call_type);
 }
 
-END_TEST_SUITE(umock_lock_factory_pthread_unittests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
