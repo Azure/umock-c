@@ -249,7 +249,7 @@ static void on_umock_c_error(UMOCK_C_ERROR_CODE error_code)
     ASSERT_FAIL("umock_c reported error :%s", MU_ENUM_TO_STRING(UMOCK_C_ERROR_CODE, error_code));
 }
 
-BEGIN_TEST_SUITE(umocktypes_struct_int)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -746,4 +746,4 @@ TEST_FUNCTION(umocktypes_free_MY_STRUCT_WITH_CONST_frees_each_field)
     ASSERT_ARE_EQUAL(uint32_t, 1, mock_free_my_const_int_ptr_was_called, "my_const_int_ptr should have been freed");
 }
 
-END_TEST_SUITE(umocktypes_struct_int)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)

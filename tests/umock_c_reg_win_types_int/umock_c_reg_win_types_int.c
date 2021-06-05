@@ -21,7 +21,7 @@ static void test_on_umock_c_error(UMOCK_C_ERROR_CODE error_code)
     ASSERT_FAIL("test_on_umock_c_error called with %" PRI_MU_ENUM "", MU_ENUM_VALUE(UMOCK_C_ERROR_CODE, error_code));
 }
 
-BEGIN_TEST_SUITE(umock_c_reg_win_types_int_tests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -65,4 +65,4 @@ TEST_FUNCTION(unmatched_expected_calls_with_windows_args_are_reported)
     ASSERT_ARE_EQUAL(int, 0, result);
 }
 
-END_TEST_SUITE(umock_c_reg_win_types_int_tests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)

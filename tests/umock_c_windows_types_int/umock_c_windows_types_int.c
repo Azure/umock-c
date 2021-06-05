@@ -88,7 +88,7 @@ static char* build_calls_string(void)
     return result;
 }
 
-BEGIN_TEST_SUITE(umock_c_windows_types_int_tests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -275,4 +275,4 @@ TEST_FUNCTION(matched_calls_with_windows_args_are_not_reported)
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
 }
 
-END_TEST_SUITE(umock_c_windows_types_int_tests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)

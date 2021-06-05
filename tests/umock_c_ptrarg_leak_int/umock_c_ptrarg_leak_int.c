@@ -18,7 +18,7 @@ static void test_on_umock_c_error(UMOCK_C_ERROR_CODE error_code)
 
 static TEST_MUTEX_HANDLE test_mutex;
 
-BEGIN_TEST_SUITE(umock_c_ptrarg_leak_integrationtests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -66,4 +66,4 @@ TEST_FUNCTION(a_matched_call_with_pointer_type_argument_does_not_leak)
     // no leaks expected
 }
 
-END_TEST_SUITE(umock_c_ptrarg_leak_integrationtests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)

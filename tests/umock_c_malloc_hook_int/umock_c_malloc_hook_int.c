@@ -71,7 +71,7 @@ static TEST_MUTEX_HANDLE test_mutex;
 MOCK_FUNCTION_WITH_CODE(, int, function1, int, a)
 MOCK_FUNCTION_END(42)
 
-BEGIN_TEST_SUITE(umock_c_malloc_hook_integrationtests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -125,4 +125,4 @@ TEST_FUNCTION(when_malloc_is_hooked_no_calls_are_made_to_it)
     ASSERT_ARE_EQUAL(size_t, 0, my_free_count);
 }
 
-END_TEST_SUITE(umock_c_malloc_hook_integrationtests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
