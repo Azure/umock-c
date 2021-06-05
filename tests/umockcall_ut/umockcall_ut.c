@@ -172,7 +172,7 @@ void reset_malloc_calls(void)
 static TEST_MUTEX_HANDLE test_mutex;
 static TEST_MUTEX_HANDLE global_mutex;
 
-BEGIN_TEST_SUITE(umockcall_unittests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -673,6 +673,7 @@ TEST_FUNCTION(when_allocating_memory_fails_then_umockcall_stringify_fails)
     char* result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     test_mock_call_data_stringify_expected_result = (char*)malloc(strlen("45") + 1);
+    (void)memcpy(test_mock_call_data_stringify_expected_result, "45", sizeof("45"));
     reset_malloc_calls();
     when_shall_malloc_fail = 1;
 
@@ -1307,4 +1308,4 @@ TEST_FUNCTION(umockcall_get_call_can_fail_on_a_cloned_call_retrieves_0)
     umockcall_destroy(cloned_call);
 }
 
-END_TEST_SUITE(umockcall_unittests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
