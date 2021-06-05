@@ -5,7 +5,7 @@
 if(${run_unittests})
     build_test_folder(umockalloc_ut)
     build_test_folder(umockstring_ut)
-    add_subdirectory(umockautoignoreargs_ut)
+    build_test_folder(umockautoignoreargs_ut)
     add_subdirectory(umockcall_ut)
     add_subdirectory(umockcallpairs_ut)
     add_subdirectory(umockcallrecorder_ut)

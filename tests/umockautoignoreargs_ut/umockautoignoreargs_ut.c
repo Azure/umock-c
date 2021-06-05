@@ -59,7 +59,7 @@ extern "C" {
 static TEST_MUTEX_HANDLE test_mutex;
 static TEST_MUTEX_HANDLE global_mutex;
 
-BEGIN_TEST_SUITE(umockautoignoreargs_unittests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -436,4 +436,4 @@ TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_IGNORED_STRUCT_A
     ASSERT_ARE_EQUAL(int, 0, is_ignored);
 }
 
-END_TEST_SUITE(umockautoignoreargs_unittests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
