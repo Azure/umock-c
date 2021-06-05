@@ -11,4 +11,4 @@ set(${theseTestsName}_c_files
 ../../src/umock_c_negative_tests.c
 )
 
-umockc_build_test_artifacts(${theseTestsName})
+build_test_artifacts(${theseTestsName} "tests/umockc_tests")

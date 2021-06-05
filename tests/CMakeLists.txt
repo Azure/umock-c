@@ -21,7 +21,7 @@ if(${run_unittests})
     build_test_folder(umocktypes_stdint_ut)
     build_test_folder(umocktypes_wcharptr_ut)
     build_test_folder(umock_c_negt_noini_ut)
-    add_subdirectory(umock_c_negt_ut)
+    build_test_folder(umock_c_negt_ut)
 
     if(WIN32)
         add_subdirectory(umock_lock_factory_windows_ut)

@@ -254,7 +254,7 @@ void umockalloc_free(void* ptr)
 
 static TEST_MUTEX_HANDLE test_mutex;
 
-BEGIN_TEST_SUITE(umock_c_negative_tests_unittests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -776,4 +776,4 @@ TEST_FUNCTION(umock_c_negative_tests_can_call_fail_when_the_module_is_not_initia
     ASSERT_ARE_EQUAL(size_t, 0, umockecallercorder_can_call_fail_call.index);
 }
 
-END_TEST_SUITE(umock_c_negative_tests_unittests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
