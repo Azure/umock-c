@@ -3,8 +3,8 @@
 
 #unit tests
 if(${run_unittests})
-    add_subdirectory(umockalloc_ut)
-    add_subdirectory(umockstring_ut)
+    build_test_folder(umockalloc_ut)
+    build_test_folder(umockstring_ut)
     add_subdirectory(umockautoignoreargs_ut)
     add_subdirectory(umockcall_ut)
     add_subdirectory(umockcallpairs_ut)

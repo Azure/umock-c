@@ -116,7 +116,7 @@ extern "C" {
 static TEST_MUTEX_HANDLE test_mutex;
 static TEST_MUTEX_HANDLE global_mutex;
 
-BEGIN_TEST_SUITE(umockalloc_unittests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -416,4 +416,4 @@ TEST_FUNCTION(umockalloc_free_with_NULL_calls_free_with_NULL)
     ASSERT_ARE_EQUAL(void_ptr, NULL, test_free_calls[0].ptr);
 }
 
-END_TEST_SUITE(umockalloc_unittests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)

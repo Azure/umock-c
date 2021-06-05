@@ -62,7 +62,7 @@ extern "C" {
 static TEST_MUTEX_HANDLE test_mutex;
 static TEST_MUTEX_HANDLE global_mutex;
 
-BEGIN_TEST_SUITE(umockstring_unittests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -188,4 +188,4 @@ TEST_FUNCTION(umockstring_clone_called_with_NULL_fails)
     ASSERT_ARE_EQUAL(size_t, 0, test_malloc_call_count);
 }
 
-END_TEST_SUITE(umockstring_unittests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
