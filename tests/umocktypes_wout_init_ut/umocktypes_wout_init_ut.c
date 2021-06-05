@@ -284,7 +284,7 @@ void reset_test_free_testtype_calls(void)
 static TEST_MUTEX_HANDLE test_mutex;
 static TEST_MUTEX_HANDLE global_mutex;
 
-BEGIN_TEST_SUITE(umocktypes_without_init_unittests)
+BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
@@ -460,4 +460,4 @@ TEST_FUNCTION(umocktypes_free_when_the_module_is_not_initialized_does_not_free_a
     ASSERT_ARE_EQUAL(size_t, 0, test_free_func_testtype_call_count);
 }
 
-END_TEST_SUITE(umocktypes_without_init_unittests)
+END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
