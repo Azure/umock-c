@@ -6,8 +6,10 @@
 
 #ifdef __cplusplus
 #include <cstddef>
+#include <cstdio>
 #else
 #include <stddef.h>
+#include <stdio.h>
 #endif
 
 #include "macro_utils/macro_utils.h"
