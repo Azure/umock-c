@@ -84,8 +84,6 @@ set(run_perf_tests ${original_run_perf_tests})
 set(run_unittests ${original_run_unittests})
 set(run_traceability ${original_run_traceability})
 
-include_directories(${MACRO_UTILS_INC_FOLDER})
-
 set(umock_c_c_files
     ./src/umock_c.c
     ./src/umock_c_negative_tests.c
@@ -152,9 +150,7 @@ SOURCE_GROUP(devdoc FILES ${umock_c_md_files})
 
 add_library(umock_c ${umock_c_c_files} ${umock_c_h_files} ${umock_c_md_files})
 
-if(${use_installed_dependencies})
-    target_link_libraries(umock_c macro_utils_c)
-endif()
+target_link_libraries(umock_c macro_utils_c)
 
 target_include_directories(umock_c
     PUBLIC
