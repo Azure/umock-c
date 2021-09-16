@@ -6,7 +6,7 @@ jobs:
 - job: windowsx64debug
   displayName: 'Build Windows x64 Debug'
   pool:
-    name: Azure-MessagingStore
+    name: Azure-MessagingStore-BuildMachinePool
     demands:
     - Build
     - Cmd
@@ -62,7 +62,7 @@ jobs:
 - job: windowsx64relwithdebinfo
   displayName: 'Build Windows x64 RelWithDebInfo'
   pool:
-    name: Azure-MessagingStore
+    name: Azure-MessagingStore-BuildMachinePool
     demands:
     - Build
     - Cmd
@@ -120,7 +120,7 @@ jobs:
 - job: windowsx86debug
   displayName: 'Build Windows x86 Debug'
   pool:
-    name: Azure-MessagingStore
+    name: Azure-MessagingStore-BuildMachinePool
     demands:
     - Build
     - Cmd
@@ -257,55 +257,56 @@ jobs:
       modifyEnvironment: false
       workingFolder: '$(Build.SourcesDirectory)'
 
-- job: includecheck
-  pool:
-    name: Azure-MessagingStore
-    demands:
-    - Build
-    - Cmd
-    - msbuild
-    - cmake
-    - visualstudio
-
-  steps:
-  - task: BatchScript@1
-    displayName: 'Git submodule update'
-    inputs:
-      filename: 'C:\Program Files\Git\bin\git.exe'
-      arguments: 'submodule update --init --force'
-
-  - task: BatchScript@1
-    displayName: 'Git submodule clean'
-    inputs:
-      filename: 'C:\Program Files\Git\bin\git.exe'
-      arguments: 'submodule foreach --recursive "git clean -xdff"'
-
-  - task: BatchScript@1
-    displayName: 'Git clean'
-    inputs:
-      filename: 'C:\Program Files\Git\bin\git.exe'
-      arguments: 'clean -xdff'
-
-  - task: BatchScript@1
-    displayName: 'Setup VS Vars'
-    inputs:
-      filename: '"c:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat"'
-      modifyEnvironment: true
-
-  - task: CMake@1
-    displayName: 'Running cmake'
-    inputs:
-      workingDirectory: 'build_ninja'
-      cmakeArgs: '.. -GNinja -DCMAKE_C_INCLUDE_WHAT_YOU_USE:UNINITIALIZED=include-what-you-use;-Xiwyu;--mapping_file=../deps/c-build-tools/iwyu/rules.imp;--driver-mode=cl -DCMAKE_CXX_INCLUDE_WHAT_YOU_USE:UNINITIALIZED=include-what-you-use;-Xiwyu;--mapping_file=../deps/c-build-tools/iwyu/rules.imp;--driver-mode=cl -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Drun_perf_tests:bool=ON -Duse_cppunittest:bool=ON'
-
-  - task: PowerShell@2
-    displayName: 'Build solution and check includes'
-    inputs:
-      workingDirectory: 'build_ninja'
-      targetType: 'inline'
-      script: |
-          cmake --build . | tee build.log
-          if ((Select-String -Path "./build.log" -Pattern "Warning:") -ne $null) { throw "include check failed" }
+# Will be re-enabled at a later time
+#- job: includecheck
+#  pool:
+#    name: Azure-MessagingStore
+#    demands:
+#    - Build
+#    - Cmd
+#    - msbuild
+#    - cmake
+#    - visualstudio
+#
+#  steps:
+#  - task: BatchScript@1
+#    displayName: 'Git submodule update'
+#    inputs:
+#      filename: 'C:\Program Files\Git\bin\git.exe'
+#      arguments: 'submodule update --init --force'
+#
+#  - task: BatchScript@1
+#    displayName: 'Git submodule clean'
+#    inputs:
+#      filename: 'C:\Program Files\Git\bin\git.exe'
+#      arguments: 'submodule foreach --recursive "git clean -xdff"'
+#
+#  - task: BatchScript@1
+#    displayName: 'Git clean'
+#    inputs:
+#      filename: 'C:\Program Files\Git\bin\git.exe'
+#      arguments: 'clean -xdff'
+#
+#  - task: BatchScript@1
+#    displayName: 'Setup VS Vars'
+#    inputs:
+#      filename: '"c:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat"'
+#      modifyEnvironment: true
+#
+#  - task: CMake@1
+#    displayName: 'Running cmake'
+#    inputs:
+#      workingDirectory: 'build_ninja'
+#      cmakeArgs: '.. -GNinja -DCMAKE_C_INCLUDE_WHAT_YOU_USE:UNINITIALIZED=include-what-you-use;-Xiwyu;--mapping_file=../deps/c-build-tools/iwyu/rules.imp;--driver-mode=cl -DCMAKE_CXX_INCLUDE_WHAT_YOU_USE:UNINITIALIZED=include-what-you-use;-Xiwyu;--mapping_file=../deps/c-build-tools/iwyu/rules.imp;--driver-mode=cl -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Drun_perf_tests:bool=ON -Duse_cppunittest:bool=ON'
+#
+#  - task: PowerShell@2
+#    displayName: 'Build solution and check includes'
+#    inputs:
+#      workingDirectory: 'build_ninja'
+#      targetType: 'inline'
+#      script: |
+#          cmake --build . | tee build.log
+#          if ((Select-String -Path "./build.log" -Pattern "Warning:") -ne $null) { throw "include check failed" }
 
 - job: includecheck_linux
   pool:
