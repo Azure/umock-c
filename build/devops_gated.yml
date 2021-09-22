@@ -174,9 +174,9 @@ jobs:
       workingFolder: 'build_x86'
 
 - job: linuxubuntu
-  displayName: 'Build Linux Ubuntu 18.04'
+  displayName: 'Build Linux Ubuntu'
   pool:
-    name: Azure-MessagingStore
+    name: Azure-MessagingStore-LinuxBuildMachinePool
     demands:
       - linux
 
@@ -201,7 +201,7 @@ jobs:
 
 - job: Traceability
   pool:
-    name: Azure-MessagingStore
+    name: Azure-MessagingStore-BuildMachinePool
     demands:
     - Build
     - Cmd
@@ -310,7 +310,7 @@ jobs:
 
 - job: includecheck_linux
   pool:
-    name: Azure-MessagingStore
+    name: Azure-MessagingStore-LinuxBuildMachinePool
     demands:
       - linux
 
