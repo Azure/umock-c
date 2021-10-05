@@ -38,6 +38,156 @@ typedef int my_int;
 typedef char my_char;
 typedef const int* my_const_int_ptr;
 
+typedef unsigned char TEST_ARRAY_T[2];
+
+#define PRI_TEST_ARRAY_T        "02x%02x"
+#define TEST_ARRAY_T_FORMAT_VALUES(test_array_t) \
+    (test_array_t)[0], (test_array_t)[1]
+
+#define TEST_ARRAY_T_FORMAT_VALUES_OR_NULL(uuid) \
+    ((test_array_t) == NULL) ? 0 : (test_array_t)[0], ((test_array_t) == NULL) ? 0 : test_array_t)[1])
+
+static void test_array_t_ptr_ToString(char* string, size_t bufferSize, const TEST_ARRAY_T* val)
+{
+    (void)sprintf_s(string, bufferSize, "%" PRI_TEST_ARRAY_T, TEST_ARRAY_T_FORMAT_VALUES(*val));
+}
+
+static int test_array_t_ptr_Compare(const TEST_ARRAY_T* left, const TEST_ARRAY_T* right)
+{
+    return memcmp(*left, *right, sizeof(TEST_ARRAY_T));
+}
+
+static void TEST_ARRAY_T_ToString(char* string, size_t bufferSize, const TEST_ARRAY_T val)
+{
+    (void)sprintf_s(string, bufferSize, "%" PRI_TEST_ARRAY_T, TEST_ARRAY_T_FORMAT_VALUES(val));
+}
+
+static int TEST_ARRAY_T_Compare(const TEST_ARRAY_T left, const TEST_ARRAY_T right)
+{
+    return memcmp(left, right, sizeof(TEST_ARRAY_T));
+}
+
+static char* umocktypes_stringify_test_array_t(const TEST_ARRAY_T** value)
+{
+    char* result;
+
+    if (value == NULL)
+    {
+        UMOCK_LOG("umocktypes_stringify_test_array_t: NULL value.");
+        result = NULL;
+    }
+    else
+    {
+        if (*value == NULL)
+        {
+            result = malloc(sizeof("NULL"));
+            if (result != NULL)
+            {
+                (void)memcpy(result, "NULL", sizeof("NULL"));
+            }
+        }
+        else
+        {
+            // 2 characters per byte plus 4 dashes
+            size_t length = sizeof(TEST_ARRAY_T) * 2 + 4;
+            result = malloc(length + 1);
+            if (result == NULL)
+            {
+                UMOCK_LOG("umocktypes_stringify_test_array_t: Cannot allocate memory for result.");
+            }
+            else
+            {
+                if (sprintf_s(result, length + 1, "%" PRI_TEST_ARRAY_T, TEST_ARRAY_T_FORMAT_VALUES(**value)) != (int)length)
+                {
+                    UMOCK_LOG("umocktypes_stringify_test_array_t: failed to format UUID.");
+                    free(result);
+                }
+            }
+        }
+    }
+
+    return result;
+}
+
+static int umocktypes_are_equal_test_array_t(const TEST_ARRAY_T** left, const TEST_ARRAY_T** right)
+{
+    int result;
+
+    if ((left == NULL) || (right == NULL))
+    {
+        UMOCK_LOG("umocktypes_are_equal_uuid: Bad arguments:left = %p, right = %p.", left, right);
+        result = -1;
+    }
+    else if ((*left == NULL) || (*right == NULL))
+    {
+        if (*left == *right)
+        {
+            result = 1;
+        }
+        else
+        {
+            result = 0;
+        }
+    }
+    else if (**left == **right)
+    {
+        result = 1;
+    }
+    else if ((**left == NULL) || (**right == NULL))
+    {
+        result = 0;
+    }
+    else
+    {
+        result = (memcmp(**left, **right, sizeof(TEST_ARRAY_T)) == 0) ? 1 : 0;
+    }
+
+    return result;
+}
+
+static int umocktypes_copy_test_array_t(TEST_ARRAY_T** destination, const TEST_ARRAY_T** source)
+{
+    int result;
+
+    if ((destination == NULL) || (source == NULL))
+    {
+        UMOCK_LOG("umocktypes_copy_uuid: Bad arguments: destination = %p, source = %p.",
+            destination, source);
+        result = MU_FAILURE;
+    }
+    else
+    {
+        if (*source == NULL)
+        {
+            *destination = NULL;
+            result = 0;
+        }
+        else
+        {
+            *destination = malloc(sizeof(TEST_ARRAY_T));
+            (void)memcpy(**destination, **source, sizeof(TEST_ARRAY_T));
+            result = 0;
+        }
+    }
+
+    return result;
+}
+
+static void umocktypes_free_test_array_t(TEST_ARRAY_T** value)
+{
+    if (value)
+    {
+        free(*value);
+    }
+}
+
+#define TEST_STRUCT_WITH_ARRAY_FIELDS \
+    int, foo, \
+    TEST_ARRAY_T, test_array
+
+MU_DEFINE_STRUCT(TEST_STRUCT_WITH_ARRAY, TEST_STRUCT_WITH_ARRAY_FIELDS)
+UMOCK_DEFINE_TYPE_STRUCT(TEST_STRUCT_WITH_ARRAY, TEST_STRUCT_WITH_ARRAY_FIELDS)
+
 #define MY_STRUCT_FIELDS \
     my_int, foo, \
     my_char, bar
@@ -265,6 +415,10 @@ TEST_SUITE_INITIALIZE(suite_init)
     REGISTER_TYPE(my_int, my_int);
     REGISTER_TYPE(my_char, my_char);
     REGISTER_TYPE(my_const_int_ptr, my_const_int_ptr);
+
+    REGISTER_TYPE(const TEST_ARRAY_T, test_array_t);
+    REGISTER_TYPE(TEST_ARRAY_T, test_array_t);
+    REGISTER_TYPE(TEST_STRUCT_WITH_ARRAY, TEST_STRUCT_WITH_ARRAY);
 }
 
 TEST_SUITE_CLEANUP(suite_cleanup)
@@ -745,5 +899,28 @@ TEST_FUNCTION(umocktypes_free_MY_STRUCT_WITH_CONST_frees_each_field)
     // assert
     ASSERT_ARE_EQUAL(uint32_t, 1, mock_free_my_const_int_ptr_was_called, "my_const_int_ptr should have been freed");
 }
+
+// Tests with an array similar to a UUID
+
+TEST_FUNCTION(umocktypes_stringify_TEST_STRUCT_WITH_ARRAY_stringifies_all_fields)
+{
+    // arrange
+    TEST_STRUCT_WITH_ARRAY my_struct;
+    my_struct.foo = 42;
+    TEST_ARRAY_T test_array = { 1, 2 };
+    (void)memcpy(my_struct.test_array, test_array, sizeof(TEST_ARRAY_T));
+
+    // act
+    char* result = umocktypes_stringify_TEST_STRUCT_WITH_ARRAY(&my_struct);
+
+    // assert
+    ASSERT_IS_NOT_NULL(result);
+
+    ASSERT_ARE_EQUAL(uint32_t, 1, mock_stringify_my_const_int_ptr_was_called, "my_const_int_ptr should have been stringified");
+
+    // cleanup
+    free(result);
+}
+
 
 END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)

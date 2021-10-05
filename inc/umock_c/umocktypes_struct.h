@@ -21,7 +21,8 @@ extern "C" {
 
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_001: [ umocktypes_stringify_<type> shall call umocktypes_stringify for each field in type. ]*/
 #define UMOCK_STRUCT_STRINGIFY_STRUCT_FIELD(count, field_type, field_name) \
-    char* MU_C2(temp_, field_name) = umocktypes_stringify(MU_TOSTRING(field_type), &value->field_name); \
+    field_type* MU_C2(field_name, _ptr) = (field_type*)&value->field_name; \
+    char* MU_C2(temp_, field_name) = umocktypes_stringify(MU_TOSTRING(field_type), (MU_C2(field_name, _ptr)); \
     if (MU_C2(temp_, field_name) == NULL) \
     { \
         UMOCK_LOG("Failed stringify for field: " MU_TOSTRING(field_name)); \
