@@ -226,3 +226,6 @@ install(
         ${package_location}
 )
 
+if(${run_reals_check})
+    add_reals_check_target()
+endif()
