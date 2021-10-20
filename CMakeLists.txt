@@ -19,6 +19,7 @@ endif()
 option(run_unittests "set run_unittests to ON to run unittests (default is OFF)" OFF)
 option(run_int_tests "set run_int_tests to ON to run the integration tests (default is OFF)" OFF)
 option(run_perf_tests "set run_perf_tests to ON to build performance tests (default is OFF)." OFF)
+option(run_reals_check "set run_reals_check to ON to run reals check (default is OFF)." OFF)
 option(use_installed_dependencies "set use_installed_dependencies to ON to use installed packages instead of building dependencies from submodules" OFF)
 option(use_cppunittest "set use_cppunittest to ON to build CppUnitTest tests on Windows (default is OFF)" OFF)
 
@@ -46,12 +47,14 @@ set(original_run_int_tests ${run_int_tests})
 set(original_run_perf_tests ${run_perf_tests})
 set(original_run_unittests ${run_unittests})
 set(original_run_traceability ${run_traceability})
+set(original_run_reals_check ${run_reals_check})
 
 set(run_e2e_tests OFF)
 set(run_int_tests OFF)
 set(run_perf_tests OFF)
 set(run_unittests OFF)
 set(run_traceability OFF)
+set(run_reals_check OFF)
 
 if ((NOT TARGET c_build_tools) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-build-tools/CMakeLists.txt))
     add_subdirectory(deps/c-build-tools)
@@ -83,6 +86,7 @@ set(run_int_tests ${original_run_int_tests})
 set(run_perf_tests ${original_run_perf_tests})
 set(run_unittests ${original_run_unittests})
 set(run_traceability ${original_run_traceability})
+set(run_reals_check ${original_run_reals_check})
 
 set(umock_c_c_files
     ./src/umock_c.c
