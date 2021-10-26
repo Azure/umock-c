@@ -6,7 +6,7 @@ jobs:
 - job: windowsx64debug
   displayName: 'Build Windows x64 Debug'
   pool:
-    name: Azure-MessagingStore-BuildMachinePool
+    name: Azure-MessagingStore-WinBuildMachinePool
     demands:
     - Build
     - Cmd
@@ -62,7 +62,7 @@ jobs:
 - job: windowsx64relwithdebinfo
   displayName: 'Build Windows x64 RelWithDebInfo'
   pool:
-    name: Azure-MessagingStore-BuildMachinePool
+    name: Azure-MessagingStore-WinBuildMachinePool
     demands:
     - Build
     - Cmd
@@ -120,7 +120,7 @@ jobs:
 - job: windowsx86debug
   displayName: 'Build Windows x86 Debug'
   pool:
-    name: Azure-MessagingStore-BuildMachinePool
+    name: Azure-MessagingStore-WinBuildMachinePool
     demands:
     - Build
     - Cmd
@@ -201,7 +201,7 @@ jobs:
 
 - job: Traceability
   pool:
-    name: Azure-MessagingStore-BuildMachinePool
+    name: Azure-MessagingStore-WinBuildMachinePool
     demands:
     - Build
     - Cmd
