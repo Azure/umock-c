@@ -39,16 +39,16 @@ jobs:
       modifyEnvironment: true
 
   - task: CMake@1
-    displayName: 'CMake .. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Duse_cppunittest:bool=OFF -G "Visual Studio 16 2019" -A x64'
+    displayName: 'CMake .. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Duse_cppunittest:bool=OFF -Duse_vld:bool=ON -G "Visual Studio 16 2019" -A x64'
     inputs:
       workingDirectory: 'build_x64'
-      cmakeArgs: '.. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Duse_cppunittest:bool=OFF -G "Visual Studio 16 2019" -A x64'
+      cmakeArgs: '.. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Duse_cppunittest:bool=OFF  -Duse_vld:bool=ON -G "Visual Studio 16 2019" -A x64'
 
   - task: VSBuild@1
     displayName: 'Build solution build_x64\*.sln'
     inputs:
       solution: 'build_x64\*.sln'
-      msbuildArgs: '/t:restore /t:build /p:ForceImportBeforeCppTargets=$(Build.SourcesDirectory)/vld.props'
+      msbuildArgs: '/t:restore /t:build'
       configuration: Debug
       maximumCpuCount: true
 
@@ -153,10 +153,10 @@ jobs:
       modifyEnvironment: true
 
   - task: CMake@1
-    displayName: 'CMake .. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Drun_e2e_tests:bool=ON -G "Visual Studio 16 2019" -A Win32'
+    displayName: 'CMake .. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Drun_e2e_tests:bool=ON -Duse_vld:bool=ON -G "Visual Studio 16 2019" -A Win32'
     inputs:
       workingDirectory: 'build_x86'
-      cmakeArgs: '.. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Drun_e2e_tests:bool=ON -G "Visual Studio 16 2019" -A Win32'
+      cmakeArgs: '.. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Drun_e2e_tests:bool=ON -Duse_vld:bool=ON -G "Visual Studio 16 2019" -A Win32'
 
   - task: VSBuild@1
     displayName: 'Build solution build_x86\*.sln'
