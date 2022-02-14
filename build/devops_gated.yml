@@ -6,7 +6,7 @@ jobs:
 - job: windowsx64debug
   displayName: 'Build Windows x64 Debug'
   pool:
-    name: Azure-MessagingStore-WinBuildMachinePool
+    name: Azure-MessagingStore-WinBuildPoolVS2022
     demands:
     - Build
     - Cmd
@@ -35,14 +35,14 @@ jobs:
   - task: BatchScript@1
     displayName: 'Setup VS Vars'
     inputs:
-      filename: '"c:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat"'
+      filename: '"c:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat"'
       modifyEnvironment: true
 
   - task: CMake@1
-    displayName: 'CMake .. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Duse_cppunittest:bool=OFF -Duse_vld:bool=ON -G "Visual Studio 16 2019" -A x64'
+    displayName: 'CMake .. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Duse_cppunittest:bool=OFF -Duse_vld:bool=ON -G "Visual Studio 17 2022" -A x64'
     inputs:
       workingDirectory: 'build_x64'
-      cmakeArgs: '.. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Duse_cppunittest:bool=OFF  -Duse_vld:bool=ON -G "Visual Studio 16 2019" -A x64'
+      cmakeArgs: '.. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Duse_cppunittest:bool=OFF  -Duse_vld:bool=ON -G "Visual Studio 17 2022" -A x64'
 
   - task: VSBuild@1
     displayName: 'Build solution build_x64\*.sln'
@@ -62,7 +62,7 @@ jobs:
 - job: windowsx64relwithdebinfo
   displayName: 'Build Windows x64 RelWithDebInfo'
   pool:
-    name: Azure-MessagingStore-WinBuildMachinePool
+    name: Azure-MessagingStore-WinBuildPoolVS2022
     demands:
     - Build
     - Cmd
@@ -92,14 +92,14 @@ jobs:
   - task: BatchScript@1
     displayName: 'Setup VS Vars'
     inputs:
-      filename: '"c:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat"'
+      filename: '"c:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat"'
       modifyEnvironment: true
 
   - task: CMake@1
-    displayName: 'CMake .. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Duse_cppunittest:bool=ON -G "Visual Studio 16 2019" -A x64'
+    displayName: 'CMake .. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Duse_cppunittest:bool=ON -G "Visual Studio 17 2022" -A x64'
     inputs:
       workingDirectory: 'build_x64'
-      cmakeArgs: '.. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Duse_cppunittest:bool=ON -G "Visual Studio 16 2019" -A x64'
+      cmakeArgs: '.. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Duse_cppunittest:bool=ON -G "Visual Studio 17 2022" -A x64'
 
   - task: VSBuild@1
     displayName: 'Build solution build_x64\*.sln'
@@ -120,7 +120,7 @@ jobs:
 - job: windowsx86debug
   displayName: 'Build Windows x86 Debug'
   pool:
-    name: Azure-MessagingStore-WinBuildMachinePool
+    name: Azure-MessagingStore-WinBuildPoolVS2022
     demands:
     - Build
     - Cmd
@@ -149,14 +149,14 @@ jobs:
   - task: BatchScript@1
     displayName: 'Setup VS Vars'
     inputs:
-      filename: '"c:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat"'
+      filename: '"c:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat"'
       modifyEnvironment: true
 
   - task: CMake@1
-    displayName: 'CMake .. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Drun_e2e_tests:bool=ON -Duse_vld:bool=ON -G "Visual Studio 16 2019" -A Win32'
+    displayName: 'CMake .. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Drun_e2e_tests:bool=ON -Duse_vld:bool=ON -G "Visual Studio 17 2022" -A Win32'
     inputs:
       workingDirectory: 'build_x86'
-      cmakeArgs: '.. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Drun_e2e_tests:bool=ON -Duse_vld:bool=ON -G "Visual Studio 16 2019" -A Win32'
+      cmakeArgs: '.. -Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Drun_e2e_tests:bool=ON -Duse_vld:bool=ON -G "Visual Studio 17 2022" -A Win32'
 
   - task: VSBuild@1
     displayName: 'Build solution build_x86\*.sln'
@@ -201,7 +201,7 @@ jobs:
 
 - job: Traceability
   pool:
-    name: Azure-MessagingStore-WinBuildMachinePool
+    name: Azure-MessagingStore-WinBuildPoolVS2022
     demands:
     - Build
     - Cmd
@@ -231,14 +231,14 @@ jobs:
   - task: BatchScript@1
     displayName: 'Setup VS Vars'
     inputs:
-      filename: '"c:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat"'
+      filename: '"c:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat"'
       modifyEnvironment: true
 
   - task: CMake@1
     displayName: CMake
     inputs:
       workingDirectory: 'build'
-      cmakeArgs: '.. -G "Visual Studio 15 2017 Win64"'
+      cmakeArgs: '.. -G "Visual Studio 17 2022 Win64"'
 
   - task: VSBuild@1
     displayName: 'Build traceabilitytool only'
@@ -290,7 +290,7 @@ jobs:
 #  - task: BatchScript@1
 #    displayName: 'Setup VS Vars'
 #    inputs:
-#      filename: '"c:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat"'
+#      filename: '"c:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat"'
 #      modifyEnvironment: true
 #
 #  - task: CMake@1
