@@ -1,13 +1,8 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifdef __cplusplus
-#include <cstdlib>
-#include <cstring>              // for strlen, strcpy
-#else
 #include <stdlib.h>
 #include <string.h>              // for strlen, strcpy
-#endif
 
 #include "testrunnerswitcher.h"
 #include "umock_c/umockcall.h"
@@ -116,9 +111,6 @@ static size_t free_call_count;
 static size_t when_shall_malloc_fail;
 static size_t when_shall_realloc_fail;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
     void* mock_malloc(size_t size)
     {
@@ -156,9 +148,6 @@ extern "C" {
         free(ptr);
     }
 
-#ifdef __cplusplus
-}
-#endif
 
 void reset_malloc_calls(void)
 {

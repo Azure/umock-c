@@ -1,11 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifdef __cplusplus
-#include <cstdio>                           // for sprintf
-#else
 #include <stdio.h>                           // for sprintf
-#endif
 
 #include "testrunnerswitcher.h"
 

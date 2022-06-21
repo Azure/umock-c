@@ -6,9 +6,6 @@
 
 #include "umock_c/umock_c_prod.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 typedef void* SOME_OTHER_HANDLE;
 
@@ -28,8 +25,5 @@ typedef void* SOME_OTHER_HANDLE;
 
     MOCKABLE_FUNCTION_WITH_RETURNS(, int, function_with_returns)(42, 43);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* TEST_DEPENDENCY_H */

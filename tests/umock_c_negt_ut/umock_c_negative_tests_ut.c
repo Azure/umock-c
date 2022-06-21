@@ -1,11 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifdef __cplusplus
-#include <cstdlib>
-#else
 #include <stdlib.h>
-#endif
 
 // TEST_DEFINE_ENUM_TYPE will use wchar.h, which we technically get from testrunnerswitcher.h
 // IWYU pragma: no_include <wchar.h>

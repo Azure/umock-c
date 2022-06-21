@@ -1,13 +1,8 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifdef __cplusplus
-#include <cstdlib>
-#include <cstring>
-#else
 #include <stdlib.h>
 #include <string.h>
-#endif
 
 #include "macro_utils/macro_utils.h" // IWYU pragma: keep
 
@@ -85,9 +80,6 @@ static size_t when_shall_malloc_fail;
 static size_t when_shall_calloc_fail;
 static size_t when_shall_realloc_fail;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
     void* mock_malloc(size_t size)
     {
@@ -166,9 +158,6 @@ extern "C" {
 
         return result;
     }
-#ifdef __cplusplus
-}
-#endif
 
 static char* test_stringify_func_testtype(const void* value)
 {

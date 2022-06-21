@@ -4,17 +4,10 @@
 #ifndef TEST_DEPENDENCY_H
 #define TEST_DEPENDENCY_H
 
-#ifdef __cplusplus
-#include <cstddef>
-#else
 #include <stddef.h>
-#endif
 
 #include "umock_c/umock_c_prod.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
     typedef struct TEST_STRUCT_TAG
     {
@@ -96,8 +89,5 @@ extern "C" {
     MOCKABLE_FUNCTION_WITH_RETURNS(, void*, test_dependency_with_returns_no_args_returning_void_ptr)((void*)0x4242, (void*)0x4243);
     MOCKABLE_FUNCTION_WITH_RETURNS(, TEST_STRUCT, test_dependency_with_returns_no_args_returning_struct)({ 0x42 }, { 0x43 });
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* TEST_DEPENDENCY_H */

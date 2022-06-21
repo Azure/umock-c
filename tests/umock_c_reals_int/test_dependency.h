@@ -6,9 +6,6 @@
 
 #include "umock_c/umock_c_prod.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 MOCKABLE_FUNCTION(, int, test_dependency_no_args);
 MOCKABLE_FUNCTION(, int, test_dependency_no_args_no_real);
@@ -25,8 +22,5 @@ MOCKABLE_INTERFACE(test_interface_no_reals,
     FUNCTION(, int, test_dependency_2_args_no_real, int, a, int, b)
 )
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* TEST_DEPENDENCY_H */

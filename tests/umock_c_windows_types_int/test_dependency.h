@@ -7,9 +7,6 @@
 #include "windows.h"
 #include "umock_c/umock_c_prod.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
     MOCKABLE_FUNCTION(, void, test_dependency_LONG_arg, LONG, LONG_arg);
     MOCKABLE_FUNCTION(, void, test_dependency_LONGLONG_arg, LONGLONG, LONGLONG_arg);
@@ -40,8 +37,5 @@ extern "C" {
     MOCKABLE_FUNCTION(, void, test_dependency_ULONG_arg, ULONG, ULONG_arg);
     MOCKABLE_FUNCTION(, void, test_dependency_LONG64_arg, LONG64, LONG64_arg);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* TEST_DEPENDENCY_H */

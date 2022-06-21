@@ -1,11 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifdef __cplusplus
-#include <cstdlib>
-#else
 #include <stdlib.h>
-#endif
 #include "testrunnerswitcher.h"
 #include "umock_c/umockautoignoreargs.h"
 #include "umock_c/umock_log.h"
@@ -24,9 +20,6 @@ static test_malloc_CALL* test_malloc_calls;
 static size_t test_malloc_call_count;
 static size_t when_shall_malloc_fail;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
     void* mock_malloc(size_t size)
     {
@@ -52,9 +45,6 @@ extern "C" {
         return result;
     }
 
-#ifdef __cplusplus
-}
-#endif
 
 static TEST_MUTEX_HANDLE test_mutex;
 static TEST_MUTEX_HANDLE global_mutex;

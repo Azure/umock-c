@@ -1,15 +1,9 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifdef __cplusplus
-#include <cstddef>
-#include <cstdio>                       // for snprintf
-#include <cstdlib>
-#else
 #include <stddef.h>
 #include <stdio.h>                       // for snprintf
 #include <stdlib.h>
-#endif
 
 #include "macro_utils/macro_utils.h" // IWYU pragma: keep
 

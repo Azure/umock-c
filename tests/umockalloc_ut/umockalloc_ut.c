@@ -1,11 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifdef __cplusplus
-#include <cstdlib>
-#else
 #include <stdlib.h>
-#endif
 
 #include "testrunnerswitcher.h"
 #include "umock_c/umockalloc.h"
@@ -53,9 +49,6 @@ typedef struct test_free_CALL_TAG
 static test_free_CALL* test_free_calls;
 static size_t test_free_call_count;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
     void* mock_malloc(size_t size)
     {
@@ -109,9 +102,6 @@ extern "C" {
         }
     }
 
-#ifdef __cplusplus
-}
-#endif
 
 static TEST_MUTEX_HANDLE test_mutex;
 static TEST_MUTEX_HANDLE global_mutex;

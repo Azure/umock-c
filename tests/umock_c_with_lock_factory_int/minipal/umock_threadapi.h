@@ -6,9 +6,6 @@
 
 #include "macro_utils/macro_utils.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 typedef int(*UMOCK_THREAD_START_FUNC)(void *);
 
@@ -26,8 +23,5 @@ UMOCK_THREADAPI_RESULT umock_threadapi_create(UMOCK_THREAD_HANDLE* thread_handle
 UMOCK_THREADAPI_RESULT umock_threadapi_join(UMOCK_THREAD_HANDLE thread_handle, int* res);
 void umock_threadapi_sleep(unsigned int milliseconds);
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* UMOCK_THREADAPI_H */

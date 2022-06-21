@@ -1,13 +1,8 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifdef __cplusplus
-#include <cstdlib>
-#include <cstring>                     // for strcpy, strlen
-#else
 #include <stdlib.h>
 #include <string.h>                     // for strcpy, strlen
-#endif
 
 // TEST_DEFINE_ENUM_TYPE will use wchar.h, which we technically get from testrunnerswitcher.h
 // IWYU pragma: no_include <wchar.h>
@@ -333,9 +328,6 @@ int umockcall_get_call_can_fail(UMOCKCALL_HANDLE umockcall)
     return umockcall_get_call_can_fail_result;
 }
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
     void* mock_malloc(size_t size)
     {
@@ -402,9 +394,6 @@ extern "C" {
         free(ptr);
     }
 
-#ifdef __cplusplus
-}
-#endif
 
 void test_lock_acquire_shared(UMOCK_C_LOCK_HANDLE lock)
 {

@@ -1,13 +1,8 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifdef __cplusplus
-#include <cstdlib>
-#include <cwchar>
-#else
 #include <stdlib.h>
 #include <wchar.h>
-#endif
 
 #include "macro_utils/macro_utils.h"
 #include "testrunnerswitcher.h"
@@ -26,9 +21,6 @@ typedef struct EXPECTED_ALIAS_PAIR_TAG
     char* is_type;
 } EXPECTED_ALIAS_PAIR;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 typedef struct umocktypes_register_alias_type_CALL_TAG
 {
@@ -174,9 +166,6 @@ int umocktypes_stdint_register_types(void)
     return result;
 }
 
-#ifdef __cplusplus
-}
-#endif
 
 static void init_mocked_calls(void)
 {

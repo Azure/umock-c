@@ -1,11 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#ifdef __cplusplus
-#include <cstdlib>
-#else
 #include <stdlib.h>
-#endif
 
 #include <pthread.h>
 
@@ -94,9 +90,6 @@ typedef struct TEST_MOCK_CALL_TAG
 static size_t mocked_call_count;
 static TEST_MOCK_CALL* mocked_calls;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
     void* mock_malloc(size_t size)
     {
@@ -137,9 +130,6 @@ extern "C" {
         free(ptr);
     }
 
-#ifdef __cplusplus
-}
-#endif
 
 static int mock_pthread_rwlock_init_result;
 static int mock_pthread_rwlock_rdlock_result;
