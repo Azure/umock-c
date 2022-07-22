@@ -117,6 +117,24 @@
             "parameters": {
               "reviewer": "jasmineymlo"
             }
+          },
+          {
+            "name": "requestReviewer",
+            "parameters": {
+              "reviewer": "RohitG28"
+            }
+          },
+          {
+            "name": "requestReviewer",
+            "parameters": {
+              "reviewer": "ACKPaul"
+            }
+          },
+          {
+            "name": "requestReviewer",
+            "parameters": {
+              "reviewer": "haridamineni"
+            }
           }
         ],
         "taskName": "Request review from Messaging Store"
