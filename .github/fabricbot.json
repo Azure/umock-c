@@ -135,6 +135,12 @@
             "parameters": {
               "reviewer": "haridamineni"
             }
+          },
+          {
+            "name": "requestReviewer",
+            "parameters": {
+              "reviewer": "M-iceberg"
+            }
           }
         ],
         "taskName": "Request review from Messaging Store"
