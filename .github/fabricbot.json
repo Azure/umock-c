@@ -133,12 +133,6 @@
           {
             "name": "requestReviewer",
             "parameters": {
-              "reviewer": "haridamineni"
-            }
-          },
-          {
-            "name": "requestReviewer",
-            "parameters": {
               "reviewer": "M-iceberg"
             }
           }
