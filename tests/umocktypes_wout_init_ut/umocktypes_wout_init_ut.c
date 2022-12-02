@@ -136,6 +136,7 @@ static size_t when_shall_realloc_fail;
         {
             size_t result_length = strlen(umocktypename_normalize_call_result);
             result = (char*)malloc(result_length + 1);
+            ASSERT_IS_NOT_NULL(result);
             (void)memcpy(result, umocktypename_normalize_call_result, result_length + 1);
         }
         else
@@ -162,6 +163,7 @@ static char* test_stringify_func_testtype(const void* value)
     {
         size_t result_length = strlen(test_stringify_func_testtype_call_result);
         result = (char*)malloc(result_length + 1);
+        ASSERT_IS_NOT_NULL(result);
         (void)memcpy(result, test_stringify_func_testtype_call_result, result_length + 1);
     }
     else

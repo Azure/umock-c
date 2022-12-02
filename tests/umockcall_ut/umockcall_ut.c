@@ -584,6 +584,7 @@ TEST_FUNCTION(umockcall_stringify_calls_the_underlying_stringify_function_and_re
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
 
     test_mock_call_data_stringify_expected_result = (char*)malloc(1);
+    ASSERT_IS_NOT_NULL(test_mock_call_data_stringify_expected_result);
     test_mock_call_data_stringify_expected_result[0] = '\0';
 
     // act
@@ -609,6 +610,7 @@ TEST_FUNCTION(umockcall_stringify_uses_the_stringified_args_as_obtained_from_the
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
 
     test_mock_call_data_stringify_expected_result = (char*)malloc(strlen("45") + 1);
+    ASSERT_IS_NOT_NULL(test_mock_call_data_stringify_expected_result);
     (void)strcpy(test_mock_call_data_stringify_expected_result, "45");
 
     // act
@@ -662,6 +664,7 @@ TEST_FUNCTION(when_allocating_memory_fails_then_umockcall_stringify_fails)
     char* result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
     test_mock_call_data_stringify_expected_result = (char*)malloc(strlen("45") + 1);
+    ASSERT_IS_NOT_NULL(test_mock_call_data_stringify_expected_result);
     (void)memcpy(test_mock_call_data_stringify_expected_result, "45", sizeof("45"));
     reset_malloc_calls();
     when_shall_malloc_fail = 1;

@@ -40,6 +40,7 @@ int umocktypes_register_type(const char* type, UMOCKTYPE_STRINGIFY_FUNC stringif
         size_t typename_length = strlen(type);
         umocktypes_register_type_calls = new_calls;
         umocktypes_register_type_calls[umocktypes_register_type_call_count].type = (char*)malloc(typename_length + 1);
+        ASSERT_IS_NOT_NULL(umocktypes_register_type_calls[umocktypes_register_type_call_count].type);
         (void)memcpy(umocktypes_register_type_calls[umocktypes_register_type_call_count].type, type, typename_length + 1);
         umocktypes_register_type_calls[umocktypes_register_type_call_count].stringify_func = stringify_func;
         umocktypes_register_type_calls[umocktypes_register_type_call_count].are_equal_func = are_equal_func;

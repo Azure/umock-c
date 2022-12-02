@@ -53,9 +53,11 @@ int umocktypes_register_alias_type(const char* type, const char* is_type)
         umocktypes_register_alias_type_calls = new_calls;
         size_t string_length = strlen(type);
         umocktypes_register_alias_type_calls[umocktypes_register_alias_type_count].type = (char*)malloc(string_length + 1);
+        ASSERT_IS_NOT_NULL(umocktypes_register_alias_type_calls[umocktypes_register_alias_type_count].type);
         (void)memcpy(umocktypes_register_alias_type_calls[umocktypes_register_alias_type_count].type, type, string_length + 1);
         string_length = strlen(is_type);
         umocktypes_register_alias_type_calls[umocktypes_register_alias_type_count].is_type = (char*)malloc(string_length + 1);
+        ASSERT_IS_NOT_NULL(umocktypes_register_alias_type_calls[umocktypes_register_alias_type_count].is_type);
         (void)memcpy(umocktypes_register_alias_type_calls[umocktypes_register_alias_type_count].is_type, is_type, string_length + 1);
 
         umocktypes_register_alias_type_count++;

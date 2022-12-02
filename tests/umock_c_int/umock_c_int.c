@@ -97,6 +97,7 @@ static void my_hook_test_dependency_void_return(void)
 static char* stringify_func_TEST_STRUCT_COPY_FAILS(const TEST_STRUCT_COPY_FAILS* value)
 {
     char* result = (char*)malloc(1);
+    ASSERT_IS_NOT_NULL(result);
     (void)value;
     result[0] = '\0';
     return result;
@@ -122,6 +123,7 @@ static void free_func_TEST_STRUCT_COPY_FAILS(TEST_STRUCT_COPY_FAILS* value)
 static char* umocktypes_stringify_TEST_STRUCT_WITH_2_MEMBERS(const TEST_STRUCT_WITH_2_MEMBERS* value)
 {
     char* result = (char*)malloc(1);
+    ASSERT_IS_NOT_NULL(result);
     (void)value;
     result[0] = '\0';
     return result;
@@ -149,6 +151,7 @@ typedef void* SOME_OTHER_TYPE;
 static char* umock_stringify_SOME_OTHER_TYPE(const SOME_OTHER_TYPE* value)
 {
     char* result = (char*)malloc(1);
+    ASSERT_IS_NOT_NULL(result);
     (void)value;
     result[0] = '\0';
     return result;
@@ -181,6 +184,7 @@ typedef struct MY_STRUCT_TAG
 static char* umocktypes_stringify_MY_STRUCT_ptr(const MY_STRUCT** value)
 {
     char* result = (char*)malloc(1);
+    ASSERT_IS_NOT_NULL(result);
     (void)value;
     result[0] = '\0';
     return result;

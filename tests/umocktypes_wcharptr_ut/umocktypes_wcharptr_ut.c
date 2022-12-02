@@ -40,6 +40,7 @@ int umocktypes_register_type(const char* type, UMOCKTYPE_STRINGIFY_FUNC stringif
         size_t typename_length = strlen(type);
         umocktypes_register_type_calls = new_calls;
         umocktypes_register_type_calls[umocktypes_register_type_call_count].type = (char*)malloc(typename_length + 1);
+        ASSERT_IS_NOT_NULL(umocktypes_register_type_calls[umocktypes_register_type_call_count].type);
         (void)memcpy(umocktypes_register_type_calls[umocktypes_register_type_call_count].type, type, typename_length + 1);
         umocktypes_register_type_calls[umocktypes_register_type_call_count].stringify_func = stringify_func;
         umocktypes_register_type_calls[umocktypes_register_type_call_count].are_equal_func = are_equal_func;
@@ -343,7 +344,9 @@ TEST_FUNCTION(umocktypes_are_equal_wcharptr_with_string_being_the_same_returns_1
 {
     // arrange
     wchar_t* input1_data = (wchar_t*)malloc(7 * sizeof(wchar_t));
+    ASSERT_IS_NOT_NULL(input1_data);
     wchar_t* input2_data = (wchar_t*)malloc(7 * sizeof(wchar_t));
+    ASSERT_IS_NOT_NULL(input2_data);
     int result;
     const wchar_t* input1 = input1_data;
     const wchar_t* input2 = input2_data;
@@ -367,7 +370,9 @@ TEST_FUNCTION(umocktypes_are_equal_wcharptr_with_string_being_different_returns_
 {
     // arrange
     wchar_t* input1_data = (wchar_t*)malloc(7 * sizeof(wchar_t));
+    ASSERT_IS_NOT_NULL(input1_data);
     wchar_t* input2_data = (wchar_t*)malloc(7 * sizeof(wchar_t));
+    ASSERT_IS_NOT_NULL(input2_data);
     int result;
 
     const wchar_t* input1 = input1_data;
@@ -392,7 +397,9 @@ TEST_FUNCTION(umocktypes_are_equal_wcharptr_with_string_being_different_in_case_
 {
     // arrange
     wchar_t* input1_data = (wchar_t*)malloc(5 * sizeof(wchar_t));
+    ASSERT_IS_NOT_NULL(input1_data);
     wchar_t* input2_data = (wchar_t*)malloc(5 * sizeof(wchar_t));
+    ASSERT_IS_NOT_NULL(input2_data);
     int result;
 
     const wchar_t* input1 = input1_data;
@@ -652,7 +659,9 @@ TEST_FUNCTION(umocktypes_are_equal_const_wcharptr_with_string_being_the_same_ret
 {
     // arrange
     wchar_t* input1_data = (wchar_t*)malloc(7 * sizeof(wchar_t));
+    ASSERT_IS_NOT_NULL(input1_data);
     wchar_t* input2_data = (wchar_t*)malloc(7 * sizeof(wchar_t));
+    ASSERT_IS_NOT_NULL(input2_data);
     int result;
 
     const wchar_t* input1 = input1_data;
@@ -677,7 +686,9 @@ TEST_FUNCTION(umocktypes_are_equal_const_wcharptr_with_string_being_different_re
 {
     // arrange
     wchar_t* input1_data = (wchar_t*)malloc(7 * sizeof(wchar_t));
+    ASSERT_IS_NOT_NULL(input1_data);
     wchar_t* input2_data = (wchar_t*)malloc(7 * sizeof(wchar_t));
+    ASSERT_IS_NOT_NULL(input2_data);
     int result;
 
     const wchar_t* input1 = input1_data;
@@ -702,7 +713,9 @@ TEST_FUNCTION(umocktypes_are_equal_const_wcharptr_with_string_being_different_in
 {
     // arrange
     wchar_t* input1_data = (wchar_t*)malloc(5 * sizeof(wchar_t));
+    ASSERT_IS_NOT_NULL(input1_data);
     wchar_t* input2_data = (wchar_t*)malloc(5 * sizeof(wchar_t));
+    ASSERT_IS_NOT_NULL(input2_data);
     int result;
 
     const wchar_t* input1 = input1_data;

@@ -141,6 +141,7 @@ static size_t when_shall_realloc_fail;
             size_t type_name_length = strlen(type_name);
             umocktypename_normalize_calls = new_calls;
             umocktypename_normalize_calls[umocktypename_normalize_call_count].type_name = (char*)malloc(type_name_length + 1);
+            ASSERT_IS_NOT_NULL(umocktypename_normalize_calls[umocktypename_normalize_call_count].type_name);
             (void)memcpy(umocktypename_normalize_calls[umocktypename_normalize_call_count].type_name, type_name, type_name_length + 1);
             umocktypename_normalize_call_count++;
         }
