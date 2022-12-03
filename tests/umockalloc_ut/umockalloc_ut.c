@@ -52,7 +52,7 @@ static size_t test_free_call_count;
 
     void* mock_malloc(size_t size)
     {
-        test_malloc_CALL* new_calls = (test_malloc_CALL*)realloc(test_malloc_calls, sizeof(test_malloc_CALL) * (test_malloc_call_count + 1));
+        test_malloc_CALL* new_calls = realloc(test_malloc_calls, sizeof(test_malloc_CALL) * (test_malloc_call_count + 1));
         if (new_calls != NULL)
         {
             test_malloc_calls = new_calls;
@@ -65,7 +65,7 @@ static size_t test_free_call_count;
 
     void* mock_calloc(size_t nmemb, size_t size)
     {
-        test_calloc_CALL* new_calls = (test_calloc_CALL*)realloc(test_calloc_calls, sizeof(test_calloc_CALL) * (test_calloc_call_count + 1));
+        test_calloc_CALL* new_calls = realloc(test_calloc_calls, sizeof(test_calloc_CALL) * (test_calloc_call_count + 1));
         if (new_calls != NULL)
         {
             test_calloc_calls = new_calls;
@@ -79,7 +79,7 @@ static size_t test_free_call_count;
 
     void* mock_realloc(void* ptr, size_t size)
     {
-        test_realloc_CALL* new_calls = (test_realloc_CALL*)realloc(test_realloc_calls, sizeof(test_realloc_CALL) * (test_realloc_call_count + 1));
+        test_realloc_CALL* new_calls = realloc(test_realloc_calls, sizeof(test_realloc_CALL) * (test_realloc_call_count + 1));
         if (new_calls != NULL)
         {
             test_realloc_calls = new_calls;
@@ -93,7 +93,7 @@ static size_t test_free_call_count;
 
     void mock_free(void* ptr)
     {
-        test_free_CALL* new_calls = (test_free_CALL*)realloc(test_free_calls, sizeof(test_free_CALL) * (test_free_call_count + 1));
+        test_free_CALL* new_calls = realloc(test_free_calls, sizeof(test_free_CALL) * (test_free_call_count + 1));
         if (new_calls != NULL)
         {
             test_free_calls = new_calls;

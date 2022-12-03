@@ -37,12 +37,12 @@ int umocktypes_register_type(const char* type, UMOCKTYPE_STRINGIFY_FUNC stringif
 {
     int result;
 
-    umocktypes_register_type_CALL* new_calls = (umocktypes_register_type_CALL*)realloc(umocktypes_register_type_calls, sizeof(umocktypes_register_type_CALL) * (umocktypes_register_type_call_count + 1));
+    umocktypes_register_type_CALL* new_calls = realloc(umocktypes_register_type_calls, sizeof(umocktypes_register_type_CALL) * (umocktypes_register_type_call_count + 1));
     if (new_calls != NULL)
     {
         size_t typename_length = strlen(type);
         umocktypes_register_type_calls = new_calls;
-        umocktypes_register_type_calls[umocktypes_register_type_call_count].type = (char*)malloc(typename_length + 1);
+        umocktypes_register_type_calls[umocktypes_register_type_call_count].type = malloc(typename_length + 1);
         ASSERT_IS_NOT_NULL(umocktypes_register_type_calls[umocktypes_register_type_call_count].type);
         (void)memcpy(umocktypes_register_type_calls[umocktypes_register_type_call_count].type, type, typename_length + 1);
         umocktypes_register_type_calls[umocktypes_register_type_call_count].stringify_func = stringify_func;

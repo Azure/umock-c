@@ -192,7 +192,7 @@ static TEST_MOCK_CALL* mocked_calls;
 
 int umockcall_get_ignore_all_calls(UMOCKCALL_HANDLE call)
 {
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -206,7 +206,7 @@ int umockcall_get_ignore_all_calls(UMOCKCALL_HANDLE call)
 
 int umockcall_are_equal(UMOCKCALL_HANDLE left, UMOCKCALL_HANDLE right)
 {
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -221,7 +221,7 @@ int umockcall_are_equal(UMOCKCALL_HANDLE left, UMOCKCALL_HANDLE right)
 
 void umockcall_destroy(UMOCKCALL_HANDLE umockcall)
 {
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -234,7 +234,7 @@ void umockcall_destroy(UMOCKCALL_HANDLE umockcall)
 UMOCKCALL_HANDLE umockcall_clone(UMOCKCALL_HANDLE umockcall)
 {
     UMOCKCALL_HANDLE result;
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -258,7 +258,7 @@ UMOCKCALL_HANDLE umockcall_clone(UMOCKCALL_HANDLE umockcall)
 
 int umockcall_set_fail_call(UMOCKCALL_HANDLE umockcall, int fail_call)
 {
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -273,7 +273,7 @@ int umockcall_set_fail_call(UMOCKCALL_HANDLE umockcall, int fail_call)
 
 int umockcall_get_fail_call(UMOCKCALL_HANDLE umockcall)
 {
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -289,7 +289,7 @@ char* umockcall_stringify(UMOCKCALL_HANDLE umockcall)
 {
     char* result;
 
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -304,7 +304,7 @@ char* umockcall_stringify(UMOCKCALL_HANDLE umockcall)
     }
     else
     {
-        result = (char*)malloc(strlen(umockcall_stringify_call_result) + 1);
+        result = malloc(strlen(umockcall_stringify_call_result) + 1);
         if (result != NULL)
         {
             (void)strcpy(result, umockcall_stringify_call_result);
@@ -316,7 +316,7 @@ char* umockcall_stringify(UMOCKCALL_HANDLE umockcall)
 
 int umockcall_get_call_can_fail(UMOCKCALL_HANDLE umockcall)
 {
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -333,7 +333,7 @@ int umockcall_get_call_can_fail(UMOCKCALL_HANDLE umockcall)
     {
         void* result;
 
-        TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+        TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
         if (new_calls != NULL)
         {
             mocked_calls = new_calls;
@@ -358,7 +358,7 @@ int umockcall_get_call_can_fail(UMOCKCALL_HANDLE umockcall)
     {
         void* result;
 
-        TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+        TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
         if (new_calls != NULL)
         {
             mocked_calls = new_calls;
@@ -382,7 +382,7 @@ int umockcall_get_call_can_fail(UMOCKCALL_HANDLE umockcall)
 
     void mock_free(void* ptr)
     {
-        TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+        TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
         if (new_calls != NULL)
         {
             mocked_calls = new_calls;
@@ -397,7 +397,7 @@ int umockcall_get_call_can_fail(UMOCKCALL_HANDLE umockcall)
 
 void test_lock_acquire_shared(UMOCK_C_LOCK_HANDLE lock)
 {
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -409,7 +409,7 @@ void test_lock_acquire_shared(UMOCK_C_LOCK_HANDLE lock)
 
 void test_lock_release_shared(UMOCK_C_LOCK_HANDLE lock)
 {
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -421,7 +421,7 @@ void test_lock_release_shared(UMOCK_C_LOCK_HANDLE lock)
 
 void test_lock_acquire_exclusive(UMOCK_C_LOCK_HANDLE lock)
 {
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -433,7 +433,7 @@ void test_lock_acquire_exclusive(UMOCK_C_LOCK_HANDLE lock)
 
 void test_lock_release_exclusive(UMOCK_C_LOCK_HANDLE lock)
 {
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -445,7 +445,7 @@ void test_lock_release_exclusive(UMOCK_C_LOCK_HANDLE lock)
 
 void test_lock_destroy(UMOCK_C_LOCK_HANDLE lock)
 {
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -457,7 +457,7 @@ void test_lock_destroy(UMOCK_C_LOCK_HANDLE lock)
 
 UMOCK_C_LOCK_HANDLE test_lock_factory_create_lock(void* params)
 {
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;

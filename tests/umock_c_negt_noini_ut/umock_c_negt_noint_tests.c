@@ -92,7 +92,7 @@ static umockecallercorder_can_call_fail_CALL umockecallercorder_can_call_fail_ca
 
 UMOCKCALLRECORDER_HANDLE umockcallrecorder_clone(UMOCKCALLRECORDER_HANDLE umock_call_recorder)
 {
-    umockcallrecorder_clone_CALL* new_calls = (umockcallrecorder_clone_CALL*)realloc(umockcallrecorder_clone_calls, sizeof(umockcallrecorder_clone_CALL) * (umockcallrecorder_clone_call_count + 1));
+    umockcallrecorder_clone_CALL* new_calls = realloc(umockcallrecorder_clone_calls, sizeof(umockcallrecorder_clone_CALL) * (umockcallrecorder_clone_call_count + 1));
     if (new_calls != NULL)
     {
         umockcallrecorder_clone_calls = new_calls;
@@ -105,7 +105,7 @@ UMOCKCALLRECORDER_HANDLE umockcallrecorder_clone(UMOCKCALLRECORDER_HANDLE umock_
 
 int umockcallrecorder_get_expected_call_count(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t* expected_call_count)
 {
-    umockcallrecorder_get_expected_call_count_CALL* new_calls = (umockcallrecorder_get_expected_call_count_CALL*)realloc(umockcallrecorder_get_expected_call_count_calls, sizeof(umockcallrecorder_get_expected_call_count_CALL) * (umockcallrecorder_get_expected_call_count_call_count + 1));
+    umockcallrecorder_get_expected_call_count_CALL* new_calls = realloc(umockcallrecorder_get_expected_call_count_calls, sizeof(umockcallrecorder_get_expected_call_count_CALL) * (umockcallrecorder_get_expected_call_count_call_count + 1));
     if (new_calls != NULL)
     {
         umockcallrecorder_get_expected_call_count_calls = new_calls;
@@ -119,7 +119,7 @@ int umockcallrecorder_get_expected_call_count(UMOCKCALLRECORDER_HANDLE umock_cal
 
 int umockcallrecorder_fail_call(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t index)
 {
-    umockcallrecorder_fail_call_CALL* new_calls = (umockcallrecorder_fail_call_CALL*)realloc(umockcallrecorder_fail_call_calls, sizeof(umockcallrecorder_fail_call_CALL) * (umockcallrecorder_fail_call_call_count + 1));
+    umockcallrecorder_fail_call_CALL* new_calls = realloc(umockcallrecorder_fail_call_calls, sizeof(umockcallrecorder_fail_call_CALL) * (umockcallrecorder_fail_call_call_count + 1));
     if (new_calls != NULL)
     {
         umockcallrecorder_fail_call_calls = new_calls;
@@ -133,7 +133,7 @@ int umockcallrecorder_fail_call(UMOCKCALLRECORDER_HANDLE umock_call_recorder, si
 
 int umock_c_set_call_recorder(UMOCKCALLRECORDER_HANDLE call_recorder)
 {
-    umock_c_set_call_recorder_CALL* new_calls = (umock_c_set_call_recorder_CALL*)realloc(umock_c_set_call_recorder_calls, sizeof(umock_c_set_call_recorder_CALL) * (umock_c_set_call_recorder_call_count + 1));
+    umock_c_set_call_recorder_CALL* new_calls = realloc(umock_c_set_call_recorder_calls, sizeof(umock_c_set_call_recorder_CALL) * (umock_c_set_call_recorder_call_count + 1));
     if (new_calls != NULL)
     {
         umock_c_set_call_recorder_calls = new_calls;
@@ -154,7 +154,7 @@ int umockcallrecorder_can_call_fail(UMOCKCALLRECORDER_HANDLE umock_call_recorder
 
 void umockcallrecorder_destroy(UMOCKCALLRECORDER_HANDLE umock_call_recorder)
 {
-    umockcallrecorder_destroy_CALL* new_calls = (umockcallrecorder_destroy_CALL*)realloc(umockcallrecorder_destroy_calls, sizeof(umockcallrecorder_destroy_CALL) * (umockcallrecorder_destroy_call_count + 1));
+    umockcallrecorder_destroy_CALL* new_calls = realloc(umockcallrecorder_destroy_calls, sizeof(umockcallrecorder_destroy_CALL) * (umockcallrecorder_destroy_call_count + 1));
     if (new_calls != NULL)
     {
         umockcallrecorder_destroy_calls = new_calls;
@@ -165,7 +165,7 @@ void umockcallrecorder_destroy(UMOCKCALLRECORDER_HANDLE umock_call_recorder)
 
 void umock_c_indicate_error(UMOCK_C_ERROR_CODE error_code)
 {
-    umock_c_indicate_error_CALL* new_calls = (umock_c_indicate_error_CALL*)realloc(umock_c_indicate_error_calls, sizeof(umock_c_indicate_error_CALL) * (umock_c_indicate_error_call_count + 1));
+    umock_c_indicate_error_CALL* new_calls = realloc(umock_c_indicate_error_calls, sizeof(umock_c_indicate_error_CALL) * (umock_c_indicate_error_call_count + 1));
     if (new_calls != NULL)
     {
         umock_c_indicate_error_calls = new_calls;

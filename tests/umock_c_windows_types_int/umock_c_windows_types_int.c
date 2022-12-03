@@ -67,7 +67,7 @@ static char* build_calls_string(void)
         (void*)0x4251, (void*)0x4252);
     ASSERT_IS_TRUE(needed_bytes > 0);
 
-    result = (char*)malloc(needed_bytes + 1);
+    result = malloc(needed_bytes + 1);
     ASSERT_IS_NOT_NULL(result);
 
     int snprintf_result = snprintf(result, needed_bytes + 1, test_expected_string,

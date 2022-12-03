@@ -51,7 +51,7 @@ static char* test_mock_call_data_stringify_expected_result = NULL;
 
 void* test_mock_call_data_copy(void* umockcall_data)
 {
-    test_mock_call_data_copy_CALL* new_calls = (test_mock_call_data_copy_CALL*)realloc(test_mock_call_data_copy_calls, sizeof(test_mock_call_data_copy_CALL) * (test_mock_call_data_copy_call_count + 1));
+    test_mock_call_data_copy_CALL* new_calls = realloc(test_mock_call_data_copy_calls, sizeof(test_mock_call_data_copy_CALL) * (test_mock_call_data_copy_call_count + 1));
     if (new_calls != NULL)
     {
         test_mock_call_data_copy_calls = new_calls;
@@ -63,7 +63,7 @@ void* test_mock_call_data_copy(void* umockcall_data)
 
 void test_mock_call_data_free(void* umockcall_data)
 {
-    test_mock_call_data_free_CALL* new_calls = (test_mock_call_data_free_CALL*)realloc(test_mock_call_data_free_calls, sizeof(test_mock_call_data_free_CALL) * (test_mock_call_data_free_call_count + 1));
+    test_mock_call_data_free_CALL* new_calls = realloc(test_mock_call_data_free_calls, sizeof(test_mock_call_data_free_CALL) * (test_mock_call_data_free_call_count + 1));
     if (new_calls != NULL)
     {
         test_mock_call_data_free_calls = new_calls;
@@ -74,7 +74,7 @@ void test_mock_call_data_free(void* umockcall_data)
 
 char* test_mock_call_data_stringify(void* umockcall_data)
 {
-    test_mock_call_data_stringify_CALL* new_calls = (test_mock_call_data_stringify_CALL*)realloc(test_mock_call_data_stringify_calls, sizeof(test_mock_call_data_stringify_CALL) * (test_mock_call_data_stringify_call_count + 1));
+    test_mock_call_data_stringify_CALL* new_calls = realloc(test_mock_call_data_stringify_calls, sizeof(test_mock_call_data_stringify_CALL) * (test_mock_call_data_stringify_call_count + 1));
     if (new_calls != NULL)
     {
         test_mock_call_data_stringify_calls = new_calls;
@@ -86,7 +86,7 @@ char* test_mock_call_data_stringify(void* umockcall_data)
 
 int test_mock_call_data_are_equal(void* left, void* right)
 {
-    test_mock_call_data_are_equal_CALL* new_calls = (test_mock_call_data_are_equal_CALL*)realloc(test_mock_call_data_are_equal_calls, sizeof(test_mock_call_data_are_equal_CALL) * (test_mock_call_data_are_equal_call_count + 1));
+    test_mock_call_data_are_equal_CALL* new_calls = realloc(test_mock_call_data_are_equal_calls, sizeof(test_mock_call_data_are_equal_CALL) * (test_mock_call_data_are_equal_call_count + 1));
     if (new_calls != NULL)
     {
         test_mock_call_data_are_equal_calls = new_calls;
@@ -583,7 +583,7 @@ TEST_FUNCTION(umockcall_stringify_calls_the_underlying_stringify_function_and_re
     char* result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
 
-    test_mock_call_data_stringify_expected_result = (char*)malloc(1);
+    test_mock_call_data_stringify_expected_result = malloc(1);
     ASSERT_IS_NOT_NULL(test_mock_call_data_stringify_expected_result);
     test_mock_call_data_stringify_expected_result[0] = '\0';
 
@@ -609,7 +609,7 @@ TEST_FUNCTION(umockcall_stringify_uses_the_stringified_args_as_obtained_from_the
     char* result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
 
-    test_mock_call_data_stringify_expected_result = (char*)malloc(strlen("45") + 1);
+    test_mock_call_data_stringify_expected_result = malloc(strlen("45") + 1);
     ASSERT_IS_NOT_NULL(test_mock_call_data_stringify_expected_result);
     (void)strcpy(test_mock_call_data_stringify_expected_result, "45");
 
@@ -663,7 +663,7 @@ TEST_FUNCTION(when_allocating_memory_fails_then_umockcall_stringify_fails)
     // arrange
     char* result;
     UMOCKCALL_HANDLE call = umockcall_create("test_function", (void*)0x4242, test_mock_call_data_copy, test_mock_call_data_free, test_mock_call_data_stringify, test_mock_call_data_are_equal);
-    test_mock_call_data_stringify_expected_result = (char*)malloc(strlen("45") + 1);
+    test_mock_call_data_stringify_expected_result = malloc(strlen("45") + 1);
     ASSERT_IS_NOT_NULL(test_mock_call_data_stringify_expected_result);
     (void)memcpy(test_mock_call_data_stringify_expected_result, "45", sizeof("45"));
     reset_malloc_calls();

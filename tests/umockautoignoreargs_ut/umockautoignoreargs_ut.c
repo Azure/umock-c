@@ -25,7 +25,7 @@ static size_t when_shall_malloc_fail;
     {
         void* result;
 
-        test_malloc_CALL* new_calls = (test_malloc_CALL*)realloc(test_malloc_calls, sizeof(test_malloc_CALL) * (test_malloc_call_count + 1));
+        test_malloc_CALL* new_calls = realloc(test_malloc_calls, sizeof(test_malloc_CALL) * (test_malloc_call_count + 1));
         if (new_calls != NULL)
         {
             test_malloc_calls = new_calls;

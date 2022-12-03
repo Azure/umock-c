@@ -30,7 +30,7 @@ static size_t test_on_umock_c_error_call_count;
 
 static void test_on_umock_c_error(UMOCK_C_ERROR_CODE error_code)
 {
-    test_on_umock_c_error_CALL* new_calls = (test_on_umock_c_error_CALL*)realloc(test_on_umock_c_error_calls, sizeof(test_on_umock_c_error_CALL) * (test_on_umock_c_error_call_count + 1));
+    test_on_umock_c_error_CALL* new_calls = realloc(test_on_umock_c_error_calls, sizeof(test_on_umock_c_error_CALL) * (test_on_umock_c_error_call_count + 1));
     if (new_calls != NULL)
     {
         test_on_umock_c_error_calls = new_calls;

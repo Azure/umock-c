@@ -47,16 +47,16 @@ int umocktypes_register_alias_type(const char* type, const char* is_type)
         result = umocktypes_register_alias_type_result;
     }
 
-    umocktypes_register_alias_type_CALL* new_calls = (umocktypes_register_alias_type_CALL*)realloc(umocktypes_register_alias_type_calls, sizeof(umocktypes_register_alias_type_CALL) * (umocktypes_register_alias_type_count + 1));
+    umocktypes_register_alias_type_CALL* new_calls = realloc(umocktypes_register_alias_type_calls, sizeof(umocktypes_register_alias_type_CALL) * (umocktypes_register_alias_type_count + 1));
     if (new_calls != NULL)
     {
         umocktypes_register_alias_type_calls = new_calls;
         size_t string_length = strlen(type);
-        umocktypes_register_alias_type_calls[umocktypes_register_alias_type_count].type = (char*)malloc(string_length + 1);
+        umocktypes_register_alias_type_calls[umocktypes_register_alias_type_count].type = malloc(string_length + 1);
         ASSERT_IS_NOT_NULL(umocktypes_register_alias_type_calls[umocktypes_register_alias_type_count].type);
         (void)memcpy(umocktypes_register_alias_type_calls[umocktypes_register_alias_type_count].type, type, string_length + 1);
         string_length = strlen(is_type);
-        umocktypes_register_alias_type_calls[umocktypes_register_alias_type_count].is_type = (char*)malloc(string_length + 1);
+        umocktypes_register_alias_type_calls[umocktypes_register_alias_type_count].is_type = malloc(string_length + 1);
         ASSERT_IS_NOT_NULL(umocktypes_register_alias_type_calls[umocktypes_register_alias_type_count].is_type);
         (void)memcpy(umocktypes_register_alias_type_calls[umocktypes_register_alias_type_count].is_type, is_type, string_length + 1);
 
@@ -90,7 +90,7 @@ int umocktypes_charptr_register_types(void)
         result = umocktypes_charptr_register_types_result;
     }
 
-    umocktypes_charptr_register_types_CALL* new_calls = (umocktypes_charptr_register_types_CALL*)realloc(umocktypes_charptr_register_types_calls, sizeof(umocktypes_charptr_register_types_CALL) * (umocktypes_charptr_register_types_count + 1));
+    umocktypes_charptr_register_types_CALL* new_calls = realloc(umocktypes_charptr_register_types_calls, sizeof(umocktypes_charptr_register_types_CALL) * (umocktypes_charptr_register_types_count + 1));
     if (new_calls != NULL)
     {
         umocktypes_charptr_register_types_calls = new_calls;
@@ -124,7 +124,7 @@ int umocktypes_wcharptr_register_types(void)
         result = umocktypes_wcharptr_register_types_result;
     }
 
-    umocktypes_wcharptr_register_types_CALL* new_calls = (umocktypes_wcharptr_register_types_CALL*)realloc(umocktypes_wcharptr_register_types_calls, sizeof(umocktypes_wcharptr_register_types_CALL) * (umocktypes_wcharptr_register_types_count + 1));
+    umocktypes_wcharptr_register_types_CALL* new_calls = realloc(umocktypes_wcharptr_register_types_calls, sizeof(umocktypes_wcharptr_register_types_CALL) * (umocktypes_wcharptr_register_types_count + 1));
     if (new_calls != NULL)
     {
         umocktypes_wcharptr_register_types_calls = new_calls;
@@ -158,7 +158,7 @@ int umocktypes_stdint_register_types(void)
         result = umocktypes_stdint_register_types_result;
     }
 
-    umocktypes_stdint_register_types_CALL* new_calls = (umocktypes_stdint_register_types_CALL*)realloc(umocktypes_stdint_register_types_calls, sizeof(umocktypes_stdint_register_types_CALL) * (umocktypes_stdint_register_types_count + 1));
+    umocktypes_stdint_register_types_CALL* new_calls = realloc(umocktypes_stdint_register_types_calls, sizeof(umocktypes_stdint_register_types_CALL) * (umocktypes_stdint_register_types_count + 1));
     if (new_calls != NULL)
     {
         umocktypes_stdint_register_types_calls = new_calls;

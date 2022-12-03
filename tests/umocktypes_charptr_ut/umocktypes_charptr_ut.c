@@ -33,12 +33,12 @@ int umocktypes_register_type(const char* type, UMOCKTYPE_STRINGIFY_FUNC stringif
 {
     int result;
 
-    umocktypes_register_type_CALL* new_calls = (umocktypes_register_type_CALL*)realloc(umocktypes_register_type_calls, sizeof(umocktypes_register_type_CALL) * (umocktypes_register_type_call_count + 1));
+    umocktypes_register_type_CALL* new_calls = realloc(umocktypes_register_type_calls, sizeof(umocktypes_register_type_CALL) * (umocktypes_register_type_call_count + 1));
     if (new_calls != NULL)
     {
         size_t typename_length = strlen(type);
         umocktypes_register_type_calls = new_calls;
-        umocktypes_register_type_calls[umocktypes_register_type_call_count].type = (char*)malloc(typename_length + 1);
+        umocktypes_register_type_calls[umocktypes_register_type_call_count].type = malloc(typename_length + 1);
         ASSERT_IS_NOT_NULL(umocktypes_register_type_calls[umocktypes_register_type_call_count].type);
         (void)memcpy(umocktypes_register_type_calls[umocktypes_register_type_call_count].type, type, typename_length + 1);
         umocktypes_register_type_calls[umocktypes_register_type_call_count].stringify_func = stringify_func;
@@ -342,9 +342,9 @@ TEST_FUNCTION(umocktypes_are_equal_charptr_with_right_NULL_returns_0)
 TEST_FUNCTION(umocktypes_are_equal_charptr_with_string_being_the_same_returns_1)
 {
     // arrange
-    char* input1 = (char*)malloc(7);
+    char* input1 = malloc(7);
     ASSERT_IS_NOT_NULL(input1);
-    char* input2 = (char*)malloc(7);
+    char* input2 = malloc(7);
     ASSERT_IS_NOT_NULL(input2);
     int result;
     (void)strcpy(input1, "test42");
@@ -365,9 +365,9 @@ TEST_FUNCTION(umocktypes_are_equal_charptr_with_string_being_the_same_returns_1)
 TEST_FUNCTION(umocktypes_are_equal_charptr_with_string_being_different_returns_0)
 {
     // arrange
-    char* input1 = (char*)malloc(7);
+    char* input1 = malloc(7);
     ASSERT_IS_NOT_NULL(input1);
-    char* input2 = (char*)malloc(7);
+    char* input2 = malloc(7);
     ASSERT_IS_NOT_NULL(input2);
     int result;
 
@@ -389,9 +389,9 @@ TEST_FUNCTION(umocktypes_are_equal_charptr_with_string_being_different_returns_0
 TEST_FUNCTION(umocktypes_are_equal_charptr_with_string_being_different_in_case_returns_0)
 {
     // arrange
-    char* input1 = (char*)malloc(5);
+    char* input1 = malloc(5);
     ASSERT_IS_NOT_NULL(input1);
-    char* input2 = (char*)malloc(5);
+    char* input2 = malloc(5);
     ASSERT_IS_NOT_NULL(input2);
     int result;
 
@@ -648,9 +648,9 @@ TEST_FUNCTION(umocktypes_are_equal_const_charptr_with_right_NULL_returns_0)
 TEST_FUNCTION(umocktypes_are_equal_const_charptr_with_string_being_the_same_returns_1)
 {
     // arrange
-    char* input1 = (char*)malloc(7);
+    char* input1 = malloc(7);
     ASSERT_IS_NOT_NULL(input1);
-    char* input2 = (char*)malloc(7);
+    char* input2 = malloc(7);
     ASSERT_IS_NOT_NULL(input2);
     int result;
 
@@ -672,9 +672,9 @@ TEST_FUNCTION(umocktypes_are_equal_const_charptr_with_string_being_the_same_retu
 TEST_FUNCTION(umocktypes_are_equal_const_charptr_with_string_being_different_returns_0)
 {
     // arrange
-    char* input1 = (char*)malloc(7);
+    char* input1 = malloc(7);
     ASSERT_IS_NOT_NULL(input1);
-    char* input2 = (char*)malloc(7);
+    char* input2 = malloc(7);
     ASSERT_IS_NOT_NULL(input2);
     int result;
 
@@ -696,9 +696,9 @@ TEST_FUNCTION(umocktypes_are_equal_const_charptr_with_string_being_different_ret
 TEST_FUNCTION(umocktypes_are_equal_const_charptr_with_string_being_different_in_case_returns_0)
 {
     // arrange
-    char* input1 = (char*)malloc(5);
+    char* input1 = malloc(5);
     ASSERT_IS_NOT_NULL(input1);
-    char* input2 = (char*)malloc(5);
+    char* input2 = malloc(5);
     ASSERT_IS_NOT_NULL(input2);
     int result;
 

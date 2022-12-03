@@ -135,12 +135,12 @@ static size_t when_shall_realloc_fail;
     {
         char* result;
 
-        umocktypename_normalize_CALL* new_calls = (umocktypename_normalize_CALL*)realloc(umocktypename_normalize_calls, sizeof(umocktypename_normalize_CALL) * (umocktypename_normalize_call_count + 1));
+        umocktypename_normalize_CALL* new_calls = realloc(umocktypename_normalize_calls, sizeof(umocktypename_normalize_CALL) * (umocktypename_normalize_call_count + 1));
         if (new_calls != NULL)
         {
             size_t type_name_length = strlen(type_name);
             umocktypename_normalize_calls = new_calls;
-            umocktypename_normalize_calls[umocktypename_normalize_call_count].type_name = (char*)malloc(type_name_length + 1);
+            umocktypename_normalize_calls[umocktypename_normalize_call_count].type_name = malloc(type_name_length + 1);
             ASSERT_IS_NOT_NULL(umocktypename_normalize_calls[umocktypename_normalize_call_count].type_name);
             (void)memcpy(umocktypename_normalize_calls[umocktypename_normalize_call_count].type_name, type_name, type_name_length + 1);
             umocktypename_normalize_call_count++;
@@ -149,7 +149,7 @@ static size_t when_shall_realloc_fail;
         if (umocktypename_normalize_call_result[umocktypename_normalize_call_count - 1] != NULL)
         {
             size_t result_length = strlen(umocktypename_normalize_call_result[umocktypename_normalize_call_count - 1]);
-            result = (char*)malloc(result_length + 1);
+            result = malloc(result_length + 1);
             (void)memcpy(result, umocktypename_normalize_call_result[umocktypename_normalize_call_count - 1], result_length + 1);
         }
         else
@@ -163,7 +163,7 @@ static size_t when_shall_realloc_fail;
 static char* test_stringify_func_testtype(const void* value)
 {
     char* result;
-    test_stringify_func_testtype_CALL* new_calls = (test_stringify_func_testtype_CALL*)realloc(test_stringify_func_testtype_calls, sizeof(test_stringify_func_testtype_CALL) * (test_stringify_func_testtype_call_count + 1));
+    test_stringify_func_testtype_CALL* new_calls = realloc(test_stringify_func_testtype_calls, sizeof(test_stringify_func_testtype_CALL) * (test_stringify_func_testtype_call_count + 1));
     if (new_calls != NULL)
     {
         test_stringify_func_testtype_calls = new_calls;
@@ -174,7 +174,7 @@ static char* test_stringify_func_testtype(const void* value)
     if (test_stringify_func_testtype_call_result != NULL)
     {
         size_t result_length = strlen(test_stringify_func_testtype_call_result);
-        result = (char*)malloc(result_length + 1);
+        result = malloc(result_length + 1);
         (void)memcpy(result, test_stringify_func_testtype_call_result, result_length + 1);
     }
     else
@@ -187,7 +187,7 @@ static char* test_stringify_func_testtype(const void* value)
 
 static int test_copy_func_testtype(void* destination, const void* source)
 {
-    test_copy_func_testtype_CALL* new_calls = (test_copy_func_testtype_CALL*)realloc(test_copy_func_testtype_calls, sizeof(test_copy_func_testtype_CALL) * (test_copy_func_testtype_call_count + 1));
+    test_copy_func_testtype_CALL* new_calls = realloc(test_copy_func_testtype_calls, sizeof(test_copy_func_testtype_CALL) * (test_copy_func_testtype_call_count + 1));
     if (new_calls != NULL)
     {
         test_copy_func_testtype_calls = new_calls;
@@ -201,7 +201,7 @@ static int test_copy_func_testtype(void* destination, const void* source)
 
 void test_free_func_testtype(void* value)
 {
-    test_free_func_testtype_CALL* new_calls = (test_free_func_testtype_CALL*)realloc(test_free_func_testtype_calls, sizeof(test_free_func_testtype_CALL) * (test_free_func_testtype_call_count + 1));
+    test_free_func_testtype_CALL* new_calls = realloc(test_free_func_testtype_calls, sizeof(test_free_func_testtype_CALL) * (test_free_func_testtype_call_count + 1));
     if (new_calls != NULL)
     {
         test_free_func_testtype_calls = new_calls;
@@ -212,7 +212,7 @@ void test_free_func_testtype(void* value)
 
 int test_are_equal_func_testtype(const void* left, const void* right)
 {
-    test_are_equal_func_testtype_CALL* new_calls = (test_are_equal_func_testtype_CALL*)realloc(test_are_equal_func_testtype_calls, sizeof(test_are_equal_func_testtype_CALL) * (test_are_equal_func_testtype_call_count + 1));
+    test_are_equal_func_testtype_CALL* new_calls = realloc(test_are_equal_func_testtype_calls, sizeof(test_are_equal_func_testtype_CALL) * (test_are_equal_func_testtype_call_count + 1));
     if (new_calls != NULL)
     {
         test_are_equal_func_testtype_calls = new_calls;

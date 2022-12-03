@@ -94,7 +94,7 @@ void* mock_malloc(size_t size)
 {
     void* result;
 
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -117,7 +117,7 @@ void* mock_malloc(size_t size)
 
 void mock_free(void* ptr)
 {
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -131,7 +131,7 @@ void mock_free(void* ptr)
 
 void mock_InitializeSRWLock(PSRWLOCK SRWLock)
 {
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -143,7 +143,7 @@ void mock_InitializeSRWLock(PSRWLOCK SRWLock)
 
 void mock_AcquireSRWLockShared(PSRWLOCK SRWLock)
 {
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -155,7 +155,7 @@ void mock_AcquireSRWLockShared(PSRWLOCK SRWLock)
 
 void mock_ReleaseSRWLockShared(PSRWLOCK SRWLock)
 {
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -167,7 +167,7 @@ void mock_ReleaseSRWLockShared(PSRWLOCK SRWLock)
 
 void mock_AcquireSRWLockExclusive(PSRWLOCK SRWLock)
 {
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;
@@ -179,7 +179,7 @@ void mock_AcquireSRWLockExclusive(PSRWLOCK SRWLock)
 
 void mock_ReleaseSRWLockExclusive(PSRWLOCK SRWLock)
 {
-    TEST_MOCK_CALL* new_calls = (TEST_MOCK_CALL*)realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
+    TEST_MOCK_CALL* new_calls = realloc(mocked_calls, sizeof(TEST_MOCK_CALL) * (mocked_call_count + 1));
     if (new_calls != NULL)
     {
         mocked_calls = new_calls;

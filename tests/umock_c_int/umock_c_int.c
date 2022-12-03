@@ -54,7 +54,7 @@ TEST_DEFINE_ENUM_TYPE(UMOCK_C_ERROR_CODE, UMOCK_C_ERROR_CODE_VALUES);
 
 static void test_on_umock_c_error(UMOCK_C_ERROR_CODE error_code)
 {
-    test_on_umock_c_error_CALL* new_calls = (test_on_umock_c_error_CALL*)realloc(test_on_umock_c_error_calls, sizeof(test_on_umock_c_error_CALL) * (test_on_umock_c_error_call_count + 1));
+    test_on_umock_c_error_CALL* new_calls = realloc(test_on_umock_c_error_calls, sizeof(test_on_umock_c_error_CALL) * (test_on_umock_c_error_call_count + 1));
     if (new_calls != NULL)
     {
         test_on_umock_c_error_calls = new_calls;
@@ -96,7 +96,7 @@ static void my_hook_test_dependency_void_return(void)
 
 static char* stringify_func_TEST_STRUCT_COPY_FAILS(const TEST_STRUCT_COPY_FAILS* value)
 {
-    char* result = (char*)malloc(1);
+    char* result = malloc(1);
     ASSERT_IS_NOT_NULL(result);
     (void)value;
     result[0] = '\0';
@@ -122,7 +122,7 @@ static void free_func_TEST_STRUCT_COPY_FAILS(TEST_STRUCT_COPY_FAILS* value)
 
 static char* umocktypes_stringify_TEST_STRUCT_WITH_2_MEMBERS(const TEST_STRUCT_WITH_2_MEMBERS* value)
 {
-    char* result = (char*)malloc(1);
+    char* result = malloc(1);
     ASSERT_IS_NOT_NULL(result);
     (void)value;
     result[0] = '\0';
@@ -150,7 +150,7 @@ typedef void* SOME_OTHER_TYPE;
 
 static char* umock_stringify_SOME_OTHER_TYPE(const SOME_OTHER_TYPE* value)
 {
-    char* result = (char*)malloc(1);
+    char* result = malloc(1);
     ASSERT_IS_NOT_NULL(result);
     (void)value;
     result[0] = '\0';
@@ -183,7 +183,7 @@ typedef struct MY_STRUCT_TAG
 
 static char* umocktypes_stringify_MY_STRUCT_ptr(const MY_STRUCT** value)
 {
-    char* result = (char*)malloc(1);
+    char* result = malloc(1);
     ASSERT_IS_NOT_NULL(result);
     (void)value;
     result[0] = '\0';
@@ -210,7 +210,7 @@ static int umocktypes_copy_MY_STRUCT_ptr(MY_STRUCT** destination, const MY_STRUC
 {
     int result;
 
-    *destination = (MY_STRUCT*)malloc(sizeof(MY_STRUCT));
+    *destination = malloc(sizeof(MY_STRUCT));
     if (*destination == NULL)
     {
         result = __LINE__;
@@ -231,7 +231,7 @@ static void umocktypes_free_MY_STRUCT_ptr(MY_STRUCT** value)
 
 static char* umocktypes_stringify_ARRAY_TYPE(const ARRAY_TYPE* value)
 {
-    char* result = (char*)malloc(1);
+    char* result = malloc(1);
     (void)value;
     result[0] = '\0';
     return result;

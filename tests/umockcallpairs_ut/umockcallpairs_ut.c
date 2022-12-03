@@ -53,12 +53,12 @@ static size_t umocktypes_free_call_count;
     {
         int result;
 
-        umocktypes_are_equal_CALL* new_calls = (umocktypes_are_equal_CALL*)realloc(umocktypes_are_equal_calls, sizeof(umocktypes_are_equal_CALL) * (umocktypes_are_equal_call_count + 1));
+        umocktypes_are_equal_CALL* new_calls = realloc(umocktypes_are_equal_calls, sizeof(umocktypes_are_equal_CALL) * (umocktypes_are_equal_call_count + 1));
         if (new_calls != NULL)
         {
             size_t typename_length = strlen(type);
             umocktypes_are_equal_calls = new_calls;
-            umocktypes_are_equal_calls[umocktypes_are_equal_call_count].type = (char*)malloc(typename_length + 1);
+            umocktypes_are_equal_calls[umocktypes_are_equal_call_count].type = malloc(typename_length + 1);
             ASSERT_IS_NOT_NULL(umocktypes_are_equal_calls[umocktypes_are_equal_call_count].type);
             (void)memcpy(umocktypes_are_equal_calls[umocktypes_are_equal_call_count].type, type, typename_length + 1);
             umocktypes_are_equal_calls[umocktypes_are_equal_call_count].left = left;
@@ -82,12 +82,12 @@ static size_t umocktypes_free_call_count;
     {
         int result;
 
-        umocktypes_copy_CALL* new_calls = (umocktypes_copy_CALL*)realloc(umocktypes_copy_calls, sizeof(umocktypes_copy_CALL) * (umocktypes_copy_call_count + 1));
+        umocktypes_copy_CALL* new_calls = realloc(umocktypes_copy_calls, sizeof(umocktypes_copy_CALL) * (umocktypes_copy_call_count + 1));
         if (new_calls != NULL)
         {
             size_t typename_length = strlen(type);
             umocktypes_copy_calls = new_calls;
-            umocktypes_copy_calls[umocktypes_copy_call_count].type = (char*)malloc(typename_length + 1);
+            umocktypes_copy_calls[umocktypes_copy_call_count].type = malloc(typename_length + 1);
             ASSERT_IS_NOT_NULL(umocktypes_copy_calls[umocktypes_copy_call_count].type);
             (void)memcpy(umocktypes_copy_calls[umocktypes_copy_call_count].type, type, typename_length + 1);
             umocktypes_copy_calls[umocktypes_copy_call_count].destination = destination;
@@ -109,12 +109,12 @@ static size_t umocktypes_free_call_count;
 
     void umocktypes_free(const char* type, const void* value)
     {
-        umocktypes_free_CALL* new_calls = (umocktypes_free_CALL*)realloc(umocktypes_free_calls, sizeof(umocktypes_free_CALL) * (umocktypes_free_call_count + 1));
+        umocktypes_free_CALL* new_calls = realloc(umocktypes_free_calls, sizeof(umocktypes_free_CALL) * (umocktypes_free_call_count + 1));
         if (new_calls != NULL)
         {
             size_t typename_length = strlen(type);
             umocktypes_free_calls = new_calls;
-            umocktypes_free_calls[umocktypes_free_call_count].type = (char*)malloc(typename_length + 1);
+            umocktypes_free_calls[umocktypes_free_call_count].type = malloc(typename_length + 1);
             ASSERT_IS_NOT_NULL(umocktypes_free_calls[umocktypes_free_call_count].type);
             (void)memcpy(umocktypes_free_calls[umocktypes_free_call_count].type, type, typename_length + 1);
             umocktypes_free_calls[umocktypes_free_call_count].value = value;
