@@ -21,7 +21,7 @@ extern "C" {
 
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_001: [ umocktypes_stringify_<type> shall call umocktypes_stringify for each field in type. ]*/
 #define UMOCK_STRUCT_STRINGIFY_STRUCT_FIELD(count, field_type, field_name) \
-    char* MU_C2(temp_, field_name) = umocktypes_stringify(MU_TOSTRING(field_type), &value->field_name); \
+    char* MU_C2(temp_, field_name) = umocktypes_stringify(MU_TOSTRING(field_type), (const void*)&value->field_name); \
     if (MU_C2(temp_, field_name) == NULL) \
     { \
         UMOCK_LOG("Failed stringify for field: " MU_TOSTRING(field_name)); \
@@ -43,11 +43,11 @@ extern "C" {
 
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_007: [ umocktypes_are_equal_<type> shall call umocktypes_are_equal for each field in type. ]*/
 #define UMOCK_STRUCT_ARE_EQUAL_STRUCT_FIELD(count, field_type, field_name) \
-    umocktypes_are_equal(MU_TOSTRING(field_type), &left->field_name, &right->field_name) &
+    umocktypes_are_equal(MU_TOSTRING(field_type), (const void*)&left->field_name, (const void*)&right->field_name) &
 
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_012: [ umocktypes_copy_<type> shall call umocktypes_copy for each field in type. ]*/
 #define UMOCK_STRUCT_COPY_STRUCT_FIELD(count, field_type, field_name) \
-    umocktypes_copy(MU_TOSTRING(field_type), (void*)&destination->field_name, &source->field_name) |
+    umocktypes_copy(MU_TOSTRING(field_type), (void*)&destination->field_name, (const void*)&source->field_name) |
 
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_002: [ umocktypes_stringify_<type> shall generate a string containing all stringified fields in type and return it. ]*/
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_004: [ If there are any errors then umocktypes_stringify_<type> shall fail and return NULL. ]*/

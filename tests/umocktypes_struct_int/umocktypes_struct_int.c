@@ -31,6 +31,12 @@ void UMOCK_LOG(const char* format, ...)
 typedef int my_int;
 typedef char my_char;
 typedef const int* my_const_int_ptr;
+typedef const int* const volatile my_const_int_const_volatile_ptr;
+
+static void my_const_int_const_volatile_ptr_assign(my_const_int_const_volatile_ptr* lhs, my_const_int_const_volatile_ptr rhs)
+{
+    *(int const**)lhs = rhs;
+}
 
 #define MY_STRUCT_FIELDS \
     my_int, foo, \
@@ -52,6 +58,14 @@ UMOCK_DEFINE_TYPE_STRUCT(MY_NESTED_STRUCT, MY_NESTED_STRUCT_FIELDS)
 
 MU_DEFINE_STRUCT(MY_STRUCT_WITH_CONST, MY_STRUCT_WITH_CONST_FIELDS)
 UMOCK_DEFINE_TYPE_STRUCT(MY_STRUCT_WITH_CONST, MY_STRUCT_WITH_CONST_FIELDS)
+
+// This should work with volatile const fields, such as THANDLE
+// THANDLE is not known by umock directly because it is in a higher module layer, but we should verify that something like it works
+#define MY_STRUCT_WITH_VOLATILE_CONST_FIELDS \
+    my_const_int_const_volatile_ptr, i
+
+MU_DEFINE_STRUCT(MY_STRUCT_WITH_VOLATILE_CONST, MY_STRUCT_WITH_VOLATILE_CONST_FIELDS)
+UMOCK_DEFINE_TYPE_STRUCT(MY_STRUCT_WITH_VOLATILE_CONST, MY_STRUCT_WITH_VOLATILE_CONST_FIELDS)
 
 uint32_t mock_stringify_my_int_was_called;
 uint32_t mock_stringify_my_int_fail_next;
@@ -233,6 +247,65 @@ void reset_mock_my_const_int_ptr(void)
     mock_free_my_const_int_ptr_was_called = 0;
 }
 
+uint32_t mock_stringify_my_const_int_const_volatile_ptr_was_called;
+uint32_t mock_stringify_my_const_int_const_volatile_ptr_fail_next;
+uint32_t mock_are_equal_my_const_int_const_volatile_ptr_was_called;
+uint32_t mock_copy_my_const_int_const_volatile_ptr_was_called;
+uint32_t mock_copy_my_const_int_const_volatile_ptr_fail_next;
+uint32_t mock_free_my_const_int_const_volatile_ptr_was_called;
+
+char* umocktypes_stringify_my_const_int_const_volatile_ptr(my_const_int_const_volatile_ptr* value)
+{
+    mock_stringify_my_const_int_const_volatile_ptr_was_called++;
+
+    if (mock_stringify_my_const_int_const_volatile_ptr_fail_next > 0)
+    {
+        mock_stringify_my_const_int_const_volatile_ptr_fail_next--;
+        return NULL;
+    }
+    else
+    {
+        return umocktypes_stringify_void_ptr((void**)value);
+    }
+}
+
+int umocktypes_are_equal_my_const_int_const_volatile_ptr(my_const_int_const_volatile_ptr* left, my_const_int_const_volatile_ptr* right)
+{
+    mock_are_equal_my_const_int_const_volatile_ptr_was_called++;
+    return umocktypes_are_equal_void_ptr((void**)left, (void**)right);
+}
+
+int umocktypes_copy_my_const_int_const_volatile_ptr(my_const_int_const_volatile_ptr* destination, my_const_int_const_volatile_ptr* source)
+{
+    mock_copy_my_const_int_const_volatile_ptr_was_called++;
+
+    if (mock_copy_my_const_int_const_volatile_ptr_fail_next > 0)
+    {
+        mock_copy_my_const_int_const_volatile_ptr_fail_next--;
+        return 42;
+    }
+    else
+    {
+        return umocktypes_copy_void_ptr((void**)destination, (void**)source);
+    }
+}
+
+void umocktypes_free_my_const_int_const_volatile_ptr(my_const_int_const_volatile_ptr* value)
+{
+    mock_free_my_const_int_const_volatile_ptr_was_called++;
+    umocktypes_free_void_ptr((void**)value);
+}
+
+void reset_mock_my_const_int_const_volatile_ptr(void)
+{
+    mock_stringify_my_const_int_const_volatile_ptr_was_called = 0;
+    mock_stringify_my_const_int_const_volatile_ptr_fail_next = 0;
+    mock_are_equal_my_const_int_const_volatile_ptr_was_called = 0;
+    mock_copy_my_const_int_const_volatile_ptr_was_called = 0;
+    mock_copy_my_const_int_const_volatile_ptr_fail_next = 0;
+    mock_free_my_const_int_const_volatile_ptr_was_called = 0;
+}
+
 static TEST_MUTEX_HANDLE test_mutex;
 static TEST_MUTEX_HANDLE global_mutex;
 
@@ -259,6 +332,7 @@ TEST_SUITE_INITIALIZE(suite_init)
     REGISTER_TYPE(my_int, my_int);
     REGISTER_TYPE(my_char, my_char);
     REGISTER_TYPE(my_const_int_ptr, my_const_int_ptr);
+    REGISTER_TYPE(my_const_int_const_volatile_ptr, my_const_int_const_volatile_ptr);
 }
 
 TEST_SUITE_CLEANUP(suite_cleanup)
@@ -276,6 +350,7 @@ TEST_FUNCTION_INITIALIZE(test_function_init)
     reset_mock_my_int();
     reset_mock_my_char();
     reset_mock_my_const_int_ptr();
+    reset_mock_my_const_int_const_volatile_ptr();
 }
 
 TEST_FUNCTION_CLEANUP(test_function_cleanup)
@@ -385,6 +460,24 @@ TEST_FUNCTION(umocktypes_stringify_MY_STRUCT_WITH_CONST_stringifies_all_fields)
     ASSERT_IS_NOT_NULL(result);
 
     ASSERT_ARE_EQUAL(uint32_t, 1, mock_stringify_my_const_int_ptr_was_called, "my_const_int_ptr should have been stringified");
+
+    // cleanup
+    free(result);
+}
+
+TEST_FUNCTION(umocktypes_stringify_MY_STRUCT_WITH_VOLATILE_CONST_stringifies_all_fields)
+{
+    // arrange
+    MY_STRUCT_WITH_VOLATILE_CONST my_struct;
+    my_const_int_const_volatile_ptr_assign(&my_struct.i, NULL);
+
+    // act
+    char* result = umocktypes_stringify_MY_STRUCT_WITH_VOLATILE_CONST(&my_struct);
+
+    // assert
+    ASSERT_IS_NOT_NULL(result);
+
+    ASSERT_ARE_EQUAL(uint32_t, 1, mock_stringify_my_const_int_const_volatile_ptr_was_called, "my_const_int_const_volatile_ptr should have been stringified");
 
     // cleanup
     free(result);
@@ -536,6 +629,24 @@ TEST_FUNCTION(umocktypes_are_equal_MY_STRUCT_WITH_CONST_structs_have_same_fields
     ASSERT_ARE_EQUAL(int, 1, result);
 
     ASSERT_ARE_EQUAL(uint32_t, 1, mock_are_equal_my_const_int_ptr_was_called, "my_const_int_ptr should have been compared");
+}
+
+TEST_FUNCTION(umocktypes_are_equal_MY_STRUCT_WITH_VOLATILE_CONST_structs_have_same_fields)
+{
+    // arrange
+    MY_STRUCT_WITH_VOLATILE_CONST my_struct;
+    my_const_int_const_volatile_ptr_assign(&my_struct.i, NULL);
+
+    MY_STRUCT_WITH_VOLATILE_CONST my_struct2;
+    my_const_int_const_volatile_ptr_assign(&my_struct2.i, NULL);
+
+    // act
+    int result = umocktypes_are_equal_MY_STRUCT_WITH_VOLATILE_CONST(&my_struct, &my_struct2);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 1, result);
+
+    ASSERT_ARE_EQUAL(uint32_t, 1, mock_are_equal_my_const_int_const_volatile_ptr_was_called, "my_const_int_const_volatile_ptr should have been compared");
 }
 
 //
@@ -690,6 +801,25 @@ TEST_FUNCTION(umocktypes_copy_MY_STRUCT_WITH_CONST_succeeds)
     ASSERT_ARE_EQUAL(void_ptr, my_struct.i, my_struct_copy.i);
 }
 
+TEST_FUNCTION(umocktypes_copy_MY_STRUCT_WITH_VOLATILE_CONST_succeeds)
+{
+    // arrange
+    MY_STRUCT_WITH_VOLATILE_CONST my_struct;
+    my_const_int_const_volatile_ptr_assign(&my_struct.i, NULL);
+
+    MY_STRUCT_WITH_VOLATILE_CONST my_struct_copy;
+
+    // act
+    int result = umocktypes_copy_MY_STRUCT_WITH_VOLATILE_CONST(&my_struct_copy, &my_struct);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 0, result);
+
+    ASSERT_ARE_EQUAL(uint32_t, 1, mock_copy_my_const_int_const_volatile_ptr_was_called, "my_const_int_const_volatile_ptr should have been copied");
+
+    ASSERT_ARE_EQUAL(void_ptr, my_struct.i, my_struct_copy.i);
+}
+
 //
 // umocktypes_free_MY_STRUCT
 //
@@ -738,6 +868,19 @@ TEST_FUNCTION(umocktypes_free_MY_STRUCT_WITH_CONST_frees_each_field)
 
     // assert
     ASSERT_ARE_EQUAL(uint32_t, 1, mock_free_my_const_int_ptr_was_called, "my_const_int_ptr should have been freed");
+}
+
+TEST_FUNCTION(umocktypes_free_MY_STRUCT_WITH_VOLATILE_CONST_frees_each_field)
+{
+    // arrange
+    MY_STRUCT_WITH_VOLATILE_CONST my_struct;
+    my_const_int_const_volatile_ptr_assign(&my_struct.i, NULL);
+
+    // act
+    umocktypes_free_MY_STRUCT_WITH_VOLATILE_CONST(&my_struct);
+
+    // assert
+    ASSERT_ARE_EQUAL(uint32_t, 1, mock_free_my_const_int_const_volatile_ptr_was_called, "my_const_int_const_volatile_ptr should have been freed");
 }
 
 END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
