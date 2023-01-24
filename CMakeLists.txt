@@ -183,52 +183,7 @@ if (${run_unittests} OR ${run_int_tests})
     add_subdirectory(tests)
 endif()
 
-# Set CMAKE_INSTALL_* if not defined
-include(GNUInstallDirs)
-
-if(NOT DEFINED CMAKE_INSTALL_LIBDIR)
-    set(CMAKE_INSTALL_LIBDIR "lib")
-endif()
-
-# Install UMock C
-set(package_location "cmake")
-
-install(TARGETS umock_c EXPORT umock_cTargets
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR}/../bin
-    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
-install(FILES ${umock_c_h_files} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/umock_c)
-
-include(CMakePackageConfigHelpers)
-
-write_basic_package_version_file(
-    "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/${PROJECT_NAME}ConfigVersion.cmake"
-    VERSION ${UMOCK_C_VERSION}
-    COMPATIBILITY SameMajorVersion
-)
-
-configure_file("configs/${PROJECT_NAME}Config.cmake"
-    "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/${PROJECT_NAME}Config.cmake"
-    COPYONLY
-)
-
-install(EXPORT umock_cTargets
-    FILE
-        "${PROJECT_NAME}Targets.cmake"
-    DESTINATION
-        ${package_location}
-)
-
-install(
-    FILES
-        "configs/${PROJECT_NAME}Functions.cmake"
-        "configs/${PROJECT_NAME}Config.cmake"
-        "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/${PROJECT_NAME}ConfigVersion.cmake"
-    DESTINATION
-        ${package_location}
-)
+install_library_includes(umock_c umock_c ${umock_c_h_files})
 
 if(${run_reals_check})
     add_reals_check_target()
