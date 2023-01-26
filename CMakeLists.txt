@@ -183,6 +183,8 @@ if (${run_unittests} OR ${run_int_tests})
     add_subdirectory(tests)
 endif()
 
+# make an install target so we can produce a Linux native client package.
+# only the header files are required for the native client.
 install_library_includes(umock_c umock_c ${umock_c_h_files})
 
 if(${run_reals_check})
