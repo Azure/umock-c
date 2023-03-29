@@ -11,8 +11,6 @@
 #define ENABLE_MOCKS
 #include "test_dependency.h"
 
-static TEST_MUTEX_HANDLE test_mutex;
-
 static void test_on_umock_c_error(UMOCK_C_ERROR_CODE error_code)
 {
     (void)error_code;
@@ -169,9 +167,6 @@ TEST_SUITE_INITIALIZE(suite_init)
 {
     int result;
 
-    test_mutex = TEST_MUTEX_CREATE();
-    ASSERT_IS_NOT_NULL(test_mutex);
-
     result = umock_c_init(test_on_umock_c_error);
     ASSERT_ARE_EQUAL(int, 0, result);
 
@@ -182,24 +177,17 @@ TEST_SUITE_INITIALIZE(suite_init)
 TEST_SUITE_CLEANUP(suite_cleanup)
 {
     umock_c_deinit();
-
-    TEST_MUTEX_DESTROY(test_mutex);
 }
 
 TEST_FUNCTION_INITIALIZE(test_function_init)
 {
-    int result = TEST_MUTEX_ACQUIRE(test_mutex);
-    ASSERT_ARE_EQUAL(int, 0, result);
-
-    result = umock_c_negative_tests_init();
-    ASSERT_ARE_EQUAL(int, 0, result);
+    ASSERT_ARE_EQUAL(int, 0, umock_c_negative_tests_init());
 }
 
 TEST_FUNCTION_CLEANUP(test_function_cleanup)
 {
     umock_c_negative_tests_deinit();
     umock_c_reset_all_calls();
-    TEST_MUTEX_RELEASE(test_mutex);
 }
 
 /* Tests_SRS_UMOCK_C_LIB_01_167: [ umock_c_negative_tests_snapshot shall take a snapshot of the current setup of expected calls (a.k.a happy path). ]*/

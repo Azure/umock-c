@@ -378,26 +378,18 @@ static UMOCK_C_LOCK_HANDLE test_lock_factory_create_lock(void* params)
     return NULL;
 }
 
-static TEST_MUTEX_HANDLE test_mutex;
-
 BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
-    test_mutex = TEST_MUTEX_CREATE();
-    ASSERT_IS_NOT_NULL(test_mutex);
 }
 
 TEST_SUITE_CLEANUP(suite_cleanup)
 {
-    TEST_MUTEX_DESTROY(test_mutex);
 }
 
 TEST_FUNCTION_INITIALIZE(test_function_init)
 {
-    int mutex_acquire_result = TEST_MUTEX_ACQUIRE(test_mutex);
-    ASSERT_ARE_EQUAL(int, 0, mutex_acquire_result);
-
     umock_c_deinit();
     reset_all_calls();
 }
@@ -405,8 +397,6 @@ TEST_FUNCTION_INITIALIZE(test_function_init)
 TEST_FUNCTION_CLEANUP(test_function_cleanup)
 {
     reset_all_calls();
-
-    TEST_MUTEX_RELEASE(test_mutex);
 }
 
 /* umock_c_init */

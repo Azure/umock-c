@@ -12,8 +12,6 @@
 
 #include "umock_c/umock_c.h"
 
-static TEST_MUTEX_HANDLE test_mutex;
-
 MU_DEFINE_ENUM_STRINGS(UMOCK_C_ERROR_CODE, UMOCK_C_ERROR_CODE_VALUES);
 
 static void test_on_umock_c_error(UMOCK_C_ERROR_CODE error_code)
@@ -25,30 +23,21 @@ BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
-    test_mutex = TEST_MUTEX_CREATE();
-    ASSERT_IS_NOT_NULL(test_mutex);
-
     ASSERT_ARE_EQUAL(int, 0, umock_c_init(test_on_umock_c_error), "umock_c_init");
 }
 
 TEST_SUITE_CLEANUP(suite_cleanup)
 {
     umock_c_deinit();
-
-    TEST_MUTEX_DESTROY(test_mutex);
 }
 
 TEST_FUNCTION_INITIALIZE(test_function_init)
 {
-    int mutex_acquire_result = TEST_MUTEX_ACQUIRE(test_mutex);
-    ASSERT_ARE_EQUAL(int, 0, mutex_acquire_result);
 }
 
 TEST_FUNCTION_CLEANUP(test_function_cleanup)
 {
     umock_c_reset_all_calls();
-
-    TEST_MUTEX_RELEASE(test_mutex);
 }
 
 TEST_FUNCTION(unmatched_expected_calls_with_windows_args_are_reported)

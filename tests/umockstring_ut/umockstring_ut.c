@@ -48,27 +48,18 @@ static size_t when_shall_malloc_fail;
     }
 
 
-static TEST_MUTEX_HANDLE test_mutex;
-static TEST_MUTEX_HANDLE global_mutex;
-
 BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
-    test_mutex = TEST_MUTEX_CREATE();
-    ASSERT_IS_NOT_NULL(test_mutex);
 }
 
 TEST_SUITE_CLEANUP(suite_cleanup)
 {
-    TEST_MUTEX_DESTROY(test_mutex);
 }
 
 TEST_FUNCTION_INITIALIZE(test_function_init)
 {
-    int mutex_acquire_result = TEST_MUTEX_ACQUIRE(test_mutex);
-    ASSERT_ARE_EQUAL(int, 0, mutex_acquire_result);
-
     when_shall_malloc_fail = 0;
 
     test_malloc_calls = NULL;
@@ -80,8 +71,6 @@ TEST_FUNCTION_CLEANUP(test_function_cleanup)
     free(test_malloc_calls);
     test_malloc_calls = NULL;
     test_malloc_call_count = 0;
-
-    TEST_MUTEX_RELEASE(test_mutex);
 }
 
 /* umockstring_clone */

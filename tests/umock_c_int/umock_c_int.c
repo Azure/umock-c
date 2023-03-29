@@ -267,8 +267,6 @@ static void umocktypes_free_ARRAY_TYPE(ARRAY_TYPE* value)
 MOCK_FUNCTION_WITH_CODE(, void, another_test_function, SOME_OTHER_TYPE, a);
 MOCK_FUNCTION_END()
 
-static TEST_MUTEX_HANDLE test_mutex;
-
 MOCK_FUNCTION_WITH_CODE(, void, test_mock_function_with_code_1_arg, int, a);
 MOCK_FUNCTION_END()
 
@@ -342,9 +340,6 @@ BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 TEST_SUITE_INITIALIZE(suite_init)
 {
     int result;
-
-    test_mutex = TEST_MUTEX_CREATE();
-    ASSERT_IS_NOT_NULL(test_mutex);
 
     result = umock_c_init(test_on_umock_c_error);
     ASSERT_ARE_EQUAL(int, 0, result);

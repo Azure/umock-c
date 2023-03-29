@@ -47,30 +47,22 @@ void* test_generate_signature_with_returns_returning_ptr(void)
     return (void*)0x4242;
 }
 
-static TEST_MUTEX_HANDLE test_mutex_generate_funcs;
-
 BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
 {
-    test_mutex_generate_funcs = TEST_MUTEX_CREATE();
-    ASSERT_IS_NOT_NULL(test_mutex_generate_funcs);
 }
 
 TEST_SUITE_CLEANUP(suite_cleanup)
 {
-    TEST_MUTEX_DESTROY(test_mutex_generate_funcs);
 }
 
 TEST_FUNCTION_INITIALIZE(test_function_init)
 {
-    int acquire_Result = TEST_MUTEX_ACQUIRE(test_mutex_generate_funcs);
-    ASSERT_ARE_EQUAL(int, 0, acquire_Result);
 }
 
 TEST_FUNCTION_CLEANUP(test_function_cleanup)
 {
-    TEST_MUTEX_RELEASE(test_mutex_generate_funcs);
 }
 
 /* Tests_SRS_UMOCK_C_LIB_01_002: [The macro shall generate a function signature in case ENABLE_MOCKS is not defined.] */

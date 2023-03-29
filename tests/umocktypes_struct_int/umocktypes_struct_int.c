@@ -306,9 +306,6 @@ void reset_mock_my_const_int_const_volatile_ptr(void)
     mock_free_my_const_int_const_volatile_ptr_was_called = 0;
 }
 
-static TEST_MUTEX_HANDLE test_mutex;
-static TEST_MUTEX_HANDLE global_mutex;
-
 MU_DEFINE_ENUM_STRINGS(UMOCK_C_ERROR_CODE, UMOCK_C_ERROR_CODE_VALUES)
 
 static void on_umock_c_error(UMOCK_C_ERROR_CODE error_code)
@@ -321,9 +318,6 @@ BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 TEST_SUITE_INITIALIZE(suite_init)
 {
     int result;
-
-    test_mutex = TEST_MUTEX_CREATE();
-    ASSERT_IS_NOT_NULL(test_mutex);
 
     result = umock_c_init(on_umock_c_error);
     ASSERT_ARE_EQUAL(int, 0, result, "umock_c_init");
@@ -338,15 +332,10 @@ TEST_SUITE_INITIALIZE(suite_init)
 TEST_SUITE_CLEANUP(suite_cleanup)
 {
     umock_c_deinit();
-
-    TEST_MUTEX_DESTROY(test_mutex);
 }
 
 TEST_FUNCTION_INITIALIZE(test_function_init)
 {
-    int mutex_acquire_result = TEST_MUTEX_ACQUIRE(test_mutex);
-    ASSERT_ARE_EQUAL(int, 0, mutex_acquire_result);
-
     reset_mock_my_int();
     reset_mock_my_char();
     reset_mock_my_const_int_ptr();
@@ -355,7 +344,6 @@ TEST_FUNCTION_INITIALIZE(test_function_init)
 
 TEST_FUNCTION_CLEANUP(test_function_cleanup)
 {
-    TEST_MUTEX_RELEASE(test_mutex);
 }
 
 //
