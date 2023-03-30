@@ -359,15 +359,10 @@ TEST_SUITE_INITIALIZE(suite_init)
 TEST_SUITE_CLEANUP(suite_cleanup)
 {
     umock_c_deinit();
-
-    TEST_MUTEX_DESTROY(test_mutex);
 }
 
 TEST_FUNCTION_INITIALIZE(test_function_init)
 {
-    int mutex_acquire_result = TEST_MUTEX_ACQUIRE(test_mutex);
-    ASSERT_ARE_EQUAL(int, 0, mutex_acquire_result);
-
     test_on_umock_c_error_calls = NULL;
     test_on_umock_c_error_call_count = 0;
 
@@ -383,8 +378,6 @@ TEST_FUNCTION_CLEANUP(test_function_cleanup)
     free(test_on_umock_c_error_calls);
     test_on_umock_c_error_calls = NULL;
     test_on_umock_c_error_call_count = 0;
-
-    TEST_MUTEX_RELEASE(test_mutex);
 }
 
 /* STRICT_EXPECTED_CALL */
