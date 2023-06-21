@@ -11,7 +11,7 @@
 
 #include <pthread.h>
 #include <time.h>
-#include "c_logging/xlogging.h"
+#include "c_logging/logger.h"
 
 #include "umock_threadapi.h"
 
