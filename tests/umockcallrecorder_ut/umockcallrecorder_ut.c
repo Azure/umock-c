@@ -67,8 +67,6 @@ typedef struct umockcall_destroy_CALL_TAG
     UMOCKCALL_HANDLE umockcall;
 } umockcall_destroy_CALL;
 
-static int umockcall_destroy_call_result;
-
 typedef struct umockcall_stringify_CALL_TAG
 {
     UMOCKCALL_HANDLE umockcall;

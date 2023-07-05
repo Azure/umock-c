@@ -23,6 +23,12 @@
 #include "umock_c/umockstring.h"
 #include "umock_c/umockautoignoreargs.h"
 
+// For gcc build that causes a false negative
+#ifndef _MSC_VER
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#pragma GCC diagnostic ignored "-Wunused-const-variable"
+#endif
+
 #ifdef _MSC_VER
 #define UMOCK_C_WEAK
 #elif __GNUC__
