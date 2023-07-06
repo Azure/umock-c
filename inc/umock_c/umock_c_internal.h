@@ -27,6 +27,7 @@
 #ifndef _MSC_VER
 #pragma GCC diagnostic ignored "-Wunused-variable"
 #pragma GCC diagnostic ignored "-Wunused-const-variable"
+#pragma GCC diagnostic ignored "-Wunused-but-set-variable"
 #endif
 
 #ifdef _MSC_VER
