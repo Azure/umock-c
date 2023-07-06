@@ -1,0 +1,63 @@
+id: 
+name: GitOps.PullRequestIssueManagement
+description: GitOps.PullRequestIssueManagement primitive
+owner: 
+resource: repository
+disabled: false
+where: 
+configuration:
+  resourceManagementConfiguration:
+    scheduledSearches: []
+    eventResponderTasks:
+    - if:
+      - payloadType: Pull_Request
+      - includesModifiedFiles:
+          files:
+          - deps/
+      - isOpen
+      then:
+      - approvePullRequest:
+          comment: 'PR contains deps update, engage rubber stamping! '
+      description: 
+    - if:
+      - payloadType: Pull_Request
+      - isOpen
+      then:
+      - requestReview:
+          reviewer: anporumb
+      - requestReview:
+          reviewer: mattdurak
+      - requestReview:
+          reviewer: dcristoloveanu
+      - requestReview:
+          reviewer: jebrando
+      - requestReview:
+          reviewer: darobs
+      - requestReview:
+          reviewer: ipg2013
+      - requestReview:
+          reviewer: parth21999
+      - requestReview:
+          reviewer: cyrus-jackson
+      - requestReview:
+          reviewer: jasmineymlo
+      - requestReview:
+          reviewer: RohitG28
+      - requestReview:
+          reviewer: ACKPaul
+      - requestReview:
+          reviewer: M-iceberg
+      description: 
+    - if:
+      - payloadType: Pull_Request
+      - not:
+          includesModifiedFiles:
+            files:
+            - deps/
+      - isOpen
+      then:
+      - dismissPullRequestReview:
+          message: Files outside deps detected, disengaging auto approval!
+      description: 
+onFailure: 
+onSuccess: 
