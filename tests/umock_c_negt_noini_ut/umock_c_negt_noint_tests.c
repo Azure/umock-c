@@ -16,7 +16,6 @@ void UMOCK_LOG(const char* format, ...)
 }
 
 static UMOCKCALLRECORDER_HANDLE test_call_recorder = (UMOCKCALLRECORDER_HANDLE)0x4244;
-static UMOCKCALLRECORDER_HANDLE test_cloned_call_recorder = (UMOCKCALLRECORDER_HANDLE)0x4245;
 
 static size_t umock_c_get_call_recorder_call_count;
 static UMOCKCALLRECORDER_HANDLE umock_c_get_call_recorder_call_result;

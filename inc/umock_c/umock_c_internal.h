@@ -24,11 +24,6 @@
 #include "umock_c/umockautoignoreargs.h"
 
 // For gcc build that causes a false negative
-#ifdef __GNUC__
-#pragma GCC diagnostic ignored "-Wunused-variable"
-#pragma GCC diagnostic ignored "-Wunused-const-variable"
-#endif
-
 #ifdef _MSC_VER
 #define UMOCK_C_WEAK
 #elif __GNUC__
@@ -966,13 +961,13 @@ typedef struct MOCK_CALL_METADATA_TAG
     typedef return_type (*MU_C2(mock_hook_func_type_, name))(MU_IF(MU_COUNT_ARG(__VA_ARGS__),,void) MU_FOR_EACH_2_COUNTED(ARG_IN_SIGNATURE, __VA_ARGS__)); \
     return_type UMOCK_REAL(name)(MU_IF(MU_COUNT_ARG(__VA_ARGS__),,void) MU_FOR_EACH_2_COUNTED(ARG_IN_SIGNATURE, __VA_ARGS__)) UMOCK_C_WEAK; \
     static MU_C2(mock_hook_func_type_,name) MU_C2(mock_hook_,name) = NULL; \
-    static TRACK_CREATE_FUNC_TYPE MU_C2(track_create_destroy_pair_malloc_,name) = NULL; \
-    static TRACK_DESTROY_FUNC_TYPE MU_C2(track_create_destroy_pair_free_,name) = NULL; \
-    static PAIRED_HANDLES MU_C2(paired_handles_,name); \
-    static PAIRED_HANDLES* MU_C2(used_paired_handles_,name) = NULL; \
+    static TRACK_CREATE_FUNC_TYPE MU_UNUSED_VAR MU_C2(track_create_destroy_pair_malloc_,name) = NULL; \
+    static TRACK_DESTROY_FUNC_TYPE MU_UNUSED_VAR MU_C2(track_create_destroy_pair_free_,name) = NULL; \
+    static PAIRED_HANDLES MU_UNUSED_VAR MU_C2(paired_handles_,name); \
+    static PAIRED_HANDLES* MU_UNUSED_VAR MU_C2(used_paired_handles_,name) = NULL; \
     static const MOCK_CALL_ARG_METADATA MU_C2(mock_call_args_metadata_,name)[MU_IF(MU_COUNT_ARG(__VA_ARGS__), MU_DIV2(MU_COUNT_ARG(__VA_ARGS__)), 1)] \
         = { MU_IF(MU_COUNT_ARG(__VA_ARGS__),,NULL) MU_FOR_EACH_2(FILL_ARG_IN_METADATA, __VA_ARGS__) }; \
-    static const MOCK_CALL_METADATA MU_C2(mock_call_metadata_,name) = {MU_TOSTRING(return_type), MU_TOSTRING(name), MU_DIV2(MU_COUNT_ARG(__VA_ARGS__)), \
+    static const MOCK_CALL_METADATA MU_UNUSED_VAR MU_C2(mock_call_metadata_,name) = {MU_TOSTRING(return_type), MU_TOSTRING(name), MU_DIV2(MU_COUNT_ARG(__VA_ARGS__)), \
         MU_C2(mock_call_args_metadata_,name) }; \
     MU_IF(IS_NOT_VOID(return_type), \
     typedef void (*MU_C2(COPY_RETURN_VALUE_FUNC_TYPE, name))(return_type* dst, return_type src); \
