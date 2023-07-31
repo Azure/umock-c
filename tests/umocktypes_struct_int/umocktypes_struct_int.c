@@ -6,7 +6,6 @@
 #include <stdio.h>                      // for printf, vprintf
 #include <stdlib.h>
 
-
 #include "macro_utils/macro_utils.h" // IWYU pragma: keep
 
 #include "testrunnerswitcher.h"
@@ -456,7 +455,7 @@ TEST_FUNCTION(umocktypes_stringify_MY_STRUCT_WITH_CONST_stringifies_all_fields)
 TEST_FUNCTION(umocktypes_stringify_MY_STRUCT_WITH_VOLATILE_CONST_stringifies_all_fields)
 {
     // arrange
-    MY_STRUCT_WITH_VOLATILE_CONST my_struct;
+    MY_STRUCT_WITH_VOLATILE_CONST my_struct = {0};
     my_const_int_const_volatile_ptr_assign(&my_struct.i, NULL);
 
     // act
@@ -622,10 +621,10 @@ TEST_FUNCTION(umocktypes_are_equal_MY_STRUCT_WITH_CONST_structs_have_same_fields
 TEST_FUNCTION(umocktypes_are_equal_MY_STRUCT_WITH_VOLATILE_CONST_structs_have_same_fields)
 {
     // arrange
-    MY_STRUCT_WITH_VOLATILE_CONST my_struct;
+    MY_STRUCT_WITH_VOLATILE_CONST my_struct = {0};
     my_const_int_const_volatile_ptr_assign(&my_struct.i, NULL);
 
-    MY_STRUCT_WITH_VOLATILE_CONST my_struct2;
+    MY_STRUCT_WITH_VOLATILE_CONST my_struct2 = {0};
     my_const_int_const_volatile_ptr_assign(&my_struct2.i, NULL);
 
     // act
@@ -792,7 +791,7 @@ TEST_FUNCTION(umocktypes_copy_MY_STRUCT_WITH_CONST_succeeds)
 TEST_FUNCTION(umocktypes_copy_MY_STRUCT_WITH_VOLATILE_CONST_succeeds)
 {
     // arrange
-    MY_STRUCT_WITH_VOLATILE_CONST my_struct;
+    MY_STRUCT_WITH_VOLATILE_CONST my_struct = {0};
     my_const_int_const_volatile_ptr_assign(&my_struct.i, NULL);
 
     MY_STRUCT_WITH_VOLATILE_CONST my_struct_copy;
@@ -816,7 +815,7 @@ TEST_FUNCTION(umocktypes_copy_MY_STRUCT_WITH_VOLATILE_CONST_succeeds)
 TEST_FUNCTION(umocktypes_free_MY_STRUCT_frees_each_field)
 {
     // arrange
-    MY_STRUCT my_struct;
+    MY_STRUCT my_struct = {0};
     my_struct.foo = 42;
     my_struct.bar = 100;
 
@@ -832,7 +831,7 @@ TEST_FUNCTION(umocktypes_free_MY_STRUCT_frees_each_field)
 TEST_FUNCTION(umocktypes_free_MY_NESTED_STRUCT_frees_each_field)
 {
     // arrange
-    MY_NESTED_STRUCT my_struct;
+    MY_NESTED_STRUCT my_struct = {0};
     my_struct.i = -7;
     my_struct.inner.foo = 42;
     my_struct.inner.bar = 100;
@@ -848,7 +847,7 @@ TEST_FUNCTION(umocktypes_free_MY_NESTED_STRUCT_frees_each_field)
 TEST_FUNCTION(umocktypes_free_MY_STRUCT_WITH_CONST_frees_each_field)
 {
     // arrange
-    MY_STRUCT_WITH_CONST my_struct;
+    MY_STRUCT_WITH_CONST my_struct = {0};
     my_struct.i = NULL;
 
     // act
@@ -861,7 +860,7 @@ TEST_FUNCTION(umocktypes_free_MY_STRUCT_WITH_CONST_frees_each_field)
 TEST_FUNCTION(umocktypes_free_MY_STRUCT_WITH_VOLATILE_CONST_frees_each_field)
 {
     // arrange
-    MY_STRUCT_WITH_VOLATILE_CONST my_struct;
+    MY_STRUCT_WITH_VOLATILE_CONST my_struct = {0};
     my_const_int_const_volatile_ptr_assign(&my_struct.i, NULL);
 
     // act
