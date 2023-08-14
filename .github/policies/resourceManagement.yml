@@ -26,6 +26,8 @@ configuration:
       - requestReview:
           reviewer: anporumb
       - requestReview:
+          reviewer: avranju
+      - requestReview:
           reviewer: mattdurak
       - requestReview:
           reviewer: dcristoloveanu
