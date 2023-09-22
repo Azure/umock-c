@@ -11,13 +11,12 @@ configuration:
     eventResponderTasks:
     - if:
       - payloadType: Pull_Request
-      - includesModifiedFiles:
-          files:
-          - deps/
+      - filesMatchPattern:
+          pattern: deps/*
       - isOpen
       then:
       - approvePullRequest:
-          comment: 'PR contains deps update, engage rubber stamping! '
+          comment: PR contains deps update, engage rubber stamping!
       description: 
     - if:
       - payloadType: Pull_Request
@@ -53,9 +52,8 @@ configuration:
     - if:
       - payloadType: Pull_Request
       - not:
-          includesModifiedFiles:
-            files:
-            - deps/
+          filesMatchPattern:
+            pattern: deps/*
       - isOpen
       then:
       - dismissPullRequestReview:
