@@ -1,7 +1,13 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include "pch.h"
+#include "testrunnerswitcher.h"
+
+#include "umock_c/umock_c_v2.h"
+
+#include "unit_b.h"
+
+#include "umock_c/no_mocks.h"
 
 #include "unit_a.h"
 

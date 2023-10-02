@@ -8,17 +8,16 @@ set(${theseTestsName}_test_files
 )
 
 set(${theseTestsName}_c_files
-    pch.c
+    unit_b_umock.c
     unit_a.c
 )
 
 set(${theseTestsName}_h_files
-    pch.h
     unit_a.h
     unit_b.h
 )
 
-set_source_files_properties(pch.c PROPERTIES COMPILE_OPTIONS "/Ycpch.h")
-set_source_files_properties(umock_c_pch_int.c PROPERTIES COMPILE_OPTIONS "/Yupch.h")
+#set_source_files_properties(pch.c PROPERTIES COMPILE_OPTIONS "/Ycpch.h")
+#set_source_files_properties(umock_c_pch_int.c PROPERTIES COMPILE_OPTIONS "/Yupch.h")
 
-build_test_artifacts(${theseTestsName} "tests/umockc_tests" umock_c)
+build_test_artifacts(${theseTestsName} "tests/umockc_tests" umock_c_v2)

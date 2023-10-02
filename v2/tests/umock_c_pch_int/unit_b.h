@@ -4,7 +4,7 @@
 #ifndef UNIT_B_H
 #define UNIT_B_H
 
-#include "umock_c/umock_c_prod.h"
+#include "umock_c/umock_c_v2_prod.h"
 
 MOCKABLE_FUNCTION(, void, unit_b_do_something);
 

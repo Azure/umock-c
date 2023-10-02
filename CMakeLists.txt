@@ -190,3 +190,5 @@ install_library_includes(umock_c umock_c ${umock_c_h_files})
 if(${run_reals_check})
     add_reals_check_target()
 endif()
+
+add_subdirectory(v2)

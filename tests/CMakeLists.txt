@@ -44,7 +44,6 @@ if(${run_int_tests})
     build_test_folder(umocktypes_struct_int)
     if((WIN32) OR (UNIX))
         build_test_folder(umock_c_with_lock_factory_int)
-        build_test_folder(umock_c_pch_int)
     endif()
 
     if(WIN32)
