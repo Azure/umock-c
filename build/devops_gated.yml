@@ -176,7 +176,7 @@ jobs:
 - job: linuxubuntu
   displayName: 'Build Linux Ubuntu'
   pool:
-    name: Azure-MessagingStore-LinuxBuildMachinePool
+    name: Azure-MsgStore-Linux2204BuildMachinePool
     demands:
       - linux
 
