@@ -51,15 +51,5 @@ configuration:
       - requestReview:
           reviewer: BertKleewein
       description: 
-    - if:
-      - payloadType: Pull_Request
-      - not:
-          filesMatchPattern:
-            pattern: deps/*
-      - isOpen
-      then:
-      - dismissPullRequestReview:
-          message: Files outside deps detected, disengaging auto approval!
-      description: 
 onFailure: 
 onSuccess: 
