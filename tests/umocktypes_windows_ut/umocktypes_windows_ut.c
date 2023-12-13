@@ -284,7 +284,10 @@ TEST_FUNCTION_CLEANUP(test_function_cleanup)
     ULONG, unsigned long, \
     LPCWSTR, const wchar_t*, \
     LONG64, int64_t, \
-    SHORT, int16_t \
+    SHORT, int16_t, \
+    SIZE_T, size_t, \
+    PSIZE_T, void*, \
+    PHANDLE, void* \
 
 #define ASSERT_EXPECTED_ALIAS_PAIR(alias_pair_type, alias_pair_is_type) \
     ASSERT_ARE_EQUAL(char_ptr, MU_TOSTRING(alias_pair_type), umocktypes_register_alias_type_calls[i].type); \
@@ -324,6 +327,9 @@ TEST_FUNCTION_CLEANUP(test_function_cleanup)
 /* Tests_SRS_UMOCKTYPES_WINDOWS_01_032: [ LPCWSTR as an alias of const wchar_t*. ]*/
 /* Tests_SRS_UMOCKTYPES_WINDOWS_01_034: [ LONG64 as an alias of int64_t. ]*/
 /* Tests_SRS_UMOCKTYPES_WINDOWS_43_036: [ SHORT as an alias of int16_t. ]*/
+/* Tests_SRS_UMOCKTYPES_WINDOWS_01_036: [ SIZE_T as an alias of size_t. ]*/
+/* Tests_SRS_UMOCKTYPES_WINDOWS_01_037: [ PSIZE_T as an alias of void*. ]*/
+/* Tests_SRS_UMOCKTYPES_WINDOWS_01_038: [ PHANDLE as an alias of void*. ]*/
 /* Tests_SRS_UMOCKTYPES_WINDOWS_01_005: [ On success, umocktypes_windows_register_types shall return 0. ]*/
 TEST_FUNCTION(umocktypes_windows_register_types_registers_all_types)
 {

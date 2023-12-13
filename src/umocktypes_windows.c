@@ -45,6 +45,9 @@
 /* Codes_SRS_UMOCKTYPES_WINDOWS_01_032: [ LPCWSTR as an alias of const wchar_t*. ]*/
 /* Codes_SRS_UMOCKTYPES_WINDOWS_01_034: [ LONG64 as an alias of int64_t. ]*/
 /* Codes_SRS_UMOCKTYPES_WINDOWS_43_036: [ SHORT as an alias of int16_t. ]*/
+/* Codes_SRS_UMOCKTYPES_WINDOWS_01_036: [ SIZE_T as an alias of size_t. ]*/
+/* Codes_SRS_UMOCKTYPES_WINDOWS_01_037: [ PSIZE_T as an alias of void*. ]*/
+/* Codes_SRS_UMOCKTYPES_WINDOWS_01_038: [ PHANDLE as an alias of void*. ]*/
 #define WINDOWS_TYPES_ALIAS_PAIRS \
     LONG, long, \
     LONGLONG, long long, \
@@ -75,7 +78,10 @@
     ULONG, unsigned long, \
     LPCWSTR, const wchar_t*, \
     LONG64, int64_t ,\
-    SHORT, int16_t \
+    SHORT, int16_t, \
+    SIZE_T, size_t, \
+    PSIZE_T, void*, \
+    PHANDLE, void* \
 
 #define REGISTER_ALIAS_PAIR(alias_pair_type, alias_pair_is_type) \
     if ( \

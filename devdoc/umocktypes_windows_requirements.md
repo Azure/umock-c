@@ -87,6 +87,12 @@ int umocktypes_windows_register_types(void);
 
 -  **SRS_UMOCKTYPES_WINDOWS_43_036: [** `SHORT` as an alias of `int16_t`. **]**
 
+- **SRS_UMOCKTYPES_WINDOWS_01_036: [** `SIZE_T` as an alias of `size_t`. **]**
+
+- **SRS_UMOCKTYPES_WINDOWS_01_037: [** `PSIZE_T` as an alias of `void*`. **]**
+
+- **SRS_UMOCKTYPES_WINDOWS_01_038: [** `PHANDLE` as an alias of `void*`. **]**
+
 **SRS_UMOCKTYPES_WINDOWS_01_005: [** On success, `umocktypes_windows_register_types` shall return 0. **]**
 
 **SRS_UMOCKTYPES_WINDOWS_01_006: [** If registering any of the types fails, `umocktypes_windows_register_types` shall fail and return a non-zero value. **]**

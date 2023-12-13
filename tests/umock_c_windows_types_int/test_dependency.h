@@ -36,6 +36,9 @@
     MOCKABLE_FUNCTION(, void, test_dependency_BOOLEAN_arg, BOOLEAN, BOOLEAN_arg);
     MOCKABLE_FUNCTION(, void, test_dependency_ULONG_arg, ULONG, ULONG_arg);
     MOCKABLE_FUNCTION(, void, test_dependency_LONG64_arg, LONG64, LONG64_arg);
-
+    MOCKABLE_FUNCTION(, void, test_dependency_SHORT_arg, SHORT, SHORT_arg);
+    MOCKABLE_FUNCTION(, void, test_dependency_SIZE_T_arg, SIZE_T, SIZE_T_arg);
+    MOCKABLE_FUNCTION(, void, test_dependency_PSIZE_T_arg, PSIZE_T, PSIZE_T_arg);
+    MOCKABLE_FUNCTION(, void, test_dependency_PHANDLE_arg, PHANDLE, PHANDLE_arg);
 
 #endif /* TEST_DEPENDENCY_H */

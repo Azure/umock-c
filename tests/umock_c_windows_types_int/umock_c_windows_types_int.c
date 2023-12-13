@@ -54,7 +54,11 @@ static char* build_calls_string(void)
         "[test_dependency_BYTE_arg(43)]"
         "[test_dependency_BOOLEAN_arg(2)]"
         "[test_dependency_ULONG_arg(44)]"
-        "[test_dependency_LONG64_arg(45)]";
+        "[test_dependency_LONG64_arg(45)]"
+        "[test_dependency_SHORT_arg(46)]"
+        "[test_dependency_SIZE_T_arg(47)]"
+        "[test_dependency_PSIZE_T_arg(%p)]"
+        "[test_dependency_PHANDLE_arg(%p)]";
 
     int needed_bytes = snprintf(NULL, 0, test_expected_string,
         (void*)0x4242, (void*)0x4243, (void*)0x4244,
@@ -62,7 +66,8 @@ static char* build_calls_string(void)
         (void*)0x4248, (void*)0x4249, (void*)0x424A,
         (void*)0x424B, (void*)0x424C, (void*)0x424D,
         (void*)0x424E, (void*)0x424F, (void*)0x4250,
-        (void*)0x4251, (void*)0x4252);
+        (void*)0x4251, (void*)0x4252, (void*)0x4253,
+        (void*)0x4254);
     ASSERT_IS_TRUE(needed_bytes > 0);
 
     result = malloc(needed_bytes + 1);
@@ -74,7 +79,8 @@ static char* build_calls_string(void)
         (void*)0x4248, (void*)0x4249, (void*)0x424A,
         (void*)0x424B, (void*)0x424C, (void*)0x424D,
         (void*)0x424E, (void*)0x424F, (void*)0x4250,
-        (void*)0x4251, (void*)0x4252);
+        (void*)0x4251, (void*)0x4252, (void*)0x4253,
+        (void*)0x4254);
     ASSERT_IS_TRUE(snprintf_result > 0);
 
     return result;
@@ -136,6 +142,10 @@ TEST_FUNCTION(unmatched_expected_calls_with_windows_args_are_reported)
     STRICT_EXPECTED_CALL(test_dependency_BOOLEAN_arg(2));
     STRICT_EXPECTED_CALL(test_dependency_ULONG_arg(44));
     STRICT_EXPECTED_CALL(test_dependency_LONG64_arg(45));
+    STRICT_EXPECTED_CALL(test_dependency_SHORT_arg(46));
+    STRICT_EXPECTED_CALL(test_dependency_SIZE_T_arg(47));
+    STRICT_EXPECTED_CALL(test_dependency_PSIZE_T_arg((PSIZE_T)0x4253));
+    STRICT_EXPECTED_CALL(test_dependency_PHANDLE_arg((PHANDLE)0x4254));
 
     // assert
     char* calls_string = build_calls_string();
@@ -180,6 +190,10 @@ TEST_FUNCTION(unmatched_actual_calls_with_windows_args_are_reported)
     test_dependency_BOOLEAN_arg(2);
     test_dependency_ULONG_arg(44);
     test_dependency_LONG64_arg(45);
+    test_dependency_SHORT_arg(46);
+    test_dependency_SIZE_T_arg(47);
+    test_dependency_PSIZE_T_arg((PSIZE_T)0x4253);
+    test_dependency_PHANDLE_arg((PHANDLE)0x4254);
 
     // assert
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_expected_calls());
@@ -222,6 +236,10 @@ TEST_FUNCTION(matched_calls_with_windows_args_are_not_reported)
     STRICT_EXPECTED_CALL(test_dependency_BOOLEAN_arg(2));
     STRICT_EXPECTED_CALL(test_dependency_ULONG_arg(44));
     STRICT_EXPECTED_CALL(test_dependency_LONG64_arg(45));
+    STRICT_EXPECTED_CALL(test_dependency_SHORT_arg(46));
+    STRICT_EXPECTED_CALL(test_dependency_SIZE_T_arg(47));
+    STRICT_EXPECTED_CALL(test_dependency_PSIZE_T_arg((PSIZE_T)0x4253));
+    STRICT_EXPECTED_CALL(test_dependency_PHANDLE_arg((PHANDLE)0x4254));
 
     // act
     test_dependency_LONG_arg(42);
@@ -252,6 +270,10 @@ TEST_FUNCTION(matched_calls_with_windows_args_are_not_reported)
     test_dependency_BOOLEAN_arg(2);
     test_dependency_ULONG_arg(44);
     test_dependency_LONG64_arg(45);
+    test_dependency_SHORT_arg(46);
+    test_dependency_SIZE_T_arg(47);
+    test_dependency_PSIZE_T_arg((PSIZE_T)0x4253);
+    test_dependency_PHANDLE_arg((PHANDLE)0x4254);
 
     // assert
     ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_expected_calls());
