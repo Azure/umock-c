@@ -829,3 +829,23 @@ int umockcallrecorder_can_call_fail(UMOCKCALLRECORDER_HANDLE umock_call_recorder
 
     return result;
 }
+
+char* umockcallrecorder_get_call_description(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t index)
+{
+    char* result = NULL;
+
+    /* Codes_SRS_UMOCKCALLRECORDER_31_056: [ If umock_call_recorder or call_can_fail is NULL, umockcallrecorder_can_call_fail shall return a non-zero value. ]*/
+    if ((umock_call_recorder == NULL) ||
+        /* Codes_SRS_UMOCKCALLRECORDER_31_057: [ If index is greater or equal to the current expected calls count, umockcallrecorder_can_call_fail shall return a non-zero value. ]*/
+        (index >= umock_call_recorder->expected_call_count))
+    {
+        UMOCK_LOG("umockcallrecorder_can_call_fail: NULL Invalid arguments, umock_call_recorder = %p, index = %zu",
+            umock_call_recorder, index);
+    }
+    else
+    {
+        result = umockcall_stringify(umock_call_recorder->expected_calls[index].umockcall);
+    }
+
+    return result;
+}

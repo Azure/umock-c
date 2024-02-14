@@ -21,6 +21,7 @@ extern "C" {
     void umock_c_negative_tests_fail_call(size_t index);
     size_t umock_c_negative_tests_call_count(void);
     int umock_c_negative_tests_can_call_fail(size_t index);
+    char* umock_c_negative_tests_get_call_description(size_t index);
 
 #ifdef __cplusplus
 }

@@ -234,4 +234,30 @@ int umock_c_negative_tests_can_call_fail(size_t index)
     return can_call_fail;
 }
 
+char* umock_c_negative_tests_get_call_description(size_t index)
+{
+    char* result = NULL;
 
+    if (umock_c_negative_tests_state != UMOCK_C_NEGATIVE_TESTS_STATE_INITIALIZED)
+    {
+        /* Codes_SRS_UMOCK_C_NEGATIVE_TESTS_31_026: [ If the module was not previously initialized, umock_c_negative_tests_can_call_fail shall return 1. ]*/
+        UMOCK_LOG("umock_c_negative_tests_fail_call: Not initialized.");
+        umock_c_indicate_error(UMOCK_C_ERROR);
+    }
+    else
+    {
+        UMOCKCALLRECORDER_HANDLE call_recorder = umock_c_get_call_recorder();
+        if (call_recorder == NULL)
+        {
+            /* Codes_SRS_UMOCK_C_NEGATIVE_TESTS_31_027: [ If umock_c_get_call_recorder fails, umock_c_negative_tests_can_call_fail shall indicate the error via the umock error callback with error code UMOCK_C_ERROR. ]*/
+            UMOCK_LOG("umock_c_negative_tests_fail_call: Cannot get call recorder.");
+            umock_c_indicate_error(UMOCK_C_ERROR);
+        }
+        else
+        {
+            result = umockcallrecorder_get_call_description(call_recorder, index);
+        }
+    }
+
+    return result;
+}
