@@ -236,26 +236,29 @@ int umock_c_negative_tests_can_call_fail(size_t index)
 
 char* umock_c_negative_tests_get_call_description(size_t index)
 {
+    /* Codes_SRS_UMOCK_C_NEGATIVE_TESTS_09_003: [ If any failure occurs `umock_c_negative_tests_get_call_description` shall return NULL. ]*/
     char* result = NULL;
 
+    /* Codes_SRS_UMOCK_C_NEGATIVE_TESTS_09_001: [ If the module was not previously initialized, `umock_c_negative_tests_get_call_description` shall indicate the error via the umock error callback with error code `UMOCK_C_ERROR`. ]*/
     if (umock_c_negative_tests_state != UMOCK_C_NEGATIVE_TESTS_STATE_INITIALIZED)
     {
-        /* Codes_SRS_UMOCK_C_NEGATIVE_TESTS_31_026: [ If the module was not previously initialized, umock_c_negative_tests_can_call_fail shall return 1. ]*/
+
         UMOCK_LOG("umock_c_negative_tests_fail_call: Not initialized.");
         umock_c_indicate_error(UMOCK_C_ERROR);
     }
     else
     {
+        /* Codes_SRS_UMOCK_C_NEGATIVE_TESTS_09_002: [ If `umock_c_get_call_recorder` fails, `umock_c_negative_tests_get_call_description` shall indicate the error via the umock error callback with error code `UMOCK_C_ERROR`. ]*/
         UMOCKCALLRECORDER_HANDLE call_recorder = umock_c_get_call_recorder();
         if (call_recorder == NULL)
         {
-            /* Codes_SRS_UMOCK_C_NEGATIVE_TESTS_31_027: [ If umock_c_get_call_recorder fails, umock_c_negative_tests_can_call_fail shall indicate the error via the umock error callback with error code UMOCK_C_ERROR. ]*/
             UMOCK_LOG("umock_c_negative_tests_fail_call: Cannot get call recorder.");
             umock_c_indicate_error(UMOCK_C_ERROR);
         }
         else
         {
-            result = umockcallrecorder_get_call_description(call_recorder, index);
+            /* Codes_SRS_UMOCK_C_NEGATIVE_TESTS_09_004: [ Otherwise `umock_c_negative_tests_get_call_description` shall return the result of `umockcallrecorder_get_expected_call_string`. ]*/
+            result = umockcallrecorder_get_expected_call_string(call_recorder, index);
         }
     }
 

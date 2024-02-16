@@ -2793,4 +2793,61 @@ TEST_FUNCTION(umockcallrecorder_can_call_fail_with_lock_functions_setup_locks_an
     umockcallrecorder_destroy(call_recorder);
 }
 
+
+/* Tests_SRS_UMOCKCALLRECORDER_09_002: [ Otherwise `umockcallrecorder_can_call_fail` shall call `umockcall_stringify` over `expected_calls[index].umockcall` and return the resulting string. ]*/
+TEST_FUNCTION(umockcallrecorder_get_expected_call_string_succeeds)
+{
+    // arrange
+    char* result;
+    UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create(NULL, NULL);
+    (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
+
+    reset_all_calls();
+    // act
+    result = umockcallrecorder_get_expected_call_string(call_recorder, 0);
+
+    // assert
+    ASSERT_ARE_EQUAL(size_t, 1, mocked_call_count);
+    ASSERT_ARE_EQUAL(void_ptr, test_expected_umockcall_1, mocked_calls[0].u.umockcall_get_fail_call.umockcall);
+    ASSERT_ARE_EQUAL(char_ptr, umockcall_stringify_call_result, result);
+
+    // cleanup
+    umockcallrecorder_destroy(call_recorder);
+}
+
+/* Tests_SRS_UMOCKCALLRECORDER_09_001: [ If `umock_call_recorder` or `index` is >= `expected_call_count`, `umockcallrecorder_can_call_fail` shall return NULL. ]*/
+TEST_FUNCTION(umockcallrecorder_get_expected_call_string_NULL_handle_fails)
+{
+    // arrange
+    char* result;
+
+    reset_all_calls();
+    // act
+    result = umockcallrecorder_get_expected_call_string(NULL, 0);
+
+    // assert
+    ASSERT_IS_NULL(result);
+
+    // cleanup
+}
+
+/* Tests_SRS_UMOCKCALLRECORDER_09_001: [ If `umock_call_recorder` or `index` is >= `expected_call_count`, `umockcallrecorder_can_call_fail` shall return NULL. ]*/
+TEST_FUNCTION(umockcallrecorder_get_expected_call_string_index_out_of_bounds_fails)
+{
+    // arrange
+    char* result;
+    UMOCKCALLRECORDER_HANDLE call_recorder = umockcallrecorder_create(NULL, NULL);
+    (void)umockcallrecorder_add_expected_call(call_recorder, test_expected_umockcall_1);
+
+    reset_all_calls();
+    // act
+    result = umockcallrecorder_get_expected_call_string(call_recorder, 1);
+
+    // assert
+    ASSERT_IS_NULL(result);
+
+    // cleanup
+    umockcallrecorder_destroy(call_recorder);
+}
+
 END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)

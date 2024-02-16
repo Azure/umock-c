@@ -31,7 +31,7 @@ extern "C" {
     int umockcallrecorder_get_expected_call_count(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t* expected_call_count);
     int umockcallrecorder_fail_call(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t index);
     int umockcallrecorder_can_call_fail(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t index, int* can_call_fail);
-    char* umockcallrecorder_get_call_description(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t index);
+    char* umockcallrecorder_get_expected_call_string(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t index);
 
 #ifdef __cplusplus
 }

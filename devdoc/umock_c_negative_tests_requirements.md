@@ -117,5 +117,16 @@ XX**SRS_UMOCK_C_NEGATIVE_TESTS_01_021: [** `umock_c_negative_tests_call_count` s
 
 **SRS_UMOCK_C_NEGATIVE_TESTS_31_029: [** If `umockcallrecorder_can_call_fail` fails, `umock_c_negative_tests_fail_call` shall indicate the error via the umock error callback with error code `UMOCK_C_ERROR` and return 1.  **]**
 
+## umock_c_negative_tests_get_call_description
 
+```c
+    char* umock_c_negative_tests_get_call_description(size_t index);
+```
 
+**SRS_UMOCK_C_NEGATIVE_TESTS_09_001: [** If the module was not previously initialized, `umock_c_negative_tests_get_call_description` shall indicate the error via the umock error callback with error code `UMOCK_C_ERROR`.  **]**
+
+**SRS_UMOCK_C_NEGATIVE_TESTS_09_002: [** If `umock_c_get_call_recorder` fails, `umock_c_negative_tests_get_call_description` shall indicate the error via the umock error callback with error code `UMOCK_C_ERROR`.  **]**
+
+**SRS_UMOCK_C_NEGATIVE_TESTS_09_003: [** If any failure occurs `umock_c_negative_tests_get_call_description` shall return NULL.  **]**
+
+**SRS_UMOCK_C_NEGATIVE_TESTS_09_004: [** Otherwise `umock_c_negative_tests_get_call_description` shall return the result of `umockcallrecorder_get_expected_call_string`.  **]**
