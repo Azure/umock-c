@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 
+#include "c_logging/logger.h"
+
 #include "umock_c/umock_log.h"
 #include "umock_c/umock_c.h"
 
@@ -12,8 +14,7 @@ void UMOCK_LOG(const char* format, ...)
 {
     va_list params;
     va_start(params, format);
-    (void)vprintf(format, params);
+    LogError(format, params);
     va_end(params);
-    (void)printf("\r\n");
     umock_c_indicate_error(UMOCK_C_ERROR);
 }
