@@ -14,7 +14,7 @@ void UMOCK_LOG(const char* format, ...)
 {
     va_list params;
     va_start(params, format);
-    LogError(format, params);
+    LOGGER_LOG(LOG_LEVEL_ERROR, NULL, format, params);
     va_end(params);
     umock_c_indicate_error(UMOCK_C_ERROR);
 }
