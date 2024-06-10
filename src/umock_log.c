@@ -5,7 +5,10 @@
 #include <stdio.h>
 #include <stdarg.h>
 
+#include "macro_utils/macro_utils.h"
+
 #include "c_logging/logger.h"
+#include "c_logging/log_level.h"
 
 #include "umock_c/umock_log.h"
 #include "umock_c/umock_c.h"
