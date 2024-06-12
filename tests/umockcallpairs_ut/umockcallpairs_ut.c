@@ -8,11 +8,6 @@
 #include "umock_c/umockcallpairs.h"
 #include "umock_c/umock_log.h"
 
-void UMOCK_LOG(const char* format, ...)
-{
-    (void)format;
-}
-
 typedef struct umocktypes_are_equal_CALL_TAG
 {
     char* type;

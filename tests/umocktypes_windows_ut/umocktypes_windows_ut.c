@@ -10,11 +10,6 @@
 #include "umock_c/umocktypes_windows.h"
 #include "umock_c/umock_log.h"
 
-void UMOCK_LOG(const char* format, ...)
-{
-    (void)format;
-}
-
 typedef struct EXPECTED_ALIAS_PAIR_TAG
 {
     char* type;

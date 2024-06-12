@@ -4,15 +4,15 @@
 #ifndef UMOCK_LOG_H
 #define UMOCK_LOG_H
 
+#include "c_logging/logger.h"
+#include "c_logging/log_level.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-    void UMOCK_LOG(const char* format, ...)
-        #if defined(__GNUC__) || defined(__clang__)
-            __attribute__ ((format (printf, 1, 2)))
-        #endif
-        ;
+    #define UMOCK_LOG(format, ...) \
+        LOGGER_LOG(LOG_LEVEL_ERROR, NULL, format, __VA_ARGS__)
 
 #ifdef __cplusplus
 }

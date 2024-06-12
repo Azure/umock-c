@@ -13,11 +13,6 @@
 #include "umock_c/umock_lock_factory.h"  // for UMOCK_C_LOCK_FACTORY_CREATE_...
 #include "umock_c/umock_log.h"
 
-void UMOCK_LOG(const char* format, ...)
-{
-    (void)format;
-}
-
 static UMOCKCALL_HANDLE test_expected_call = (UMOCKCALL_HANDLE)0x4242;
 static UMOCKCALL_HANDLE test_actual_call = (UMOCKCALL_HANDLE)0x4243;
 static UMOCKCALLRECORDER_HANDLE test_call_recorder = (UMOCKCALLRECORDER_HANDLE)0x4244;

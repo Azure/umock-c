@@ -13,11 +13,6 @@
 #include "umock_c/umocktypes_c.h"
 #include "umock_c/umock_log.h"
 
-void UMOCK_LOG(const char* format, ...)
-{
-    (void)format;
-}
-
 typedef struct umocktypes_register_type_CALL_TAG
 {
     char* type;

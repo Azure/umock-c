@@ -10,11 +10,6 @@
 #include "umock_c/umock_c_negative_tests.h"
 #include "umock_c/umock_log.h"
 
-void UMOCK_LOG(const char* format, ...)
-{
-    (void)format;
-}
-
 static UMOCKCALLRECORDER_HANDLE test_call_recorder = (UMOCKCALLRECORDER_HANDLE)0x4244;
 
 static size_t umock_c_get_call_recorder_call_count;

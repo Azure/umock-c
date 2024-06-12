@@ -91,7 +91,6 @@ set(run_reals_check ${original_run_reals_check})
 set(umock_c_c_files
     ./src/umock_c.c
     ./src/umock_c_negative_tests.c
-    ./src/umock_log.c
     ./src/umockalloc.c
     ./src/umockautoignoreargs.c
     ./src/umockcall.c

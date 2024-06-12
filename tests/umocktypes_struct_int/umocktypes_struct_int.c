@@ -16,16 +16,6 @@
 #include "umock_c/umocktypes_c.h"
 #include "umock_c/umocktypes_struct.h"
 
-void UMOCK_LOG(const char* format, ...)
-{
-    va_list params;
-    va_start(params, format);
-    (void)vprintf(format, params);
-    va_end(params);
-    (void)printf("\r\n");
-    // Do not report error for this test
-}
-
 // Typedefs for the fields so we can use our own stringify/are_equal/copy/free functions and instrument the calls
 typedef int my_int;
 typedef char my_char;

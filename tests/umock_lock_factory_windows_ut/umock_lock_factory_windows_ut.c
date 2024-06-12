@@ -13,11 +13,6 @@
 #include "umock_c/umock_lock_factory_default.h"
 #include "umock_c/umock_log.h"
 
-void UMOCK_LOG(const char* format, ...)
-{
-    (void)format;
-}
-
 static size_t malloc_call_count;
 static size_t when_shall_malloc_fail;
 
