@@ -2895,10 +2895,8 @@ TEST_FUNCTION(CaptureArgumentValue_with_NULL_arg_value_indicates_an_error)
     test_dependency_1_arg_no_return(43);
 
     // assert
-    // gah, there is a TFS item apparently since forever to fix this issue: the extra ERROR notification should not happen
-    ASSERT_ARE_EQUAL(size_t, 2, test_on_umock_c_error_call_count);
-    ASSERT_ARE_EQUAL(UMOCK_C_ERROR_CODE, UMOCK_C_ERROR, test_on_umock_c_error_calls[0].error_code);
-    ASSERT_ARE_EQUAL(UMOCK_C_ERROR_CODE, UMOCK_C_NULL_ARGUMENT, test_on_umock_c_error_calls[1].error_code);
+    ASSERT_ARE_EQUAL(size_t, 1, test_on_umock_c_error_call_count);
+    ASSERT_ARE_EQUAL(UMOCK_C_ERROR_CODE, UMOCK_C_NULL_ARGUMENT, test_on_umock_c_error_calls[0].error_code);
 }
 
 /* Tests_SRS_UMOCK_C_LIB_01_209: [ The CaptureArgumentValue_{arg_name} shall copy the value of the argument at the time of the call to arg_value. ]*/
