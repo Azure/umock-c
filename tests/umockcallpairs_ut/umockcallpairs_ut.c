@@ -6,7 +6,6 @@
 
 #include "testrunnerswitcher.h"
 #include "umock_c/umockcallpairs.h"
-#include "umock_c/umock_log.h"
 
 typedef struct umocktypes_are_equal_CALL_TAG
 {

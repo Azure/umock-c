@@ -6,6 +6,8 @@
 #include <wchar.h>
 #include <errno.h>
 
+#include "macro_utils/macro_utils.h" 
+
 #include "umock_c/umocktypes.h"
 #include "umock_c/umocktypes_wcharptr.h"
 #include "umock_c/umockalloc.h"

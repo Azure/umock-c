@@ -1,7 +1,6 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <stdarg.h>
 #include <stdint.h>
 #include <stdio.h>                      // for printf, vprintf
 #include <stdlib.h>
@@ -11,7 +10,6 @@
 #include "testrunnerswitcher.h"
 
 #include "umock_c/umock_c.h"
-#include "umock_c/umock_log.h"          // for UMOCK_LOG
 #include "umock_c/umocktypes.h"         // for REGISTER_TYPE
 #include "umock_c/umocktypes_c.h"
 #include "umock_c/umocktypes_struct.h"

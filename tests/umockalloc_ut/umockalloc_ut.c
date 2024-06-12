@@ -5,7 +5,6 @@
 
 #include "testrunnerswitcher.h"
 #include "umock_c/umockalloc.h"
-#include "umock_c/umock_log.h"
 
 typedef struct test_malloc_CALL_TAG
 {

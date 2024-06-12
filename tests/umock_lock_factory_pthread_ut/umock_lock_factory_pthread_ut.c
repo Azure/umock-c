@@ -11,7 +11,6 @@
 
 #include "umock_c/umock_lock_factory_default.h"
 #include "umock_c/umock_lock_if.h"               // for UMOCK_C_LOCK_IF_TAG
-#include "umock_c/umock_log.h"
 
 static size_t malloc_call_count;
 static size_t when_shall_malloc_fail;

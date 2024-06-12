@@ -3,6 +3,9 @@
 
 #include <ctype.h>
 #include <stddef.h>
+
+#include "macro_utils/macro_utils.h" 
+
 #include "umock_c/umocktypename.h"
 #include "umock_c/umockalloc.h"
 #include "umock_c/umock_log.h"

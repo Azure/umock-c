@@ -11,7 +11,6 @@
 #include "umock_c/umockcallrecorder.h"
 #include "umock_c/umock_c.h"
 #include "umock_c/umock_c_negative_tests.h"
-#include "umock_c/umock_log.h"
 
 TEST_DEFINE_ENUM_TYPE(UMOCK_C_ERROR_CODE, UMOCK_C_ERROR_CODE_VALUES)
 

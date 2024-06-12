@@ -5,7 +5,6 @@
 
 #include "testrunnerswitcher.h"
 #include "umock_c/umocktypename.h"
-#include "umock_c/umock_log.h"
 
 static size_t malloc_call_count;
 static size_t realloc_call_count;

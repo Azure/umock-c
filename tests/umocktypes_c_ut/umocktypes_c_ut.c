@@ -11,7 +11,6 @@
 
 #include "umock_c/umocktypes.h"
 #include "umock_c/umocktypes_c.h"
-#include "umock_c/umock_log.h"
 
 typedef struct umocktypes_register_type_CALL_TAG
 {

@@ -6,7 +6,6 @@
 
 #include "testrunnerswitcher.h"
 #include "umock_c/umockcall.h"
-#include "umock_c/umock_log.h"
 
 typedef struct test_mock_call_data_copy_CALL_TAG
 {

@@ -11,7 +11,6 @@
 #include "umock_c/umockcallrecorder.h"
 #include "umock_c/umockcall.h"
 #include "umock_c/umock_lock_if.h"      // for UMOCK_C_LOCK_HANDLE, UMOCK_C_...
-#include "umock_c/umock_log.h"
 
 static UMOCKCALL_HANDLE test_expected_umockcall_1 = (UMOCKCALL_HANDLE)0x4242;
 static UMOCKCALL_HANDLE test_expected_umockcall_2 = (UMOCKCALL_HANDLE)0x4243;

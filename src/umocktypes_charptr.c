@@ -2,6 +2,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 #include <string.h>
+
+#include "macro_utils/macro_utils.h" 
+
 #include "umock_c/umocktypes.h"
 #include "umock_c/umocktypes_charptr.h"
 #include "umock_c/umockalloc.h"

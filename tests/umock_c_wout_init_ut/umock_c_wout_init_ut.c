@@ -11,7 +11,6 @@
 #include "umock_c/umocktypes_c.h"
 #include "umock_c/umock_c.h"
 #include "umock_c/umock_lock_factory.h"  // for UMOCK_C_LOCK_FACTORY_CREATE_...
-#include "umock_c/umock_log.h"
 
 static UMOCKCALL_HANDLE test_expected_call = (UMOCKCALL_HANDLE)0x4242;
 static UMOCKCALL_HANDLE test_actual_call = (UMOCKCALL_HANDLE)0x4243;

@@ -6,7 +6,6 @@
 
 #include "testrunnerswitcher.h"
 #include "umock_c/umocktypes.h"
-#include "umock_c/umock_log.h"
 
 typedef struct umocktypename_normalize_CALL_TAG
 {
