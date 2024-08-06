@@ -829,3 +829,23 @@ int umockcallrecorder_can_call_fail(UMOCKCALLRECORDER_HANDLE umock_call_recorder
 
     return result;
 }
+
+char* umockcallrecorder_get_expected_call_string(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t index)
+{
+    char* result = NULL;
+
+    /* Codes_SRS_UMOCKCALLRECORDER_09_001: [ If `umock_call_recorder` or `index` is >= `expected_call_count`, `umockcallrecorder_can_call_fail` shall return NULL. ]*/
+    if ((umock_call_recorder == NULL) ||
+        (index >= umock_call_recorder->expected_call_count))
+    {
+        UMOCK_LOG("umockcallrecorder_get_expected_call_string: NULL Invalid arguments, umock_call_recorder = %p, index = %zu",
+            umock_call_recorder, index);
+    }
+    else
+    {
+        /* Codes_SRS_UMOCKCALLRECORDER_09_002: [ Otherwise `umockcallrecorder_can_call_fail` shall call `umockcall_stringify` over `expected_calls[index].umockcall` and return the resulting string. ]*/
+        result = umockcall_stringify(umock_call_recorder->expected_calls[index].umockcall);
+    }
+
+    return result;
+}
