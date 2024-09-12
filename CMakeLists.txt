@@ -10,7 +10,7 @@ endif()
 #if ((NOT TARGET umock_c) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/umock-c/CMakeLists.txt))
 #    add_subdirectory(deps/umock-c)
 #    include_directories(${UMOCK_C_INC_FOLDER})
-#endif() 
+#endif()
 
 if(TARGET umock_c)
     return()
@@ -59,27 +59,27 @@ set(run_reals_check OFF)
 if ((NOT TARGET c_build_tools) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-build-tools/CMakeLists.txt))
     add_subdirectory(deps/c-build-tools)
     set_default_build_options()
-endif() 
+endif()
 
 if ((NOT TARGET macro_utils_c) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/macro-utils-c/CMakeLists.txt))
     add_subdirectory(deps/macro-utils-c)
     include_directories(${MACRO_UTILS_INC_FOLDER})
-endif() 
+endif()
 
 if ((NOT TARGET c_logging) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-logging/CMakeLists.txt))
     add_subdirectory(deps/c-logging)
     include_directories(deps/c-logging/v2/inc)
-endif() 
+endif()
 
 if ((NOT TARGET ctest) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/ctest/CMakeLists.txt))
     add_subdirectory(deps/ctest)
     include_directories(${CTEST_INC_FOLDER})
-endif() 
+endif()
 
 if ((NOT TARGET testrunnerswitcher) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-testrunnerswitcher/CMakeLists.txt))
     add_subdirectory(deps/c-testrunnerswitcher)
     include_directories(${TESTRUNNERSWITCHER_INC_FOLDER})
-endif() 
+endif()
 
 set(run_e2e_tests ${original_run_e2e_tests})
 set(run_int_tests ${original_run_int_tests})
@@ -189,3 +189,31 @@ install_library_includes(umock_c umock_c ${umock_c_h_files})
 if(${run_reals_check})
     add_reals_check_target()
 endif()
+
+
+function(build_lib_mocks lib lib_headers file_mocks)
+
+    #basic check that we are building mocks for an existing target (this is necessary because the include folders of the mock library are the same as the include folders of the existing library)
+    if(NOT TARGET ${lib})
+        message(FATAL_ERROR "The target ${lib} does not exist. It should be library already existing (as a cmake target) in the project.")
+    endif()
+
+    #set the name of the library containing the mocks
+    set(lib_mocks ${lib}_mocks)
+
+    foreach(file ${file_list})
+        if(NOT EXISTS ${file})
+            message(FATAL_ERROR "The file ${file} does not exist.")
+        endif()
+    endforeach()
+
+    #build a library from our own files... this is the mock library
+    add_library(${lib_mocks} ${file_list})
+    target_compile_definitions(${lib_mocks} PRIVATE ENABLE_MOCKS)
+    target_include_directories(${lib_mocks} PUBLIC $<TARGET_PROPERTY:${lib},INCLUDE_DIRECTORIES>)
+    target_link_libraries(${lib_mocks} umock_c macro_utils_c)
+    target_precompile_headers(lib_ll_mock PUBLIC
+        ${lib_headers}
+    )
+
+endfunction(build_lib_mocks)
