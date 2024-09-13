@@ -189,31 +189,3 @@ install_library_includes(umock_c umock_c ${umock_c_h_files})
 if(${run_reals_check})
     add_reals_check_target()
 endif()
-
-
-function(build_lib_mocks lib lib_headers file_mocks)
-
-    #basic check that we are building mocks for an existing target (this is necessary because the include folders of the mock library are the same as the include folders of the existing library)
-    if(NOT TARGET ${lib})
-        message(FATAL_ERROR "The target ${lib} does not exist. It should be library already existing (as a cmake target) in the project.")
-    endif()
-
-    #set the name of the library containing the mocks
-    set(lib_mocks ${lib}_mocks)
-
-    foreach(file ${file_list})
-        if(NOT EXISTS ${file})
-            message(FATAL_ERROR "The file ${file} does not exist.")
-        endif()
-    endforeach()
-
-    #build a library from our own files... this is the mock library
-    add_library(${lib_mocks} ${file_list})
-    target_compile_definitions(${lib_mocks} PRIVATE ENABLE_MOCKS)
-    target_include_directories(${lib_mocks} PUBLIC $<TARGET_PROPERTY:${lib},INCLUDE_DIRECTORIES>)
-    target_link_libraries(${lib_mocks} umock_c macro_utils_c)
-    target_precompile_headers(lib_ll_mock PUBLIC
-        ${lib_headers}
-    )
-
-endfunction(build_lib_mocks)
