@@ -1392,7 +1392,7 @@ typedef struct MOCK_CALL_METADATA_TAG
     MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE(0, return_type, name, __VA_ARGS__) \
     MOCKABLE_FUNCTION_BODY_WITHOUT_RETURN(modifiers, return_type, name, __VA_ARGS__) \
 
-#define MOCKABLE_FUNCTION_INTERNAL_WITH_CODEd(modifiers, return_type, name, ...) \
+#define MOCKABLE_FUNCTION_INTERNAL_WITH_CODE(modifiers, return_type, name, ...) \
     MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE(0, return_type, name, __VA_ARGS__) \
     MOCKABLE_FUNCTION_BODY_WITHOUT_RETURN(modifiers, return_type, name, __VA_ARGS__) \
     MU_IF(IS_NOT_VOID(return_type), if (result_value_set_C8417226_7442_49B4_BBB9_9CA816A21EB7 == 0),) \
