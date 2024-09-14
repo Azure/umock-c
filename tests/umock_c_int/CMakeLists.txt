@@ -8,6 +8,7 @@ set(${theseTestsName}_test_files
 )
 
 set(${theseTestsName}_c_files
+    test_dependency.c
 )
 
 set(${theseTestsName}_h_files
