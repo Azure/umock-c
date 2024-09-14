@@ -39,7 +39,7 @@
     typedef unsigned char ARRAY_TYPE[16];
 
     typedef const TEST_STRUCT* const CONST_P2_CONST_TEST_STRUCT;
-    
+
     /* Tests_SRS_UMOCK_C_LIB_01_001: [MOCKABLE_FUNCTION shall be used to wrap function definition allowing the user to declare a function that can be mocked.]*/
     /* Tests_SRS_UMOCK_C_LIB_01_004: [If ENABLE_MOCKS is defined, MOCKABLE_FUNCTION shall generate the declaration of the function and code for the mocked function, thus allowing setting up of expectations in test functions.] */
     MOCKABLE_FUNCTION(, int, test_dependency_no_args);
