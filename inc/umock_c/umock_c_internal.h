@@ -209,22 +209,22 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
         MU_C2(fill_mock_call_modifier_,name)(&mock_call_modifier);
 
 #define DECLARE_IGNORE_ARGUMENT_FUNCTION_PROTOTYPE(name, arg_type, arg_name) \
-    static MU_C2(mock_call_modifier_,name) MU_C4(ignore_argument_func_,name,_,arg_name)(void);
+    MU_C2(mock_call_modifier_,name) MU_C4(ignore_argument_func_,name,_,arg_name)(void);
 
 #define DECLARE_VALIDATE_ARGUMENT_FUNCTION_PROTOTYPE(name, arg_type, arg_name) \
-    static MU_C2(mock_call_modifier_,name) MU_C4(validate_argument_func_,name,_,arg_name)(void);
+    MU_C2(mock_call_modifier_,name) MU_C4(validate_argument_func_,name,_,arg_name)(void);
 
 #define DECLARE_COPY_OUT_ARGUMENT_BUFFER_FUNCTION_PROTOTYPE(name, arg_type, arg_name) \
-    static MU_C2(mock_call_modifier_,name) MU_C4(copy_out_argument_buffer_func_,name,_,arg_name)(const void* bytes, size_t length);
+    MU_C2(mock_call_modifier_,name) MU_C4(copy_out_argument_buffer_func_,name,_,arg_name)(const void* bytes, size_t length);
 
 #define DECLARE_VALIDATE_ARGUMENT_VALUE_FUNCTION_PROTOTYPE(name, arg_type, arg_name) \
-    static MU_C2(mock_call_modifier_,name) MU_C4(validate_argument_value_func_,name,_,arg_name)(arg_type* arg_value);
+    MU_C2(mock_call_modifier_,name) MU_C4(validate_argument_value_func_,name,_,arg_name)(arg_type* arg_value);
 
 #define DECLARE_VALIDATE_ARGUMENT_VALUE_AS_TYPE_FUNCTION_PROTOTYPE(name, arg_type, arg_name) \
-    static MU_C2(mock_call_modifier_,name) MU_C4(validate_argument_value_as_type_func_,name,_,arg_name)(const char* type_name);
+    MU_C2(mock_call_modifier_,name) MU_C4(validate_argument_value_as_type_func_,name,_,arg_name)(const char* type_name);
 
 #define DECLARE_CAPTURE_ARGUMENT_VALUE_FUNCTION_PROTOTYPE(name, arg_type, arg_name) \
-    static MU_C2(mock_call_modifier_,name) MU_C4(capture_argument_value_func_,name,_,arg_name)(arg_type* arg_value);
+    MU_C2(mock_call_modifier_,name) MU_C4(capture_argument_value_func_,name,_,arg_name)(arg_type* arg_value);
 
 #define IGNORE_ARGUMENT_FUNCTION_IN_MODIFIERS(name, arg_type, arg_name) \
     MU_C4(ignore_argument_func_type_,name,_,arg_name) MU_C2(IgnoreArgument_,arg_name);
@@ -291,7 +291,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 
 /* Codes_SRS_UMOCK_C_LIB_01_078: [The IgnoreArgument_{arg_name} call modifier shall record that the argument identified by arg_name will be ignored for that specific call.] */
 #define IMPLEMENT_IGNORE_ARGUMENT_BY_NAME_FUNCTION(name, arg_type, arg_name) \
-    static MU_C2(mock_call_modifier_,name) MU_C4(ignore_argument_func_,name,_,arg_name)(void) \
+    MU_C2(mock_call_modifier_,name) MU_C4(ignore_argument_func_,name,_,arg_name)(void) \
     { \
         MU_C2(mock_call_, name)* mock_call_data = (MU_C2(mock_call_, name)*)umockcall_get_call_data(umock_c_get_last_expected_call()); \
         DECLARE_MOCK_CALL_MODIFIER(name) \
@@ -309,7 +309,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 
 /* Codes_SRS_UMOCK_C_LIB_01_079: [The ValidateArgument_{arg_name} call modifier shall record that the argument identified by arg_name will be validated for that specific call.]*/
 #define IMPLEMENT_VALIDATE_ARGUMENT_BY_NAME_FUNCTION(name, arg_type, arg_name) \
-    static MU_C2(mock_call_modifier_,name) MU_C4(validate_argument_func_,name,_,arg_name)(void) \
+    MU_C2(mock_call_modifier_,name) MU_C4(validate_argument_func_,name,_,arg_name)(void) \
     { \
         MU_C2(mock_call_, name)* mock_call_data = (MU_C2(mock_call_, name)*)umockcall_get_call_data(umock_c_get_last_expected_call()); \
         DECLARE_MOCK_CALL_MODIFIER(name) \
@@ -328,7 +328,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 /* Codes_SRS_UMOCK_C_LIB_01_080: [The IgnoreArgument call modifier shall record that the indexth argument will be ignored for that specific call.]*/
 /* Codes_SRS_UMOCK_C_LIB_01_081: [If the index is out of range umock_c shall raise an error with the code UMOCK_C_ARG_INDEX_OUT_OF_RANGE.] */
 #define IMPLEMENT_IGNORE_ARGUMENT_FUNCTION(return_type, name, ...) \
-    static MU_C2(mock_call_modifier_,name) MU_C2(ignore_argument_func_,name)(size_t arg_index) \
+    MU_C2(mock_call_modifier_,name) MU_C2(ignore_argument_func_,name)(size_t arg_index) \
     { \
         MU_C2(mock_call_, name)* mock_call_data = (MU_C2(mock_call_, name)*)umockcall_get_call_data(umock_c_get_last_expected_call()); \
         DECLARE_MOCK_CALL_MODIFIER(name) \
@@ -357,7 +357,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 /* Codes_SRS_UMOCK_C_LIB_01_082: [The ValidateArgument call modifier shall record that the indexth argument will be validated for that specific call.]*/
 /* Codes_SRS_UMOCK_C_LIB_01_083: [If the index is out of range umock_c shall raise an error with the code UMOCK_C_ARG_INDEX_OUT_OF_RANGE.]*/
 #define IMPLEMENT_VALIDATE_ARGUMENT_FUNCTION(return_type, name, ...) \
-    static MU_C2(mock_call_modifier_,name) MU_C2(validate_argument_func_,name)(size_t arg_index) \
+    MU_C2(mock_call_modifier_,name) MU_C2(validate_argument_func_,name)(size_t arg_index) \
     { \
         MU_C2(mock_call_, name)* mock_call_data = (MU_C2(mock_call_, name)*)umockcall_get_call_data(umock_c_get_last_expected_call()); \
         DECLARE_MOCK_CALL_MODIFIER(name) \
@@ -438,7 +438,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 /* Codes_SRS_UMOCK_C_LIB_01_089: [The buffers for previous CopyOutArgumentBuffer calls shall be freed.]*/
 /* Codes_SRS_UMOCK_C_LIB_01_133: [ If several calls to CopyOutArgumentBuffer are made, only the last buffer shall be kept. ]*/
 #define IMPLEMENT_COPY_OUT_ARGUMENT_BUFFER_FUNCTION(return_type, name, ...) \
-    static MU_C2(mock_call_modifier_, name) MU_C2(copy_out_argument_buffer_func_, name)(size_t index, const void* bytes, size_t length) \
+    MU_C2(mock_call_modifier_, name) MU_C2(copy_out_argument_buffer_func_, name)(size_t index, const void* bytes, size_t length) \
     { \
         DECLARE_MOCK_CALL_MODIFIER(name) \
         if ((index < 1) || (index > MU_DIV2(MU_COUNT_ARG(__VA_ARGS__)))) \
@@ -486,7 +486,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 /* Codes_SRS_UMOCK_C_LIB_01_155: [ The memory shall be copied. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_158: [ If bytes is NULL or length is 0, umock_c shall raise an error with the code UMOCK_C_INVALID_ARGUMENT_BUFFER. ] */
 #define IMPLEMENT_COPY_OUT_ARGUMENT_BUFFER_BY_NAME_FUNCTION(name, arg_type, arg_name) \
-    static MU_C2(mock_call_modifier_,name) MU_C4(copy_out_argument_buffer_func_,name,_,arg_name)(const void* bytes, size_t length) \
+    MU_C2(mock_call_modifier_,name) MU_C4(copy_out_argument_buffer_func_,name,_,arg_name)(const void* bytes, size_t length) \
     { \
         DECLARE_MOCK_CALL_MODIFIER(name) \
         if ((bytes == NULL) || (length == 0)) \
@@ -524,7 +524,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
     } \
 
 #define IMPLEMENT_COPY_OUT_ARGUMENT_FUNCTION(return_type, name, ...) \
-    static MU_C2(mock_call_modifier_,name) MU_C2(copy_out_argument_func_,name)(size_t arg_index, void* value) \
+    MU_C2(mock_call_modifier_,name) MU_C2(copy_out_argument_func_,name)(size_t arg_index, void* value) \
     { \
         DECLARE_MOCK_CALL_MODIFIER(name) \
         (void)value; \
@@ -540,7 +540,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 /* Codes_SRS_UMOCK_C_LIB_01_132: [ If several calls to ValidateArgumentBuffer are made, only the last buffer shall be kept. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_130: [ The buffers for previous ValidateArgumentBuffer calls shall be freed. ]*/
 #define IMPLEMENT_VALIDATE_ARGUMENT_BUFFER_FUNCTION(return_type, name, ...) \
-    static MU_C2(mock_call_modifier_,name) MU_C2(validate_argument_buffer_func_,name)(size_t index, const void* bytes, size_t length) \
+    MU_C2(mock_call_modifier_,name) MU_C2(validate_argument_buffer_func_,name)(size_t index, const void* bytes, size_t length) \
     { \
         DECLARE_MOCK_CALL_MODIFIER(name) \
         if ((index < 1) || (index > MU_DIV2(MU_COUNT_ARG(__VA_ARGS__)))) \
@@ -654,7 +654,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 /* Codes_SRS_UMOCK_C_LIB_01_185: [ The ValidateArgumentValue_{arg_name} modifier shall inhibit comparing with any value passed directly as an argument in the expected call. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_186: [ The ValidateArgumentValue_{arg_name} shall implicitly do a ValidateArgument for the arg_name argument, making sure the argument is not ignored. ]*/
 #define IMPLEMENT_VALIDATE_ARGUMENT_VALUE_BY_NAME_FUNCTION(name, arg_type, arg_name) \
-    static MU_C2(mock_call_modifier_,name) MU_C4(validate_argument_value_func_,name,_,arg_name)(arg_type* arg_value) \
+    MU_C2(mock_call_modifier_,name) MU_C4(validate_argument_value_func_,name,_,arg_name)(arg_type* arg_value) \
     { \
         DECLARE_MOCK_CALL_MODIFIER(name) \
         if (arg_value == NULL) \
@@ -683,7 +683,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 /* Codes_SRS_UMOCK_C_LIB_01_200: [ If type_name is NULL, umock_c shall raise an error with the code UMOCK_C_NULL_ARGUMENT. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_202: [ If storing the argument value as the new type fails, umock_c shall raise an error with the code UMOCK_C_COPY_ARGUMENT_ERROR. ]*/
 #define IMPLEMENT_VALIDATE_ARGUMENT_VALUE_AS_TYPE_BY_NAME_FUNCTION(name, arg_type, arg_name) \
-    static MU_C2(mock_call_modifier_,name) MU_C4(validate_argument_value_as_type_func_,name,_,arg_name)(const char* type_name) \
+    MU_C2(mock_call_modifier_,name) MU_C4(validate_argument_value_as_type_func_,name,_,arg_name)(const char* type_name) \
     { \
         DECLARE_MOCK_CALL_MODIFIER(name) \
         if (type_name == NULL) \
@@ -752,7 +752,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 /* Codes_SRS_UMOCK_C_LIB_01_209: [ The CaptureArgumentValue_{arg_name} shall copy the value of the argument at the time of the call to arg_value. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_211: [ The CaptureArgumentValue_{arg_name} shall not change the how the argument is validated. ]*/
 #define IMPLEMENT_CAPTURE_ARGUMENT_VALUE_BY_NAME_FUNCTION(name, arg_type, arg_name) \
-    static MU_C2(mock_call_modifier_,name) MU_C4(capture_argument_value_func_,name,_,arg_name)(arg_type* arg_value) \
+    MU_C2(mock_call_modifier_,name) MU_C4(capture_argument_value_func_,name,_,arg_name)(arg_type* arg_value) \
     { \
         DECLARE_MOCK_CALL_MODIFIER(name) \
         if (arg_value == NULL) \
@@ -1023,6 +1023,22 @@ typedef struct MOCK_CALL_METADATA_TAG
         MU_C2(mock_call_modifier_,name) MU_C2(call_cannot_fail_func_,name)(void); \
         MU_C2(mock_call_modifier_,name) MU_C2(capture_return_func_,name)(return_type* captured_return_value); \
     ,) \
+    MU_IF(MU_COUNT_ARG(__VA_ARGS__),    \
+        MU_C2(mock_call_modifier_,name) MU_C2(ignore_all_arguments_func_,name)(void); \
+        MU_C2(mock_call_modifier_,name) MU_C2(validate_all_arguments_func_,name)(void); \
+        MU_C2(mock_call_modifier_,name) MU_C2(copy_out_argument_func_,name)(size_t arg_index, void* value); \
+        MU_C2(mock_call_modifier_,name) MU_C2(ignore_argument_func_,name)(size_t arg_index); \
+        MU_C2(mock_call_modifier_,name) MU_C2(validate_argument_func_,name)(size_t arg_index); \
+        MU_C2(mock_call_modifier_,name) MU_C2(validate_argument_buffer_func_,name)(size_t index, const void* bytes, size_t length); \
+        MU_C2(mock_call_modifier_,name) MU_C2(copy_out_argument_buffer_func_,name)(size_t index, const void* bytes, size_t length); \
+        MU_FOR_EACH_2_KEEP_1(DECLARE_IGNORE_ARGUMENT_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
+        MU_FOR_EACH_2_KEEP_1(DECLARE_VALIDATE_ARGUMENT_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
+        MU_FOR_EACH_2_KEEP_1(DECLARE_COPY_OUT_ARGUMENT_BUFFER_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
+        MU_FOR_EACH_2_KEEP_1(DECLARE_VALIDATE_ARGUMENT_VALUE_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
+        MU_FOR_EACH_2_KEEP_1(DECLARE_VALIDATE_ARGUMENT_VALUE_AS_TYPE_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
+        MU_FOR_EACH_2_KEEP_1(DECLARE_CAPTURE_ARGUMENT_VALUE_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
+        typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(ignore_one_argument_func_type_,name))(void); \
+    ,) \
 
 #define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE_IMPL(do_returns, return_type, name, ...) \
     MU_C2(mock_hook_func_type_,name) MU_C2(mock_hook_,name) = NULL; \
@@ -1050,20 +1066,6 @@ typedef struct MOCK_CALL_METADATA_TAG
             ) \
         ,) \
     ,) \
-    MU_IF(MU_COUNT_ARG(__VA_ARGS__),static MU_C2(mock_call_modifier_,name) MU_C2(ignore_all_arguments_func_,name)(void); \
-    static MU_C2(mock_call_modifier_,name) MU_C2(validate_all_arguments_func_,name)(void); \
-    static MU_C2(mock_call_modifier_,name) MU_C2(copy_out_argument_func_,name)(size_t arg_index, void* value); \
-    static MU_C2(mock_call_modifier_,name) MU_C2(ignore_argument_func_,name)(size_t arg_index); \
-    static MU_C2(mock_call_modifier_,name) MU_C2(validate_argument_func_,name)(size_t arg_index); \
-    static MU_C2(mock_call_modifier_,name) MU_C2(validate_argument_buffer_func_,name)(size_t index, const void* bytes, size_t length); \
-    static MU_C2(mock_call_modifier_,name) MU_C2(copy_out_argument_buffer_func_,name)(size_t index, const void* bytes, size_t length); \
-    MU_FOR_EACH_2_KEEP_1(DECLARE_IGNORE_ARGUMENT_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
-    MU_FOR_EACH_2_KEEP_1(DECLARE_VALIDATE_ARGUMENT_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
-    MU_FOR_EACH_2_KEEP_1(DECLARE_COPY_OUT_ARGUMENT_BUFFER_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
-    MU_FOR_EACH_2_KEEP_1(DECLARE_VALIDATE_ARGUMENT_VALUE_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
-    MU_FOR_EACH_2_KEEP_1(DECLARE_VALIDATE_ARGUMENT_VALUE_AS_TYPE_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
-    MU_FOR_EACH_2_KEEP_1(DECLARE_CAPTURE_ARGUMENT_VALUE_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
-    typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(ignore_one_argument_func_type_,name))(void);,) \
     MU_IF(MU_COUNT_ARG(__VA_ARGS__), static const MU_C2(ignore_one_argument_func_type_,name) MU_C2(ignore_one_argument_array_,name)[] = \
     {,) \
         MU_FOR_EACH_2_KEEP_1(IGNORE_ARGUMENT_FUNCTION_IN_ARRAY, name, __VA_ARGS__) \
