@@ -968,6 +968,7 @@ typedef struct MOCK_CALL_METADATA_TAG
     extern TRACK_CREATE_FUNC_TYPE MU_C2(track_create_destroy_pair_malloc_,name); \
     extern TRACK_DESTROY_FUNC_TYPE MU_C2(track_create_destroy_pair_free_,name); \
     extern PAIRED_HANDLES MU_C2(paired_handles_,name); \
+    extern MU_C2(mock_hook_func_type_,name) MU_C2(mock_hook_,name); \
 
 #define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE_IMPL(do_returns, return_type, name, ...) \
     MU_C2(mock_hook_func_type_,name) MU_C2(mock_hook_,name) = NULL; \
