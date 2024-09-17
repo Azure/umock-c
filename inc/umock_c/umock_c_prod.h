@@ -28,6 +28,16 @@
 
 #ifdef ENABLE_MOCKS
 
+#ifdef ENABLE_MOCKS_DECL
+#error cannot have ENABLE_MOCKS and ENABLE_MOCKS_DECL defined at the same time
+#endif
+
+#ifdef ENABLE_MOCKS_IMPL
+#error cannot have ENABLE_MOCKS and ENABLE_MOCKS_IMPL defined at the same time
+#endif
+
+#pragma message("ENABLE_MOCKS is defined")
+
 #ifdef ENABLE_MOCK_FILTERING
 #define ENABLE_MOCK_FILTERING_SWITCH 1
 #else
@@ -87,6 +97,10 @@
 
 #ifdef ENABLE_MOCKS_DECL
 #pragma message("ENABLE_MOCKS_DECL is defined")
+
+#ifdef ENABLE_MOCKS_IMPL
+#error cannot have ENABLE_MOCKS_DECL and ENABLE_MOCKS_IMPL defined at the same time
+#endif
 
 #else /*#ifdef ENABLE_MOCKS_DECL*/
 
