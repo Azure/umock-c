@@ -960,10 +960,11 @@ typedef struct MOCK_CALL_METADATA_TAG
 
 #define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE_DECL(do_returns, return_type, name, ...) \
     typedef return_type (*MU_C2(mock_hook_func_type_, name))(MU_IF(MU_COUNT_ARG(__VA_ARGS__),,void) MU_FOR_EACH_2_COUNTED(ARG_IN_SIGNATURE, __VA_ARGS__)); \
+    return_type UMOCK_REAL(name)(MU_IF(MU_COUNT_ARG(__VA_ARGS__),,void) MU_FOR_EACH_2_COUNTED(ARG_IN_SIGNATURE, __VA_ARGS__)) UMOCK_C_WEAK; \
+    MU_C2(mock_hook_func_type_,name) MU_C2(mock_hook_,name); \
 
 #define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE_IMPL(do_returns, return_type, name, ...) \
-    return_type UMOCK_REAL(name)(MU_IF(MU_COUNT_ARG(__VA_ARGS__),,void) MU_FOR_EACH_2_COUNTED(ARG_IN_SIGNATURE, __VA_ARGS__)) UMOCK_C_WEAK; \
-    static MU_C2(mock_hook_func_type_,name) MU_C2(mock_hook_,name) = NULL; \
+    MU_C2(mock_hook_func_type_,name) MU_C2(mock_hook_,name) = NULL; \
     static TRACK_CREATE_FUNC_TYPE MU_UNUSED_VAR MU_C2(track_create_destroy_pair_malloc_,name) = NULL; \
     static TRACK_DESTROY_FUNC_TYPE MU_UNUSED_VAR MU_C2(track_create_destroy_pair_free_,name) = NULL; \
     static PAIRED_HANDLES MU_UNUSED_VAR MU_C2(paired_handles_,name); \
