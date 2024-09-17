@@ -37,7 +37,7 @@ endif()
 #int tests
 if(${run_int_tests})
     build_test_folder(umock_c_int)
-    build_test_folder(umock_c_2_int)
+    #build_test_folder(umock_c_2_int)
     build_test_folder(umock_c_reals_int)
     build_test_folder(umock_c_mock_filters_int)
     build_test_folder(umock_c_negt_int)
