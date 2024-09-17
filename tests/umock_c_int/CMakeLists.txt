@@ -8,12 +8,10 @@ set(${theseTestsName}_test_files
 )
 
 set(${theseTestsName}_c_files
-    test_dependency_mock.c
 )
 
 set(${theseTestsName}_h_files
     test_dependency.h
-    test_dependency_mock.h
 )
 
 build_test_artifacts(${theseTestsName} "tests/umockc_tests" umock_c)

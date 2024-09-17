@@ -1,6 +1,8 @@
 #Copyright (c) Microsoft. All rights reserved.
 #Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+set(build_yet FALSE)
+
 #unit tests
 if(${run_unittests})
     build_test_folder(umockalloc_ut)
