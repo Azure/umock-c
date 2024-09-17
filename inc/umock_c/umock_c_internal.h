@@ -1074,6 +1074,9 @@ typedef struct MOCK_CALL_METADATA_TAG
             )\
         ) \
     } MU_C2(mock_call_, name); \
+    typedef MU_C2(mock_call_modifier_,name) (*MU_C3(auto_ignore_args_function_,name,_type))(MU_C2(mock_call_modifier_,name) call_modifier, const char* call_as_string); \
+    MU_C2(mock_call_modifier_,name) MU_C2(auto_ignore_args_function_,name)(MU_C2(mock_call_modifier_,name) call_modifier, const char* call_as_string); \
+    MU_C3(auto_ignore_args_function_,name,_type) MU_C2(get_auto_ignore_args_function_,name)(MU_IF(MU_COUNT_ARG(__VA_ARGS__),,void) MU_FOR_EACH_2_COUNTED(ARG_IN_SIGNATURE, __VA_ARGS__)); \
 
 #define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE_IMPL(do_returns, return_type, name, ...) \
     MU_C2(mock_hook_func_type_,name) MU_C2(mock_hook_,name) = NULL; \
@@ -1137,8 +1140,7 @@ typedef struct MOCK_CALL_METADATA_TAG
         MU_FOR_EACH_2_KEEP_1(COPY_CAPTURE_ARGUMENT_VALUE_BY_NAME_TO_MODIFIER, name, __VA_ARGS__) \
         mock_call_modifier->IgnoreAllCalls = MU_C2(ignore_all_calls_func_,name); \
     } \
-    typedef MU_C2(mock_call_modifier_,name) (*MU_C3(auto_ignore_args_function_,name,_type))(MU_C2(mock_call_modifier_,name) call_modifier, const char* call_as_string); \
-    MU_C2(mock_call_modifier_,name) UMOCK_STATIC MU_C2(auto_ignore_args_function_,name)(MU_C2(mock_call_modifier_,name) call_modifier, const char* call_as_string) \
+    MU_C2(mock_call_modifier_,name) MU_C2(auto_ignore_args_function_,name)(MU_C2(mock_call_modifier_,name) call_modifier, const char* call_as_string) \
     { \
         MU_C2(mock_call_modifier_,name) result = call_modifier; \
         MU_IF(MU_COUNT_ARG(__VA_ARGS__), \
