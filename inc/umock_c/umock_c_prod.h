@@ -13,9 +13,9 @@
 #undef MOCKABLE_INTERFACE
 
 /* This header is meant to be included by production code headers, so that the MOCKABLE_FUNCTION gets enabled. */
-/* 
+/*
     If you are porting to a new platform and do not want to build the tests, but only the production code,
-    simply make sure that this file is in the include path (either by copying it to your inc folder or 
+    simply make sure that this file is in the include path (either by copying it to your inc folder or
     by adjusting the include paths).
 */
 
@@ -107,7 +107,7 @@
     result modifiers function(MU_IF(MU_COUNT_ARG(__VA_ARGS__),,void) MU_FOR_EACH_2_COUNTED(UMOCK_C_PROD_ARG_IN_SIGNATURE, __VA_ARGS__)); \
     MU_IF(UMOCK_C_PROD_IS_NOT_VOID(result), DO_NOTHING_WITH_RETURN_VALUES,)
 
-#define UMOCK_C_PROD_ARG_IN_SIGNATURE_2(count, arg_type, arg_name) 
+#define UMOCK_C_PROD_ARG_IN_SIGNATURE_2(count, arg_type, arg_name)
 
 // The below MOCKABLE_FUNCTION_WITH_CODE macros are a temporary solution and should not be used for long term
 // They will be removed once the real support is in umock_c

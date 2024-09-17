@@ -1,3 +1,3 @@
-#define ENABLE_MOCKS_IMPL
+#define ENABLE_MOCKS
 #include "test_dependency.h"
-#undef ENABLE_MOCKS_IMPL
+#undef ENABLE_MOCKS

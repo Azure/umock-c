@@ -4,8 +4,8 @@
 #ifndef TEST_DEPENDENCY_MOCK_H
 #define TEST_DEPENDENCY_MOCK_H
 
-#define ENABLE_MOCKS_DECL
+#define ENABLE_MOCKS_IMPL
 #include "test_dependency.h"
-#undef ENABLE_MOCKS_DECL
+#undef ENABLE_MOCKS_IMPL
 
 #endif /* TEST_DEPENDENCY_H */
