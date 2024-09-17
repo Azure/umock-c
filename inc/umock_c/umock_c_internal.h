@@ -967,8 +967,7 @@ typedef struct MOCK_CALL_METADATA_TAG
     extern PAIRED_HANDLES MU_C2(paired_handles_,name); \
     extern PAIRED_HANDLES* MU_C2(used_paired_handles_,name); \
     extern const MOCK_CALL_ARG_METADATA MU_C2(mock_call_args_metadata_,name)[MU_IF(MU_COUNT_ARG(__VA_ARGS__), MU_DIV2(MU_COUNT_ARG(__VA_ARGS__)), 1)]; \
-    extern const MOCK_CALL_METADATA MU_C2(mock_call_metadata_,name) = {MU_TOSTRING(return_type), MU_TOSTRING(name), MU_DIV2(MU_COUNT_ARG(__VA_ARGS__)), \
-        MU_C2(mock_call_args_metadata_,name) }; \
+    extern const MOCK_CALL_METADATA MU_C2(mock_call_metadata_,name); \
 
 #define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE_IMPL(do_returns, return_type, name, ...) \
     MU_C2(mock_hook_func_type_,name) MU_C2(mock_hook_,name) = NULL; \
@@ -978,7 +977,7 @@ typedef struct MOCK_CALL_METADATA_TAG
     PAIRED_HANDLES* MU_UNUSED_VAR MU_C2(used_paired_handles_,name) = NULL; \
     const MOCK_CALL_ARG_METADATA MU_C2(mock_call_args_metadata_,name)[MU_IF(MU_COUNT_ARG(__VA_ARGS__), MU_DIV2(MU_COUNT_ARG(__VA_ARGS__)), 1)] \
         = { MU_IF(MU_COUNT_ARG(__VA_ARGS__),,NULL) MU_FOR_EACH_2(FILL_ARG_IN_METADATA, __VA_ARGS__) }; \
-    static const MOCK_CALL_METADATA MU_UNUSED_VAR MU_C2(mock_call_metadata_,name) = {MU_TOSTRING(return_type), MU_TOSTRING(name), MU_DIV2(MU_COUNT_ARG(__VA_ARGS__)), \
+    const MOCK_CALL_METADATA MU_UNUSED_VAR MU_C2(mock_call_metadata_,name) = {MU_TOSTRING(return_type), MU_TOSTRING(name), MU_DIV2(MU_COUNT_ARG(__VA_ARGS__)), \
         MU_C2(mock_call_args_metadata_,name) }; \
     MU_IF(IS_NOT_VOID(return_type), \
     typedef void (*MU_C2(COPY_RETURN_VALUE_FUNC_TYPE, name))(return_type* dst, return_type src); \
