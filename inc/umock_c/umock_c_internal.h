@@ -584,7 +584,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 /* Codes_SRS_UMOCK_C_LIB_01_101: [The IgnoreAllCalls call modifier shall record that all calls matching the expected call shall be ignored. If no matching call occurs no missing call shall be reported.]*/
 /* Codes_SRS_UMOCK_C_LIB_01_208: [ If no matching call occurs no missing call shall be reported. ]*/
 #define IMPLEMENT_IGNORE_ALL_CALLS_FUNCTION(return_type, name, ...) \
-    static MU_C2(mock_call_modifier_,name) MU_C2(ignore_all_calls_func_,name)(void) \
+    MU_C2(mock_call_modifier_,name) MU_C2(ignore_all_calls_func_,name)(void) \
     { \
         UMOCKCALL_HANDLE last_expected_call = umock_c_get_last_expected_call(); \
         DECLARE_MOCK_CALL_MODIFIER(name) \
@@ -990,6 +990,33 @@ typedef struct MOCK_CALL_METADATA_TAG
         typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(capture_return_func_type_,name))(return_type* captured_return_value); \
     ,) \
     typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(ignore_all_calls_func_type_,name))(void); \
+    MU_IF(MU_COUNT_ARG(__VA_ARGS__), \
+        typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(ignore_all_arguments_func_type_,name))(void); \
+        typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(validate_all_arguments_func_type_,name))(void); \
+        typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(copy_out_argument_func_type_,name))(size_t arg_index, void* value); \
+        typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(ignore_argument_func_type_,name))(size_t arg_index); \
+        typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(validate_argument_func_type_,name))(size_t arg_index); \
+        typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(validate_argument_buffer_func_type_,name))(size_t index, const void* bytes, size_t length); \
+        typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(copy_out_argument_buffer_func_type_,name))(size_t index, const void* bytes, size_t length); \
+        MU_FOR_EACH_2_KEEP_1(DECLARE_ARG_RELATED_FUNCTIONS, name, __VA_ARGS__) \
+    ,) \
+    typedef struct MU_C2(_mock_call_modifier_,name) \
+    { \
+        MU_C2(ignore_all_calls_func_type_,name) IgnoreAllCalls; \
+        MU_IF(IS_NOT_VOID(return_type),MU_C2(set_return_func_type_,name) SetReturn; \
+        MU_C2(set_fail_return_func_type_,name) SetFailReturn; \
+        MU_C2(call_cannot_fail_func_type_,name) CallCannotFail; \
+        MU_C2(capture_return_func_type_,name) CaptureReturn;,) \
+        MU_IF(MU_COUNT_ARG(__VA_ARGS__), \
+            MU_C2(copy_out_argument_func_type_,name) CopyOutArgument; \
+            MU_C2(ignore_argument_func_type_,name) IgnoreArgument; \
+            MU_C2(validate_argument_func_type_,name) ValidateArgument; \
+            MU_C2(validate_argument_buffer_func_type_,name) ValidateArgumentBuffer; \
+            MU_C2(copy_out_argument_buffer_func_type_,name) CopyOutArgumentBuffer; \
+            MU_FOR_EACH_2_KEEP_1(ARG_RELATED_FUNCTIONS_IN_MODIFIERS, name, __VA_ARGS__) \
+        ,) \
+    } MU_C2(mock_call_modifier_,name); \
+    MU_C2(mock_call_modifier_,name) MU_C2(ignore_all_calls_func_,name)(void); \
 
 #define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE_IMPL(do_returns, return_type, name, ...) \
     MU_C2(mock_hook_func_type_,name) MU_C2(mock_hook_,name) = NULL; \
@@ -1017,29 +1044,6 @@ typedef struct MOCK_CALL_METADATA_TAG
             ) \
         ,) \
     ,) \
-    MU_IF(MU_COUNT_ARG(__VA_ARGS__),typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(ignore_all_arguments_func_type_,name))(void); \
-    typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(validate_all_arguments_func_type_,name))(void); \
-    typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(copy_out_argument_func_type_,name))(size_t arg_index, void* value); \
-    typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(ignore_argument_func_type_,name))(size_t arg_index); \
-    typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(validate_argument_func_type_,name))(size_t arg_index); \
-    typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(validate_argument_buffer_func_type_,name))(size_t index, const void* bytes, size_t length); \
-    typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(copy_out_argument_buffer_func_type_,name))(size_t index, const void* bytes, size_t length); \
-    MU_FOR_EACH_2_KEEP_1(DECLARE_ARG_RELATED_FUNCTIONS, name, __VA_ARGS__),) \
-    typedef struct MU_C2(_mock_call_modifier_,name) \
-    { \
-        MU_C2(ignore_all_calls_func_type_,name) IgnoreAllCalls; \
-        MU_IF(IS_NOT_VOID(return_type),MU_C2(set_return_func_type_,name) SetReturn; \
-        MU_C2(set_fail_return_func_type_,name) SetFailReturn; \
-        MU_C2(call_cannot_fail_func_type_,name) CallCannotFail; \
-        MU_C2(capture_return_func_type_,name) CaptureReturn;,) \
-        MU_IF(MU_COUNT_ARG(__VA_ARGS__),MU_C2(copy_out_argument_func_type_,name) CopyOutArgument; \
-        MU_C2(ignore_argument_func_type_,name) IgnoreArgument; \
-        MU_C2(validate_argument_func_type_,name) ValidateArgument; \
-        MU_C2(validate_argument_buffer_func_type_,name) ValidateArgumentBuffer; \
-        MU_C2(copy_out_argument_buffer_func_type_,name) CopyOutArgumentBuffer; \
-        MU_FOR_EACH_2_KEEP_1(ARG_RELATED_FUNCTIONS_IN_MODIFIERS, name, __VA_ARGS__),) \
-    } MU_C2(mock_call_modifier_,name); \
-    static MU_C2(mock_call_modifier_,name) MU_C2(ignore_all_calls_func_,name)(void); \
     MU_IF(IS_NOT_VOID(return_type),static MU_C2(mock_call_modifier_,name) MU_C2(set_return_func_,name)(return_type return_value); \
     static MU_C2(mock_call_modifier_,name) MU_C2(set_fail_return_func_,name)(return_type return_value); \
     static MU_C2(mock_call_modifier_,name) MU_C2(call_cannot_fail_func_,name)(void); \
