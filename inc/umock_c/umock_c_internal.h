@@ -810,7 +810,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 
 
 #define IMPLEMENT_MOCK_FUNCTION(function_prefix, args_ignored, return_type, name, ...) \
-    MU_C2(mock_call_modifier_,name) UMOCK_STATIC MU_C2(function_prefix,name)(MU_IF(MU_COUNT_ARG(__VA_ARGS__),,void) MU_FOR_EACH_2_COUNTED(ARG_IN_SIGNATURE, __VA_ARGS__)) \
+    MU_C2(mock_call_modifier_,name) MU_C2(function_prefix,name)(MU_IF(MU_COUNT_ARG(__VA_ARGS__),,void) MU_FOR_EACH_2_COUNTED(ARG_IN_SIGNATURE, __VA_ARGS__)) \
     { \
         UMOCKCALL_HANDLE mock_call; \
         MU_C2(mock_call_,name)* mock_call_data = (MU_C2(mock_call_,name)*)umockalloc_malloc(sizeof(MU_C2(mock_call_,name))); \
@@ -851,7 +851,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 /* Codes_SRS_UMOCK_C_LIB_01_107: [If there are multiple invocations of REGISTER_GLOBAL_MOCK_HOOK, the last one shall take effect over the previous ones.] */
 /* Codes_SRS_UMOCK_C_LIB_01_134: [ REGISTER_GLOBAL_MOCK_HOOK called with a NULL hook unregisters a previously registered hook. ]*/
 #define IMPLEMENT_REGISTER_GLOBAL_MOCK_HOOK(return_type, name, ...) \
-    UMOCK_STATIC void MU_C2(set_global_mock_hook_,name)(MU_C2(mock_hook_func_type_, name) mock_return_hook) \
+    void MU_C2(set_global_mock_hook_,name)(MU_C2(mock_hook_func_type_, name) mock_return_hook) \
     { \
         MU_C2(mock_hook_,name) = mock_return_hook; \
     } \
@@ -860,29 +860,35 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 /* Codes_SRS_UMOCK_C_LIB_01_109: [If there are multiple invocations of REGISTER_GLOBAL_MOCK_RETURN, the last one shall take effect over the previous ones.]*/
 /* Codes_SRS_UMOCK_C_LIB_01_141: [ If any error occurs during REGISTER_GLOBAL_MOCK_RETURN, umock_c shall raise an error with the code UMOCK_C_ERROR. ]*/
 #define IMPLEMENT_REGISTER_GLOBAL_MOCK_RETURN(return_type, name, ...) \
-    MU_IF(IS_NOT_VOID(return_type), UMOCK_STATIC void MU_C2(set_global_mock_return_, name)(return_type return_value) \
-    { \
-        UMOCK_COPY_INTERNAL(MU_C2(get_mock_call_return_values_,name)()->success_value, return_value); \
-    }, ) \
+    MU_IF(IS_NOT_VOID(return_type), \
+        void MU_C2(set_global_mock_return_, name)(return_type return_value) \
+        { \
+            UMOCK_COPY_INTERNAL(MU_C2(get_mock_call_return_values_,name)()->success_value, return_value); \
+        } \
+    , ) \
 
 /* Codes_SRS_UMOCK_C_LIB_01_111: [The REGISTER_GLOBAL_MOCK_FAIL_RETURN shall register a fail return value to be returned by a mock function when marked as failed in the expected calls.]*/
 /* Codes_SRS_UMOCK_C_LIB_01_112: [If there are multiple invocations of REGISTER_GLOBAL_FAIL_MOCK_RETURN, the last one shall take effect over the previous ones.]*/
 /* Codes_SRS_UMOCK_C_LIB_01_142: [ If any error occurs during REGISTER_GLOBAL_MOCK_FAIL_RETURN, umock_c shall raise an error with the code UMOCK_C_ERROR. ]*/
 #define IMPLEMENT_REGISTER_GLOBAL_MOCK_FAIL_RETURN(return_type, name, ...) \
-    MU_IF(IS_NOT_VOID(return_type), UMOCK_STATIC void MU_C2(set_global_mock_fail_return_, name)(return_type fail_return_value) \
-    { \
-        UMOCK_COPY_INTERNAL(MU_C2(get_mock_call_return_values_,name)()->failure_value, fail_return_value); \
-    }, ) \
+    MU_IF(IS_NOT_VOID(return_type), \
+        void MU_C2(set_global_mock_fail_return_, name)(return_type fail_return_value) \
+        { \
+            UMOCK_COPY_INTERNAL(MU_C2(get_mock_call_return_values_,name)()->failure_value, fail_return_value); \
+        }, \
+    ) \
 
 /* Codes_SRS_UMOCK_C_LIB_01_113: [The REGISTER_GLOBAL_MOCK_RETURNS shall register both a success and a fail return value associated with a mock function.]*/
 /* Codes_SRS_UMOCK_C_LIB_01_114: [If there are multiple invocations of REGISTER_GLOBAL_MOCK_RETURNS, the last one shall take effect over the previous ones.]*/
 /* Codes_SRS_UMOCK_C_LIB_01_143: [ If any error occurs during REGISTER_GLOBAL_MOCK_RETURNS, umock_c shall raise an error with the code UMOCK_C_ERROR. ]*/
 #define IMPLEMENT_REGISTER_GLOBAL_MOCK_RETURNS(return_type, name, ...) \
-    MU_IF(IS_NOT_VOID(return_type), UMOCK_STATIC void MU_C2(set_global_mock_returns_, name)(return_type return_value, return_type fail_return_value) \
-    { \
-        UMOCK_COPY_INTERNAL(MU_C2(get_mock_call_return_values_,name)()->success_value, return_value); \
-        UMOCK_COPY_INTERNAL(MU_C2(get_mock_call_return_values_,name)()->failure_value, fail_return_value); \
-    }, ) \
+    MU_IF(IS_NOT_VOID(return_type), \
+        void MU_C2(set_global_mock_returns_, name)(return_type return_value, return_type fail_return_value) \
+        { \
+            UMOCK_COPY_INTERNAL(MU_C2(get_mock_call_return_values_,name)()->success_value, return_value); \
+            UMOCK_COPY_INTERNAL(MU_C2(get_mock_call_return_values_,name)()->failure_value, fail_return_value); \
+        }, \
+    ) \
 
 #define DECLARE_VALIDATE_ONE_ARGUMENT_FUNC_TYPE(name) \
     typedef struct MU_C2(_mock_call_modifier_, name) (*MU_C2(validate_one_argument_func_type_, name))(void);
@@ -1077,6 +1083,10 @@ typedef struct MOCK_CALL_METADATA_TAG
     typedef MU_C2(mock_call_modifier_,name) (*MU_C3(auto_ignore_args_function_,name,_type))(MU_C2(mock_call_modifier_,name) call_modifier, const char* call_as_string); \
     MU_C2(mock_call_modifier_,name) MU_C2(auto_ignore_args_function_,name)(MU_C2(mock_call_modifier_,name) call_modifier, const char* call_as_string); \
     MU_C3(auto_ignore_args_function_,name,_type) MU_C2(get_auto_ignore_args_function_,name)(MU_IF(MU_COUNT_ARG(__VA_ARGS__),,void) MU_FOR_EACH_2_COUNTED(ARG_IN_SIGNATURE, __VA_ARGS__)); \
+    char* MU_C2(mock_call_data_stringify_,name)(void* mock_call_data); \
+    int MU_C2(mock_call_data_are_equal_,name)(void* left, void* right); \
+    void MU_C2(mock_call_data_free_func_,name)(void* mock_call_data); \
+    void* MU_C2(mock_call_data_copy_func_,name)(void* mock_call_data); \
 
 #define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE_IMPL(do_returns, return_type, name, ...) \
     MU_C2(mock_hook_func_type_,name) MU_C2(mock_hook_,name) = NULL; \
@@ -1150,12 +1160,12 @@ typedef struct MOCK_CALL_METADATA_TAG
         MU_FOR_EACH_2(AUTO_IGNORE_ARG, __VA_ARGS__) \
         return result; \
     } \
-    MU_C3(auto_ignore_args_function_,name,_type) UMOCK_STATIC MU_C2(get_auto_ignore_args_function_,name)(MU_IF(MU_COUNT_ARG(__VA_ARGS__),,void) MU_FOR_EACH_2_COUNTED(ARG_IN_SIGNATURE, __VA_ARGS__)) \
+    MU_C3(auto_ignore_args_function_,name,_type) MU_C2(get_auto_ignore_args_function_,name)(MU_IF(MU_COUNT_ARG(__VA_ARGS__),,void) MU_FOR_EACH_2_COUNTED(ARG_IN_SIGNATURE, __VA_ARGS__)) \
     { \
         MU_FOR_EACH_2(UNUSED_ARG, __VA_ARGS__) \
         return MU_C2(auto_ignore_args_function_,name); \
     } \
-    UMOCK_STATIC char* MU_C2(mock_call_data_stringify_,name)(void* mock_call_data) \
+    char* MU_C2(mock_call_data_stringify_,name)(void* mock_call_data) \
     { \
         char* result; \
         MU_IF(MU_COUNT_ARG(__VA_ARGS__), MU_C2(mock_call_,name)* typed_mock_call_data = (MU_C2(mock_call_,name)*)mock_call_data;,) \
@@ -1193,7 +1203,7 @@ typedef struct MOCK_CALL_METADATA_TAG
         MU_FOR_EACH_2(STRINGIFY_ARGS_FREE_STRINGIFIED_ARG, __VA_ARGS__) \
         return result; \
     } \
-    UMOCK_STATIC int MU_C2(mock_call_data_are_equal_,name)(void* left, void* right) \
+    int MU_C2(mock_call_data_are_equal_,name)(void* left, void* right) \
     { \
         int result; \
         if (left == right) \
@@ -1216,7 +1226,7 @@ typedef struct MOCK_CALL_METADATA_TAG
         } \
         return result; \
     } \
-    UMOCK_STATIC void MU_C2(mock_call_data_free_func_,name)(void* mock_call_data) \
+    void MU_C2(mock_call_data_free_func_,name)(void* mock_call_data) \
     { \
         MU_C2(mock_call_,name)* typed_mock_call_data = (MU_C2(mock_call_,name)*)mock_call_data; \
         MU_FOR_EACH_2_COUNTED(FREE_ARG_VALUE, __VA_ARGS__) \
@@ -1233,7 +1243,7 @@ typedef struct MOCK_CALL_METADATA_TAG
         },) \
         umockalloc_free(typed_mock_call_data); \
     } \
-    UMOCK_STATIC void* MU_C2(mock_call_data_copy_func_,name)(void* mock_call_data) \
+    void* MU_C2(mock_call_data_copy_func_,name)(void* mock_call_data) \
     { \
         MU_C2(mock_call_,name)* result = (MU_C2(mock_call_,name)*)umockalloc_malloc(sizeof(MU_C2(mock_call_,name))); \
         MU_IF(MU_COUNT_ARG(__VA_ARGS__), MU_C2(mock_call_,name)* typed_mock_call_data = (MU_C2(mock_call_,name)*)mock_call_data;,) \
@@ -1261,20 +1271,23 @@ typedef struct MOCK_CALL_METADATA_TAG
         return result; \
     } \
     MU_IF(IS_NOT_VOID(return_type), \
-    IMPLEMENT_SET_RETURN_FUNCTION(return_type, name, __VA_ARGS__) \
-    IMPLEMENT_SET_FAIL_RETURN_FUNCTION(return_type, name, __VA_ARGS__) \
-    IMPLEMENT_SET_CALL_CANNOT_FAIL(return_type, name, __VA_ARGS__) \
-    IMPLEMENT_CAPTURE_RETURN_FUNCTION(return_type, name, __VA_ARGS__),) \
-    MU_IF(MU_COUNT_ARG(__VA_ARGS__),MU_FOR_EACH_2_KEEP_1(IMPLEMENT_IGNORE_ARGUMENT_BY_NAME_FUNCTION, name, __VA_ARGS__) \
-    MU_FOR_EACH_2_KEEP_1(IMPLEMENT_VALIDATE_ARGUMENT_BY_NAME_FUNCTION, name, __VA_ARGS__) \
-    IMPLEMENT_IGNORE_ARGUMENT_FUNCTION(return_type, name, __VA_ARGS__) \
-    IMPLEMENT_VALIDATE_ARGUMENT_FUNCTION(return_type, name, __VA_ARGS__) \
-    IMPLEMENT_COPY_OUT_ARGUMENT_BUFFER_FUNCTION(return_type, name, __VA_ARGS__) \
-    MU_FOR_EACH_2_KEEP_1(IMPLEMENT_COPY_OUT_ARGUMENT_BUFFER_BY_NAME_FUNCTION, name, __VA_ARGS__) \
-    IMPLEMENT_COPY_OUT_ARGUMENT_FUNCTION(return_type, name, __VA_ARGS__) \
-    IMPLEMENT_VALIDATE_ARGUMENT_BUFFER_FUNCTION(return_type, name, __VA_ARGS__) \
-    MU_FOR_EACH_2_KEEP_1(IMPLEMENT_VALIDATE_ARGUMENT_VALUE_BY_NAME_FUNCTION, name, __VA_ARGS__) \
-    MU_FOR_EACH_2_KEEP_1(IMPLEMENT_VALIDATE_ARGUMENT_VALUE_AS_TYPE_BY_NAME_FUNCTION, name, __VA_ARGS__),) \
+        IMPLEMENT_SET_RETURN_FUNCTION(return_type, name, __VA_ARGS__) \
+        IMPLEMENT_SET_FAIL_RETURN_FUNCTION(return_type, name, __VA_ARGS__) \
+        IMPLEMENT_SET_CALL_CANNOT_FAIL(return_type, name, __VA_ARGS__) \
+        IMPLEMENT_CAPTURE_RETURN_FUNCTION(return_type, name, __VA_ARGS__) \
+    ,) \
+    MU_IF(MU_COUNT_ARG(__VA_ARGS__), \
+        MU_FOR_EACH_2_KEEP_1(IMPLEMENT_IGNORE_ARGUMENT_BY_NAME_FUNCTION, name, __VA_ARGS__) \
+        MU_FOR_EACH_2_KEEP_1(IMPLEMENT_VALIDATE_ARGUMENT_BY_NAME_FUNCTION, name, __VA_ARGS__) \
+        IMPLEMENT_IGNORE_ARGUMENT_FUNCTION(return_type, name, __VA_ARGS__) \
+        IMPLEMENT_VALIDATE_ARGUMENT_FUNCTION(return_type, name, __VA_ARGS__) \
+        IMPLEMENT_COPY_OUT_ARGUMENT_BUFFER_FUNCTION(return_type, name, __VA_ARGS__) \
+        MU_FOR_EACH_2_KEEP_1(IMPLEMENT_COPY_OUT_ARGUMENT_BUFFER_BY_NAME_FUNCTION, name, __VA_ARGS__) \
+        IMPLEMENT_COPY_OUT_ARGUMENT_FUNCTION(return_type, name, __VA_ARGS__) \
+        IMPLEMENT_VALIDATE_ARGUMENT_BUFFER_FUNCTION(return_type, name, __VA_ARGS__) \
+        MU_FOR_EACH_2_KEEP_1(IMPLEMENT_VALIDATE_ARGUMENT_VALUE_BY_NAME_FUNCTION, name, __VA_ARGS__) \
+        MU_FOR_EACH_2_KEEP_1(IMPLEMENT_VALIDATE_ARGUMENT_VALUE_AS_TYPE_BY_NAME_FUNCTION, name, __VA_ARGS__) \
+    ,) \
     MU_FOR_EACH_2_KEEP_1(IMPLEMENT_CAPTURE_ARGUMENT_VALUE_BY_NAME_FUNCTION, name, __VA_ARGS__) \
     IMPLEMENT_IGNORE_ALL_CALLS_FUNCTION(return_type, name, __VA_ARGS__) \
     IMPLEMENT_REGISTER_GLOBAL_MOCK_HOOK(return_type, name, __VA_ARGS__) \
@@ -1292,7 +1305,7 @@ typedef struct MOCK_CALL_METADATA_TAG
 /* Codes_SRS_UMOCK_C_LIB_01_195: [ If any error occurs during the destroy_call related then umock_c shall raise an error with the code UMOCK_C_ERROR. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_194: [ If the first argument passed to destroy_call is not found in the list of tracked handles (returned by create_call) then umock_c shall raise an error with the code UMOCK_C_INVALID_PAIRED_CALLS. ]*/
 #define MOCKABLE_FUNCTION_BODY_WITHOUT_RETURN(modifiers, return_type, name, ...) \
-    UMOCK_STATIC return_type modifiers name(MU_IF(MU_COUNT_ARG(__VA_ARGS__),,void) MU_FOR_EACH_2_COUNTED(ARG_IN_SIGNATURE, __VA_ARGS__)) \
+    return_type modifiers name(MU_IF(MU_COUNT_ARG(__VA_ARGS__),,void) MU_FOR_EACH_2_COUNTED(ARG_IN_SIGNATURE, __VA_ARGS__)) \
     { \
         UMOCKCALL_HANDLE mock_call; \
         UMOCKCALL_HANDLE matched_call; \
