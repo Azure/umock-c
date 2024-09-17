@@ -26,6 +26,11 @@
 #define UMOCK_C_PROD_IS_NOT_VOID(x) \
     MU_IF(MU_C2(UMOCK_C_PROD_TEST_,x), 1, 0)
 
+#ifdef ENABLE_MOCKS_DECL
+
+
+
+#else /*ENABLE_MOCKS_DECL*/
 #ifdef ENABLE_MOCKS
 
 #ifdef ENABLE_MOCK_FILTERING
@@ -83,7 +88,7 @@
 
 #include "umock_c/umock_c.h"
 
-#else
+#else /*ENABLE_MOCKS*/
 
 #define UMOCK_C_PROD_ARG_IN_SIGNATURE(count, arg_type, arg_name) arg_type arg_name MU_IFCOMMA(count)
 
@@ -128,3 +133,5 @@
 #define MOCKABLE_FUNCTION_WITH_CODE_END(...) \
 
 #endif
+
+#endif /*ENABLE_MOCKS_DECL*/
