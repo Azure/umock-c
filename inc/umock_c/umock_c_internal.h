@@ -967,6 +967,8 @@ typedef struct MOCK_CALL_METADATA_TAG
     extern PAIRED_HANDLES MU_C2(paired_handles_,name); \
     extern PAIRED_HANDLES* MU_C2(used_paired_handles_,name); \
     extern const MOCK_CALL_ARG_METADATA MU_C2(mock_call_args_metadata_,name)[MU_IF(MU_COUNT_ARG(__VA_ARGS__), MU_DIV2(MU_COUNT_ARG(__VA_ARGS__)), 1)]; \
+    extern const MOCK_CALL_METADATA MU_C2(mock_call_metadata_,name) = {MU_TOSTRING(return_type), MU_TOSTRING(name), MU_DIV2(MU_COUNT_ARG(__VA_ARGS__)), \
+        MU_C2(mock_call_args_metadata_,name) }; \
 
 #define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE_IMPL(do_returns, return_type, name, ...) \
     MU_C2(mock_hook_func_type_,name) MU_C2(mock_hook_,name) = NULL; \
