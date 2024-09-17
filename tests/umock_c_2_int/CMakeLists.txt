@@ -4,7 +4,7 @@
 set(theseTestsName umock_c_2_int)
 
 set(${theseTestsName}_test_files
-    umock_c_int.c
+    umock_c_2_int.c
 )
 
 set(${theseTestsName}_c_files
