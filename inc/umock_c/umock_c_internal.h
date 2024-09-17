@@ -1039,6 +1039,11 @@ typedef struct MOCK_CALL_METADATA_TAG
         MU_FOR_EACH_2_KEEP_1(DECLARE_CAPTURE_ARGUMENT_VALUE_FUNCTION_PROTOTYPE, name, __VA_ARGS__) \
         typedef struct MU_C2(_mock_call_modifier_,name) (*MU_C2(ignore_one_argument_func_type_,name))(void); \
     ,) \
+    MU_IF(MU_COUNT_ARG(__VA_ARGS__), \
+        extern const MU_C2(ignore_one_argument_func_type_,name) MU_C2(ignore_one_argument_array_,name)[];\
+    ,) \
+    DECLARE_VALIDATE_ONE_ARGUMENT_FUNC_TYPE(name) \
+    extern const MU_C2(validate_one_argument_func_type_,name) MU_C2(validate_one_argument_array_,name)[];
 
 #define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE_IMPL(do_returns, return_type, name, ...) \
     MU_C2(mock_hook_func_type_,name) MU_C2(mock_hook_,name) = NULL; \
@@ -1066,15 +1071,19 @@ typedef struct MOCK_CALL_METADATA_TAG
             ) \
         ,) \
     ,) \
-    MU_IF(MU_COUNT_ARG(__VA_ARGS__), static const MU_C2(ignore_one_argument_func_type_,name) MU_C2(ignore_one_argument_array_,name)[] = \
-    {,) \
-        MU_FOR_EACH_2_KEEP_1(IGNORE_ARGUMENT_FUNCTION_IN_ARRAY, name, __VA_ARGS__) \
-    MU_IF(MU_COUNT_ARG(__VA_ARGS__), }; \
-    DECLARE_VALIDATE_ONE_ARGUMENT_FUNC_TYPE(name) \
-    static const MU_C2(validate_one_argument_func_type_,name) MU_C2(validate_one_argument_array_,name)[] = \
-    {,) \
+    MU_IF(MU_COUNT_ARG(__VA_ARGS__), \
+        const MU_C2(ignore_one_argument_func_type_,name) MU_C2(ignore_one_argument_array_,name)[] = { \
+    ,) \
+    MU_FOR_EACH_2_KEEP_1(IGNORE_ARGUMENT_FUNCTION_IN_ARRAY, name, __VA_ARGS__) \
+    MU_IF(MU_COUNT_ARG(__VA_ARGS__), \
+        }; \
+        DECLARE_VALIDATE_ONE_ARGUMENT_FUNC_TYPE(name) \
+        const MU_C2(validate_one_argument_func_type_,name) MU_C2(validate_one_argument_array_,name)[] = { \
+    ,) \
         MU_FOR_EACH_2_KEEP_1(VALIDATE_ARGUMENT_FUNCTION_IN_ARRAY, name, __VA_ARGS__) \
-    MU_IF(MU_COUNT_ARG(__VA_ARGS__),};,) \
+    MU_IF(MU_COUNT_ARG(__VA_ARGS__),\
+        };  \
+    ,) \
     static void MU_C2(fill_mock_call_modifier_,name)(MU_C2(mock_call_modifier_,name)* mock_call_modifier) \
     { \
         MU_IF(IS_NOT_VOID(return_type),mock_call_modifier->SetReturn = MU_C2(set_return_func_,name); \
