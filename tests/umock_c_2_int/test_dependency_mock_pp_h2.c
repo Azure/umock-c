@@ -1,5 +1,6 @@
 #if 1
 /*QWQWQW*/
+#define MOCKABLE_FUNCTION MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE_DECL
 #include "test_dependency_mock.h"
 /*WEWEWE*/
 #else
