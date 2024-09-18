@@ -67,6 +67,8 @@ if(NOT ${build_yet})
 
     # Add the preprocessed file to the library
     add_library(umock_c_2_mock_pp STATIC
+        ${SOURCE_FILE}
+        ${SOURCE_FILE_2}
         ${CMAKE_CURRENT_BINARY_DIR}/${PP_FILE}
         ${CMAKE_CURRENT_BINARY_DIR}/${PP_FILE_2}
     )
@@ -76,8 +78,11 @@ if(NOT ${build_yet})
             FOLDER "tests/umockc_tests"
     )
 
-    target_sources(umock_c_2_mock_pp PRIVATE
-        ${SOURCE_FILE}
-        ${SOURCE_FILE_2}
-    )
+    #target_sources(umock_c_2_mock_pp
+    #    PRIVATE
+    #
+    #)
+
+    set_source_files_properties(${SOURCE_FILE} PROPERTIES HEADER_FILE_ONLY TRUE)
+    set_source_files_properties(${SOURCE_FILE_2} PROPERTIES HEADER_FILE_ONLY TRUE)
 endif()
