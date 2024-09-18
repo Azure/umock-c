@@ -1428,8 +1428,12 @@ typedef struct MOCK_CALL_METADATA_TAG
 /* Codes_SRS_UMOCK_C_LIB_01_191: [ At each create_call a memory block shall be allocated so that it can be reported as a leak by any memory checker. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_192: [ If any error occurs during the create_call related then umock_c shall raise an error with the code UMOCK_C_ERROR. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_204: [ Tracking of paired calls shall not be done if the actual call to the create_call is using the SetFailReturn call modifier. ]*/
-#define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK(do_returns, modifiers, return_type, name, ...) \
-    MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE(do_returns, return_type, name, __VA_ARGS__) \
+
+#define  MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_DECL(do_returns, modifiers, return_type, name, ...) \
+    MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE_DECL(do_returns, return_type, name, __VA_ARGS__) \
+
+#define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_IMPL(do_returns, modifiers, return_type, name, ...) \
+    MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE_IMPL(do_returns, return_type, name, __VA_ARGS__) \
     MOCKABLE_FUNCTION_BODY_WITHOUT_RETURN(modifiers, return_type, name, __VA_ARGS__) \
             MU_IF(IS_NOT_VOID(return_type), \
             if (result_value_set_C8417226_7442_49B4_BBB9_9CA816A21EB7 == 0) \
@@ -1461,10 +1465,22 @@ typedef struct MOCK_CALL_METADATA_TAG
         ,) \
     ,) \
 
+#define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK(do_returns, modifiers, return_type, name, ...) \
+    MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_DECL(do_returns, modifiers, return_type, name, __VA_ARGS__) \
+    MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_IMPL(do_returns, modifiers, return_type, name, __VA_ARGS__) \
+
+#define MOCK_FUNCTION_WITH_CODE_DECL(modifiers, return_type, name, ...) \
+    MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE_DECL(0, return_type, name, __VA_ARGS__) \
+    return_type modifiers name(MU_IF(MU_COUNT_ARG(__VA_ARGS__),,void) MU_FOR_EACH_2_COUNTED(ARG_IN_SIGNATURE, __VA_ARGS__));
+
+#define MOCK_FUNCTION_WITH_CODE_IMPL(modifiers, return_type, name, ...) \
+    MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE_IMPL(0, return_type, name, __VA_ARGS__) \
+    MOCKABLE_FUNCTION_BODY_WITHOUT_RETURN(modifiers, return_type, name, __VA_ARGS__) \
+
 /* Codes_SRS_UMOCK_C_LIB_01_150: [ MOCK_FUNCTION_WITH_CODE shall define a mock function and allow the user to embed code between this define and a MOCK_FUNCTION_END call. ]*/
 #define MOCK_FUNCTION_WITH_CODE(modifiers, return_type, name, ...) \
-    MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE(0, return_type, name, __VA_ARGS__) \
-    MOCKABLE_FUNCTION_BODY_WITHOUT_RETURN(modifiers, return_type, name, __VA_ARGS__) \
+    MOCK_FUNCTION_WITH_CODE_DECL(modifiers, return_type, name, __VA_ARGS__) \
+    MOCK_FUNCTION_WITH_CODE_IMPL(modifiers, return_type, name, __VA_ARGS__) \
 
 #define MOCKABLE_FUNCTION_INTERNAL_WITH_CODE(modifiers, return_type, name, ...) \
     MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE(0, return_type, name, __VA_ARGS__) \

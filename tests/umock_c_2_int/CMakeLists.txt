@@ -31,9 +31,9 @@ if(NOT ${build_yet})
 
     set(build_yet TRUE PARENT_SCOPE)
 
-    get_target_property(INCLUDE_DIRS umock_c_2_int_lib_umock_c INCLUDE_DIRECTORIES)
+    #get_target_property(INCLUDE_DIRS umock_c_int_lib_umock_c INCLUDE_DIRECTORIES)
 
-    # Create a string with all include directories
+    #Create a string with all include directories
     set(INCLUDE_FLAGS "")
     foreach(dir ${INCLUDE_DIRS})
         set(INCLUDE_FLAGS "/I\"${dir}\" ${INCLUDE_FLAGS}")
@@ -62,6 +62,9 @@ if(NOT ${build_yet})
         COMMAND ${CMAKE_C_COMPILER} /P /C /EP /std:c17 /Zc:preprocessor ${INCLUDE_FLAGS} ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE_FILE_2} /Fi"${CMAKE_CURRENT_BINARY_DIR}/${PP_FILE_2}"
         COMMAND clang-format -i "${CMAKE_CURRENT_BINARY_DIR}/${PP_FILE_2}"
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE_FILE_2}
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/umock_c/umock_c_internal.h
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/umock_c/umock_c_prod.h
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/umock_c/umock_c.h
         COMMENT "Preprocessing ${CMAKE_CURRENT_BINARY_DIR}/${PP_FILE_2} from  ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE_FILE_2} with include directories from umock_c_2_int_lib_umock_c"
     )
 

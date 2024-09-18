@@ -26,11 +26,7 @@
 #define UMOCK_C_PROD_IS_NOT_VOID(x) \
     MU_IF(MU_C2(UMOCK_C_PROD_TEST_,x), 1, 0)
 
-#ifdef ENABLE_MOCKS_DECL
 
-
-
-#else /*ENABLE_MOCKS_DECL*/
 #ifdef ENABLE_MOCKS
 
 #ifdef ENABLE_MOCK_FILTERING
@@ -48,6 +44,28 @@
     result modifiers function(MU_IF(MU_COUNT_ARG(__VA_ARGS__), , void) MU_FOR_EACH_2_COUNTED(UMOCK_C_PROD_ARG_IN_SIGNATURE, __VA_ARGS__)); \
     MU_IF(do_returns, MU_IF(UMOCK_C_PROD_IS_NOT_VOID(result), DO_NOTHING_WITH_RETURN_VALUES,), )
 
+#ifdef ENABLE_MOCKS_DECL
+
+/* Codes_SRS_UMOCK_C_LIB_01_001: [MOCKABLE_FUNCTION shall be used to wrap function definition allowing the user to declare a function that can be mocked.]*/
+#define MOCKABLE_FUNCTION(modifiers, result, function, ...) \
+    MU_IF(ENABLE_MOCK_FILTERING_SWITCH, \
+        MU_IF(MU_C2(please_mock_, function), \
+            MOCKABLE_FUNCTION_DISABLED, \
+            MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_DECL \
+        ), \
+        MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_DECL) (0, modifiers, result, function, __VA_ARGS__)
+
+/* Codes_SRS_UMOCK_C_LIB_01_212: [ MOCKABLE_FUNCTION_WITH_RETURNS shall be used to wrap function definitions, allowing the user to declare a function that can be mocked and aditionally declares the values that are to be returned in case of success and failure. ]*/
+#define MOCKABLE_FUNCTION_WITH_RETURNS(modifiers, result, function, ...) \
+    MU_IF(ENABLE_MOCK_FILTERING_SWITCH, \
+        MU_IF(MU_C2(please_mock_, function), \
+            MOCKABLE_FUNCTION_DISABLED, \
+            MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_DECL \
+        ), \
+        MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_DECL) (1, modifiers, result, function, __VA_ARGS__)
+
+#else /*ENABLE_MOCKS_DECL*/
+
 /* Codes_SRS_UMOCK_C_LIB_01_001: [MOCKABLE_FUNCTION shall be used to wrap function definition allowing the user to declare a function that can be mocked.]*/
 #define MOCKABLE_FUNCTION(modifiers, result, function, ...) \
     MU_IF(ENABLE_MOCK_FILTERING_SWITCH,MU_IF(MU_C2(please_mock_, function),MOCKABLE_FUNCTION_DISABLED,MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK), MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK) (0, modifiers, result, function, __VA_ARGS__)
@@ -55,6 +73,10 @@
 /* Codes_SRS_UMOCK_C_LIB_01_212: [ MOCKABLE_FUNCTION_WITH_RETURNS shall be used to wrap function definitions, allowing the user to declare a function that can be mocked and aditionally declares the values that are to be returned in case of success and failure. ]*/
 #define MOCKABLE_FUNCTION_WITH_RETURNS(modifiers, result, function, ...) \
     MU_IF(ENABLE_MOCK_FILTERING_SWITCH,MU_IF(MU_C2(please_mock_, function),MOCKABLE_FUNCTION_DISABLED,MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK), MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK) (1, modifiers, result, function, __VA_ARGS__)
+
+#endif /*ENABLE_MOCKS_DECL*/
+
+
 
 // The below MOCKABLE_FUNCTION_WITH_CODE macros are a temporary solution and should not be used for long term
 // They will be removed once the real support is in umock_c
@@ -133,5 +155,3 @@
 #define MOCKABLE_FUNCTION_WITH_CODE_END(...) \
 
 #endif
-
-#endif /*ENABLE_MOCKS_DECL*/
