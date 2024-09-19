@@ -853,9 +853,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
     IMPLEMENT_MOCK_FUNCTION_DECL(umock_c_expected_, 1, return_type, name, __VA_ARGS__)
 
 #define IMPLEMENT_EXPECTED_MOCK_IMPL(return_type, name, ...) \
-    int ZZZ1; \
     IMPLEMENT_MOCK_FUNCTION_IMPL(umock_c_expected_, 1, return_type, name, __VA_ARGS__)
-    int ZZZ2; \
 
 #define IMPLEMENT_REGISTER_GLOBAL_MOCK_HOOK_DECL(return_type, name, ...) \
     void MU_C2(set_global_mock_hook_,name)(MU_C2(mock_hook_func_type_, name) mock_return_hook);
