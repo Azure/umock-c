@@ -31,7 +31,7 @@ if(NOT ${build_yet})
 
     set(build_yet TRUE PARENT_SCOPE)
 
-    #get_target_property(INCLUDE_DIRS umock_c_int_lib_umock_c INCLUDE_DIRECTORIES)
+    get_target_property(INCLUDE_DIRS umock_c_int_lib_umock_c INCLUDE_DIRECTORIES)
 
     #Create a string with all include directories
     set(INCLUDE_FLAGS "")
@@ -39,7 +39,7 @@ if(NOT ${build_yet})
         set(INCLUDE_FLAGS "/I\"${dir}\" ${INCLUDE_FLAGS}")
     endforeach()
 
-    #MESSAGE("include is ${INCLUDE_FLAGS}")
+    MESSAGE("include is ${INCLUDE_FLAGS}")
 
     SET(SOURCE_FILE test_dependency_mock_pp_c1.c)
     SET(PP_FILE     test_dependency_mock_pp_c1_pp.c)
@@ -50,6 +50,9 @@ if(NOT ${build_yet})
         COMMAND ${CMAKE_C_COMPILER} /P /C /EP /std:c17 /Zc:preprocessor ${INCLUDE_FLAGS} ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE_FILE} /Fi"${CMAKE_CURRENT_BINARY_DIR}/${PP_FILE}"
         COMMAND clang-format -i "${CMAKE_CURRENT_BINARY_DIR}/${PP_FILE}"
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE_FILE}
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/umock_c/umock_c_internal.h
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/umock_c/umock_c_prod.h
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/umock_c/umock_c.h
         COMMENT "Preprocessing ${CMAKE_CURRENT_BINARY_DIR}/${PP_FILE} from  ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE_FILE} with include directories from umock_c_2_int_lib_umock_c"
     )
 
@@ -80,11 +83,6 @@ if(NOT ${build_yet})
         PROPERTIES
             FOLDER "tests/umockc_tests"
     )
-
-    #target_sources(umock_c_2_mock_pp
-    #    PRIVATE
-    #
-    #)
 
     set_source_files_properties(${SOURCE_FILE} PROPERTIES HEADER_FILE_ONLY TRUE)
     set_source_files_properties(${SOURCE_FILE_2} PROPERTIES HEADER_FILE_ONLY TRUE)

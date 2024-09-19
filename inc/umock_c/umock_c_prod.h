@@ -29,6 +29,8 @@
 
 #ifdef ENABLE_MOCKS
 
+#pragma message ("ENABLE_MOCKS was defined")
+
 #ifdef ENABLE_MOCK_FILTERING
 #define ENABLE_MOCK_FILTERING_SWITCH 1
 #else
@@ -46,6 +48,8 @@
 
 #ifdef ENABLE_MOCKS_DECL
 
+#pragma message ("ENABLE_MOCKS_DECL was defined")
+
 /* Codes_SRS_UMOCK_C_LIB_01_001: [MOCKABLE_FUNCTION shall be used to wrap function definition allowing the user to declare a function that can be mocked.]*/
 #define MOCKABLE_FUNCTION(modifiers, result, function, ...) \
     MU_IF(ENABLE_MOCK_FILTERING_SWITCH, \
@@ -53,7 +57,7 @@
             MOCKABLE_FUNCTION_DISABLED, \
             MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_DECL \
         ), \
-        MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_DECL) (0, modifiers, result, function, __VA_ARGS__)
+        MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_DECL) (0, 0, modifiers, result, function, __VA_ARGS__)
 
 /* Codes_SRS_UMOCK_C_LIB_01_212: [ MOCKABLE_FUNCTION_WITH_RETURNS shall be used to wrap function definitions, allowing the user to declare a function that can be mocked and aditionally declares the values that are to be returned in case of success and failure. ]*/
 #define MOCKABLE_FUNCTION_WITH_RETURNS(modifiers, result, function, ...) \
@@ -62,9 +66,11 @@
             MOCKABLE_FUNCTION_DISABLED, \
             MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_DECL \
         ), \
-        MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_DECL) (1, modifiers, result, function, __VA_ARGS__)
+        MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_DECL) (1, 1, modifiers, result, function, __VA_ARGS__)
 
 #else /*ENABLE_MOCKS_DECL*/
+
+#pragma message ("ENABLE_MOCKS_DECL was NOT defined")
 
 /* Codes_SRS_UMOCK_C_LIB_01_001: [MOCKABLE_FUNCTION shall be used to wrap function definition allowing the user to declare a function that can be mocked.]*/
 #define MOCKABLE_FUNCTION(modifiers, result, function, ...) \
@@ -111,6 +117,8 @@
 #include "umock_c/umock_c.h"
 
 #else /*ENABLE_MOCKS*/
+
+#pragma message ("ENABLE_MOCKS was NOT defined")
 
 #define UMOCK_C_PROD_ARG_IN_SIGNATURE(count, arg_type, arg_name) arg_type arg_name MU_IFCOMMA(count)
 
