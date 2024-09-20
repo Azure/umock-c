@@ -1011,13 +1011,9 @@ IMPL        1             x             in all cases of IMPL the returns cannot 
 
 #define MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_NO_CODE_DECL(has_returns, eat_returns, return_type, name, ...) \
     MU_IF(has_returns,                  \
-        MU_IF(eat_returns,              \
-            ,                           \
-            const int MU_C2(produce_error, __COUNTER__) = __COUNTER__; /*returns are always eaten in DECL contexts*/;       \
-        )                               \
         ,                               \
         MU_IF(eat_returns,              \
-            int MU_C2(produce_error, __COUNTER__)[-2]; /*how do you eat that which does not exist*/      \
+            int produce_error[-2]; /*how do you eat that which does not exist*/      \
             ,                           \
         )                               \
     ) \
