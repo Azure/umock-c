@@ -1148,7 +1148,7 @@ IMPL        1             x             in all cases of IMPL the returns cannot 
     IMPLEMENT_EXPECTED_MOCK_DECL(return_type, name, __VA_ARGS__); \
     MOCKABLE_FUNCTION_BODY_WITHOUT_RETURN_DECL(return_type, name, __VA_ARGS__); \
     MU_IF(eat_returns, \
-        const char* MU_C2(has_returnss, __COUNTER__)=#has_returns; const char* MU_C2(eat_returnss, __COUNTER__)=#eat_returns;  DO_NOTHING_WITH_RETURN_VALUES \
+        DO_NOTHING_WITH_RETURN_VALUES \
         , /*nothing*/ \
     ) \
 
