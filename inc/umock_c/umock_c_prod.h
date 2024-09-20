@@ -68,6 +68,10 @@
         ), \
         MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK_DECL) (1, 1, modifiers, result, function, __VA_ARGS__)
 
+#define MOCKABLE_INTERFACE(interface_name, ...) \
+    MU_FOR_EACH_1(EXPAND_ENTRY, __VA_ARGS__) \
+    void MU_C2(register_reals_, interface_name)(void);
+
 #else /*ENABLE_MOCKS_DECL*/
 
 //#pragma message ("ENABLE_MOCKS_DECL was NOT defined")
@@ -79,6 +83,13 @@
 /* Codes_SRS_UMOCK_C_LIB_01_212: [ MOCKABLE_FUNCTION_WITH_RETURNS shall be used to wrap function definitions, allowing the user to declare a function that can be mocked and aditionally declares the values that are to be returned in case of success and failure. ]*/
 #define MOCKABLE_FUNCTION_WITH_RETURNS(modifiers, result, function, ...) \
     MU_IF(ENABLE_MOCK_FILTERING_SWITCH,MU_IF(MU_C2(please_mock_, function),MOCKABLE_FUNCTION_DISABLED,MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK), MOCKABLE_FUNCTION_UMOCK_INTERNAL_WITH_MOCK) (1, modifiers, result, function, __VA_ARGS__)
+
+#define MOCKABLE_INTERFACE(interface_name, ...) \
+    MU_FOR_EACH_1(EXPAND_ENTRY, __VA_ARGS__) \
+    void MU_C2(register_reals_, interface_name)(void) \
+    { \
+        MU_FOR_EACH_1(REGISTER_GLOBAL_MOCK_REAL, __VA_ARGS__); \
+    } \
 
 #endif /*ENABLE_MOCKS_DECL*/
 
@@ -107,12 +118,7 @@
 
 /* Codes_SRS_UMOCK_C_LIB_01_215: [ Each item in ... shall be an entry for one mockable function. ]*/
 /* Codes_SRS_UMOCK_C_LIB_01_216: [ Each item in ... shall be defined using a macro called FUNCTION, which shall be an alias for MOCKABLE_FUNCTION. ]*/
-#define MOCKABLE_INTERFACE(interface_name, ...) \
-    MU_FOR_EACH_1(EXPAND_ENTRY, __VA_ARGS__) \
-    static void MU_C2(register_reals_, interface_name)(void) \
-    { \
-        MU_FOR_EACH_1(REGISTER_GLOBAL_MOCK_REAL, __VA_ARGS__); \
-    } \
+
 
 #include "umock_c/umock_c.h"
 
