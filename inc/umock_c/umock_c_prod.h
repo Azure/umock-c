@@ -29,7 +29,7 @@
 
 #ifdef ENABLE_MOCKS
 
-#pragma message ("ENABLE_MOCKS was defined")
+//#pragma message ("ENABLE_MOCKS was defined")
 
 #ifdef ENABLE_MOCK_FILTERING
 #define ENABLE_MOCK_FILTERING_SWITCH 1
@@ -48,7 +48,7 @@
 
 #ifdef ENABLE_MOCKS_DECL
 
-#pragma message ("ENABLE_MOCKS_DECL was defined")
+//#pragma message ("ENABLE_MOCKS_DECL was defined")
 
 /* Codes_SRS_UMOCK_C_LIB_01_001: [MOCKABLE_FUNCTION shall be used to wrap function definition allowing the user to declare a function that can be mocked.]*/
 #define MOCKABLE_FUNCTION(modifiers, result, function, ...) \
@@ -70,7 +70,7 @@
 
 #else /*ENABLE_MOCKS_DECL*/
 
-#pragma message ("ENABLE_MOCKS_DECL was NOT defined")
+//#pragma message ("ENABLE_MOCKS_DECL was NOT defined")
 
 /* Codes_SRS_UMOCK_C_LIB_01_001: [MOCKABLE_FUNCTION shall be used to wrap function definition allowing the user to declare a function that can be mocked.]*/
 #define MOCKABLE_FUNCTION(modifiers, result, function, ...) \
@@ -118,7 +118,7 @@
 
 #else /*ENABLE_MOCKS*/
 
-#pragma message ("ENABLE_MOCKS was NOT defined")
+//#pragma message ("ENABLE_MOCKS was NOT defined")
 
 #define UMOCK_C_PROD_ARG_IN_SIGNATURE(count, arg_type, arg_name) arg_type arg_name MU_IFCOMMA(count)
 
