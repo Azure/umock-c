@@ -21,3 +21,17 @@ IMPLEMENT_MOCKABLE_FUNCTION(, int, test_dependency_2_args, int, a, int, b)
     (void)b;
     return 42;
 }
+
+
+IMPLEMENT_MOCKABLE_FUNCTION(, int, test_dependency_1_arg_no_real, int, a)
+{
+    (void)a;
+    return 44;
+}
+
+IMPLEMENT_MOCKABLE_FUNCTION(, int, test_dependency_2_args_no_real, int, a, int, b)
+{
+    (void)a;
+    (void)b;
+    return 44;
+}
