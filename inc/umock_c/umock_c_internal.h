@@ -581,9 +581,13 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
         return mock_call_modifier; \
     } \
 
+
+#define IMPLEMENT_IGNORE_ALL_CALLS_FUNCTION_DECL(return_type, name, ...) \
+    MU_C2(mock_call_modifier_,name) MU_C2(ignore_all_calls_func_,name)(void); \
+
 /* Codes_SRS_UMOCK_C_LIB_01_101: [The IgnoreAllCalls call modifier shall record that all calls matching the expected call shall be ignored. If no matching call occurs no missing call shall be reported.]*/
 /* Codes_SRS_UMOCK_C_LIB_01_208: [ If no matching call occurs no missing call shall be reported. ]*/
-#define IMPLEMENT_IGNORE_ALL_CALLS_FUNCTION(return_type, name, ...) \
+#define IMPLEMENT_IGNORE_ALL_CALLS_FUNCTION_IMPL(return_type, name, ...) \
     MU_C2(mock_call_modifier_,name) MU_C2(ignore_all_calls_func_,name)(void) \
     { \
         UMOCKCALL_HANDLE last_expected_call = umock_c_get_last_expected_call(); \
@@ -861,7 +865,7 @@ typedef int(*TRACK_DESTROY_FUNC_TYPE)(PAIRED_HANDLES* paired_handles, const void
 /* Codes_SRS_UMOCK_C_LIB_01_104: [The REGISTER_GLOBAL_MOCK_HOOK shall register a mock hook to be called every time the mocked function is called by production code.]*/
 /* Codes_SRS_UMOCK_C_LIB_01_107: [If there are multiple invocations of REGISTER_GLOBAL_MOCK_HOOK, the last one shall take effect over the previous ones.] */
 /* Codes_SRS_UMOCK_C_LIB_01_134: [ REGISTER_GLOBAL_MOCK_HOOK called with a NULL hook unregisters a previously registered hook. ]*/
-#define IMPLEMENT_REGISTER_GLOBAL_MOCK_HOOK(return_type, name, ...) \
+#define IMPLEMENT_REGISTER_GLOBAL_MOCK_HOOK_IMPL(return_type, name, ...) \
     void MU_C2(set_global_mock_hook_,name)(MU_C2(mock_hook_func_type_, name) mock_return_hook) \
     { \
         MU_C2(mock_hook_,name) = mock_return_hook; \
@@ -1140,6 +1144,7 @@ IMPL        1             x             in all cases of IMPL the returns cannot 
     int MU_C2(mock_call_data_are_equal_,name)(void* left, void* right); \
     void MU_C2(mock_call_data_free_func_,name)(void* mock_call_data); \
     void* MU_C2(mock_call_data_copy_func_,name)(void* mock_call_data); \
+    IMPLEMENT_IGNORE_ALL_CALLS_FUNCTION_DECL(return_type, name, __VA_ARGS__) \
     IMPLEMENT_REGISTER_GLOBAL_MOCK_HOOK_DECL(return_type, name, __VA_ARGS__); \
     IMPLEMENT_REGISTER_GLOBAL_MOCK_FAIL_RETURN_DECL(return_type, name, __VA_ARGS__); \
     IMPLEMENT_REGISTER_GLOBAL_MOCK_RETURN_DECL(return_type, name, __VA_ARGS__); \
@@ -1353,8 +1358,8 @@ IMPL        1             x             in all cases of IMPL the returns cannot 
         MU_FOR_EACH_2_KEEP_1(IMPLEMENT_VALIDATE_ARGUMENT_VALUE_AS_TYPE_BY_NAME_FUNCTION, name, __VA_ARGS__) \
     ,) \
     MU_FOR_EACH_2_KEEP_1(IMPLEMENT_CAPTURE_ARGUMENT_VALUE_BY_NAME_FUNCTION, name, __VA_ARGS__) \
-    IMPLEMENT_IGNORE_ALL_CALLS_FUNCTION(return_type, name, __VA_ARGS__) \
-    IMPLEMENT_REGISTER_GLOBAL_MOCK_HOOK(return_type, name, __VA_ARGS__) \
+    IMPLEMENT_IGNORE_ALL_CALLS_FUNCTION_IMPL(return_type, name, __VA_ARGS__) \
+    IMPLEMENT_REGISTER_GLOBAL_MOCK_HOOK_IMPL(return_type, name, __VA_ARGS__) \
     IMPLEMENT_REGISTER_GLOBAL_MOCK_RETURN_IMPL(return_type, name, __VA_ARGS__) \
     IMPLEMENT_REGISTER_GLOBAL_MOCK_FAIL_RETURN_IMPL(return_type, name, __VA_ARGS__) \
     IMPLEMENT_REGISTER_GLOBAL_MOCK_RETURNS_IMPL(return_type, name, __VA_ARGS__) \
