@@ -1360,8 +1360,8 @@ IMPL        1             x             in all cases of IMPL the returns cannot 
     MU_FOR_EACH_2_KEEP_1(IMPLEMENT_CAPTURE_ARGUMENT_VALUE_BY_NAME_FUNCTION, name, __VA_ARGS__) \
     IMPLEMENT_IGNORE_ALL_CALLS_FUNCTION_IMPL(return_type, name, __VA_ARGS__) \
     IMPLEMENT_REGISTER_GLOBAL_MOCK_HOOK_IMPL(return_type, name, __VA_ARGS__) \
-    IMPLEMENT_REGISTER_GLOBAL_MOCK_RETURN_IMPL(return_type, name, __VA_ARGS__) \
     IMPLEMENT_REGISTER_GLOBAL_MOCK_FAIL_RETURN_IMPL(return_type, name, __VA_ARGS__) \
+    IMPLEMENT_REGISTER_GLOBAL_MOCK_RETURN_IMPL(return_type, name, __VA_ARGS__) \
     IMPLEMENT_REGISTER_GLOBAL_MOCK_RETURNS_IMPL(return_type, name, __VA_ARGS__) \
     IMPLEMENT_STRICT_EXPECTED_MOCK_IMPL(return_type, name, __VA_ARGS__) \
     IMPLEMENT_EXPECTED_MOCK_IMPL(return_type, name, __VA_ARGS__) \
