@@ -106,6 +106,7 @@ const char* umock_c_get_actual_calls(void);
 const char* umock_c_get_expected_calls(void);
 UMOCKCALLRECORDER_HANDLE umock_c_get_call_recorder(void);
 int umock_c_set_call_recorder(UMOCKCALLRECORDER_HANDLE umockc_call_recorder);
+int umock_c_add_actual_call(UMOCKCALL_HANDLE mock_call, UMOCKCALL_HANDLE* matched_call);
 
 #ifdef __cplusplus
 }
