@@ -66,7 +66,7 @@
 
 #define MOCKABLE_INTERFACE(interface_name, ...) \
     MU_FOR_EACH_1(EXPAND_ENTRY, __VA_ARGS__) \
-    void MU_C2(register_reals_, interface_name)(void);
+    static void MU_C2(register_reals_, interface_name)(void);
 
 #else /*ENABLE_MOCKS_DECL*/
 
@@ -80,7 +80,7 @@
 
 #define MOCKABLE_INTERFACE(interface_name, ...) \
     MU_FOR_EACH_1(EXPAND_ENTRY, __VA_ARGS__) \
-    void MU_C2(register_reals_, interface_name)(void) \
+    static void MU_C2(register_reals_, interface_name)(void) \
     { \
         MU_FOR_EACH_1(REGISTER_GLOBAL_MOCK_REAL, __VA_ARGS__); \
     } \
