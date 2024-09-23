@@ -66,7 +66,7 @@ if(NOT ${build_yet})
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/umock_c/umock_c_internal.h
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/umock_c/umock_c_prod.h
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/umock_c/umock_c.h
-        COMMENT "WIN Preprocessing ${CMAKE_CURRENT_BINARY_DIR}/${PP_FILE} from  ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE_FILE} with include directories from umock_c_2_int_lib_umock_c, INCLUDE_FLAGS is ${INCLUDE_FLAGS}"
+        #COMMENT "WIN Preprocessing ${CMAKE_CURRENT_BINARY_DIR}/${PP_FILE} from  ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE_FILE} with include directories from umock_c_2_int_lib_umock_c, INCLUDE_FLAGS is ${INCLUDE_FLAGS}"
     )
     else()
     #gcc -E -C -o outputfile sourcefile
@@ -79,7 +79,7 @@ if(NOT ${build_yet})
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/umock_c/umock_c_internal.h
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/umock_c/umock_c_prod.h
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/umock_c/umock_c.h
-        COMMENT "LINUX COMMAND XXX${CMAKE_C_COMPILER} -E -C ${INCLUDE_FLAGS} -o ${CMAKE_CURRENT_BINARY_DIR}/${PP_FILE} ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE_FILE}XXX  INCLUDE_FLAGS is ${INCLUDE_FLAGS}"
+        #COMMENT "LINUX COMMAND XXX${CMAKE_C_COMPILER} -E -C ${INCLUDE_FLAGS} -o ${CMAKE_CURRENT_BINARY_DIR}/${PP_FILE} ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE_FILE}XXX  INCLUDE_FLAGS is ${INCLUDE_FLAGS}"
         VERBATIM
     )
     endif()
@@ -97,7 +97,7 @@ if(NOT ${build_yet})
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/umock_c/umock_c_internal.h
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/umock_c/umock_c_prod.h
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/umock_c/umock_c.h
-        COMMENT "WIN Preprocessing ${CMAKE_CURRENT_BINARY_DIR}/${PP_FILE_2} from  ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE_FILE_2} with include directories from umock_c_2_int_lib_umock_c, INCLUDE_FLAGS is ${INCLUDE_FLAGS}"
+        #COMMENT "WIN Preprocessing ${CMAKE_CURRENT_BINARY_DIR}/${PP_FILE_2} from  ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE_FILE_2} with include directories from umock_c_2_int_lib_umock_c, INCLUDE_FLAGS is ${INCLUDE_FLAGS}"
     )
     else()
         add_custom_command(
@@ -109,7 +109,7 @@ if(NOT ${build_yet})
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/umock_c/umock_c_internal.h
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/umock_c/umock_c_prod.h
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/../../inc/umock_c/umock_c.h
-        COMMENT "LINUX COMMAND XXX${CMAKE_C_COMPILER} -E -C ${INCLUDE_FLAGS} -o ${CMAKE_CURRENT_BINARY_DIR}/${PP_FILE_2} ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE_FILE_2}XXX , INCLUDE_FLAGS is ${INCLUDE_FLAGS}"
+        #COMMENT "LINUX COMMAND XXX${CMAKE_C_COMPILER} -E -C ${INCLUDE_FLAGS} -o ${CMAKE_CURRENT_BINARY_DIR}/${PP_FILE_2} ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE_FILE_2}XXX , INCLUDE_FLAGS is ${INCLUDE_FLAGS}"
         VERBATIM
     )
     endif()
@@ -127,6 +127,8 @@ if(NOT ${build_yet})
             FOLDER "tests/umockc_tests"
     )
 
-    set_source_files_properties(${SOURCE_FILE} PROPERTIES HEADER_FILE_ONLY TRUE)
-    set_source_files_properties(${SOURCE_FILE_2} PROPERTIES HEADER_FILE_ONLY TRUE)
+    set_source_files_properties(${SOURCE_FILE} PROPERTIES
+        HEADER_FILE_ONLY TRUE)
+    set_source_files_properties(${SOURCE_FILE_2} PROPERTIES
+        HEADER_FILE_ONLY TRUE)
 endif()
