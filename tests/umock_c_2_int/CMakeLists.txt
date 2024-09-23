@@ -1,7 +1,7 @@
 #Copyright (c) Microsoft. All rights reserved.
 #Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#Note: this project only exists to 
+#Note: this project only exists for the purpose of examining the result of precompilation of MOCKABLE_FUNCTION(s) in different contexts.
 
 set(theseTestsName umock_c_2_int)
 
