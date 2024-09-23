@@ -38,6 +38,7 @@
 extern "C" {
 #endif
 
+// IWYU pragma: private
 void umock_c_indicate_error(UMOCK_C_ERROR_CODE error_code);
 UMOCKCALL_HANDLE umock_c_get_last_expected_call(void);
 int umock_c_add_expected_call(UMOCKCALL_HANDLE mock_call);
