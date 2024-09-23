@@ -37,7 +37,7 @@ endif()
 #int tests
 if(${run_int_tests})
     build_test_folder(umock_c_int)
-    if((NOT ${use_vld}) AND (NOT (DEFINED CMAKE_C_INCLUDE_WHAT_YOU_USE)))
+    if((NOT ${use_vld}) AND (NOT (DEFINED CMAKE_C_INCLUDE_WHAT_YOU_USE)) AND (WIN32))
         #umock_c_2_int contains explanations why PP doesn't really work to produce compilable executables with use_vld
         build_test_folder(umock_c_2_int)
     endif()
