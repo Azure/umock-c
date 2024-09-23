@@ -3,6 +3,12 @@
 
 #Note: this project only exists for the purpose of examining the result of precompilation of MOCKABLE_FUNCTION(s) in different contexts.
 
+#Note2: vld and producing correct code as a result of precompilation is not really possible with our current set.
+#       -Duse_vld:BOOL=ON on the cmake command line will result in /FIvld.h (Force Include vld.h)
+#       - so on top of the preprocessed file, vld.h will the (force) included resulting in all the symbols that vld.h brings to be doubly defined.
+#       - this results in a non-compilable file.
+#       - therefore this project is only produced when use_vld is OFF.
+
 set(theseTestsName umock_c_2_int)
 
 set(${theseTestsName}_test_files
