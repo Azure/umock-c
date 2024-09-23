@@ -1,6 +1,8 @@
 #Copyright (c) Microsoft. All rights reserved.
 #Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+#Note: this project only exists to 
+
 set(theseTestsName umock_c_2_int)
 
 set(${theseTestsName}_test_files
@@ -44,7 +46,6 @@ if(NOT ${build_yet})
             set(INCLUDE_FLAGS -I${dir} ${INCLUDE_FLAGS})
         endforeach()
     endif()
-    MESSAGE("include is ${INCLUDE_FLAGS}")
 
     SET(SOURCE_FILE test_dependency_mock_pp_c1.c)
     SET(PP_FILE     test_dependency_mock_pp_c1_pp.c)
