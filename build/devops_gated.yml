@@ -107,10 +107,11 @@ jobs:
     workingDirectory: '$(Build.Repository.LocalPath)'
     displayName: 'git submodule update and clean'
 
-  - task: Bash@3
-    displayName: 'Build with iwyu'
-    inputs:
-      targetType: filePath
-      filePath: './build/linux/build_linux_iwyu.sh'
-      arguments: '$(Build.Repository.LocalPath)'
-      workingDirectory: '$(Build.Repository.LocalPath)'
+#re-enable with https://msazure.visualstudio.com/One/_workitems/edit/29593386
+#  - task: Bash@3
+#    displayName: 'Build with iwyu'
+#    inputs:
+#      targetType: filePath
+#      filePath: './build/linux/build_linux_iwyu.sh'
+#      arguments: '$(Build.Repository.LocalPath)'
+#      workingDirectory: '$(Build.Repository.LocalPath)'
