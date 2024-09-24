@@ -44,7 +44,7 @@ extern "C" {
             (UMOCKTYPE_FREE_FUNC)MU_C2(umocktypes_free_,function_postfix))
 
 #define IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_COMMON(enum_name, ...) \
-    UMOCK_STATIC char* MU_C2(umocktypes_stringify_,enum_name)(const enum_name* value) \
+    char* MU_C2(umocktypes_stringify_,enum_name)(const enum_name* value) \
     { \
         char* result; \
         if (value == NULL) \
@@ -92,7 +92,7 @@ extern "C" {
     IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_COMMON(enum_name, __VA_ARGS__)
 
 #define IMPLEMENT_UMOCK_C_ENUM_ARE_EQUAL(type) \
-    UMOCK_STATIC int MU_C2(umocktypes_are_equal_,type)(const type* left, const type* right) \
+    int MU_C2(umocktypes_are_equal_,type)(const type* left, const type* right) \
     { \
         int result; \
         if ((left == NULL) || (right == NULL)) \
@@ -107,7 +107,7 @@ extern "C" {
     }
 
 #define IMPLEMENT_UMOCK_C_ENUM_COPY(type) \
-    UMOCK_STATIC int MU_C2(umocktypes_copy_,type)(type* destination, const type* source) \
+    int MU_C2(umocktypes_copy_,type)(type* destination, const type* source) \
     { \
         int result; \
         if ((destination == NULL) || \
@@ -124,7 +124,7 @@ extern "C" {
     }
 
 #define IMPLEMENT_UMOCK_C_ENUM_FREE(type) \
-    UMOCK_STATIC void MU_C2(umocktypes_free_,type)(type* value) \
+    void MU_C2(umocktypes_free_,type)(type* value) \
     { \
         (void)value; \
     }

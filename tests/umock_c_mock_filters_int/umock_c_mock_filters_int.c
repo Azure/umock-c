@@ -6,7 +6,7 @@
 
 #define ENABLE_MOCKS
 
-// this enables mock filtering whicle being backward compatible
+// this enables mock filtering while being backward compatible
 #define ENABLE_MOCK_FILTERING
 
 // you have to be nice to the framework, so you have to say "please_mock_{function_name}"

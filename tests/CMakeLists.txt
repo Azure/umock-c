@@ -1,6 +1,10 @@
 #Copyright (c) Microsoft. All rights reserved.
 #Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+#build_yet is a boolean variable that is used in the CMakelists.txt of umock_c_2_int.
+#it is used to prohibit generating more than 1 times the project umock_c_2_mock_pp which is intended to be generated only once.
+set(build_yet FALSE)
+
 #unit tests
 if(${run_unittests})
     build_test_folder(umockalloc_ut)
@@ -35,6 +39,10 @@ endif()
 #int tests
 if(${run_int_tests})
     build_test_folder(umock_c_int)
+    if((NOT ${use_vld}) AND (NOT (DEFINED CMAKE_C_INCLUDE_WHAT_YOU_USE)) AND (WIN32))
+        #umock_c_2_int contains explanations why PP doesn't really work to produce compilable executables with use_vld
+        build_test_folder(umock_c_2_int)
+    endif()
     build_test_folder(umock_c_reals_int)
     build_test_folder(umock_c_mock_filters_int)
     build_test_folder(umock_c_negt_int)
