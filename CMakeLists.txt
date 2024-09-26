@@ -189,3 +189,6 @@ install_library_includes(umock_c umock_c ${umock_c_h_files})
 if(${run_reals_check})
     add_reals_check_target()
 endif()
+
+#Insert vld in all executables if so required
+add_vld_if_defined(${CMAKE_CURRENT_SOURCE_DIR})
