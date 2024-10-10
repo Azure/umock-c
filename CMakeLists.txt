@@ -66,7 +66,6 @@ endif()
 
 if ((NOT TARGET c_logging) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-logging/CMakeLists.txt))
     add_subdirectory(deps/c-logging)
-    include_directories(deps/c-logging/v2/inc)
 endif()
 
 if ((NOT TARGET ctest) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/ctest/CMakeLists.txt))
