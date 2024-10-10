@@ -122,6 +122,8 @@ if(NOT ${build_yet})
         ${CMAKE_CURRENT_BINARY_DIR}/${PP_FILE_2}
     )
 
+    target_link_libraries(umock_c_2_mock_pp umock_c)
+
     set_target_properties(umock_c_2_mock_pp
         PROPERTIES
             FOLDER "tests/umockc_tests"
