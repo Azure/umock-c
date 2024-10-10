@@ -25,7 +25,7 @@ set(${theseTestsName}_h_files
     test_dependency_mock.h
 )
 
-build_test_artifacts(${theseTestsName} "tests/umockc_tests" umock_c)
+build_test_artifacts(${theseTestsName} "tests/umockc_tests")
 
 
 
