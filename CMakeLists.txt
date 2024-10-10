@@ -9,7 +9,6 @@ endif()
 
 #if ((NOT TARGET umock_c) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/umock-c/CMakeLists.txt))
 #    add_subdirectory(deps/umock-c)
-#    include_directories(${UMOCK_C_INC_FOLDER})
 #endif()
 
 if(TARGET umock_c)
@@ -63,7 +62,6 @@ endif()
 
 if ((NOT TARGET macro_utils_c) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/macro-utils-c/CMakeLists.txt))
     add_subdirectory(deps/macro-utils-c)
-    include_directories(${MACRO_UTILS_INC_FOLDER})
 endif()
 
 if ((NOT TARGET c_logging) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-logging/CMakeLists.txt))
@@ -73,12 +71,10 @@ endif()
 
 if ((NOT TARGET ctest) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/ctest/CMakeLists.txt))
     add_subdirectory(deps/ctest)
-    include_directories(${CTEST_INC_FOLDER})
 endif()
 
 if ((NOT TARGET testrunnerswitcher) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-testrunnerswitcher/CMakeLists.txt))
     add_subdirectory(deps/c-testrunnerswitcher)
-    include_directories(${TESTRUNNERSWITCHER_INC_FOLDER})
 endif()
 
 #this function takes as arguments a LIBRARY_NAME followed by a list of HEADER_FILES
@@ -217,18 +213,8 @@ set_target_properties(umock_c
                PROPERTIES
                FOLDER "test_tools")
 
-#these are the include folders
-#the following "set" statetement exports across the project a global variable called UMOCK_C_INC_FOLDER that expands to whatever needs to included when using umock_c library
-set(UMOCK_C_INC_FOLDER ${CMAKE_CURRENT_LIST_DIR}/inc CACHE INTERNAL "this is what needs to be included if using umock_c lib" FORCE)
-
-include_directories(${UMOCK_C_INC_FOLDER} ${SHARED_UTIL_INC_FOLDER})
-
 CHECK_INCLUDE_FILES(stdint.h HAVE_STDINT_H)
 CHECK_INCLUDE_FILES(stdbool.h HAVE_STDBOOL_H)
-
-if ((NOT HAVE_STDINT_H) OR (NOT HAVE_STDBOOL_H))
-    include_directories(${UMOCK_C_INC_FOLDER}/umock_c/aux_inc)
-endif()
 
 if (${run_unittests} OR ${run_int_tests})
     add_subdirectory(tests)
