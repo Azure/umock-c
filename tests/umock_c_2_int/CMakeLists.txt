@@ -17,7 +17,6 @@ set(${theseTestsName}_test_files
 
 set(${theseTestsName}_c_files
     test_dependency_mock.c
-
 )
 
 set(${theseTestsName}_h_files
@@ -27,10 +26,7 @@ set(${theseTestsName}_h_files
 
 build_test_artifacts(${theseTestsName} "tests/umockc_tests")
 
-
-
 if(NOT ${build_yet})
-
 
     set(${theseTestsName}_pp_files
         test_dependency_mock_pp_c1.c
