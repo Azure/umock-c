@@ -200,7 +200,7 @@ SOURCE_GROUP(devdoc FILES ${umock_c_md_files})
 
 add_library(umock_c ${umock_c_c_files} ${umock_c_h_files} ${umock_c_md_files})
 
-target_link_libraries(umock_c macro_utils_c)
+target_link_libraries(umock_c clogging_v2 macro_utils_c)
 
 target_include_directories(umock_c
     PUBLIC
