@@ -9,7 +9,6 @@ endif()
 
 #if ((NOT TARGET umock_c) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/umock-c/CMakeLists.txt))
 #    add_subdirectory(deps/umock-c)
-#    include_directories(${UMOCK_C_INC_FOLDER})
 #endif()
 
 if(TARGET umock_c)
@@ -63,23 +62,71 @@ endif()
 
 if ((NOT TARGET macro_utils_c) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/macro-utils-c/CMakeLists.txt))
     add_subdirectory(deps/macro-utils-c)
-    include_directories(${MACRO_UTILS_INC_FOLDER})
 endif()
 
 if ((NOT TARGET c_logging) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-logging/CMakeLists.txt))
     add_subdirectory(deps/c-logging)
-    include_directories(deps/c-logging/v2/inc)
 endif()
 
 if ((NOT TARGET ctest) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/ctest/CMakeLists.txt))
     add_subdirectory(deps/ctest)
-    include_directories(${CTEST_INC_FOLDER})
 endif()
 
 if ((NOT TARGET testrunnerswitcher) AND (EXISTS ${CMAKE_CURRENT_LIST_DIR}/deps/c-testrunnerswitcher/CMakeLists.txt))
     add_subdirectory(deps/c-testrunnerswitcher)
-    include_directories(${TESTRUNNERSWITCHER_INC_FOLDER})
 endif()
+
+#this function takes as arguments a LIBRARY_NAME followed by a list of HEADER_FILES
+#it builds a separate header file which includes all the HEADER_FILES under the ENABLE_MOCKS_DECL #define
+#it builds a separate source file which is build under the ENABLE_MOCKS #define
+#it adds the header file and the source file to a library called ${LIBRARY_NAME}_mocks
+#it adds the headers as precompiles headers for the ${LIBRARY_NAME}_mocks library
+function(add_mock_library LIBRARY_NAME)
+    set(options)
+    set(oneValueArgs)
+    set(multiValueArgs HEADER_FILES)
+    cmake_parse_arguments(ARG "" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
+
+    string(TOUPPER ${LIBRARY_NAME} LIBRARY_NAME_UPPER)
+
+    set(MOCKS_HEADER_FILE ${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_NAME_UPPER}_mocks.h)
+    set(MOCKS_SOURCE_FILE ${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_NAME_UPPER}_mocks.c)
+
+    file(WRITE ${MOCKS_HEADER_FILE} "// Copyright (c) Microsoft. All rights reserved.\n")
+    file(WRITE ${MOCKS_HEADER_FILE} "// Licensed under the MIT license. See LICENSE file in the project root for full license information.\n")
+    file(WRITE ${MOCKS_HEADER_FILE} "// THIS IS A GENERATED FILE, DO NOT EDIT.\n\n")
+    file(WRITE ${MOCKS_HEADER_FILE} "#ifndef ${LIBRARY_NAME_UPPER}_MOCKS_H\n")
+    file(APPEND ${MOCKS_HEADER_FILE} "#define ${LIBRARY_NAME_UPPER}_MOCKS_H\n\n")
+
+    file(APPEND ${MOCKS_HEADER_FILE} "#define ENABLE_MOCKS\n")
+    file(APPEND ${MOCKS_HEADER_FILE} "#define ENABLE_MOCKS_DECL\n")
+
+    foreach(HEADER_FILE ${ARG_HEADER_FILES})
+        file(APPEND ${MOCKS_HEADER_FILE} "#include \"${HEADER_FILE}\"\n")
+    endforeach()
+
+    file(APPEND ${MOCKS_HEADER_FILE} "#undef ENABLE_MOCKS_DECL\n")
+    file(APPEND ${MOCKS_HEADER_FILE} "#undef ENABLE_MOCKS\n\n")
+
+    file(APPEND ${MOCKS_HEADER_FILE} "#endif // ${LIBRARY_NAME_UPPER}_MOCKS_H\n")
+
+
+    file(WRITE ${MOCKS_SOURCE_FILE} "#define ENABLE_MOCKS\n")
+    foreach(HEADER_FILE ${ARG_HEADER_FILES})
+        #note: if CMAKE error "file failed to open for writing (Permission denied):" around these lines "... then just close Visual Studio.
+        #it seems Visual Studio is aggressively scanning precompiled headers and CMake might find the file being opened by cl.exe
+        file(APPEND ${MOCKS_SOURCE_FILE} "#include \"${HEADER_FILE}\"\n")
+    endforeach()
+    file(APPEND ${MOCKS_SOURCE_FILE} "#undef ENABLE_MOCKS\n")
+
+    set_source_files_properties(${MOCKS_SOURCE_FILE} PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
+
+    add_library(${LIBRARY_NAME}_mocks ${MOCKS_SOURCE_FILE} ${MOCKS_HEADER_FILE})
+    target_include_directories(${LIBRARY_NAME}_mocks PUBLIC $<TARGET_PROPERTY:${LIBRARY_NAME},INTERFACE_INCLUDE_DIRECTORIES>)
+    target_link_libraries(${LIBRARY_NAME}_mocks PUBLIC umock_c)
+
+    target_precompile_headers(${LIBRARY_NAME}_mocks PUBLIC ${MOCKS_HEADER_FILE})
+endfunction()
 
 set(run_e2e_tests ${original_run_e2e_tests})
 set(run_int_tests ${original_run_int_tests})
@@ -153,7 +200,7 @@ SOURCE_GROUP(devdoc FILES ${umock_c_md_files})
 
 add_library(umock_c ${umock_c_c_files} ${umock_c_h_files} ${umock_c_md_files})
 
-target_link_libraries(umock_c macro_utils_c)
+target_link_libraries(umock_c c_logging_v2 macro_utils_c)
 
 target_include_directories(umock_c
     PUBLIC
@@ -165,18 +212,8 @@ set_target_properties(umock_c
                PROPERTIES
                FOLDER "test_tools")
 
-#these are the include folders
-#the following "set" statetement exports across the project a global variable called UMOCK_C_INC_FOLDER that expands to whatever needs to included when using umock_c library
-set(UMOCK_C_INC_FOLDER ${CMAKE_CURRENT_LIST_DIR}/inc CACHE INTERNAL "this is what needs to be included if using umock_c lib" FORCE)
-
-include_directories(${UMOCK_C_INC_FOLDER} ${SHARED_UTIL_INC_FOLDER})
-
 CHECK_INCLUDE_FILES(stdint.h HAVE_STDINT_H)
 CHECK_INCLUDE_FILES(stdbool.h HAVE_STDBOOL_H)
-
-if ((NOT HAVE_STDINT_H) OR (NOT HAVE_STDBOOL_H))
-    include_directories(${UMOCK_C_INC_FOLDER}/umock_c/aux_inc)
-endif()
 
 if (${run_unittests} OR ${run_int_tests})
     add_subdirectory(tests)
