@@ -93,9 +93,9 @@ function(add_mock_library LIBRARY_NAME)
     set(MOCKS_SOURCE_FILE ${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_NAME_UPPER}_mocks.c)
 
     file(WRITE ${MOCKS_HEADER_FILE} "// Copyright (c) Microsoft. All rights reserved.\n")
-    file(WRITE ${MOCKS_HEADER_FILE} "// Licensed under the MIT license. See LICENSE file in the project root for full license information.\n")
-    file(WRITE ${MOCKS_HEADER_FILE} "// THIS IS A GENERATED FILE, DO NOT EDIT.\n\n")
-    file(WRITE ${MOCKS_HEADER_FILE} "#ifndef ${LIBRARY_NAME_UPPER}_MOCKS_H\n")
+    file(APPEND ${MOCKS_HEADER_FILE} "// Licensed under the MIT license. See LICENSE file in the project root for full license information.\n")
+    file(APPEND ${MOCKS_HEADER_FILE} "// THIS IS A GENERATED FILE, DO NOT EDIT. It was generated using function add_mock_library from CMakeLists.txt in umock-c.\n\n")
+    file(APPEND ${MOCKS_HEADER_FILE} "#ifndef ${LIBRARY_NAME_UPPER}_MOCKS_H\n")
     file(APPEND ${MOCKS_HEADER_FILE} "#define ${LIBRARY_NAME_UPPER}_MOCKS_H\n\n")
 
     file(APPEND ${MOCKS_HEADER_FILE} "#define ENABLE_MOCKS\n")
@@ -111,7 +111,10 @@ function(add_mock_library LIBRARY_NAME)
     file(APPEND ${MOCKS_HEADER_FILE} "#endif // ${LIBRARY_NAME_UPPER}_MOCKS_H\n")
 
 
-    file(WRITE ${MOCKS_SOURCE_FILE} "#define ENABLE_MOCKS\n")
+    file(WRITE ${MOCKS_SOURCE_FILE} "// Copyright (c) Microsoft. All rights reserved.\n")
+    file(APPEND ${MOCKS_SOURCE_FILE} "// Licensed under the MIT license. See LICENSE file in the project root for full license information.\n")
+    file(APPEND ${MOCKS_SOURCE_FILE} "// THIS IS A GENERATED FILE, DO NOT EDIT. It was generated using function add_mock_library from CMakeLists.txt in umock-c.\n\n")
+    file(APPEND ${MOCKS_SOURCE_FILE} "#define ENABLE_MOCKS\n")
     foreach(HEADER_FILE ${ARG_HEADER_FILES})
         #note: if CMAKE error "file failed to open for writing (Permission denied):" around these lines "... then just close Visual Studio.
         #it seems Visual Studio is aggressively scanning precompiled headers and CMake might find the file being opened by cl.exe
