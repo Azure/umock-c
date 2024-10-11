@@ -89,8 +89,8 @@ function(add_mock_library LIBRARY_NAME)
 
     string(TOUPPER ${LIBRARY_NAME} LIBRARY_NAME_UPPER)
 
-    set(MOCKS_HEADER_FILE ${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_NAME_UPPER}_mocks.h)
-    set(MOCKS_SOURCE_FILE ${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_NAME_UPPER}_mocks.c)
+    set(MOCKS_HEADER_FILE ${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_NAME}_mocks.h)
+    set(MOCKS_SOURCE_FILE ${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_NAME}_mocks.c)
 
     file(WRITE ${MOCKS_HEADER_FILE} "// Copyright (c) Microsoft. All rights reserved.\n")
     file(APPEND ${MOCKS_HEADER_FILE} "// Licensed under the MIT license. See LICENSE file in the project root for full license information.\n")
