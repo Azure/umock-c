@@ -22,6 +22,7 @@
     int umockcallrecorder_get_expected_call_count(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t* expected_call_count);
     int umockcallrecorder_fail_call(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t index);
     int umockcallrecorder_can_call_fail(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t index, int* can_call_fail);
+    char* umockcallrecorder_get_expected_call_string(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t index);
 ```
 
 ### umockcallrecorder_create
@@ -297,3 +298,12 @@ int umockcallrecorder_can_call_fail(UMOCKCALLRECORDER_HANDLE umock_call_recorder
 **SRS_UMOCKCALLRECORDER_01_094: [** If a lock was created for the call recorder, `umockcallrecorder_can_call_fail` shall release the exclusive lock. **]**
 
 **SRS_UMOCKCALLRECORDER_31_060: [** On success `umockcallrecorder_can_call_fail` shall return 0. **]**
+
+### umockcallrecorder_get_expected_call_string
+
+```c
+char* umockcallrecorder_get_expected_call_string(UMOCKCALLRECORDER_HANDLE umock_call_recorder, size_t index);
+```
+**SRS_UMOCKCALLRECORDER_09_001: [** If `umock_call_recorder` or `index` is >= `expected_call_count`, `umockcallrecorder_can_call_fail` shall return NULL. **]**
+
+**SRS_UMOCKCALLRECORDER_09_002: [** Otherwise `umockcallrecorder_can_call_fail` shall call `umockcall_stringify` over `expected_calls[index].umockcall` and return the resulting string. **]**
