@@ -92,35 +92,36 @@ function(add_mock_library LIBRARY_NAME)
     set(MOCKS_HEADER_FILE ${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_NAME}_mocks.h)
     set(MOCKS_SOURCE_FILE ${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_NAME}_mocks.c)
 
-    file(WRITE ${MOCKS_HEADER_FILE} "// Copyright (c) Microsoft. All rights reserved.\n")
-    file(APPEND ${MOCKS_HEADER_FILE} "// Licensed under the MIT license. See LICENSE file in the project root for full license information.\n")
-    file(APPEND ${MOCKS_HEADER_FILE} "// THIS IS A GENERATED FILE, DO NOT EDIT. It was generated using function add_mock_library from CMakeLists.txt in umock-c.\n\n")
-    file(APPEND ${MOCKS_HEADER_FILE} "#ifndef ${LIBRARY_NAME_UPPER}_MOCKS_H\n")
-    file(APPEND ${MOCKS_HEADER_FILE} "#define ${LIBRARY_NAME_UPPER}_MOCKS_H\n\n")
+    set(MOCKS_HEADER_CONTENT "// Copyright (c) Microsoft. All rights reserved.\n")
+    set(MOCKS_HEADER_CONTENT "${MOCKS_HEADER_CONTENT}// Licensed under the MIT license. See LICENSE file in the project root for full license information.\n")
+    set(MOCKS_HEADER_CONTENT "${MOCKS_HEADER_CONTENT}// THIS IS A GENERATED FILE, DO NOT EDIT. It was generated using function add_mock_library from CMakeLists.txt in umock-c.\n\n")
+    set(MOCKS_HEADER_CONTENT "${MOCKS_HEADER_CONTENT}#ifndef ${LIBRARY_NAME_UPPER}_MOCKS_H\n")
+    set(MOCKS_HEADER_CONTENT "${MOCKS_HEADER_CONTENT}#define ${LIBRARY_NAME_UPPER}_MOCKS_H\n\n")
 
-    file(APPEND ${MOCKS_HEADER_FILE} "#define ENABLE_MOCKS\n")
-    file(APPEND ${MOCKS_HEADER_FILE} "#define ENABLE_MOCKS_DECL\n")
+    set(MOCKS_HEADER_CONTENT "${MOCKS_HEADER_CONTENT}#define ENABLE_MOCKS\n")
+    set(MOCKS_HEADER_CONTENT "${MOCKS_HEADER_CONTENT}#define ENABLE_MOCKS_DECL\n")
 
     foreach(HEADER_FILE ${ARG_HEADER_FILES})
-        file(APPEND ${MOCKS_HEADER_FILE} "#include \"${HEADER_FILE}\"\n")
+        set(MOCKS_HEADER_CONTENT "${MOCKS_HEADER_CONTENT}#include \"${HEADER_FILE}\"\n")
     endforeach()
 
-    file(APPEND ${MOCKS_HEADER_FILE} "#undef ENABLE_MOCKS_DECL\n")
-    file(APPEND ${MOCKS_HEADER_FILE} "#undef ENABLE_MOCKS\n\n")
+    set(MOCKS_HEADER_CONTENT "${MOCKS_HEADER_CONTENT}#undef ENABLE_MOCKS_DECL\n")
+    set(MOCKS_HEADER_CONTENT "${MOCKS_HEADER_CONTENT}#undef ENABLE_MOCKS\n\n")
 
-    file(APPEND ${MOCKS_HEADER_FILE} "#endif // ${LIBRARY_NAME_UPPER}_MOCKS_H\n")
+    set(MOCKS_HEADER_CONTENT "${MOCKS_HEADER_CONTENT}#endif // ${LIBRARY_NAME_UPPER}_MOCKS_H\n")
 
+    file(WRITE ${MOCKS_HEADER_FILE} ${MOCKS_HEADER_CONTENT})
 
-    file(WRITE ${MOCKS_SOURCE_FILE} "// Copyright (c) Microsoft. All rights reserved.\n")
-    file(APPEND ${MOCKS_SOURCE_FILE} "// Licensed under the MIT license. See LICENSE file in the project root for full license information.\n")
-    file(APPEND ${MOCKS_SOURCE_FILE} "// THIS IS A GENERATED FILE, DO NOT EDIT. It was generated using function add_mock_library from CMakeLists.txt in umock-c.\n\n")
-    file(APPEND ${MOCKS_SOURCE_FILE} "#define ENABLE_MOCKS\n")
+    set(MOCKS_SOURCE_CONTENT "// Copyright (c) Microsoft. All rights reserved.\n")
+    set(MOCKS_SOURCE_CONTENT "${MOCKS_SOURCE_CONTENT}// Licensed under the MIT license. See LICENSE file in the project root for full license information.\n")
+    set(MOCKS_SOURCE_CONTENT "${MOCKS_SOURCE_CONTENT}// THIS IS A GENERATED FILE, DO NOT EDIT. It was generated using function add_mock_library from CMakeLists.txt in umock-c.\n\n")
+    set(MOCKS_SOURCE_CONTENT "${MOCKS_SOURCE_CONTENT}#define ENABLE_MOCKS\n")
     foreach(HEADER_FILE ${ARG_HEADER_FILES})
-        #note: if CMAKE error "file failed to open for writing (Permission denied):" around these lines "... then just close Visual Studio.
-        #it seems Visual Studio is aggressively scanning precompiled headers and CMake might find the file being opened by cl.exe
-        file(APPEND ${MOCKS_SOURCE_FILE} "#include \"${HEADER_FILE}\"\n")
+        set(MOCKS_SOURCE_CONTENT "${MOCKS_SOURCE_CONTENT}#include \"${HEADER_FILE}\"\n")
     endforeach()
-    file(APPEND ${MOCKS_SOURCE_FILE} "#undef ENABLE_MOCKS\n")
+    set(MOCKS_SOURCE_CONTENT "${MOCKS_SOURCE_CONTENT}#undef ENABLE_MOCKS\n")
+
+    file(WRITE ${MOCKS_SOURCE_FILE} ${MOCKS_SOURCE_CONTENT})
 
     set_source_files_properties(${MOCKS_SOURCE_FILE} PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 
