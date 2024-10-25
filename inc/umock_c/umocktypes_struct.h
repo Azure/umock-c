@@ -52,6 +52,7 @@ extern "C" {
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_002: [ umocktypes_stringify_<type> shall generate a string containing all stringified fields in type and return it. ]*/
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_004: [ If there are any errors then umocktypes_stringify_<type> shall fail and return NULL. ]*/
 #define UMOCK_DEFINE_TYPE_STRUCT_STRINGIFY(type, ...) \
+    MU_SUPPRESS_WARNING(4505) /*warning C4505: 'function': unreferenced function with internal linkage has been removed*/   \
     static char* MU_C2(umocktypes_stringify_, type)(const type* value) \
     { \
         char* result; \
@@ -106,13 +107,15 @@ extern "C" {
             MU_FOR_EACH_2_COUNTED(UMOCK_STRUCT_STRINGIFY_STRUCT_FIELD_CLEANUP, __VA_ARGS__) \
         } \
         return result; \
-    }
+    } \
+MU_UNSUPPRESS_WARNING(4505) \
 
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_005: [ If left is NULL then umocktypes_are_equal_<type> shall fail and return -1. ]*/
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_006: [ If right is NULL then umocktypes_are_equal_<type> shall fail and return -1. ]*/
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_008: [ If any call to umocktypes_are_equal does not return 1 then umocktypes_are_equal_<type> shall return 0. ]*/
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_009: [ Otherwise, umocktypes_are_equal_<type> shall return 1. ]*/
 #define UMOCK_DEFINE_TYPE_STRUCT_ARE_EQUAL(type, ...) \
+    MU_SUPPRESS_WARNING(4505) /*warning C4505: 'function': unreferenced function with internal linkage has been removed*/   \
     static int MU_C2(umocktypes_are_equal_, type)(const type* left, const type* right) \
     { \
         int result; \
@@ -128,13 +131,15 @@ extern "C" {
                 1; \
         } \
         return result; \
-    }
+    } \
+    MU_UNSUPPRESS_WARNING(4505) \
 
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_010: [ If destination is NULL then umocktypes_copy_<type> shall fail and return a non-zero value. ]*/
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_011: [ If source is NULL then umocktypes_copy_<type> shall fail and return a non-zero value. ]*/
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_013: [ If any call to umocktypes_copy does not return 0 then umocktypes_copy_<type> shall return a non-zero value. ]*/
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_014: [ Otherwise umocktypes_copy_<type> shall return 0. ]*/
 #define UMOCK_DEFINE_TYPE_STRUCT_COPY(type, ...) \
+    MU_SUPPRESS_WARNING(4505) /*warning C4505: 'function': unreferenced function with internal linkage has been removed*/   \
     static int MU_C2(umocktypes_copy_, type)(type* destination, const type* source) \
     { \
         int result; \
@@ -150,7 +155,8 @@ extern "C" {
                 0; \
         } \
         return result; \
-    }
+    } \
+    MU_UNSUPPRESS_WARNING(4505) \
 
 
 /*Codes_SRS_UMOCKTYPES_STRUCT_42_015: [ umocktypes_free_<type> shall call umocktypes_free for each field in type. ]*/
@@ -158,13 +164,15 @@ extern "C" {
     umocktypes_free(MU_TOSTRING(field_type), (void*)&value->field_name);
 
 #define UMOCK_DEFINE_TYPE_STRUCT_FREE(type, ...) \
+    MU_SUPPRESS_WARNING(4505) /*warning C4505: 'function': unreferenced function with internal linkage has been removed*/   \
     static void MU_C2(umocktypes_free_, type)(type* value) \
     { \
         if (value != NULL) \
         { \
             MU_FOR_EACH_2_COUNTED(UMOCK_STRUCT_FREE_STRUCT_FIELD, __VA_ARGS__) \
         } \
-    }
+    } \
+    MU_UNSUPPRESS_WARNING(4505) \
 
 #define UMOCK_DEFINE_TYPE_STRUCT(type, ...) \
     UMOCK_DEFINE_TYPE_STRUCT_STRINGIFY(type, __VA_ARGS__) \

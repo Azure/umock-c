@@ -39,10 +39,6 @@ static void test_on_umock_c_error(UMOCK_C_ERROR_CODE error_code)
     }
 }
 
-#ifdef _MSC_VER
-#pragma warning(disable: 4505)
-#endif
-
 BEGIN_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
 
 TEST_SUITE_INITIALIZE(suite_init)
