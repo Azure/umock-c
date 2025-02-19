@@ -17,6 +17,9 @@ jobs:
 
 - job: linuxubuntu
   displayName: 'Build Linux Ubuntu'
+  variables:
+    #Codeql does not play nice with valgrind
+    Codeql.Enabled: false
   pool:
     name: Azure-MsgStore-Linux2204BuildMachinePool
     demands:
@@ -92,22 +95,22 @@ jobs:
 #          cmake --build . | tee build.log
 #          if ((Select-String -Path "./build.log" -Pattern "Warning:") -ne $null) { throw "include check failed" }
 
-- job: includecheck_linux
-  pool:
-    name: Azure-MessagingStore-LinuxBuildMachinePool
-    demands:
-      - linux
-
-  steps:
-
-  - bash: |
-     pushd $(Build.Repository.LocalPath)
-     git submodule update --init
-     git submodule foreach --recursive "git clean -xdff"
-     git clean -xdff
-     popd
-    workingDirectory: '$(Build.Repository.LocalPath)'
-    displayName: 'git submodule update and clean'
+#- job: includecheck_linux
+#  pool:
+#    name: Azure-MessagingStore-LinuxBuildMachinePool
+#    demands:
+#      - linux
+#
+#  steps:
+#
+#  - bash: |
+#     pushd $(Build.Repository.LocalPath)
+#     git submodule update --init
+#     git submodule foreach --recursive "git clean -xdff"
+#     git clean -xdff
+#     popd
+#    workingDirectory: '$(Build.Repository.LocalPath)'
+#    displayName: 'git submodule update and clean'
 
 #re-enable with https://msazure.visualstudio.com/One/_workitems/edit/29593386
 #  - task: Bash@3
