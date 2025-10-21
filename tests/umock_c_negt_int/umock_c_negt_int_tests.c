@@ -8,7 +8,7 @@
 #include "umock_c/umock_c.h"
 #include "umock_c/umock_c_negative_tests.h"
 
-#define ENABLE_MOCKS
+#include "umock_c/umock_c_ENABLE_MOCKS.h" // ============================== ENABLE_MOCKS
 #include "test_dependency.h"
 
 static void test_on_umock_c_error(UMOCK_C_ERROR_CODE error_code)

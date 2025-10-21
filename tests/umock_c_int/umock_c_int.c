@@ -33,9 +33,9 @@ Tests_SRS_UMOCK_C_LIB_01_194: [ If the first argument passed to destroy_call is 
 #include "umock_c/umock_c.h"
 #include "umock_c/umocktypes.h"          // for REGISTER_TYPE, IMPLEMENT_UMO...
 
-#define ENABLE_MOCKS
+#include "umock_c/umock_c_ENABLE_MOCKS.h" // ============================== ENABLE_MOCKS
 #include "test_dependency.h"
-#undef ENABLE_MOCKS
+#include "umock_c/umock_c_DISABLE_MOCKS.h" // ============================== DISABLE_MOCKS
 
 /* Tests_SRS_UMOCK_C_LIB_01_067: [char\* and const char\* shall be supported out of the box through a separate header, umockvalue_charptr.h.]*/
 #include "umock_c/umocktypes_charptr.h"

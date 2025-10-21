@@ -172,8 +172,9 @@ ENABLE_MOCKS should be used in the translation unit that contains the tests just
 #include <stdlib.h>
 // ... other various includes
 
-#define ENABLE_MOCKS
+#include "umock_c/umock_c_ENABLE_MOCKS.h" // ============================== ENABLE_MOCKS
 #include "test_dependency.h"
+#include "umock_c/umock_c_DISABLE_MOCKS.h" // ============================== DISABLE_MOCKS
 
 // ... tests
 
@@ -186,9 +187,9 @@ Note that it is possible (and sometimes necessary) to undefine ENABLE_MOCKS:
 #include <stdlib.h>
 // ... other various includes
 
-#define ENABLE_MOCKS
+#include "umock_c/umock_c_ENABLE_MOCKS.h" // ============================== ENABLE_MOCKS
 #include "test_dependency.h"
-#undef ENABLE_MOCKS
+#include "umock_c/umock_c_DISABLE_MOCKS.h" // ============================== DISABLE_MOCKS
 
 #include "unit_under_test.h"
 
@@ -225,9 +226,9 @@ If one wants to only generate the mocks for `function_2`, one would write in the
 
 #define please_mock_function_2 MOCK_ENABLED
 
-#define ENABLE_MOCKS
+#include "umock_c/umock_c_ENABLE_MOCKS.h" // ============================== ENABLE_MOCKS
 #include "my_header.h"
-#undef ENABLE_MOCKS
+#include "umock_c/umock_c_DISABLE_MOCKS.h" // ============================== DISABLE_MOCKS
 ```
 
 ### UMOCK_STATIC
@@ -241,16 +242,17 @@ If you intend to add several units under test into the same test library, the in
 
 // enable emitting static mocks
 #define UMOCK_STATIC static
-#define ENABLE_MOCKS
+#include "umock_c/umock_c_ENABLE_MOCKS.h" // ============================== ENABLE_MOCKS
 
 #include "test_dependency.h"
 
-#undef ENABLE_MOCKS
+#include "umock_c/umock_c_DISABLE_MOCKS.h" // ============================== DISABLE_MOCKS
 #include "unit_under_test.h"
-
-#define ENABLE_MOCKS
+#include "umock_c/umock_c_ENABLE_MOCKS.h" // ============================== ENABLE_MOCKS
 // include unit under test source to make it see static mocks
 #include "unit_under_test.c"
+
+#include "umock_c/umock_c_DISABLE_MOCKS.h" // ============================== DISABLE_MOCKS
 
 // ... tests
 

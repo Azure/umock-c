@@ -4,13 +4,13 @@
 #include "testrunnerswitcher.h"
 #include "umock_c/umock_c.h"
 
-#define ENABLE_MOCKS
-
 // this enables mock filtering while being backward compatible
 #define ENABLE_MOCK_FILTERING
 
 // you have to be nice to the framework, so you have to say "please_mock_{function_name}"
 #define please_mock_the_mocked_one MOCK_ENABLED
+
+#include "umock_c/umock_c_ENABLE_MOCKS.h" // ============================== ENABLE_MOCKS
 
 #include "test_dependency.h"
 

@@ -46,7 +46,7 @@ void my_free(void* ptr)
 #define realloc my_realloc
 #define free my_free
 
-#define ENABLE_MOCKS
+#include "umock_c/umock_c_ENABLE_MOCKS.h" // ============================== ENABLE_MOCKS
 
 #include "umock_c/umock_c.h"
 #include "umock_c/umocktypes_charptr.h"
