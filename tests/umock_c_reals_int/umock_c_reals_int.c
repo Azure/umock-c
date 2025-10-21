@@ -14,7 +14,7 @@
 #include "test_dependency_no_enable_mocks.h" // IWYU pragma: keep
 #include "test_dependency_real_code_no_enable_mocks.c"
 
-#define ENABLE_MOCKS
+#include "umock_c/umock_c_ENABLE_MOCKS.h" // ============================== ENABLE_MOCKS
 
 #include "test_dependency.h"
 /* Tests_SRS_UMOCK_C_LIB_01_217: [ In the presence of the ENABLE_MOCKS define, IMPLEMENT_MOCKABLE_FUNCTION shall expand to the signature of the function, but the name shall be changed to be prefix with real_. ]*/
