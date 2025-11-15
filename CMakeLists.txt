@@ -16,6 +16,7 @@ if(TARGET umock_c)
 endif()
 
 option(run_unittests "set run_unittests to ON to run unittests (default is OFF)" OFF)
+option(run_repo_validation "run repository validation" OFF)
 option(run_int_tests "set run_int_tests to ON to run the integration tests (default is OFF)" OFF)
 option(run_perf_tests "set run_perf_tests to ON to build performance tests (default is OFF)." OFF)
 option(run_reals_check "set run_reals_check to ON to run reals check (default is OFF)." OFF)
