@@ -475,7 +475,7 @@ TEST_FUNCTION(umock_lock_pthread_destroy_with_NULL_lock_returns)
     lock->destroy(lock);
 }
 
-/* Tests_SRS_UMOCK_LOCK_FACTORY_WINDOWS_01_001: [ umock_lock_pthread_destroy shall release the resources for the pthread lock by calling pthread_rwlock_destroy. ]*/
+/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_015: [ umock_lock_pthread_destroy shall release the resources for the pthread lock by calling pthread_rwlock_destroy. ]*/
 /* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_009: [ umock_lock_pthread_destroy shall free the memory associated with the lock. ]*/
 TEST_FUNCTION(umock_lock_pthread_destroy_frees_the_resources)
 {

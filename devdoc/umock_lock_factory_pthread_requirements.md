@@ -94,6 +94,6 @@ static void umock_lock_pthread_destroy(UMOCK_C_LOCK_HANDLE lock);
 
 **SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_014: [** If `lock` is `NULL`, `umock_lock_pthread_destroy` shall return. **]**
 
-**SRS_UMOCK_LOCK_FACTORY_WINDOWS_01_001: [** `umock_lock_pthread_destroy` shall release the resources for the pthread lock by calling `pthread_rwlock_destroy`. **]**
+**SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_015: [** `umock_lock_pthread_destroy` shall release the resources for the pthread lock by calling `pthread_rwlock_destroy`. **]**
 
 **SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_009: [** `umock_lock_pthread_destroy` shall free the memory associated with the lock. **]**

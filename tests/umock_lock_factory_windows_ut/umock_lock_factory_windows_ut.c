@@ -221,7 +221,7 @@ TEST_FUNCTION_CLEANUP(test_function_cleanup)
 
 /* umock_lock_factory_create_lock */
 
-/* Tests_SRS_UMOCK_LOCK_FACTORY_WINDOWS_01_001: [ umock_lock_pthread_destroy shall release the resources for the pthread lock by calling pthread_rwlock_destroy. ]*/
+/* Tests_SRS_UMOCK_LOCK_FACTORY_WINDOWS_01_001: [ umock_lock_factory_create_lock shall allocate memory for the lock. ]*/
 /* Tests_SRS_UMOCK_LOCK_FACTORY_WINDOWS_01_002: [ umock_lock_factory_create_lock shall initialize a SRW lock that is encapsulated by the new UMOCK_C_LOCK_HANDLE. ]*/
 /* Tests_SRS_UMOCK_LOCK_FACTORY_WINDOWS_01_003: [ umock_lock_factory_create_lock shall return a lock handle that has the function pointers set to umock_lock_windows_acquire_shared, umock_lock_windows_release_shared, umock_lock_windows_acquire_exclusive, umock_lock_windows_release_exclusive and umock_lock_windows_destroy. ]*/
 TEST_FUNCTION(umock_lock_factory_create_lock_succeeds)

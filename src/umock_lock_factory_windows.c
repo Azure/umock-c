@@ -101,7 +101,7 @@ UMOCK_C_LOCK_HANDLE umock_lock_factory_create_lock(void* params)
     (void)params;
 
     UMOCK_C_LOCK_HANDLE result;
-    /* Codes_SRS_UMOCK_LOCK_FACTORY_WINDOWS_01_001: [ umock_lock_pthread_destroy shall release the resources for the pthread lock by calling pthread_rwlock_destroy. ]*/
+    /* Codes_SRS_UMOCK_LOCK_FACTORY_WINDOWS_01_001: [ umock_lock_factory_create_lock shall allocate memory for the lock. ]*/
     UMOCK_C_LOCK_WINDOWS* srw_lock_windows = umockalloc_malloc(sizeof(UMOCK_C_LOCK_WINDOWS));
     if (srw_lock_windows == NULL)
     {
