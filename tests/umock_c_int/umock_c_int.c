@@ -37,7 +37,7 @@ Tests_SRS_UMOCK_C_LIB_01_194: [ If the first argument passed to destroy_call is 
 #include "test_dependency.h"
 #include "umock_c/umock_c_DISABLE_MOCKS.h" // ============================== DISABLE_MOCKS
 
-/* Tests_SRS_UMOCK_C_LIB_01_067: [char\* and const char\* shall be supported out of the box through a separate header, umockvalue_charptr.h.]*/
+/* Tests_SRS_UMOCK_C_LIB_01_067: [char* and const char* shall be supported out of the box through a separate header, umockvalue_charptr.h.]*/
 #include "umock_c/umocktypes_charptr.h"
 
 typedef struct test_on_umock_c_error_CALL_TAG
@@ -345,7 +345,7 @@ TEST_SUITE_INITIALIZE(suite_init)
     result = umock_c_init(test_on_umock_c_error);
     ASSERT_ARE_EQUAL(int, 0, result);
     /* Tests_SRS_UMOCK_C_LIB_01_069: [The signature shall be: ...*/
-    /* Tests_SRS_UMOCK_C_LIB_01_070: [umockvalue_charptr_register_types shall return 0 on success and non-zero on failure.]*/
+    /* Tests_SRS_UMOCK_C_LIB_01_070: [umockvalue_charptr_register_types returns 0 on success and non-zero on failure.]*/
     result = umocktypes_charptr_register_types();
     ASSERT_ARE_EQUAL(int, 0, result);
     /* Tests_SRS_UMOCK_C_LIB_01_065: [REGISTER_UMOCK_VALUE_TYPE shall register the type identified by value_type to be usable by umock_c for argument and return types and instruct umock_c which functions to use for getting the stringify, are_equal, copy and free.]*/
@@ -1063,7 +1063,7 @@ TEST_FUNCTION(SetReturn_sets_independent_return_values_for_each_call)
 /* CopyOutArgumentBuffer */
 
 /* Tests_SRS_UMOCK_C_LIB_01_087: [The CopyOutArgumentBuffer call modifier shall copy the memory pointed to by bytes and being length bytes so that it is later injected as an out argument when the code under test calls the mock function.] */
-/* Tests_SRS_UMOCK_C_LIB_01_116: [ The argument targetted by CopyOutArgument shall also be marked as ignored. ] */
+/* Tests_SRS_UMOCK_C_LIB_01_116: [ The argument targetted by CopyOutArgumentBuffer shall also be marked as ignored. ] */
 TEST_FUNCTION(CopyOutArgumentBuffer_copies_bytes_to_the_out_argument_for_a_strict_expected_call)
 {
     // arrange
@@ -1081,7 +1081,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_copies_bytes_to_the_out_argument_for_a_stric
 }
 
 /* Tests_SRS_UMOCK_C_LIB_01_087: [The CopyOutArgumentBuffer call modifier shall copy the memory pointed to by bytes and being length bytes so that it is later injected as an out argument when the code under test calls the mock function.] */
-/* Tests_SRS_UMOCK_C_LIB_01_116: [ The argument targetted by CopyOutArgument shall also be marked as ignored. ] */
+/* Tests_SRS_UMOCK_C_LIB_01_116: [ The argument targetted by CopyOutArgumentBuffer shall also be marked as ignored. ] */
 TEST_FUNCTION(CopyOutArgumentBuffer_copies_bytes_to_the_out_argument_for_an_expected_call)
 {
     // arrange
@@ -1099,7 +1099,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_copies_bytes_to_the_out_argument_for_an_expe
 }
 
 /* Tests_SRS_UMOCK_C_LIB_01_087: [The CopyOutArgumentBuffer call modifier shall copy the memory pointed to by bytes and being length bytes so that it is later injected as an out argument when the code under test calls the mock function.] */
-/* Tests_SRS_UMOCK_C_LIB_01_116: [ The argument targetted by CopyOutArgument shall also be marked as ignored. ] */
+/* Tests_SRS_UMOCK_C_LIB_01_116: [ The argument targetted by CopyOutArgumentBuffer shall also be marked as ignored. ] */
 TEST_FUNCTION(CopyOutArgumentBuffer_only_copies_bytes_to_the_out_argument_that_was_specified)
 {
     // arrange
@@ -1119,7 +1119,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_only_copies_bytes_to_the_out_argument_that_w
 }
 
 /* Tests_SRS_UMOCK_C_LIB_01_087: [The CopyOutArgumentBuffer call modifier shall copy the memory pointed to by bytes and being length bytes so that it is later injected as an out argument when the code under test calls the mock function.] */
-/* Tests_SRS_UMOCK_C_LIB_01_116: [ The argument targetted by CopyOutArgument shall also be marked as ignored. ] */
+/* Tests_SRS_UMOCK_C_LIB_01_116: [ The argument targetted by CopyOutArgumentBuffer shall also be marked as ignored. ] */
 TEST_FUNCTION(CopyOutArgumentBuffer_only_copies_bytes_to_the_second_out_argument)
 {
     // arrange
@@ -1233,7 +1233,7 @@ TEST_FUNCTION(CopyOutArgumentBuffer_with_0_length_triggers_the_error_callback)
 }
 
 /* Tests_SRS_UMOCK_C_LIB_01_087: [The CopyOutArgumentBuffer call modifier shall copy the memory pointed to by bytes and being length bytes so that it is later injected as an out argument when the code under test calls the mock function.] */
-/* Tests_SRS_UMOCK_C_LIB_01_116: [ The argument targetted by CopyOutArgument shall also be marked as ignored. ] */
+/* Tests_SRS_UMOCK_C_LIB_01_116: [ The argument targetted by CopyOutArgumentBuffer shall also be marked as ignored. ] */
 TEST_FUNCTION(CopyOutArgumentBuffer_when_an_error_occurs_preserves_the_previous_state)
 {
     // arrange
@@ -1885,7 +1885,7 @@ TEST_FUNCTION(spaces_are_stripped_from_typenames)
 /* Supported types */
 
 /* Tests_SRS_UMOCK_C_LIB_01_144: [ Out of the box umock_c shall support the following types through the header umocktypes_c.h: ]*/
-/* Tests_SRS_UMOCK_C_LIB_01_028: [**char**] */
+/* Tests_SRS_UMOCK_C_LIB_01_028: [char] */
 /* Tests_SRS_UMOCK_C_LIB_01_029 : [**unsigned char**] */
 /* Tests_SRS_UMOCK_C_LIB_01_030 : [**short**] */
 /* Tests_SRS_UMOCK_C_LIB_01_031 : [**unsigned short**] */
@@ -1899,8 +1899,8 @@ TEST_FUNCTION(spaces_are_stripped_from_typenames)
 /* Tests_SRS_UMOCK_C_LIB_01_039 : [**double**] */
 /* Tests_SRS_UMOCK_C_LIB_01_040 : [**long double**] */
 /* Tests_SRS_UMOCK_C_LIB_01_041 : [**size_t**] */
-/* Tests_SRS_UMOCK_C_LIB_01_151: [ void\* ]*/
-/* Tests_SRS_UMOCK_C_LIB_01_152: [ const void\* ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_151: [ void* ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_152: [ const void* ]*/
 TEST_FUNCTION(native_c_types_are_supported)
 {
     // arrange
@@ -2245,7 +2245,7 @@ TEST_FUNCTION(when_the_enum_value_is_not_within_the_enum_the_int_value_is_filled
 
 /* CaptureReturn */
 
-/* Tests_SRS_UMOCK_C_LIB_01_179: [ The CaptureReturn call modifier shall copy the return value that is being returned to the code under test when an actual call is matched with the expected call. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE and IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_WITHOUT_INVALID shall implement umock_c handlers for an enum type. ]*/
 TEST_FUNCTION(capture_return_captures_the_return_value)
 {
     // arrange
@@ -2261,7 +2261,7 @@ TEST_FUNCTION(capture_return_captures_the_return_value)
     ASSERT_ARE_EQUAL(int, 42, captured_return);
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_180: [ If CaptureReturn is called multiple times for the same call, an error shall be indicated with the code UMOCK_C_CAPTURE_RETURN_ALREADY_USED. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_180: [ The variable arguments are a list making up the enum values. ]*/
 TEST_FUNCTION(capture_return_twice_captures_the_return_value_in_the_pointer_indicated_by_the_second_call)
 {
     // arrange
@@ -2295,7 +2295,7 @@ TEST_FUNCTION(capture_return_with_NULL_argument_indicates_an_error)
     //TFS661968 ASSERT_ARE_EQUAL(UMOCK_C_ERROR_CODE, UMOCK_C_NULL_ARGUMENT, test_on_umock_c_error_calls[0].error_code);
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_179: [ The CaptureReturn call modifier shall copy the return value that is being returned to the code under test when an actual call is matched with the expected call. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE and IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_WITHOUT_INVALID shall implement umock_c handlers for an enum type. ]*/
 TEST_FUNCTION(capture_return_when_no_actual_call_does_not_capture_anything)
 {
     // arrange
@@ -2310,7 +2310,7 @@ TEST_FUNCTION(capture_return_when_no_actual_call_does_not_capture_anything)
     ASSERT_ARE_EQUAL(int, 0, captured_return);
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_179: [ The CaptureReturn call modifier shall copy the return value that is being returned to the code under test when an actual call is matched with the expected call. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE and IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_WITHOUT_INVALID shall implement umock_c handlers for an enum type. ]*/
 TEST_FUNCTION(capture_return_when_no_matching_actual_call_does_not_capture_anything)
 {
     // arrange
@@ -2326,7 +2326,7 @@ TEST_FUNCTION(capture_return_when_no_matching_actual_call_does_not_capture_anyth
     ASSERT_ARE_EQUAL(int, 0, captured_return);
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_179: [ The CaptureReturn call modifier shall copy the return value that is being returned to the code under test when an actual call is matched with the expected call. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE and IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_WITHOUT_INVALID shall implement umock_c handlers for an enum type. ]*/
 TEST_FUNCTION(capture_return_takes_into_account_a_set_return_call)
 {
     // arrange
@@ -2343,7 +2343,7 @@ TEST_FUNCTION(capture_return_takes_into_account_a_set_return_call)
     ASSERT_ARE_EQUAL(int, 42, captured_return);
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_179: [ The CaptureReturn call modifier shall copy the return value that is being returned to the code under test when an actual call is matched with the expected call. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE and IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_WITHOUT_INVALID shall implement umock_c handlers for an enum type. ]*/
 TEST_FUNCTION(capture_return_captures_the_return_value_different_value)
 {
     // arrange

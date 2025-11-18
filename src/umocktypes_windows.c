@@ -94,7 +94,7 @@
         result = MU_FAILURE; \
     }
 
-/* Codes_SRS_UMOCKTYPES_WINDOWS_01_001: [ The following Windows types shall be supported out of the box, aliased to their underlying types: ]*/
+/* Codes_SRS_UMOCKTYPES_WINDOWS_01_001: [ LONG as an alias of long. ]*/
 int umocktypes_windows_register_types(void)
 {
     /* Codes_SRS_UMOCKTYPES_WINDOWS_01_005: [ On success, umocktypes_windows_register_types shall return 0. ]*/

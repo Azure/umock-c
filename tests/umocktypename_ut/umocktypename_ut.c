@@ -73,7 +73,7 @@ TEST_FUNCTION_CLEANUP(test_function_cleanup)
 
 /* umocktypename_normalize */
 
-/* Tests_SRS_UMOCKTYPENAME_01_001: [ umocktypename_normalize shall return a char\* with a newly allocated string that contains the normalized typename. ]*/
+/* Tests_SRS_UMOCKTYPENAME_01_001: [ umocktypename_normalize shall return a char* with a newly allocated string that contains the normalized typename. ]*/
 TEST_FUNCTION(umocktypename_normalize_returns_the_same_string_when_already_normalized)
 {
     // arrange
@@ -232,7 +232,7 @@ TEST_FUNCTION(umocktypename_normalize_removes_2_spaces_at_the_end)
     free(result);
 }
 
-/* Tests_SRS_UMOCKTYPENAME_01_001: [ umocktypename_normalize shall return a char\* with a newly allocated string that contains the normalized typename. ]*/
+/* Tests_SRS_UMOCKTYPENAME_01_001: [ umocktypename_normalize shall return a char* with a newly allocated string that contains the normalized typename. ]*/
 TEST_FUNCTION(umocktypename_normalize_succeeds_with_a_type_that_ends_in_star)
 {
     // arrange
@@ -251,7 +251,7 @@ TEST_FUNCTION(umocktypename_normalize_succeeds_with_a_type_that_ends_in_star)
 TEST_FUNCTION(when_allocating_memory_Fails_umocktypename_normalize_fails)
 {
     // arrange
-	char* result;
+    char* result;
 
     when_shall_malloc_fail = 1;
 

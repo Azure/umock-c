@@ -950,7 +950,7 @@ TEST_FUNCTION(when_the_underlying_call_recorder_add_actual_call_fails_then_umock
     ASSERT_ARE_EQUAL(void_ptr, &matched_call, mocked_calls[0].u.umockcallrecorder_add_actual_call.matched_call);
 }
 
-/* Tests_SRS_UMOCK_C_01_022: [** If the module is not initialized, umock_c_add_actual_call shall return a non-zero value. ]*/
+/* Tests_SRS_UMOCK_C_01_022: [If the module is not initialized, umock_c_add_actual_call shall return a non-zero value. ]*/
 TEST_FUNCTION(umock_c_add_actual_call_when_the_module_is_not_initialized_fails)
 {
     // arrange

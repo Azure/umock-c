@@ -43,7 +43,7 @@ char* umocktypes_stringify_bool(const bool* value)
     return result;
 }
 
-/* Codes_SRS_UMOCKTYPES_BOOL_01_006: [ umocktypes_are_equal_bool shall compare the 2 chars pointed to by left and right. ]*/
+/* Codes_SRS_UMOCKTYPES_BOOL_01_006: [ umocktypes_are_equal_bool shall compare the 2 bools pointed to by left and right. ]*/
 int umocktypes_are_equal_bool(const bool* left, const bool* right)
 {
     int result;
@@ -96,11 +96,11 @@ int umocktypes_bool_register_types(void)
 {
     int result;
 
-    /* Codes_SRS_UMOCKTYPES_BOOL_01_001: [ umocktypes_bool_register_types shall register support for all the types in the module. ]*/
+    /* Codes_SRS_UMOCKTYPES_BOOL_01_001: [ umocktypes_bool_register_types shall register support for the C99 bool type. ]*/
     if ((umocktypes_register_type("bool", (UMOCKTYPE_STRINGIFY_FUNC)umocktypes_stringify_bool, (UMOCKTYPE_ARE_EQUAL_FUNC)umocktypes_are_equal_bool, (UMOCKTYPE_COPY_FUNC)umocktypes_copy_bool, (UMOCKTYPE_FREE_FUNC)umocktypes_free_bool) != 0) ||
         (umocktypes_register_type("_Bool", (UMOCKTYPE_STRINGIFY_FUNC)umocktypes_stringify_bool, (UMOCKTYPE_ARE_EQUAL_FUNC)umocktypes_are_equal_bool, (UMOCKTYPE_COPY_FUNC)umocktypes_copy_bool, (UMOCKTYPE_FREE_FUNC)umocktypes_free_bool) != 0))
     {
-        /* Codes_SRS_UMOCKTYPES_BOOL_01_015: [ If registering any of the types fails, umocktypes_bool_register_types shall fail and return a non-zero value. ]*/
+        /* Codes_SRS_UMOCKTYPES_BOOL_01_015: [ If registering fails, umocktypes_bool_register_types shall fail and return a non-zero value. ]*/
         UMOCK_LOG("umocktypes_bool_register_types: Cannot register types.");
         result = __LINE__;
     }

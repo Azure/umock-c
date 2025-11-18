@@ -108,7 +108,7 @@ TEST_FUNCTION_CLEANUP(test_function_cleanup)
     umock_c_reset_all_calls();
 }
 
-/* Tests_SRS_UMOCKTYPES_WINDOWS_01_001: [ The following Windows types shall be supported out of the box, aliased to their underlying types: ]*/
+/* Tests_SRS_UMOCKTYPES_WINDOWS_01_001: [ LONG as an alias of long. ]*/
 TEST_FUNCTION(unmatched_expected_calls_with_windows_args_are_reported)
 {
     // arrange
@@ -156,7 +156,7 @@ TEST_FUNCTION(unmatched_expected_calls_with_windows_args_are_reported)
     free(calls_string);
 }
 
-/* Tests_SRS_UMOCKTYPES_WINDOWS_01_001: [ The following Windows types shall be supported out of the box, aliased to their underlying types: ]*/
+/* Tests_SRS_UMOCKTYPES_WINDOWS_01_001: [ LONG as an alias of long. ]*/
 TEST_FUNCTION(unmatched_actual_calls_with_windows_args_are_reported)
 {
     // arrange
@@ -204,7 +204,7 @@ TEST_FUNCTION(unmatched_actual_calls_with_windows_args_are_reported)
     free(calls_string);
 }
 
-/* Tests_SRS_UMOCKTYPES_WINDOWS_01_001: [ The following Windows types shall be supported out of the box, aliased to their underlying types: ]*/
+/* Tests_SRS_UMOCKTYPES_WINDOWS_01_001: [ LONG as an alias of long. ]*/
 TEST_FUNCTION(matched_calls_with_windows_args_are_not_reported)
 {
     // arrange
