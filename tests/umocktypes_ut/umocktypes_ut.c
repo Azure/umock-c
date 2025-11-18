@@ -466,7 +466,7 @@ TEST_FUNCTION(umocktypes_deinit_if_the_module_was_not_initialized_shall_do_nothi
 
 /* Tests_SRS_UMOCKTYPES_01_007: [ umocktypes_register_type shall register an interface made out of the stringify, are equal, copy and free functions for the type identified by the argument type. ] */
 /* Tests_SRS_UMOCKTYPES_01_008: [ On success umocktypes_register_type shall return 0. ]*/
-/* Tests_SRS_UMOCKTYPES_01_034: [ Before registering, the type string shall be normalized. ] */
+/* Tests_SRS_UMOCKTYPES_01_034: [ Before registering, the type string shall be normalized by calling umocktypename_normalize. ] */
 TEST_FUNCTION(umocktypes_register_type_when_module_is_initialized_succeeds)
 {
     // arrange
@@ -1708,7 +1708,7 @@ TEST_FUNCTION(umocktypes_free_with_a_non_pointer_type_that_is_not_registered_doe
     ASSERT_ARE_EQUAL(size_t, 0, test_free_func_testtype_call_count);
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE shall implement umock_c handlers for an enum type. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE and IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_WITHOUT_INVALID shall implement umock_c handlers for an enum type. ]*/
 TEST_FUNCTION(stringify_for_enum_returns_the_desired_string)
 {
     // arrange

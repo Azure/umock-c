@@ -98,7 +98,7 @@ static void umock_lock_pthreads_destroy(UMOCK_C_LOCK_HANDLE lock)
     else
     {
         UMOCK_C_LOCK_PTHREAD* umock_c_lock_pthread = (UMOCK_C_LOCK_PTHREAD*)lock;
-        /* Codes_SRS_UMOCK_LOCK_FACTORY_WINDOWS_01_001: [ umock_lock_pthread_destroy shall release the resources for the pthread lock by calling pthread_rwlock_destroy. ]*/
+        /* Codes_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_015: [ umock_lock_pthread_destroy shall release the resources for the pthread lock by calling pthread_rwlock_destroy. ]*/
         if (pthread_rwlock_destroy(&umock_c_lock_pthread->rw_lock) != 0)
         {
             UMOCK_LOG("pthread_rwlock_destroy failed");
