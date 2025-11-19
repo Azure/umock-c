@@ -107,25 +107,6 @@ TEST_FUNCTION(real_is_not_called_for_test_dependency_no_args_no_real)
     ASSERT_ARE_EQUAL(int, 1, result);
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_219: [ REGISTER_GLOBAL_INTERFACE_HOOKS shall register as mock hooks the real functions for all the functions in a mockable interface. ]*/
-TEST_FUNCTION(reals_are_setup_at_interface_level)
-{
-    // arrange
-    int result;
-
-    REGISTER_GLOBAL_INTERFACE_HOOKS(test_interface);
-
-    STRICT_EXPECTED_CALL(test_dependency_1_arg(45));
-
-    // act
-    result = test_dependency_1_arg(45);
-
-    // assert
-    ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_expected_calls());
-    ASSERT_ARE_EQUAL(char_ptr, "", umock_c_get_actual_calls());
-    ASSERT_ARE_EQUAL(int, 42, result);
-}
-
 TEST_FUNCTION(real_is_not_called_for_interface_without_reals)
 {
     // arrange

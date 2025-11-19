@@ -6,11 +6,7 @@
 
 #include "umock_c/umock_c_prod.h"
 
-
-MOCKABLE_INTERFACE(test_unit_no_reals,
-    FUNCTION(, int, test_unit_1_arg_no_real, int, a),
-    FUNCTION(, int, test_unit_2_args_no_real, int, a, int, b)
-)
-
+MOCKABLE_FUNCTION(, int, test_unit_1_arg_no_real, int, a);
+MOCKABLE_FUNCTION(, int, test_unit_2_args_no_real, int, a, int, b);
 
 #endif /* TEST_UNIT_NO_REALS_H */

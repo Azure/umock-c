@@ -497,18 +497,6 @@ for (i = 0; i < umock_c_negative_tests_call_count(); i++)
 REGISTER_UMOCKC_PAIRED_CREATE_DESTROY_CALLS(handle_create, handle_destroy);
 ```
 
-### Real Function Integration
-```c
-// Interface definition for real function support
-MOCKABLE_INTERFACE(test_interface,
-    FUNCTION(, int, function1, int, arg),
-    FUNCTION(, void, function2)
-)
-
-// Enable real function calls in tests
-REGISTER_GLOBAL_INTERFACE_HOOKS(test_interface);
-```
-
 ### Multithreading Support
 ```c
 // Initialize with custom lock factory for thread safety
