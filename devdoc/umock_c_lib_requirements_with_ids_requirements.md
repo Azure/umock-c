@@ -449,7 +449,7 @@ XX**SRS_UMOCK_C_LIB_01_148: [** If call comparison fails an error shall be indic
 
 ### Windows types
 
-**SRS_UMOCKTYPES_WINDOWS_01_001: [** The following Windows types shall be supported out of the box, aliased to their underlying types: **]**
+**SRS_UMOCK_C_LIB_01_222: [** The following Windows types shall be supported out of the box, aliased to their underlying types: **]**
 
     LONG - long
     LONGLONG - long long

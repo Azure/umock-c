@@ -94,7 +94,7 @@
         result = MU_FAILURE; \
     }
 
-/* Codes_SRS_UMOCKTYPES_WINDOWS_01_001: [ The following Windows types shall be supported out of the box, aliased to their underlying types: ]*/
+/* Codes_SRS_UMOCK_C_LIB_01_222: [ The following Windows types shall be supported out of the box, aliased to their underlying types: ] */
 int umocktypes_windows_register_types(void)
 {
     /* Codes_SRS_UMOCKTYPES_WINDOWS_01_005: [ On success, umocktypes_windows_register_types shall return 0. ]*/

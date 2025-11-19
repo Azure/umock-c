@@ -242,9 +242,9 @@ TEST_FUNCTION_CLEANUP(test_function_cleanup)
 
 /* umock_lock_factory_create_lock */
 
-/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_001: [ `umock_lock_factory_create_lock` shall allocate memory for the lock. ]*/
-/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_002: [ `umock_lock_factory_create_lock` shall initialize a pthread RW lock that is encapsulated by the new `UMOCK_C_LOCK_HANDLE`. ]*/
-/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_003: [ `umock_lock_factory_create_lock` shall return a lock handle that has the function pointers set to `umock_lock_pthread_acquire_shared`, `umock_lock_pthread_release_shared`, `umock_lock_pthread_acquire_exclusive`, `umock_lock_pthread_release_exclusive` and `umock_lock_pthread_destroy`. ]*/
+/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_001: [ umock_lock_factory_create_lock shall allocate memory for the lock. ]*/
+/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_002: [ umock_lock_factory_create_lock shall initialize a pthread RW lock that is encapsulated by the new UMOCK_C_LOCK_HANDLE. ]*/
+/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_003: [ umock_lock_factory_create_lock shall return a lock handle that has the function pointers set to umock_lock_pthread_acquire_shared, umock_lock_pthread_release_shared, umock_lock_pthread_acquire_exclusive, umock_lock_pthread_release_exclusive and umock_lock_pthread_destroy. ]*/
 TEST_FUNCTION(umock_lock_factory_create_lock_succeeds)
 {
     // arrange
@@ -267,7 +267,7 @@ TEST_FUNCTION(umock_lock_factory_create_lock_succeeds)
     lock->destroy(lock);
 }
 
-/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_004: [ If any error occurs, `umock_lock_factory_create_lock` shall fail and return `NULL`. ]*/
+/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_004: [ If any error occurs, umock_lock_factory_create_lock shall fail and return NULL. ]*/
 TEST_FUNCTION(when_allocating_memory_fails_umock_lock_factory_create_lock_also_fails)
 {
     // arrange
@@ -282,7 +282,7 @@ TEST_FUNCTION(when_allocating_memory_fails_umock_lock_factory_create_lock_also_f
     ASSERT_ARE_EQUAL(TEST_MOCK_CALL_TYPE, TEST_MOCK_CALL_TYPE_mock_malloc, mocked_calls[0].call_type);
 }
 
-/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_004: [ If any error occurs, `umock_lock_factory_create_lock` shall fail and return `NULL`. ]*/
+/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_004: [ If any error occurs, umock_lock_factory_create_lock shall fail and return NULL. ]*/
 TEST_FUNCTION(when_initializing_the_lock_fails_umock_lock_factory_create_lock_also_fails)
 {
     // arrange
@@ -301,7 +301,7 @@ TEST_FUNCTION(when_initializing_the_lock_fails_umock_lock_factory_create_lock_al
 
 /* umock_lock_pthread_acquire_shared */
 
-/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_010: [ If `lock` is `NULL`, `umock_lock_pthread_acquire_shared` shall return. ]*/
+/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_010: [ If lock is NULL, umock_lock_pthread_acquire_shared shall return. ]*/
 TEST_FUNCTION(umock_lock_pthread_acquire_shared_with_NULL_lock_returns)
 {
     // arrange
@@ -319,7 +319,7 @@ TEST_FUNCTION(umock_lock_pthread_acquire_shared_with_NULL_lock_returns)
     lock->destroy(lock);
 }
 
-/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_005: [ `umock_lock_pthread_acquire_shared` shall acquire the read lock by calling `pthread_rwlock_rdlock`. ]*/
+/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_005: [ umock_lock_pthread_acquire_shared shall acquire the read lock by calling pthread_rwlock_rdlock. ]*/
 TEST_FUNCTION(umock_lock_pthread_acquire_shared_acquires_the_lock_in_shared_mode)
 {
     // arrange
@@ -340,7 +340,7 @@ TEST_FUNCTION(umock_lock_pthread_acquire_shared_acquires_the_lock_in_shared_mode
 
 /* umock_lock_pthread_release_shared */
 
-/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_011: [ If `lock` is `NULL`, `umock_lock_pthread_release_shared` shall return. ]*/
+/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_011: [ If lock is NULL, umock_lock_pthread_release_shared shall return. ]*/
 TEST_FUNCTION(umock_lock_pthread_release_shared_with_NULL_lock_returns)
 {
     // arrange
@@ -358,7 +358,7 @@ TEST_FUNCTION(umock_lock_pthread_release_shared_with_NULL_lock_returns)
     lock->destroy(lock);
 }
 
-/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_006: [ `umock_lock_pthread_release_shared` shall release the lock that was acquired in shared mode by calling `pthread_rwlock_unlock`. ]*/
+/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_006: [ umock_lock_pthread_release_shared shall release the lock that was acquired in shared mode by calling pthread_rwlock_unlock. ]*/
 TEST_FUNCTION(umock_lock_pthread_release_shared_releases_the_lock_in_shared_mode)
 {
     // arrange
@@ -379,7 +379,7 @@ TEST_FUNCTION(umock_lock_pthread_release_shared_releases_the_lock_in_shared_mode
 
 /* umock_lock_pthread_acquire_exclusive */
 
-/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_012: [ If `lock` is `NULL`, `umock_lock_pthread_acquire_exclusive` shall return. ]*/
+/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_012: [ If lock is NULL, umock_lock_pthread_acquire_exclusive shall return. ]*/
 TEST_FUNCTION(umock_lock_pthread_acquire_exclusive_with_NULL_lock_returns)
 {
     // arrange
@@ -397,7 +397,7 @@ TEST_FUNCTION(umock_lock_pthread_acquire_exclusive_with_NULL_lock_returns)
     lock->destroy(lock);
 }
 
-/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_007: [ `umock_lock_pthread_acquire_exclusive` shall acquire the lock in exclusive mode by calling `pthread_rwlock_wrlock`. ]*/
+/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_007: [ umock_lock_pthread_acquire_exclusive shall acquire the lock in exclusive mode by calling pthread_rwlock_wrlock. ]*/
 TEST_FUNCTION(umock_lock_pthread_acquire_exclusive_acquires_the_lock_in_exclusive_mode)
 {
     // arrange
@@ -418,7 +418,7 @@ TEST_FUNCTION(umock_lock_pthread_acquire_exclusive_acquires_the_lock_in_exclusiv
 
 /* umock_lock_pthread_release_exclusive */
 
-/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_013: [ If `lock` is `NULL`, `umock_lock_pthread_release_exclusive` shall return. ]*/
+/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_013: [ If lock is NULL, umock_lock_pthread_release_exclusive shall return. ]*/
 TEST_FUNCTION(umock_lock_pthread_release_exclusive_with_NULL_lock_returns)
 {
     // arrange
@@ -436,7 +436,7 @@ TEST_FUNCTION(umock_lock_pthread_release_exclusive_with_NULL_lock_returns)
     lock->destroy(lock);
 }
 
-/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_008: [ `umock_lock_pthread_release_exclusive` shall release the lock that was acquired in exclusive mode by calling `pthread_rwlock_unlock`. ]*/
+/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_008: [ umock_lock_pthread_release_exclusive shall release the lock that was acquired in exclusive mode by calling pthread_rwlock_unlock. ]*/
 TEST_FUNCTION(umock_lock_pthread_release_exclusive_releases_the_lock_in_exclusive_mode)
 {
     // arrange
@@ -457,7 +457,7 @@ TEST_FUNCTION(umock_lock_pthread_release_exclusive_releases_the_lock_in_exclusiv
 
 /* umock_lock_pthread_destroy */
 
-/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_014: [ If `lock` is `NULL`, `umock_lock_pthread_destroy` shall return. ]*/
+/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_014: [ If lock is NULL, umock_lock_pthread_destroy shall return. ]*/
 TEST_FUNCTION(umock_lock_pthread_destroy_with_NULL_lock_returns)
 {
     // arrange
@@ -475,8 +475,8 @@ TEST_FUNCTION(umock_lock_pthread_destroy_with_NULL_lock_returns)
     lock->destroy(lock);
 }
 
-/* Tests_SRS_UMOCK_LOCK_FACTORY_WINDOWS_01_001: [ `umock_lock_pthread_destroy` shall release the resources for the pthread lock by calling `pthread_rwlock_destroy`. ]*/
-/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_009: [ `umock_lock_pthread_destroy` shall free the memory associated with the lock. ]*/
+/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_015: [ umock_lock_pthread_destroy shall release the resources for the pthread lock by calling pthread_rwlock_destroy. ]*/
+/* Tests_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_009: [ umock_lock_pthread_destroy shall free the memory associated with the lock. ]*/
 TEST_FUNCTION(umock_lock_pthread_destroy_frees_the_resources)
 {
     // arrange

@@ -233,3 +233,4 @@ endif()
 
 #Insert vld in all executables if so required
 add_vld_if_defined(${CMAKE_CURRENT_SOURCE_DIR})
+add_repo_validation(umock_c)

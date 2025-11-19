@@ -37,22 +37,22 @@ int internal_init_with_lock_factory(ON_UMOCK_C_ERROR on_umock_c_error, UMOCK_C_L
     else
     {
         /* Codes_SRS_UMOCK_C_LIB_01_144: [ Out of the box umock_c shall support the following types through the header umocktypes_c.h: ]*/
-        /* Codes_SRS_UMOCK_C_LIB_01_028: [**char**] */
-        /* Codes_SRS_UMOCK_C_LIB_01_029 : [**unsigned char**] */
-        /* Codes_SRS_UMOCK_C_LIB_01_030 : [**short**] */
-        /* Codes_SRS_UMOCK_C_LIB_01_031 : [**unsigned short**] */
-        /* Codes_SRS_UMOCK_C_LIB_01_032 : [**int**] */
-        /* Codes_SRS_UMOCK_C_LIB_01_033 : [**unsigned int**] */
-        /* Codes_SRS_UMOCK_C_LIB_01_034 : [**long**] */
-        /* Codes_SRS_UMOCK_C_LIB_01_035 : [**unsigned long**] */
-        /* Codes_SRS_UMOCK_C_LIB_01_036 : [**long long**] */
-        /* Codes_SRS_UMOCK_C_LIB_01_037 : [**unsigned long long**] */
-        /* Codes_SRS_UMOCK_C_LIB_01_038 : [**float**] */
-        /* Codes_SRS_UMOCK_C_LIB_01_039 : [**double**] */
-        /* Codes_SRS_UMOCK_C_LIB_01_040 : [**long double**] */
-        /* Codes_SRS_UMOCK_C_LIB_01_041 : [**size_t**] */
-        /* Codes_SRS_UMOCK_C_LIB_01_151: [ void\* ]*/
-        /* Codes_SRS_UMOCK_C_LIB_01_152: [ const void\* ]*/
+        /* Codes_SRS_UMOCK_C_LIB_01_028: [char] */
+        /* Codes_SRS_UMOCK_C_LIB_01_029 : [unsigned char] */
+        /* Codes_SRS_UMOCK_C_LIB_01_030 : [short] */
+        /* Codes_SRS_UMOCK_C_LIB_01_031 : [unsigned short] */
+        /* Codes_SRS_UMOCK_C_LIB_01_032 : [int] */
+        /* Codes_SRS_UMOCK_C_LIB_01_033 : [unsigned int] */
+        /* Codes_SRS_UMOCK_C_LIB_01_034 : [long] */
+        /* Codes_SRS_UMOCK_C_LIB_01_035 : [unsigned long] */
+        /* Codes_SRS_UMOCK_C_LIB_01_036 : [long long] */
+        /* Codes_SRS_UMOCK_C_LIB_01_037 : [unsigned long long] */
+        /* Codes_SRS_UMOCK_C_LIB_01_038 : [float] */
+        /* Codes_SRS_UMOCK_C_LIB_01_039 : [double] */
+        /* Codes_SRS_UMOCK_C_LIB_01_040 : [long double] */
+        /* Codes_SRS_UMOCK_C_LIB_01_041 : [size_t] */
+        /* Codes_SRS_UMOCK_C_LIB_01_151: [ void* ]*/
+        /* Codes_SRS_UMOCK_C_LIB_01_152: [ const void* ]*/
         /* Codes_SRS_UMOCK_C_01_023: [ umock_c_init shall initialize the umock types by calling umocktypes_init. ]*/
         if ((umocktypes_init() != 0) ||
             /* Codes_SRS_UMOCK_C_01_002: [ umock_c_init shall register the C native types by calling umocktypes_c_register_types. ]*/
