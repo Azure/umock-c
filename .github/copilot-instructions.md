@@ -787,14 +787,14 @@ ASSERT_ARE_EQUAL(MY_ENUM, EXPECTED_VALUE, actual_value);
 
 ### Dependency References
 Refer to dependency-specific instructions for comprehensive patterns:
-- **c-build-tools**: Build infrastructure, coding standards, quality gates (`deps/c-build-tools/.github/copilot-instructions.md`)
-- **macro-utils-c**: Macro metaprogramming patterns (`deps/macro-utils-c/.github/copilot-instructions.md`)
-- **c-logging**: Logging integration for debugging (`deps/c-logging/.github/copilot-instructions.md`)
-- **ctest**: Test framework integration (`deps/ctest/.github/copilot-instructions.md`)
-- **c-testrunnerswitcher**: Cross-platform test execution (`deps/c-testrunnerswitcher/.github/copilot-instructions.md`)
+- **c-build-tools**: Build infrastructure, coding standards, quality gates (#file:../deps/c-build-tools/.github/copilot-instructions.md)
+- **macro-utils-c**: Macro metaprogramming patterns (#file:../deps/macro-utils-c/.github/copilot-instructions.md)
+- **c-logging**: Logging integration for debugging (#file:../deps/c-logging/.github/copilot-instructions.md)
+- **ctest**: Test framework integration (#file:../deps/ctest/.github/copilot-instructions.md)
+- **c-testrunnerswitcher**: Cross-platform test execution (#file:../deps/c-testrunnerswitcher/.github/copilot-instructions.md)
 
 ### Coding Standards Compliance
-**CRITICAL**: All code must follow comprehensive standards in `deps/c-build-tools/.github/general_coding_instructions.md`:
+**CRITICAL**: All code must follow comprehensive standards in #file:../deps/c-build-tools/.github/general_coding_instructions.md:
 - Function naming (snake_case with module prefixes like `umock_c_*`, `umocktypes_*`)
 - Parameter validation patterns and error handling
 - Header inclusion order and memory management
