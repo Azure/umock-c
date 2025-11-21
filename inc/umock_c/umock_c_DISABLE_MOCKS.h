@@ -9,7 +9,7 @@
 #error "umock_c_DISABLE_MOCKS.h included while ENABLE_MOCKS is not defined"
 #endif
 
-#undef ENABLE_MOCKS
+#undef ENABLE_MOCKS // force
 
 #include "umock_c/umock_c_prod.h"
 

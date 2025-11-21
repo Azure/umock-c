@@ -2245,7 +2245,7 @@ TEST_FUNCTION(when_the_enum_value_is_not_within_the_enum_the_int_value_is_filled
 
 /* CaptureReturn */
 
-/* Tests_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE and IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_WITHOUT_INVALID shall implement umock_c handlers for an enum type. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_223: [ The CaptureReturn call modifier shall copy the return value that is being returned to the code under test when an actual call is matched with the expected call.]*/
 TEST_FUNCTION(capture_return_captures_the_return_value)
 {
     // arrange
@@ -2261,7 +2261,7 @@ TEST_FUNCTION(capture_return_captures_the_return_value)
     ASSERT_ARE_EQUAL(int, 42, captured_return);
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_180: [ The variable arguments are a list making up the enum values. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_224: [ If CaptureReturn is called multiple times for the same call, an error shall be indicated with the code UMOCK_C_CAPTURE_RETURN_ALREADY_USED.]*/
 TEST_FUNCTION(capture_return_twice_captures_the_return_value_in_the_pointer_indicated_by_the_second_call)
 {
     // arrange
@@ -2295,7 +2295,7 @@ TEST_FUNCTION(capture_return_with_NULL_argument_indicates_an_error)
     //TFS661968 ASSERT_ARE_EQUAL(UMOCK_C_ERROR_CODE, UMOCK_C_NULL_ARGUMENT, test_on_umock_c_error_calls[0].error_code);
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE and IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_WITHOUT_INVALID shall implement umock_c handlers for an enum type. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_223: [ The CaptureReturn call modifier shall copy the return value that is being returned to the code under test when an actual call is matched with the expected call.]*/
 TEST_FUNCTION(capture_return_when_no_actual_call_does_not_capture_anything)
 {
     // arrange
@@ -2310,7 +2310,7 @@ TEST_FUNCTION(capture_return_when_no_actual_call_does_not_capture_anything)
     ASSERT_ARE_EQUAL(int, 0, captured_return);
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE and IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_WITHOUT_INVALID shall implement umock_c handlers for an enum type. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_223: [ The CaptureReturn call modifier shall copy the return value that is being returned to the code under test when an actual call is matched with the expected call.]*/
 TEST_FUNCTION(capture_return_when_no_matching_actual_call_does_not_capture_anything)
 {
     // arrange
@@ -2326,7 +2326,7 @@ TEST_FUNCTION(capture_return_when_no_matching_actual_call_does_not_capture_anyth
     ASSERT_ARE_EQUAL(int, 0, captured_return);
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE and IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_WITHOUT_INVALID shall implement umock_c handlers for an enum type. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_223: [ The CaptureReturn call modifier shall copy the return value that is being returned to the code under test when an actual call is matched with the expected call.]*/
 TEST_FUNCTION(capture_return_takes_into_account_a_set_return_call)
 {
     // arrange
@@ -2343,7 +2343,7 @@ TEST_FUNCTION(capture_return_takes_into_account_a_set_return_call)
     ASSERT_ARE_EQUAL(int, 42, captured_return);
 }
 
-/* Tests_SRS_UMOCK_C_LIB_01_179: [ IMPLEMENT_UMOCK_C_ENUM_TYPE and IMPLEMENT_UMOCK_C_ENUM_STRINGIFY_WITHOUT_INVALID shall implement umock_c handlers for an enum type. ]*/
+/* Tests_SRS_UMOCK_C_LIB_01_223: [ The CaptureReturn call modifier shall copy the return value that is being returned to the code under test when an actual call is matched with the expected call.]*/
 TEST_FUNCTION(capture_return_captures_the_return_value_different_value)
 {
     // arrange

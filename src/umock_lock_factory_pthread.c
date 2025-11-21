@@ -130,7 +130,7 @@ UMOCK_C_LOCK_HANDLE umock_lock_factory_create_lock(void* params)
         rw_lock_pthreads->lock_if.release_exclusive = umock_lock_pthreads_release_exclusive;
         rw_lock_pthreads->lock_if.destroy = umock_lock_pthreads_destroy;
 
-        /* Codes_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_002: [] umock_lock_factory_create_lock shall initialize a pthread RW lock that is encapsulated by the new UMOCK_C_LOCK_HANDLE. ]*/
+        /* Codes_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_002: [umock_lock_factory_create_lock shall initialize a pthread RW lock that is encapsulated by the new UMOCK_C_LOCK_HANDLE.]*/
         if (pthread_rwlock_init(&rw_lock_pthreads->rw_lock, NULL) != 0)
         {
             /* Codes_SRS_UMOCK_LOCK_FACTORY_PTHREAD_01_004: [ If any error occurs, umock_lock_factory_create_lock shall fail and return NULL. ]*/

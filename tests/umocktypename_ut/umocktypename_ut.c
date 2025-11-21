@@ -160,7 +160,7 @@ TEST_FUNCTION(umocktypename_normalize_removes_the_space_after_a_star)
     free(result);
 }
 
-/* Tests_SRS_UMOCKTYPENAME_01_002: [** umocktypename_normalize shall remove all spaces at the beginning of the typename. ] ]*/
+/* Tests_SRS_UMOCKTYPENAME_01_002: [umocktypename_normalize shall remove all spaces at the beginning of the typename.]*/
 TEST_FUNCTION(umocktypename_normalize_removes_1_space_at_the_beginning)
 {
     // arrange
@@ -175,7 +175,7 @@ TEST_FUNCTION(umocktypename_normalize_removes_1_space_at_the_beginning)
     free(result);
 }
 
-/* Tests_SRS_UMOCKTYPENAME_01_002: [** umocktypename_normalize shall remove all spaces at the beginning of the typename. ] ]*/
+/* Tests_SRS_UMOCKTYPENAME_01_002: [umocktypename_normalize shall remove all spaces at the beginning of the typename.]*/
 TEST_FUNCTION(umocktypename_normalize_removes_2_spaces_at_the_beginning)
 {
     // arrange

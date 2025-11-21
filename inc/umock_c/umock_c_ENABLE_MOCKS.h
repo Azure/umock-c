@@ -9,7 +9,7 @@
 #error "umock_c_ENABLE_MOCKS.h included while ENABLE_MOCKS is already defined"
 #endif
 
-#define ENABLE_MOCKS
+#define ENABLE_MOCKS // force
 
 #include "umock_c/umock_c_prod.h"
 
