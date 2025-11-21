@@ -875,11 +875,11 @@ XX**SRS_UMOCK_C_LIB_01_103: [** The call matching shall be done taking into acco
 
 ### CaptureReturn(return_type* captured_return_value)
 
-XX**SRS_UMOCK_C_LIB_01_179: [** The CaptureReturn call modifier shall copy the return value that is being returned to the code under test when an actual call is matched with the expected call. **]**
-XX**SRS_UMOCK_C_LIB_01_180: [** If CaptureReturn is called multiple times for the same call, an error shall be indicated with the code UMOCK_C_CAPTURE_RETURN_ALREADY_USED. **]**
+XX**SRS_UMOCK_C_LIB_01_223: [** The CaptureReturn call modifier shall copy the return value that is being returned to the code under test when an actual call is matched with the expected call. **]**
+XX**SRS_UMOCK_C_LIB_01_224: [** If CaptureReturn is called multiple times for the same call, an error shall be indicated with the code UMOCK_C_CAPTURE_RETURN_ALREADY_USED. **]**
 XX**SRS_UMOCK_C_LIB_01_182: [** If captured_return_value is NULL, umock_c shall raise an error with the code UMOCK_C_NULL_ARGUMENT. **]**
 
-**SRS_UMOCK_C_LIB_01_181: [** CaptureReturn shall only be available if the return type is not void. **]**
+**SRS_UMOCK_C_LIB_01_225: [** CaptureReturn shall only be available if the return type is not void. **]**
 
 Example:
 
