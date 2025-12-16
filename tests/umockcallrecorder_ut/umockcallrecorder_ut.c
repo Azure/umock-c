@@ -552,8 +552,8 @@ TEST_FUNCTION(when_allocating_memory_fails_then_umockcallrecorder_create_fails)
     ASSERT_IS_NULL(call_recorder);
 }
 
-/* Codes_SRS_UMOCKCALLRECORDER_01_097: [ If lock_factory_create_lock is not NULL, umockcallrecorder_create shall call lock_factory_create_lock to create the lock used when working with the stored calls. ]*/
-/*Tests_SRS_UMOCKCALLRECORDER_01_001: [ umockcallrecorder_create shall create a new instance of a call recorder and return a non-NULL handle to it on success. ]*/
+/* Tests_SRS_UMOCKCALLRECORDER_01_097: [ If lock_factory_create_lock is not NULL, umockcallrecorder_create shall call lock_factory_create_lock to create the lock used when working with the stored calls. ]*/
+/* Tests_SRS_UMOCKCALLRECORDER_01_001: [ umockcallrecorder_create shall create a new instance of a call recorder and return a non-NULL handle to it on success. ]*/
 TEST_FUNCTION(umockcallrecorder_create_with_non_NULL_lock_factory_succeeds)
 {
     // arrange
