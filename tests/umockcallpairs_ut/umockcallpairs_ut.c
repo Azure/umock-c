@@ -407,6 +407,8 @@ TEST_FUNCTION(when_copying_the_handle_fails_umockcallpairs_track_create_paired_c
     ASSERT_ARE_EQUAL(void_ptr, &handle, umocktypes_copy_calls[0].source);
 }
 
+/*Tests_SRS_UMOCKCALLPAIRS_01_005: [ If allocating memory fails, umockcallpairs_track_create_paired_call shall fail and return a non-zero value. ]*/
+/*Tests_SRS_UMOCKCALLPAIRS_01_008: [ umockcallpairs_track_destroy_paired_call shall remove from the paired handles array pointed by the paired_handles field the entry that is associated with the handle passed in the handle argument. ]*/
 TEST_FUNCTION(when_realloc_fails_a_subsequent_create_and_destroy_succeeds)
 {
     // arrange

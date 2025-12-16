@@ -1,11 +1,11 @@
-﻿# umock_c
+# umock_c
 
 # Overview
 
 umock_c is a C mocking library that exposes APIs to allow:
--	defining mock functions, 
--	recording expected calls 
--	comparing expected calls with actual calls. 
+-    defining mock functions, 
+-    recording expected calls 
+-    comparing expected calls with actual calls. 
 On top of the basic functionality, additional convenience features like modifiers on expected calls are provided.
 
 # Simple example
@@ -74,10 +74,10 @@ MU_DEFINE_ENUM(UMOCK_C_ERROR_CODE, UMOCK_C_ERROR_CODE_VALUES)
     ...
 
 #define MOCKABLE_FUNCTION(modifiers, result, function, ...) \
-	...
+    ...
 
 #define MOCKABLE_FUNCTION_WITH_RETURNS(modifiers, result, function, ...)(success_return_value, failure_return_value) \
-	...
+    ...
 
 #define REGISTER_GLOBAL_MOCK_HOOK(mock_function, mock_hook_function) \
     ...
@@ -93,10 +93,10 @@ MU_DEFINE_ENUM(UMOCK_C_ERROR_CODE, UMOCK_C_ERROR_CODE_VALUES)
     ...
 
 #define STRICT_EXPECTED_CALL(call) \
-	...
+    ...
 
 #define EXPECTED_CALL(call) \
-	...
+    ...
 
     int umock_c_init(ON_UMOCK_C_ERROR on_umock_c_error);
     int umock_c_init_with_lock_factory(ON_UMOCK_C_ERROR on_umock_c_error, UMOCK_C_LOCK_FACTORY_CREATE_LOCK_FUNC lock_factory_create_lock, void* lock_factory_create_lock_params);
@@ -419,22 +419,22 @@ If call comparison fails an error shall be indicated by calling the error callba
 ### Out of the box
 
 Out of the box umock_c shall support the following types through the header umocktypes_c.h:
--	char
--	unsigned char
--	short
--	unsigned short
--	int
--	unsigned int
--	long
--	unsigned long
--	long long
--	unsigned long long
--	float
--	double
--	long double
--	size_t
--	void*
--	const void*
+-    char
+-    unsigned char
+-    short
+-    unsigned short
+-    int
+-    unsigned int
+-    long
+-    unsigned long
+-    long long
+-    unsigned long long
+-    float
+-    double
+-    long double
+-    size_t
+-    void*
+-    const void*
 
 ### Pointer types
 
@@ -479,19 +479,19 @@ The following Windows types shall be supported out of the box, aliased to their 
 Custom types, like structures shall be supported by allowing the user to define a set of functions that can be used by umock_c to operate with these types.
 
 Five functions shall be provided to umock_c:
--	A stringify function.
+-    A stringify function.
 
 This function shall return the string representation of a value of the given type.
 
--	An are_equal function.
+-    An are_equal function.
 
 This function shall compare 2 values of the given type and return an int indicating whether they are equal (1 means equal, 0 means different).
 
--	A copy function.
+-    A copy function.
 
 This function shall make a copy of a value for the given type.
 
--	A free function.
+-    A free function.
 
 This function shall free a copied value.
 

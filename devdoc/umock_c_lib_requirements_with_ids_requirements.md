@@ -4,9 +4,9 @@
 # Overview
 
 umock_c is a C mocking library that exposes APIs to allow:
--	defining mock functions,
--	recording expected calls
--	comparing expected calls with actual calls.
+-    defining mock functions,
+-    recording expected calls
+-    comparing expected calls with actual calls.
 On top of the basic functionality, additional convenience features like modifiers on expected calls are provided.
 
 # Simple example
@@ -77,10 +77,10 @@ typedef void(*ON_UMOCK_C_ERROR)(UMOCK_C_ERROR_CODE error_code);
     ...
 
 #define MOCKABLE_FUNCTION(modifiers, result, function, ...) \
-	...
+    ...
 
 #define MOCKABLE_FUNCTION_WITH_RETURNS(modifiers, result, function, ...)(success_return_value, failure_return_value) \
-	...
+    ...
 
 #define REGISTER_GLOBAL_MOCK_HOOK(mock_function, mock_hook_function) \
     ...
@@ -96,10 +96,10 @@ typedef void(*ON_UMOCK_C_ERROR)(UMOCK_C_ERROR_CODE error_code);
     ...
 
 #define STRICT_EXPECTED_CALL(call) \
-	...
+    ...
 
 #define EXPECTED_CALL(call) \
-	...
+    ...
 
     int umock_c_init(ON_UMOCK_C_ERROR on_umock_c_error);
     int umock_c_init_with_lock_factory(ON_UMOCK_C_ERROR on_umock_c_error, UMOCK_C_LOCK_FACTORY_CREATE_LOCK_FUNC lock_factory_create_lock, void* lock_factory_create_lock_params);
@@ -426,20 +426,20 @@ XX**SRS_UMOCK_C_LIB_01_148: [** If call comparison fails an error shall be indic
 ### Out of the box
 
 **SRS_UMOCK_C_LIB_01_144: [** Out of the box umock_c shall support the following types through the header umocktypes_c.h: **]**
--	**SRS_UMOCK_C_LIB_01_028: [** char **]**
--	**SRS_UMOCK_C_LIB_01_029: [** unsigned char **]**
--	**SRS_UMOCK_C_LIB_01_030: [** short **]**
--	**SRS_UMOCK_C_LIB_01_031: [** unsigned short **]**
--	**SRS_UMOCK_C_LIB_01_032: [** int **]**
--	**SRS_UMOCK_C_LIB_01_033: [** unsigned int **]**
--	**SRS_UMOCK_C_LIB_01_034: [** long **]**
--	**SRS_UMOCK_C_LIB_01_035: [** unsigned long **]**
--	**SRS_UMOCK_C_LIB_01_036: [** long long **]**
--	**SRS_UMOCK_C_LIB_01_037: [** unsigned long long **]**
--	**SRS_UMOCK_C_LIB_01_038: [** float **]**
--	**SRS_UMOCK_C_LIB_01_039: [** double **]**
--	**SRS_UMOCK_C_LIB_01_040: [** long double **]**
--	**SRS_UMOCK_C_LIB_01_041: [** size_t **]**
+-    **SRS_UMOCK_C_LIB_01_028: [** char **]**
+-    **SRS_UMOCK_C_LIB_01_029: [** unsigned char **]**
+-    **SRS_UMOCK_C_LIB_01_030: [** short **]**
+-    **SRS_UMOCK_C_LIB_01_031: [** unsigned short **]**
+-    **SRS_UMOCK_C_LIB_01_032: [** int **]**
+-    **SRS_UMOCK_C_LIB_01_033: [** unsigned int **]**
+-    **SRS_UMOCK_C_LIB_01_034: [** long **]**
+-    **SRS_UMOCK_C_LIB_01_035: [** unsigned long **]**
+-    **SRS_UMOCK_C_LIB_01_036: [** long long **]**
+-    **SRS_UMOCK_C_LIB_01_037: [** unsigned long long **]**
+-    **SRS_UMOCK_C_LIB_01_038: [** float **]**
+-    **SRS_UMOCK_C_LIB_01_039: [** double **]**
+-    **SRS_UMOCK_C_LIB_01_040: [** long double **]**
+-    **SRS_UMOCK_C_LIB_01_041: [** size_t **]**
 -   **SRS_UMOCK_C_LIB_01_151: [** void\* **]**
 -   **SRS_UMOCK_C_LIB_01_152: [** const void\* **]**
 
@@ -486,19 +486,19 @@ XX**SRS_UMOCK_C_LIB_01_148: [** If call comparison fails an error shall be indic
 **SRS_UMOCK_C_LIB_01_045: [** Custom types, like structures shall be supported by allowing the user to define a set of functions that can be used by umock_c to operate with these types. **]**
 
 Five functions shall be provided to umock_c:
--	**SRS_UMOCK_C_LIB_01_046: [** A stringify function. **]**
+-    **SRS_UMOCK_C_LIB_01_046: [** A stringify function. **]**
 
 **SRS_UMOCK_C_LIB_01_047: [** This function shall return the string representation of a value of the given type. **]**
 
--	**SRS_UMOCK_C_LIB_01_048: [** An are_equal function. **]**
+-    **SRS_UMOCK_C_LIB_01_048: [** An are_equal function. **]**
 
 **SRS_UMOCK_C_LIB_01_049: [** This function shall compare 2 values of the given type and return an int indicating whether they are equal (1 means equal, 0 means different). **]**
 
--	**SRS_UMOCK_C_LIB_01_050: [** A copy function. **]**
+-    **SRS_UMOCK_C_LIB_01_050: [** A copy function. **]**
 
 **SRS_UMOCK_C_LIB_01_051: [** This function shall make a copy of a value for the given type. **]**
 
--	**SRS_UMOCK_C_LIB_01_052: [** A free function. **]**
+-    **SRS_UMOCK_C_LIB_01_052: [** A free function. **]**
 
 **SRS_UMOCK_C_LIB_01_053: [** This function shall free a copied value. **]**
 
