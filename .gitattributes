@@ -1,0 +1,30 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# default for crlf for all source, text, md, and yml
+*.c text eol=crlf
+*.h text eol=crlf
+*.cs text eol=crlf
+*.txt text eol=crlf
+*.md text eol=crlf
+*.yml text eol=crlf
+
+# crlf for windows scripts
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# crlf will mess up back scripts, so default these to lf
+*.sh text eol=lf
+
+# Denote all files that should not have line endings normalized, should not be
+# merged, and should not show in a textual diff.
+*.docm binary
+*.docx binary
+*.ico binary
+*.lib binary
+*.png binary
+*.pptx binary
+*.snk binary
+*.vsdx binary
+*.xps binary
