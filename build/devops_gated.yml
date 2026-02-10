@@ -36,13 +36,13 @@ jobs:
     workingDirectory: '$(Build.Repository.LocalPath)'
     displayName: 'git submodule update and clean'
 
-  - task: Bash@3
-    displayName: 'Build and run tests'
-    inputs:
-      targetType: filePath
-      filePath: './build/linux/build_linux.sh'
-      arguments: '$(Build.Repository.LocalPath)'
-      workingDirectory: '$(Build.Repository.LocalPath)'
+  - template: /pipeline_templates/run_with_crash_reports.yml@c_build_tools
+    parameters:
+      build_directory: $(Build.Repository.LocalPath)/cmake_linux
+      test_script: |
+        ./build/linux/build_linux.sh $(Build.Repository.LocalPath)
+      test_displayName: 'Build and run tests'
+      test_workingDirectory: '$(Build.Repository.LocalPath)'
 
 # Will be re-enabled at a later time
 #- job: includecheck
