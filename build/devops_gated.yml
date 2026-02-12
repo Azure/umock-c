@@ -90,6 +90,6 @@ jobs:
 #    displayName: 'Build with iwyu'
 #    inputs:
 #      targetType: filePath
-#      filePath: './build/linux/build_linux_iwyu.sh'
+#      filePath: './deps/c-build-tools/build/linux/build_linux_iwyu.sh'
 #      arguments: '$(Build.Repository.LocalPath)'
 #      workingDirectory: '$(Build.Repository.LocalPath)'
