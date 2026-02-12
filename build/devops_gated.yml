@@ -15,34 +15,7 @@ jobs:
 
 - template: /pipeline_templates/codeql3000_default.yml@c_build_tools
 
-- job: linuxubuntu
-  displayName: 'Build Linux Ubuntu'
-  variables:
-    #Codeql does not play nice with valgrind
-    Codeql.Enabled: false
-  pool:
-    name: Azure-MsgStore-Linux2204BuildMachinePool
-    demands:
-      - linux
-
-  steps:
-
-  - bash: |
-     pushd $(Build.Repository.LocalPath)
-     git submodule update --init
-     git submodule foreach --recursive "git clean -xdff"
-     git clean -xdff
-     popd
-    workingDirectory: '$(Build.Repository.LocalPath)'
-    displayName: 'git submodule update and clean'
-
-  - template: /pipeline_templates/run_with_crash_reports.yml@c_build_tools
-    parameters:
-      build_directory: $(Build.Repository.LocalPath)/cmake_linux
-      test_script: |
-        ./build/linux/build_linux.sh $(Build.Repository.LocalPath)
-      test_displayName: 'Build and run tests'
-      test_workingDirectory: '$(Build.Repository.LocalPath)'
+- template: /pipeline_templates/build_linux.yml@c_build_tools
 
 # Will be re-enabled at a later time
 #- job: includecheck
