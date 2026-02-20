@@ -114,7 +114,7 @@ UMOCKCALLRECORDER_HANDLE umockcallrecorder_create(UMOCK_C_LOCK_FACTORY_CREATE_LO
             ((result->lock = lock_factory_create_lock(lock_factory_create_lock_params)) == NULL)
             )
         {
-            /* Tests_SRS_UMOCKCALLRECORDER_01_002: [ If any error occurs, umockcallrecorder_create shall return NULL. ]*/
+            /* Codes_SRS_UMOCKCALLRECORDER_01_002: [ If any error occurs, umockcallrecorder_create shall return NULL. ]*/
             UMOCK_LOG("lock_factory_create_lock failed");
         }
         else

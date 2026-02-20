@@ -1,10 +1,10 @@
 #Copyright (c) Microsoft. All rights reserved.
 #Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-set(theseTestsName umock_c_negt_noint_tests)
+set(theseTestsName umock_c_negt_noini_ut)
 
 set(${theseTestsName}_test_files
-umock_c_negt_noint_tests.c
+umock_c_negt_noini_ut.c
 )
 
 set(${theseTestsName}_c_files
