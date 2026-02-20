@@ -4,7 +4,7 @@
 set(theseTestsName umock_c_negative_tests_int)
 
 set(${theseTestsName}_test_files
-    umock_c_negt_int_tests.c
+    umock_c_negt_int.c
 )
 
 set(${theseTestsName}_c_files
