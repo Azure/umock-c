@@ -10,6 +10,8 @@ resources:
     ref: refs/heads/master
 jobs:
 - template: /pipeline_templates/build_all_flavors.yml@c_build_tools
+  parameters:
+    cmake_options: '-Drun_repo_validation:BOOL=ON'
 
 - template: /pipeline_templates/run_master_check.yml@c_build_tools
 
