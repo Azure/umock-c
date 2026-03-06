@@ -1,5 +1,5 @@
 # Local copy of build_and_run_tests.yml with pool override for ARM64 testing.
-# Uses Azure-MessagingStore-WinBuildPoolARM_v6_core pool instead of Azure-MessagingStore-WinBuildPoolARM.
+# Uses anpodelete pool instead of Azure-MessagingStore-WinBuildPoolARM.
 
 parameters:
   - name: BUILD_SUFFIX
@@ -46,10 +46,10 @@ jobs:
     ${{ if eq(parameters.FSANITIZE_TYPE, 'OFF') }}:
       use_vld_option: '-Duse_vld:bool=ON'
 
-  # ARM64 uses Azure-MessagingStore-WinBuildPoolARM_v6_core pool, x64 uses standard pool
+  # ARM64 uses anpodelete pool, x64 uses standard pool
   ${{ if eq(parameters.ARCH_TYPE, 'ARM64') }}:
     pool:
-      name: Azure-MessagingStore-WinBuildPoolARM_v6_core
+      name: anpodelete
       demands:
       - msbuild
       - cmake
