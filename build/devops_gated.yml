@@ -9,13 +9,41 @@ resources:
     endpoint: github.com_azure
     ref: refs/heads/master
 jobs:
-- template: /pipeline_templates/build_all_flavors.yml@c_build_tools
+- template: build_and_run_tests_local.yml
+  parameters:
+    BUILD_SUFFIX: _Debug_PASSTHROUGH_FSANITIZE_OFF_ARM64
+    GBALLOC_LL_TYPE: PASSTHROUGH
+    build_configuration: Debug
+    FSANITIZE_TYPE: OFF
+    ARCH_TYPE: ARM64
+    is_optional: true
 
-- template: /pipeline_templates/run_master_check.yml@c_build_tools
+- template: build_and_run_tests_local.yml
+  parameters:
+    BUILD_SUFFIX: _Debug_PASSTHROUGH_FSANITIZE_ON_ARM64
+    GBALLOC_LL_TYPE: PASSTHROUGH
+    build_configuration: Debug
+    FSANITIZE_TYPE: ON
+    ARCH_TYPE: ARM64
+    is_optional: true
 
-- template: /pipeline_templates/codeql3000_default.yml@c_build_tools
+- template: build_and_run_tests_local.yml
+  parameters:
+    BUILD_SUFFIX: _RelWithDebInfo_PASSTHROUGH_FSANITIZE_OFF_ARM64
+    GBALLOC_LL_TYPE: PASSTHROUGH
+    build_configuration: RelWithDebInfo
+    FSANITIZE_TYPE: OFF
+    ARCH_TYPE: ARM64
+    is_optional: true
 
-- template: /pipeline_templates/build_linux.yml@c_build_tools
+- template: build_and_run_tests_local.yml
+  parameters:
+    BUILD_SUFFIX: _RelWithDebInfo_PASSTHROUGH_FSANITIZE_ON_ARM64
+    GBALLOC_LL_TYPE: PASSTHROUGH
+    build_configuration: RelWithDebInfo
+    FSANITIZE_TYPE: ON
+    ARCH_TYPE: ARM64
+    is_optional: true
 
 # Will be re-enabled at a later time
 #- job: includecheck

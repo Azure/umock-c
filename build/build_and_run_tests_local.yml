@@ -1,0 +1,264 @@
+# Local copy of build_and_run_tests.yml with pool override for ARM64 testing.
+# Uses twothousand_v6 pool instead of Azure-MessagingStore-WinBuildPoolARM.
+
+parameters:
+  - name: BUILD_SUFFIX
+    type: string
+  - name: GBALLOC_LL_TYPE
+    type: string
+  - name: FSANITIZE_TYPE
+    type: string
+  - name: build_configuration
+    default: "Debug"
+  - name: ARCH_TYPE
+    default: "ARM64"
+  - name: cmake_options
+    type: string
+    default: "-Drun_reals_check:bool=ON -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Duse_cppunittest:bool=ON -Drun_traceability:BOOL=ON -Drun_repo_validation:BOOL=ON"
+  - name: run_test_suite_without_ctest
+    type: string
+    default: ""
+  - name: with_app_verifier
+    type: boolean
+    default: false
+  - name: repo_root_override
+    default: $(Build.SourcesDirectory)/deps/c-build-tools
+  - name: binary_name_suffix
+    default: ".exe"
+  - name: appverifier_skip_tests_list
+    type: string
+    default: ""
+  - name: failOnMinTestsNotRun
+    type: boolean
+    default: true
+  - name: is_optional
+    type: boolean
+    default: false
+
+jobs:
+- job: build_and_run_tests_${{ parameters.BUILD_SUFFIX }}
+  displayName: 'Build and run tests, build_configuration: ${{ parameters.build_configuration }}, ${{ parameters.GBALLOC_LL_TYPE}}, ARCH_TYPE=${{ parameters.ARCH_TYPE }}, FSANITIZE_TYPE: ${{ parameters.FSANITIZE_TYPE}}'
+  continueOnError: ${{ parameters.is_optional }}
+
+  variables:
+    ${{ if eq(parameters.FSANITIZE_TYPE, 'ON') }}:
+      use_vld_option: '-Duse_vld:bool=OFF'
+    ${{ if eq(parameters.FSANITIZE_TYPE, 'OFF') }}:
+      use_vld_option: '-Duse_vld:bool=ON'
+
+  # ARM64 uses twothousand_v6 pool, x64 uses standard pool
+  ${{ if eq(parameters.ARCH_TYPE, 'ARM64') }}:
+    pool:
+      name: twothousand_v6
+      demands:
+      - msbuild
+      - cmake
+      - visualstudio
+  ${{ else }}:
+    pool:
+      name: Azure-MessagingStore-WinBuildPoolVS2022_0
+      demands:
+      - msbuild
+      - cmake
+      - visualstudio
+
+  workspace:
+    clean: all
+
+  steps:
+  - checkout: self
+    submodules: true
+    clean: false
+
+  # ARM64: Verify agent architecture and discover native tools
+  - ${{ if eq(parameters.ARCH_TYPE, 'ARM64') }}:
+    - template: /pipeline_templates/verify_agent_architecture.yml@c_build_tools
+      parameters:
+        expected_architecture: 'ARM64'
+
+    - template: /pipeline_templates/discover_native_tools.yml@c_build_tools
+      parameters:
+        architecture: 'ARM64'
+
+  # x64/x86: Discover native tools for consistency
+  - ${{ if ne(parameters.ARCH_TYPE, 'ARM64') }}:
+    - template: /pipeline_templates/discover_native_tools.yml@c_build_tools
+      parameters:
+        architecture: ${{ parameters.ARCH_TYPE }}
+
+  - task: BatchScript@1
+    displayName: 'Git submodule update'
+    inputs:
+      filename: 'C:\Program Files\Git\bin\git.exe'
+      arguments: 'submodule update --init --force'
+
+  - task: BatchScript@1
+    displayName: 'Git submodule clean'
+    inputs:
+      filename: 'C:\Program Files\Git\bin\git.exe'
+      arguments: 'submodule foreach --recursive "git clean -xdff"'
+
+  - task: BatchScript@1
+    displayName: 'Git clean'
+    inputs:
+      filename: 'C:\Program Files\Git\bin\git.exe'
+      arguments: 'clean -xdff'
+
+  # Setup VS environment - use discovered vsPath for correct VS version
+  - task: PowerShell@2
+    displayName: 'Setup VS Vars'
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Find VS using vswhere (works for any VS version)
+        $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+        if (Test-Path $vswhere) {
+          $vsPath = & $vswhere -latest -products * -property installationPath
+          if ($vsPath) {
+            $vsDevCmd = Join-Path $vsPath "Common7\Tools\VsDevCmd.bat"
+            if (Test-Path $vsDevCmd) {
+              # Set architecture parameters for VsDevCmd based on target architecture
+              $arch = "${{ parameters.ARCH_TYPE }}"
+              if ($arch -eq "ARM64") {
+                $archArgs = "-arch=arm64 -host_arch=arm64"
+                Write-Host "Running VsDevCmd with ARM64 architecture: $vsDevCmd $archArgs"
+              } else {
+                $archArgs = "-arch=amd64"
+                Write-Host "Running VsDevCmd with x64 architecture: $vsDevCmd $archArgs"
+              }
+              cmd /c "`"$vsDevCmd`" $archArgs && set" | ForEach-Object {
+                if ($_ -match "^([^=]+)=(.*)$") {
+                  [Environment]::SetEnvironmentVariable($matches[1], $matches[2], "Process")
+                }
+              }
+            } else {
+              Write-Host "##[warning]VsDevCmd.bat not found at $vsDevCmd"
+            }
+          }
+        } else {
+          Write-Host "##[warning]vswhere not found"
+        }
+
+  # Cleanup appverifier from any previous runs
+  - template : /pipeline_templates/disable_appverifier.yml@c_build_tools
+    parameters:
+      ${{ if ne(parameters.repo_root_override, '') }}:
+        repo_root: ${{ parameters.repo_root_override }}
+
+  # Use wrapper template for CMake - handles ARM64 native tools transparently
+  - template: /pipeline_templates/tasks/cmake.yml@c_build_tools
+    parameters:
+      architecture: ${{ parameters.ARCH_TYPE }}
+      sourceDirectory: '$(Build.SourcesDirectory)'
+      buildDirectory: '$(Build.BinariesDirectory)/c'
+      cmakeArgs: '${{ parameters.cmake_options }} ${{ variables.use_vld_option }} -DGBALLOC_LL_TYPE:string=${{ parameters.GBALLOC_LL_TYPE }} -DCMAKE_BUILD_TYPE=${{ parameters.build_configuration }}'
+
+  # Use wrapper template for MSBuild - handles ARM64 native tools transparently
+  - template: /pipeline_templates/tasks/msbuild.yml@c_build_tools
+    parameters:
+      architecture: ${{ parameters.ARCH_TYPE }}
+      solution: '$(Build.BinariesDirectory)/c/*.sln'
+      configuration: '${{ parameters.build_configuration }}'
+      msbuildArgs: '/t:restore /t:build'
+
+  - template : /pipeline_templates/start_logman.yml@c_build_tools
+    parameters:
+      ${{ if ne(parameters.repo_root_override, '') }}:
+        repo_root: ${{ parameters.repo_root_override }}
+
+  # Use wrapper template for VSTest
+  - ${{ if and(eq(parameters.FSANITIZE_TYPE, 'OFF'), eq(parameters.run_test_suite_without_ctest, '')) }}:
+    - template: /pipeline_templates/tasks/vstest.yml@c_build_tools
+      parameters:
+        architecture: ${{ parameters.ARCH_TYPE }}
+        testAssemblies: |
+          $(Build.BinariesDirectory)\c\${{ parameters.build_configuration }}\**\*_ut_*.dll
+          $(Build.BinariesDirectory)\${{ parameters.build_configuration }}\**\*_ut_*.dll
+        configuration: '${{ parameters.build_configuration }}'
+        failOnMinTestsNotRun: ${{ parameters.failOnMinTestsNotRun }}
+        codeCoverageEnabled: ${{ ne(parameters.ARCH_TYPE, 'ARM64') }}
+        otherConsoleOptions: '/collect:"Code Coverage;Format=Xml"'
+        runSettingsFile: '${{ parameters.repo_root_override }}/pipeline_templates/scripts/tests_native.runsettings'
+        resultsFolder: '$(build.ArtifactStagingDirectory)/Test/VsTest/Results/${{ parameters.build_configuration }}${{ parameters.BUILD_SUFFIX }}'
+        testRunTitle: 'VsTest Native ${{ parameters.build_configuration }}${{ parameters.BUILD_SUFFIX }}'
+        # ARM64 is experimental, continue on error
+        continueOnError: ${{ eq(parameters.ARCH_TYPE, 'ARM64') }}
+
+    # Publish code coverage results from vstest
+    - task: PublishCodeCoverageResults@2
+      displayName: '📰 Publish Code Coverage'
+      inputs:
+        summaryFileLocation: '$(build.ArtifactStagingDirectory)/Test/VsTest/Results/${{ parameters.build_configuration }}${{ parameters.BUILD_SUFFIX }}/*/*.xml'
+        pathToSources: '$(Build.SourcesDirectory)'
+
+  # Use wrapper template for CTest
+  - ${{ if eq(parameters.run_test_suite_without_ctest, '') }}:
+    - template: /pipeline_templates/tasks/ctest.yml@c_build_tools
+      parameters:
+        architecture: ${{ parameters.ARCH_TYPE }}
+        workingDirectory: '$(Build.BinariesDirectory)/c'
+        configuration: '${{ parameters.build_configuration }}'
+        outputJunit: 'ctest_results_${{ parameters.build_configuration }}${{ parameters.BUILD_SUFFIX }}.xml'
+
+  - task: PublishTestResults@2
+    displayName: '📊 Publish ctest results'
+    inputs:
+      testResultsFormat: 'JUnit'
+      searchFolder: $(Build.BinariesDirectory)\c
+      testResultsFiles: 'ctest_results_${{ parameters.build_configuration }}${{ parameters.BUILD_SUFFIX }}.xml'
+      testRunTitle: 'ctest${{ parameters.BUILD_SUFFIX }}'
+      buildConfiguration: ${{ parameters.build_configuration }}
+      failTaskOnMissingResultsFile: true
+    condition: always()
+
+  - ${{ if and(eq(parameters.FSANITIZE_TYPE, 'OFF'), and(eq(parameters.run_test_suite_without_ctest, ''), parameters.with_app_verifier)) }}:
+    - template : /pipeline_templates/run_ctests_with_appverifier.yml@c_build_tools
+      parameters:
+        ${{ if ne(parameters.repo_root_override, '') }}:
+          repo_root: ${{ parameters.repo_root_override }}
+        binary_name_suffix: ${{ parameters.binary_name_suffix }}
+        ctest_tests_bin_directory: $(Build.BinariesDirectory)\c
+        ${{ if ne(parameters.appverifier_skip_tests_list, '') }}:
+          ctest_additional_args: "-E ${{ parameters.appverifier_skip_tests_list }}"
+        test_steps:
+        - template: /pipeline_templates/tasks/ctest.yml@c_build_tools
+          parameters:
+            architecture: ${{ parameters.ARCH_TYPE }}
+            workingDirectory: '$(Build.BinariesDirectory)/c'
+            configuration: '${{ parameters.build_configuration }}'
+            outputJunit: 'ctest_appverifier_results_${{ parameters.build_configuration }}${{ parameters.BUILD_SUFFIX }}.xml'
+            excludeTests: '${{ parameters.appverifier_skip_tests_list }}'
+            noTestsError: ${{ eq(parameters.appverifier_skip_tests_list, '') }}
+
+    - task: PublishTestResults@2
+      displayName: '📊 Publish ctest results'
+      inputs:
+        testResultsFormat: 'JUnit'
+        searchFolder: $(Build.BinariesDirectory)\c
+        testResultsFiles: 'ctest_appverifier_results_${{ parameters.build_configuration }}${{ parameters.BUILD_SUFFIX }}.xml'
+        testRunTitle: 'CTest${{ parameters.BUILD_SUFFIX }} App Verifier'
+        buildConfiguration: ${{ parameters.build_configuration }}
+        failTaskOnMissingResultsFile: true
+      condition: always()
+
+  - ${{ if not(eq(parameters.run_test_suite_without_ctest, '')) }}:
+    - task: CmdLine@2
+      displayName: '🧪 Run ${{ parameters.run_test_suite_without_ctest }}'
+      inputs:
+        script: '$(Build.BinariesDirectory)\${{ parameters.build_configuration }}\${{ parameters.run_test_suite_without_ctest }}\${{ parameters.run_test_suite_without_ctest }}.exe'
+        workingDirectory: '$(Build.BinariesDirectory)\${{ parameters.build_configuration }}\${{ parameters.run_test_suite_without_ctest }}'
+
+  - template : /pipeline_templates/stop_logman.yml@c_build_tools
+    parameters:
+      ${{ if ne(parameters.repo_root_override, '') }}:
+        repo_root: ${{ parameters.repo_root_override }}
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish ${{ parameters.ARCH_TYPE }} ${{ parameters.build_configuration}} Artifacts'
+    inputs:
+      targetPath: $(Build.BinariesDirectory)
+      artifactName: ${{ parameters.build_configuration}}_${{ parameters.ARCH_TYPE }}_artifacts
+      parallel: true
+    condition: failed()
+
+  - template : /pipeline_templates/clean_ado_folders.yml@c_build_tools
