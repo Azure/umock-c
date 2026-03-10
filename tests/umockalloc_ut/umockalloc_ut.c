@@ -200,56 +200,24 @@ TEST_FUNCTION(when_malloc_returns_NULL_umockalloc_malloc_returns_NULL)
 
 /* Tests_SRS_UMOCKALLOC_09_001: [ umockalloc_calloc shall call calloc, while passing the nmemb and size arguments to calloc. ] */
 /* Tests_SRS_UMOCKALLOC_09_002: [ umockalloc_calloc shall return the result of calloc. ]*/
-TEST_FUNCTION(umockalloc_calloc_calls_calloc)
+PARAMETERIZED_TEST_FUNCTION(umockalloc_calloc_calls_calloc_succeeds,
+    ARGS(void*, expected_ptr, size_t, nmemb_val, size_t, size_val),
+    CASE(((void*)0x4242, 1, 42), basic),
+    CASE(((void*)0x5252, 1, 43), other_value),
+    CASE(((void*)0x4242, 2, 40), two_members))
 {
     // arrange
     void* result;
-    test_calloc_expected_result = (void*)0x4242;
+    test_calloc_expected_result = expected_ptr;
 
     // act
-    result = umockalloc_calloc(1, 42);
+    result = umockalloc_calloc(nmemb_val, size_val);
 
     // assert
-    ASSERT_ARE_EQUAL(void_ptr, (void*)0x4242, result);
+    ASSERT_ARE_EQUAL(void_ptr, expected_ptr, result);
     ASSERT_ARE_EQUAL(size_t, 1, test_calloc_call_count);
-    ASSERT_ARE_EQUAL(size_t, 42, test_calloc_calls[0].size);
-    ASSERT_ARE_EQUAL(size_t, 1, test_calloc_calls[0].nmemb);
-}
-
-/* Tests_SRS_UMOCKALLOC_09_001: [ umockalloc_calloc shall call calloc, while passing the nmemb and size arguments to calloc. ] */
-/* Tests_SRS_UMOCKALLOC_09_002: [ umockalloc_calloc shall return the result of calloc. ]*/
-TEST_FUNCTION(umockalloc_calloc_calls_calloc_other_value)
-{
-    // arrange
-    void* result;
-    test_calloc_expected_result = (void*)0x5252;
-
-    // act
-    result = umockalloc_calloc(1, 43);
-
-    // assert
-    ASSERT_ARE_EQUAL(void_ptr, (void*)0x5252, result);
-    ASSERT_ARE_EQUAL(size_t, 1, test_calloc_call_count);
-    ASSERT_ARE_EQUAL(size_t, 43, test_calloc_calls[0].size);
-    ASSERT_ARE_EQUAL(size_t, 1, test_calloc_calls[0].nmemb);
-}
-
-/* Tests_SRS_UMOCKALLOC_09_001: [ umockalloc_calloc shall call calloc, while passing the nmemb and size arguments to calloc. ] */
-/* Tests_SRS_UMOCKALLOC_09_002: [ umockalloc_calloc shall return the result of calloc. ]*/
-TEST_FUNCTION(umockalloc_calloc_calls_calloc_2_members)
-{
-    // arrange
-    void* result;
-    test_calloc_expected_result = (void*)0x4242;
-
-    // act
-    result = umockalloc_calloc(2, 40);
-
-    // assert
-    ASSERT_ARE_EQUAL(void_ptr, (void*)0x4242, result);
-    ASSERT_ARE_EQUAL(size_t, 1, test_calloc_call_count);
-    ASSERT_ARE_EQUAL(size_t, 40, test_calloc_calls[0].size);
-    ASSERT_ARE_EQUAL(size_t, 2, test_calloc_calls[0].nmemb);
+    ASSERT_ARE_EQUAL(size_t, size_val, test_calloc_calls[0].size);
+    ASSERT_ARE_EQUAL(size_t, nmemb_val, test_calloc_calls[0].nmemb);
 }
 
 /* Tests_SRS_UMOCKALLOC_09_001: [ umockalloc_calloc shall call calloc, while passing the nmemb and size arguments to calloc. ] */
