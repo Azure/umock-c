@@ -544,7 +544,6 @@ TEST_FUNCTION(umocktypes_free_unsignedchar_does_nothing)
 /* umocktypes_stringify_short */
 
 /* Tests_SRS_UMOCKTYPES_C_01_026: [ umocktypes_stringify_short shall return the string representation of value. ]*/
-/* Tests_SRS_UMOCKTYPES_C_01_026: [ umocktypes_stringify_short shall return the string representation of value. ]*/
 PARAMETERIZED_TEST_FUNCTION(umocktypes_stringify_short_succeeds,
     ARGS(short, input_value, const char*, expected_string),
     CASE((0, "0"), with_0_value),
@@ -1229,7 +1228,6 @@ TEST_FUNCTION(umocktypes_free_unsignedint_does_nothing)
 /* umocktypes_stringify_long */
 
 /* Tests_SRS_UMOCKTYPES_C_01_074: [ umocktypes_stringify_long shall return the string representation of value. ]*/
-/* Tests_SRS_UMOCKTYPES_C_01_074: [ umocktypes_stringify_long shall return the string representation of value. ]*/
 PARAMETERIZED_TEST_FUNCTION(umocktypes_stringify_long_succeeds,
     ARGS(long, input_value, const char*, expected_string),
     CASE((0, "0"), with_0_value),
@@ -1571,7 +1569,6 @@ TEST_FUNCTION(umocktypes_free_unsignedlong_does_nothing)
 
 /* umocktypes_stringify_longlong */
 
-/* Tests_SRS_UMOCKTYPES_C_01_098: [ umocktypes_stringify_longlong shall return the string representation of value. ]*/
 /* Tests_SRS_UMOCKTYPES_C_01_098: [ umocktypes_stringify_longlong shall return the string representation of value. ]*/
 PARAMETERIZED_TEST_FUNCTION(umocktypes_stringify_longlong_succeeds,
     ARGS(long long, input_value, const char*, expected_string),
@@ -1915,7 +1912,6 @@ TEST_FUNCTION(umocktypes_free_unsignedlonglong_does_nothing)
 /* umocktypes_stringify_float */
 
 /* Tests_SRS_UMOCKTYPES_C_01_122: [ umocktypes_stringify_float shall return the string representation of value. ]*/
-/* Tests_SRS_UMOCKTYPES_C_01_122: [ umocktypes_stringify_float shall return the string representation of value. ]*/
 PARAMETERIZED_TEST_FUNCTION(umocktypes_stringify_float_succeeds,
     ARGS(float, input_value),
     CASE((0.0f), with_0_0_value),
@@ -2249,7 +2245,6 @@ TEST_FUNCTION(umocktypes_free_double_does_nothing)
 
 /* umocktypes_stringify_longdouble */
 
-/* Tests_SRS_UMOCKTYPES_C_01_146: [ umocktypes_stringify_longdouble shall return the string representation of value. ]*/
 /* Tests_SRS_UMOCKTYPES_C_01_146: [ umocktypes_stringify_longdouble shall return the string representation of value. ]*/
 PARAMETERIZED_TEST_FUNCTION(umocktypes_stringify_longdouble_succeeds,
     ARGS(long double, input_value),
