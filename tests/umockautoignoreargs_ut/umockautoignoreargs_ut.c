@@ -75,7 +75,6 @@ TEST_FUNCTION_CLEANUP(test_function_cleanup)
 PARAMETERIZED_TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_fails,
     ARGS(const char*, call_str, size_t, arg_idx),
     CASE((NULL, 1), with_NULL_call),
-    CASE((NULL, 1), with_NULL_is_argument_ignored_argument),
     CASE(("a", 1), when_no_lparen_is_found),
     CASE(("a()", 1), for_arg_1_when_no_args_in_call),
     CASE(("WRAPPER(a)(IGNORED_ARG(", 1), when_RPAREN_missing_at_end),
