@@ -544,48 +544,20 @@ TEST_FUNCTION(umocktypes_free_unsignedchar_does_nothing)
 /* umocktypes_stringify_short */
 
 /* Tests_SRS_UMOCKTYPES_C_01_026: [ umocktypes_stringify_short shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_short_with_0_value)
+PARAMETERIZED_TEST_FUNCTION(umocktypes_stringify_short_succeeds,
+    ARGS(short, input_value, const char*, expected_string),
+    CASE((0, "0"), with_0_value),
+    CASE((-128, "-128"), with_negative_value),
+    CASE((127, "127"), with_positive_value))
 {
     // arrange
-    short input = 0;
+    short input = input_value;
 
     // act
     char* result = umocktypes_stringify_short(&input);
 
     // assert
-    ASSERT_ARE_EQUAL(char_ptr, "0", result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPES_C_01_026: [ umocktypes_stringify_short shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_short_with_negative_value)
-{
-    // arrange
-    short input = -127-1;
-
-    // act
-    char* result = umocktypes_stringify_short(&input);
-
-    // assert
-    ASSERT_ARE_EQUAL(char_ptr, "-128", result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPES_C_01_026: [ umocktypes_stringify_short shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_short_with_positive_value)
-{
-    // arrange
-    short input = 127;
-
-    // act
-    char* result = umocktypes_stringify_short(&input);
-
-    // assert
-    ASSERT_ARE_EQUAL(char_ptr, "127", result);
+    ASSERT_ARE_EQUAL(char_ptr, expected_string, result);
 
     // cleanup
     free(result);
@@ -914,48 +886,20 @@ TEST_FUNCTION(umocktypes_free_unsignedshort_does_nothing)
 /* umocktypes_stringify_int */
 
 /* Tests_SRS_UMOCKTYPES_C_01_050: [ umocktypes_stringify_int shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_int_with_0_value)
+PARAMETERIZED_TEST_FUNCTION(umocktypes_stringify_int_succeeds,
+    ARGS(int, input_value, const char*, expected_string),
+    CASE((0, "0"), with_0_value),
+    CASE((-128, "-128"), with_negative_value),
+    CASE((127, "127"), with_positive_value))
 {
     // arrange
-    int input = 0;
+    int input = input_value;
 
     // act
     char* result = umocktypes_stringify_int(&input);
 
     // assert
-    ASSERT_ARE_EQUAL(char_ptr, "0", result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPES_C_01_050: [ umocktypes_stringify_int shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_int_with_negative_value)
-{
-    // arrange
-    int input = -127-1;
-
-    // act
-    char* result = umocktypes_stringify_int(&input);
-
-    // assert
-    ASSERT_ARE_EQUAL(char_ptr, "-128", result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPES_C_01_050: [ umocktypes_stringify_int shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_int_with_positive_value)
-{
-    // arrange
-    int input = 127;
-
-    // act
-    char* result = umocktypes_stringify_int(&input);
-
-    // assert
-    ASSERT_ARE_EQUAL(char_ptr, "127", result);
+    ASSERT_ARE_EQUAL(char_ptr, expected_string, result);
 
     // cleanup
     free(result);
@@ -1284,48 +1228,20 @@ TEST_FUNCTION(umocktypes_free_unsignedint_does_nothing)
 /* umocktypes_stringify_long */
 
 /* Tests_SRS_UMOCKTYPES_C_01_074: [ umocktypes_stringify_long shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_long_with_0_value)
+PARAMETERIZED_TEST_FUNCTION(umocktypes_stringify_long_succeeds,
+    ARGS(long, input_value, const char*, expected_string),
+    CASE((0, "0"), with_0_value),
+    CASE((-128, "-128"), with_negative_value),
+    CASE((127, "127"), with_positive_value))
 {
     // arrange
-    long input = 0;
+    long input = input_value;
 
     // act
     char* result = umocktypes_stringify_long(&input);
 
     // assert
-    ASSERT_ARE_EQUAL(char_ptr, "0", result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPES_C_01_074: [ umocktypes_stringify_long shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_long_with_negative_value)
-{
-    // arrange
-    long input = -127 - 1;
-
-    // act
-    char* result = umocktypes_stringify_long(&input);
-
-    // assert
-    ASSERT_ARE_EQUAL(char_ptr, "-128", result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPES_C_01_074: [ umocktypes_stringify_long shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_long_with_positive_value)
-{
-    // arrange
-    long input = 127;
-
-    // act
-    char* result = umocktypes_stringify_long(&input);
-
-    // assert
-    ASSERT_ARE_EQUAL(char_ptr, "127", result);
+    ASSERT_ARE_EQUAL(char_ptr, expected_string, result);
 
     // cleanup
     free(result);
@@ -1654,48 +1570,20 @@ TEST_FUNCTION(umocktypes_free_unsignedlong_does_nothing)
 /* umocktypes_stringify_longlong */
 
 /* Tests_SRS_UMOCKTYPES_C_01_098: [ umocktypes_stringify_longlong shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_longlong_with_0_value)
+PARAMETERIZED_TEST_FUNCTION(umocktypes_stringify_longlong_succeeds,
+    ARGS(long long, input_value, const char*, expected_string),
+    CASE((0, "0"), with_0_value),
+    CASE((-128, "-128"), with_negative_value),
+    CASE((127, "127"), with_positive_value))
 {
     // arrange
-    long long input = 0;
+    long long input = input_value;
 
     // act
     char* result = umocktypes_stringify_longlong(&input);
 
     // assert
-    ASSERT_ARE_EQUAL(char_ptr, "0", result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPES_C_01_098: [ umocktypes_stringify_longlong shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_longlong_with_negative_value)
-{
-    // arrange
-    long long input = -127 - 1;
-
-    // act
-    char* result = umocktypes_stringify_longlong(&input);
-
-    // assert
-    ASSERT_ARE_EQUAL(char_ptr, "-128", result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPES_C_01_098: [ umocktypes_stringify_longlong shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_longlong_with_positive_value)
-{
-    // arrange
-    long long input = 127;
-
-    // act
-    char* result = umocktypes_stringify_longlong(&input);
-
-    // assert
-    ASSERT_ARE_EQUAL(char_ptr, "127", result);
+    ASSERT_ARE_EQUAL(char_ptr, expected_string, result);
 
     // cleanup
     free(result);
@@ -2024,46 +1912,14 @@ TEST_FUNCTION(umocktypes_free_unsignedlonglong_does_nothing)
 /* umocktypes_stringify_float */
 
 /* Tests_SRS_UMOCKTYPES_C_01_122: [ umocktypes_stringify_float shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_float_with_0_0_value)
+PARAMETERIZED_TEST_FUNCTION(umocktypes_stringify_float_succeeds,
+    ARGS(float, input_value),
+    CASE((0.0f), with_0_0_value),
+    CASE((-1.42f), with_negative_value),
+    CASE((2.42f), with_positive_value))
 {
     // arrange
-    float input = 0.0f;
-    char expected_string[32];
-
-    // act
-    char* result = umocktypes_stringify_float(&input);
-
-    // assert
-    (void)sprintf(expected_string, "%f", input);
-    ASSERT_ARE_EQUAL(char_ptr, expected_string, result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPES_C_01_122: [ umocktypes_stringify_float shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_float_with_negative_value)
-{
-    // arrange
-    float input = -1.42f;
-    char expected_string[32];
-
-    // act
-    char* result = umocktypes_stringify_float(&input);
-
-    // assert
-    (void)sprintf(expected_string, "%f", input);
-    ASSERT_ARE_EQUAL(char_ptr, expected_string, result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPES_C_01_122: [ umocktypes_stringify_float shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_float_with_positive_value)
-{
-    // arrange
-    float input = 2.42f;
+    float input = input_value;
     char expected_string[32];
 
     // act
@@ -2223,46 +2079,14 @@ TEST_FUNCTION(umocktypes_free_float_does_nothing)
 /* umocktypes_stringify_double */
 
 /* Tests_SRS_UMOCKTYPES_C_01_134: [ umocktypes_stringify_double shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_double_with_0_0_value)
+PARAMETERIZED_TEST_FUNCTION(umocktypes_stringify_double_succeeds,
+    ARGS(double, input_value),
+    CASE((0.0), with_0_0_value),
+    CASE((-1.42), with_negative_value),
+    CASE((2.42), with_positive_value))
 {
     // arrange
-    double input = 0.0;
-    char expected_string[32];
-
-    // act
-    char* result = umocktypes_stringify_double(&input);
-
-    // assert
-    (void)sprintf(expected_string, "%f", input);
-    ASSERT_ARE_EQUAL(char_ptr, expected_string, result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPES_C_01_134: [ umocktypes_stringify_double shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_double_with_negative_value)
-{
-    // arrange
-    double input = -1.42;
-    char expected_string[32];
-
-    // act
-    char* result = umocktypes_stringify_double(&input);
-
-    // assert
-    (void)sprintf(expected_string, "%f", input);
-    ASSERT_ARE_EQUAL(char_ptr, expected_string, result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPES_C_01_134: [ umocktypes_stringify_double shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_double_with_positive_value)
-{
-    // arrange
-    double input = 2.42;
+    double input = input_value;
     char expected_string[32];
 
     // act
@@ -2422,46 +2246,14 @@ TEST_FUNCTION(umocktypes_free_double_does_nothing)
 /* umocktypes_stringify_longdouble */
 
 /* Tests_SRS_UMOCKTYPES_C_01_146: [ umocktypes_stringify_longdouble shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_longdouble_with_0_0_value)
+PARAMETERIZED_TEST_FUNCTION(umocktypes_stringify_longdouble_succeeds,
+    ARGS(long double, input_value),
+    CASE((0.0L), with_0_0_value),
+    CASE((-1.42L), with_negative_value),
+    CASE((2.42L), with_positive_value))
 {
     // arrange
-    long double input = 0.0;
-    char expected_string[32];
-
-    // act
-    char* result = umocktypes_stringify_longdouble(&input);
-
-    // assert
-    (void)sprintf(expected_string, "%Lf", input);
-    ASSERT_ARE_EQUAL(char_ptr, expected_string, result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPES_C_01_146: [ umocktypes_stringify_longdouble shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_longdouble_with_negative_value)
-{
-    // arrange
-    long double input = -1.42;
-    char expected_string[32];
-
-    // act
-    char* result = umocktypes_stringify_longdouble(&input);
-
-    // assert
-    (void)sprintf(expected_string, "%Lf", input);
-    ASSERT_ARE_EQUAL(char_ptr, expected_string, result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPES_C_01_146: [ umocktypes_stringify_longdouble shall return the string representation of value. ]*/
-TEST_FUNCTION(umocktypes_stringify_longdouble_with_positive_value)
-{
-    // arrange
-    long double input = 2.42;
+    long double input = input_value;
     char expected_string[32];
 
     // act

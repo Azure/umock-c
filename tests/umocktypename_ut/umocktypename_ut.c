@@ -74,15 +74,30 @@ TEST_FUNCTION_CLEANUP(test_function_cleanup)
 /* umocktypename_normalize */
 
 /* Tests_SRS_UMOCKTYPENAME_01_001: [ umocktypename_normalize shall return a char* with a newly allocated string that contains the normalized typename. ]*/
-TEST_FUNCTION(umocktypename_normalize_returns_the_same_string_when_already_normalized)
+/* Tests_SRS_UMOCKTYPENAME_01_002: [umocktypename_normalize shall remove all spaces at the beginning of the typename.]*/
+/* Tests_SRS_UMOCKTYPENAME_01_003: [ umocktypename_normalize shall remove all spaces at the end of the typename. ] */
+/* Tests_SRS_UMOCKTYPENAME_01_004: [ umocktypename_normalize shall remove all extra spaces (more than 1 space) between elements that are part of the typename. ]*/
+/* Tests_SRS_UMOCKTYPENAME_01_006: [ No space shall exist between any other token and a star. ]*/
+PARAMETERIZED_TEST_FUNCTION(umocktypename_normalize_succeeds,
+    ARGS(const char*, input, const char*, expected),
+    CASE(("char", "char"), already_normalized),
+    CASE(("const  char", "const char"), removes_1_extra_space_between_2_words),
+    CASE(("const   char", "const char"), removes_2_extra_spaces_between_2_words),
+    CASE(("char *", "char*"), removes_space_before_star),
+    CASE(("char* const", "char*const"), removes_space_after_star),
+    CASE((" char", "char"), removes_1_space_at_beginning),
+    CASE(("  char", "char"), removes_2_spaces_at_beginning),
+    CASE(("char ", "char"), removes_1_space_at_end),
+    CASE(("char ", "char"), removes_2_spaces_at_end),
+    CASE(("char*", "char*"), type_ending_in_star))
 {
     // arrange
 
     // act
-    char* result = umocktypename_normalize("char");
+    char* result = umocktypename_normalize(input);
 
     // assert
-    ASSERT_ARE_EQUAL(char_ptr, "char", result);
+    ASSERT_ARE_EQUAL(char_ptr, expected, result);
 
     // cleanup
     free(result);
@@ -100,96 +115,6 @@ TEST_FUNCTION(umocktypename_normalize_with_NULL_returns_NULL)
     ASSERT_IS_NULL(result);
 }
 
-/* Tests_SRS_UMOCKTYPENAME_01_004: [ umocktypename_normalize shall remove all extra spaces (more than 1 space) between elements that are part of the typename. ]*/
-TEST_FUNCTION(umocktypename_normalize_removes_1_extra_space_between_2_words)
-{
-    // arrange
-
-    // act
-    char* result = umocktypename_normalize("const  char");
-
-    // assert
-    ASSERT_ARE_EQUAL(char_ptr, "const char", result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPENAME_01_004: [ umocktypename_normalize shall remove all extra spaces (more than 1 space) between elements that are part of the typename. ]*/
-TEST_FUNCTION(umocktypename_normalize_removes_2_extra_spaces_between_2_words)
-{
-    // arrange
-
-    // act
-    char* result = umocktypename_normalize("const   char");
-
-    // assert
-    ASSERT_ARE_EQUAL(char_ptr, "const char", result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPENAME_01_006: [ No space shall exist between any other token and a star. ]*/
-TEST_FUNCTION(umocktypename_normalize_removes_the_space_before_a_star)
-{
-    // arrange
-
-    // act
-    char* result = umocktypename_normalize("char *");
-
-    // assert
-    ASSERT_ARE_EQUAL(char_ptr, "char*", result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPENAME_01_006: [ No space shall exist between any other token and a star. ]*/
-TEST_FUNCTION(umocktypename_normalize_removes_the_space_after_a_star)
-{
-    // arrange
-
-    // act
-    char* result = umocktypename_normalize("char* const");
-
-    // assert
-    ASSERT_ARE_EQUAL(char_ptr, "char*const", result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPENAME_01_002: [umocktypename_normalize shall remove all spaces at the beginning of the typename.]*/
-TEST_FUNCTION(umocktypename_normalize_removes_1_space_at_the_beginning)
-{
-    // arrange
-
-    // act
-    char* result = umocktypename_normalize(" char");
-
-    // assert
-    ASSERT_ARE_EQUAL(char_ptr, "char", result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPENAME_01_002: [umocktypename_normalize shall remove all spaces at the beginning of the typename.]*/
-TEST_FUNCTION(umocktypename_normalize_removes_2_spaces_at_the_beginning)
-{
-    // arrange
-
-    // act
-    char* result = umocktypename_normalize("  char");
-
-    // assert
-    ASSERT_ARE_EQUAL(char_ptr, "char", result);
-
-    // cleanup
-    free(result);
-}
-
 /* Tests_SRS_UMOCKTYPENAME_01_007: [ If the length of the normalized typename is 0, umocktypename_normalize shall return NULL. ]*/
 TEST_FUNCTION(umocktypename_normalize_for_a_zero_length_normalized_typename_returns_NULL)
 {
@@ -200,51 +125,6 @@ TEST_FUNCTION(umocktypename_normalize_for_a_zero_length_normalized_typename_retu
 
     // assert
     ASSERT_IS_NULL(result);
-}
-
-/* Tests_SRS_UMOCKTYPENAME_01_003: [ umocktypename_normalize shall remove all spaces at the end of the typename. ] */
-TEST_FUNCTION(umocktypename_normalize_removes_1_space_at_the_end)
-{
-    // arrange
-
-    // act
-    char* result = umocktypename_normalize("char ");
-
-    // assert
-    ASSERT_ARE_EQUAL(char_ptr, "char", result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPENAME_01_003: [ umocktypename_normalize shall remove all spaces at the end of the typename. ] */
-TEST_FUNCTION(umocktypename_normalize_removes_2_spaces_at_the_end)
-{
-    // arrange
-
-    // act
-    char* result = umocktypename_normalize("char ");
-
-    // assert
-    ASSERT_ARE_EQUAL(char_ptr, "char", result);
-
-    // cleanup
-    free(result);
-}
-
-/* Tests_SRS_UMOCKTYPENAME_01_001: [ umocktypename_normalize shall return a char* with a newly allocated string that contains the normalized typename. ]*/
-TEST_FUNCTION(umocktypename_normalize_succeeds_with_a_type_that_ends_in_star)
-{
-    // arrange
-
-    // act
-    char* result = umocktypename_normalize("char*");
-
-    // assert
-    ASSERT_ARE_EQUAL(char_ptr, "char*", result);
-
-    // cleanup
-    free(result);
 }
 
 /* Tests_SRS_UMOCKTYPENAME_01_008: [ If allocating memory fails, umocktypename_normalize shall fail and return NULL. ]*/
