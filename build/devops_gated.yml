@@ -1,4 +1,19 @@
 name: $(BuildID)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
+parameters:
+  - name: pool_name_windows_x64
+    displayName: 'Windows x64 Pool'
+    type: string
+    default: 'Azure-MessagingStore-Win-x64-Dadsv5-v19'
+  - name: pool_name_windows_arm64
+    displayName: 'Windows ARM64 Pool'
+    type: string
+    default: 'Azure-MessagingStore-Win-ARM64-Dpldsv6-v28'
+  - name: pool_name_linux
+    displayName: 'Linux Pool'
+    type: string
+    default: 'Azure-MsgStore-Linux2204BuildMachinePool'
+
 resources:
   repositories:
   - repository: self
@@ -8,88 +23,21 @@ resources:
     name: azure/c-build-tools
     endpoint: github.com_azure
     ref: refs/heads/master
+
 jobs:
 - template: /pipeline_templates/build_all_flavors.yml@c_build_tools
+  parameters:
+    pool_name_x64: ${{ parameters.pool_name_windows_x64 }}
+    pool_name_arm64: ${{ parameters.pool_name_windows_arm64 }}
 
 - template: /pipeline_templates/run_master_check.yml@c_build_tools
+  parameters:
+    pool_name: ${{ parameters.pool_name_windows_x64 }}
 
 - template: /pipeline_templates/codeql3000_default.yml@c_build_tools
+  parameters:
+    pool_name: ${{ parameters.pool_name_windows_x64 }}
 
 - template: /pipeline_templates/build_linux.yml@c_build_tools
-
-# Will be re-enabled at a later time
-#- job: includecheck
-#  pool:
-#    name: Azure-MessagingStore
-#    demands:
-#    - Build
-#    - Cmd
-#    - msbuild
-#    - cmake
-#    - visualstudio
-#
-#  steps:
-#  - task: BatchScript@1
-#    displayName: 'Git submodule update'
-#    inputs:
-#      filename: 'C:\Program Files\Git\bin\git.exe'
-#      arguments: 'submodule update --init --force'
-#
-#  - task: BatchScript@1
-#    displayName: 'Git submodule clean'
-#    inputs:
-#      filename: 'C:\Program Files\Git\bin\git.exe'
-#      arguments: 'submodule foreach --recursive "git clean -xdff"'
-#
-#  - task: BatchScript@1
-#    displayName: 'Git clean'
-#    inputs:
-#      filename: 'C:\Program Files\Git\bin\git.exe'
-#      arguments: 'clean -xdff'
-#
-#  - task: BatchScript@1
-#    displayName: 'Setup VS Vars'
-#    inputs:
-#      filename: '"c:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat"'
-#      modifyEnvironment: true
-#
-#  - task: CMake@1
-#    displayName: 'Running cmake'
-#    inputs:
-#      workingDirectory: 'build_ninja'
-#      cmakeArgs: '.. -GNinja -DCMAKE_C_INCLUDE_WHAT_YOU_USE:UNINITIALIZED=include-what-you-use;-Xiwyu;--mapping_file=../deps/c-build-tools/iwyu/rules.imp;--driver-mode=cl -DCMAKE_CXX_INCLUDE_WHAT_YOU_USE:UNINITIALIZED=include-what-you-use;-Xiwyu;--mapping_file=../deps/c-build-tools/iwyu/rules.imp;--driver-mode=cl -Drun_unittests:bool=ON -Drun_int_tests:bool=ON -Drun_perf_tests:bool=ON -Duse_cppunittest:bool=ON'
-#
-#  - task: PowerShell@2
-#    displayName: 'Build solution and check includes'
-#    inputs:
-#      workingDirectory: 'build_ninja'
-#      targetType: 'inline'
-#      script: |
-#          cmake --build . | tee build.log
-#          if ((Select-String -Path "./build.log" -Pattern "Warning:") -ne $null) { throw "include check failed" }
-
-#- job: includecheck_linux
-#  pool:
-#    name: Azure-MessagingStore-LinuxBuildMachinePool
-#    demands:
-#      - linux
-#
-#  steps:
-#
-#  - bash: |
-#     pushd $(Build.Repository.LocalPath)
-#     git submodule update --init
-#     git submodule foreach --recursive "git clean -xdff"
-#     git clean -xdff
-#     popd
-#    workingDirectory: '$(Build.Repository.LocalPath)'
-#    displayName: 'git submodule update and clean'
-
-#re-enable with https://msazure.visualstudio.com/One/_workitems/edit/29593386
-#  - task: Bash@3
-#    displayName: 'Build with iwyu'
-#    inputs:
-#      targetType: filePath
-#      filePath: './deps/c-build-tools/build/linux/build_linux_iwyu.sh'
-#      arguments: '$(Build.Repository.LocalPath)'
-#      workingDirectory: '$(Build.Repository.LocalPath)'
+  parameters:
+    pool_name: ${{ parameters.pool_name_linux }}
