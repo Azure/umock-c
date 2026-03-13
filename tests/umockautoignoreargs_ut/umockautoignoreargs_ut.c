@@ -68,345 +68,66 @@ TEST_FUNCTION_CLEANUP(test_function_cleanup)
 /* umockautoignoreargs_is_call_argument_ignored */
 
 /* Tests_SRS_UMOCKAUTOIGNOREARGS_01_002: [ If call or is_argument_ignored is NULL, umockautoignoreargs_is_call_argument_ignored shall fail and return a non-zero value. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_NULL_call_fails)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored(NULL, 1, &is_ignored);
-
-    // assert
-    ASSERT_ARE_NOT_EQUAL(int, 0, result);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_002: [ If call or is_argument_ignored is NULL, umockautoignoreargs_is_call_argument_ignored shall fail and return a non-zero value. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_NULL_is_argument_ignored_argument_fails)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored(NULL, 1, &is_ignored);
-
-    // assert
-    ASSERT_ARE_NOT_EQUAL(int, 0, result);
-}
-
 /* Tests_SRS_UMOCKAUTOIGNOREARGS_01_004: [ If umockautoignoreargs_is_call_argument_ignored fails parsing the call argument it shall fail and return a non-zero value. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_when_no_lparen_is_found_fails)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("a", 1, &is_ignored);
-
-    // assert
-    ASSERT_ARE_NOT_EQUAL(int, 0, result);
-}
-
 /* Tests_SRS_UMOCKAUTOIGNOREARGS_01_009: [ If the number of arguments parsed from call is less than argument_index, umockautoignoreargs_is_call_argument_ignored shall fail and return a non-zero value. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_1_when_no_args_in_call_fails)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("a()", 1, &is_ignored);
-
-    // assert
-    ASSERT_ARE_NOT_EQUAL(int, 0, result);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_007: [ If the argument value is IGNORED_ARG then is_argument_ignored shall be set to 1. ]*/
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ umockautoignoreargs_is_call_argument_ignored shall determine whether argument argument_index shall be ignored or not. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_1_when_1_IGNORED_ARG)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("a(IGNORED_ARG)", 1, &is_ignored);
-
-    // assert
-    ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 1, is_ignored);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_007: [ If the argument value is IGNORED_ARG then is_argument_ignored shall be set to 1. ]*/
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ umockautoignoreargs_is_call_argument_ignored shall determine whether argument argument_index shall be ignored or not. ]*/
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_005: [ If umockautoignoreargs_is_call_argument_ignored was able to parse the argument_indexth argument it shall succeed and return 0, while writing whether the argument is ignored in the is_argument_ignored output argument. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_2_with_IGNORED_ARG)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("a(\"a\", IGNORED_ARG)", 2, &is_ignored);
-
-    // assert
-    ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 1, is_ignored);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_008: [ If the argument value is any other value then is_argument_ignored shall be set to 0. ]*/
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ umockautoignoreargs_is_call_argument_ignored shall determine whether argument argument_index shall be ignored or not. ]*/
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_005: [ If umockautoignoreargs_is_call_argument_ignored was able to parse the argument_indexth argument it shall succeed and return 0, while writing whether the argument is ignored in the is_argument_ignored output argument. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_arg_2_no_match)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("a(\"a\", xx)", 2, &is_ignored);
-
-    // assert
-    ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 0, is_ignored);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ umockautoignoreargs_is_call_argument_ignored shall parse the call string as a function call: function_name(arg1, arg2, ...). ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_a_space_before_lparen_succeeds)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("a (\"a\", IGNORED_ARG)", 2, &is_ignored);
-
-    // assert
-    ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 1, is_ignored);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ umockautoignoreargs_is_call_argument_ignored shall parse the call string as a function call: function_name(arg1, arg2, ...). ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_a_space_after_lparen_succeeds)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("a( \"a\", IGNORED_ARG)", 2, &is_ignored);
-
-    // assert
-    ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 1, is_ignored);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ umockautoignoreargs_is_call_argument_ignored shall parse the call string as a function call: function_name(arg1, arg2, ...). ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_a_space_before_comma_succeeds)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("a(\"a\" , IGNORED_ARG)", 2, &is_ignored);
-
-    // assert
-    ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 1, is_ignored);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ umockautoignoreargs_is_call_argument_ignored shall parse the call string as a function call: function_name(arg1, arg2, ...). ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_a_space_before_right_paren_succeeds)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("a(\"a\", IGNORED_ARG )", 2, &is_ignored);
-
-    // assert
-    ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 1, is_ignored);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ umockautoignoreargs_is_call_argument_ignored shall parse the call string as a function call: function_name(arg1, arg2, ...). ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_2nd_arg_when_first_argument_is_a_function_call)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("a(b(1,2), IGNORED_ARG)", 2, &is_ignored);
-
-    // assert
-    ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 1, is_ignored);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ umockautoignoreargs_is_call_argument_ignored shall parse the call string as a function call: function_name(arg1, arg2, ...). ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_2nd_arg_when_first_argument_has_a_structre)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("a({1,2}, IGNORED_ARG)", 2, &is_ignored);
-
-    // assert
-    ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 1, is_ignored);
-}
-
 /* Tests_SRS_UMOCKAUTOIGNOREARGS_01_010: [ umockautoignoreargs_is_call_argument_ignored shall look for the arguments as being the string contained in the scope of the rightmost parenthesis set in call. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_for_ignored_arg_when_other_parens_are_present_in_function_call)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_ARG)", 1, &is_ignored);
-
-    // assert
-    ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 1, is_ignored);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_010: [ umockautoignoreargs_is_call_argument_ignored shall look for the arguments as being the string contained in the scope of the rightmost parenthesis set in call. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_when_RPAREN_missing_at_end_fails)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_ARG(", 1, &is_ignored);
-
-    // assert
-    ASSERT_ARE_NOT_EQUAL(int, 0, result);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_010: [ umockautoignoreargs_is_call_argument_ignored shall look for the arguments as being the string contained in the scope of the rightmost parenthesis set in call. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_when_extra_LPAREN_at_end_fails)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_ARG)(", 1, &is_ignored);
-
-    // assert
-    ASSERT_ARE_NOT_EQUAL(int, 0, result);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_010: [ umockautoignoreargs_is_call_argument_ignored shall look for the arguments as being the string contained in the scope of the rightmost parenthesis set in call. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_when_extra_LPAREN_RPAREN_at_end_fails)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_ARG)()", 1, &is_ignored);
-
-    // assert
-    ASSERT_ARE_NOT_EQUAL(int, 0, result);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_010: [ umockautoignoreargs_is_call_argument_ignored shall look for the arguments as being the string contained in the scope of the rightmost parenthesis set in call. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_when_another_call_is_in_args_succeeds)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_ARG, b(0))", 1, &is_ignored);
-
-    // assert
-    ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 1, is_ignored);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_010: [ umockautoignoreargs_is_call_argument_ignored shall look for the arguments as being the string contained in the scope of the rightmost parenthesis set in call. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_when_another_value_is_enclosed_with_parens_succeeds)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("WRAPPER(a)(IGNORED_ARG, (0))", 1, &is_ignored);
-
-    // assert
-    ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 1, is_ignored);
-}
-
 /* Tests_SRS_UMOCKAUTOIGNOREARGS_01_011: [ If a valid scope of the rightmost parenthesis set cannot be formed (imbalanced parenthesis for example), umockautoignoreargs_is_call_argument_ignored shall fail and return a non-zero value. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_not_enough_LPARENs_for_args_fails)
+PARAMETERIZED_TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_fails,
+    ARGS(const char*, call_str, size_t, arg_idx),
+    CASE((NULL, 1), with_NULL_call),
+    CASE(("a", 1), when_no_lparen_is_found),
+    CASE(("a()", 1), for_arg_1_when_no_args_in_call),
+    CASE(("WRAPPER(a)(IGNORED_ARG(", 1), when_RPAREN_missing_at_end),
+    CASE(("WRAPPER(a)(IGNORED_ARG)(", 1), when_extra_LPAREN_at_end),
+    CASE(("WRAPPER(a)(IGNORED_ARG)()", 1), when_extra_LPAREN_RPAREN_at_end),
+    CASE(("IGNORED_ARG, (0))", 1), with_not_enough_LPARENs_for_args))
 {
     // arrange
     int result;
     int is_ignored;
 
     // act
-    result = umockautoignoreargs_is_call_argument_ignored("IGNORED_ARG, (0))", 1, &is_ignored);
+    result = umockautoignoreargs_is_call_argument_ignored(call_str, arg_idx, &is_ignored);
 
     // assert
     ASSERT_ARE_NOT_EQUAL(int, 0, result);
 }
 
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ umockautoignoreargs_is_call_argument_ignored shall determine whether argument argument_index shall be ignored or not. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ umockautoignoreargs_is_call_argument_ignored shall parse the call string as a function call: function_name(arg1, arg2, ...). ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_005: [ If umockautoignoreargs_is_call_argument_ignored was able to parse the argument_indexth argument it shall succeed and return 0, while writing whether the argument is ignored in the is_argument_ignored output argument. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_007: [ If the argument value is IGNORED_ARG then is_argument_ignored shall be set to 1. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_008: [ If the argument value is any other value then is_argument_ignored shall be set to 0. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_010: [ umockautoignoreargs_is_call_argument_ignored shall look for the arguments as being the string contained in the scope of the rightmost parenthesis set in call. ]*/
 /* Tests_SRS_UMOCKAUTOIGNOREARGS_01_012: [ If the argument value starts with IGNORED_STRUCT_ARG then is_argument_ignored shall be set to 1. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_IGNORED_STRUCT_ARG_succeeds)
+PARAMETERIZED_TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_succeeds,
+    ARGS(const char*, call_str, size_t, arg_idx, int, expected_ignored),
+    CASE(("a(IGNORED_ARG)", 1, 1), for_arg_1_when_1_IGNORED_ARG),
+    CASE(("a(\"a\", IGNORED_ARG)", 2, 1), for_arg_2_with_IGNORED_ARG),
+    CASE(("a(\"a\", xx)", 2, 0), for_arg_2_no_match),
+    CASE(("a (\"a\", IGNORED_ARG)", 2, 1), with_space_before_lparen),
+    CASE(("a( \"a\", IGNORED_ARG)", 2, 1), with_space_after_lparen),
+    CASE(("a(\"a\" , IGNORED_ARG)", 2, 1), with_space_before_comma),
+    CASE(("a(\"a\", IGNORED_ARG )", 2, 1), with_space_before_rparen),
+    CASE(("a(b(1,2), IGNORED_ARG)", 2, 1), first_arg_is_function_call),
+    CASE(("a({1,2}, IGNORED_ARG)", 2, 1), first_arg_has_structure),
+    CASE(("WRAPPER(a)(IGNORED_ARG)", 1, 1), other_parens_in_call),
+    CASE(("WRAPPER(a)(IGNORED_ARG, b(0))", 1, 1), another_call_in_args),
+    CASE(("WRAPPER(a)(IGNORED_ARG, (0))", 1, 1), another_value_in_parens),
+    CASE(("a(IGNORED_STRUCT_ARG(struct))", 1, 1), with_IGNORED_STRUCT_ARG),
+    CASE(("a(xxx, IGNORED_STRUCT_ARG(struct))", 2, 1), IGNORED_STRUCT_ARG_as_2nd_arg),
+    CASE(("a(xxx, IGNORED_STRUCT_ARG(struct))", 1, 0), IGNORED_STRUCT_ARG_does_not_ignore_1st_arg))
 {
     // arrange
     int result;
     int is_ignored;
 
     // act
-    result = umockautoignoreargs_is_call_argument_ignored("a(IGNORED_STRUCT_ARG(struct))", 1, &is_ignored);
+    result = umockautoignoreargs_is_call_argument_ignored(call_str, arg_idx, &is_ignored);
 
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 1, is_ignored);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_012: [ If the argument value starts with IGNORED_STRUCT_ARG then is_argument_ignored shall be set to 1. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_IGNORED_STRUCT_ARG_as_second_arg_succeeds)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("a(xxx, IGNORED_STRUCT_ARG(struct))", 2, &is_ignored);
-
-    // assert
-    ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 1, is_ignored);
-}
-
-/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_012: [ If the argument value starts with IGNORED_STRUCT_ARG then is_argument_ignored shall be set to 1. ]*/
-TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_with_IGNORED_STRUCT_ARG_does_not_ignore_first_arg)
-{
-    // arrange
-    int result;
-    int is_ignored;
-
-    // act
-    result = umockautoignoreargs_is_call_argument_ignored("a(xxx, IGNORED_STRUCT_ARG(struct))", 1, &is_ignored);
-
-    // assert
-    ASSERT_ARE_EQUAL(int, 0, result);
-    ASSERT_ARE_EQUAL(int, 0, is_ignored);
+    ASSERT_ARE_EQUAL(int, expected_ignored, is_ignored);
 }
 
 END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
