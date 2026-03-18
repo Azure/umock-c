@@ -14,6 +14,9 @@ parameters:
     type: string
     default: 'Azure-MsgStore-Linux2204BuildMachinePool'
 
+variables:
+- template: ../deps/c_build_tools_ref.yml
+
 resources:
   repositories:
   - repository: self
@@ -22,7 +25,7 @@ resources:
     type: github
     name: azure/c-build-tools
     endpoint: github.com_azure
-    ref: a479dd2fd437d3a0adf2010b22d2c944ea8e6047
+    ref: ${{ variables.c_build_tools_ref }}
 
 jobs:
 - template: /pipeline_templates/build_all_flavors.yml@c_build_tools
