@@ -36,7 +36,7 @@ jobs:
 
 - template: /pipeline_templates/codeql3000_default.yml@c_build_tools
   parameters:
-    pool_name: ${{ parameters.pool_name_windows_x64 }}
+    pool_name: 'Azure-MessagingStore-Win-x64-Dadsv7-v03'
 
 - template: /pipeline_templates/build_linux.yml@c_build_tools
   parameters:
