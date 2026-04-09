@@ -110,7 +110,6 @@ PARAMETERIZED_TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_succeed
     CASE(("a(\"a\" , IGNORED_ARG)", 2, 1), with_space_before_comma),
     CASE(("a(\"a\", IGNORED_ARG )", 2, 1), with_space_before_rparen),
     CASE(("a(b(1,2), IGNORED_ARG)", 2, 1), first_arg_is_function_call),
-    CASE(("a({1,2}, IGNORED_ARG)", 2, 1), first_arg_has_structure),
     CASE(("WRAPPER(a)(IGNORED_ARG)", 1, 1), other_parens_in_call),
     CASE(("WRAPPER(a)(IGNORED_ARG, b(0))", 1, 1), another_call_in_args),
     CASE(("WRAPPER(a)(IGNORED_ARG, (0))", 1, 1), another_value_in_parens),
@@ -128,6 +127,24 @@ PARAMETERIZED_TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_succeed
     // assert
     ASSERT_ARE_EQUAL(int, 0, result);
     ASSERT_ARE_EQUAL(int, expected_ignored, is_ignored);
+}
+
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_001: [ umockautoignoreargs_is_call_argument_ignored shall determine whether argument argument_index shall be ignored or not. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_003: [ umockautoignoreargs_is_call_argument_ignored shall parse the call string as a function call: function_name(arg1, arg2, ...). ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_005: [ If umockautoignoreargs_is_call_argument_ignored was able to parse the argument_indexth argument it shall succeed and return 0, while writing whether the argument is ignored in the is_argument_ignored output argument. ]*/
+/* Tests_SRS_UMOCKAUTOIGNOREARGS_01_007: [ If the argument value is IGNORED_ARG then is_argument_ignored shall be set to 1. ]*/
+TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_succeeds_first_arg_has_structure)
+{
+    // arrange
+    int result;
+    int is_ignored;
+
+    // act
+    result = umockautoignoreargs_is_call_argument_ignored("a({1,2}, IGNORED_ARG)", 2, &is_ignored);
+
+    // assert
+    ASSERT_ARE_EQUAL(int, 0, result);
+    ASSERT_ARE_EQUAL(int, 1, is_ignored);
 }
 
 END_TEST_SUITE(TEST_SUITE_NAME_FROM_CMAKE)
