@@ -101,7 +101,7 @@ PARAMETERIZED_TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_fails,
 /* Tests_SRS_UMOCKAUTOIGNOREARGS_01_010: [ umockautoignoreargs_is_call_argument_ignored shall look for the arguments as being the string contained in the scope of the rightmost parenthesis set in call. ]*/
 /* Tests_SRS_UMOCKAUTOIGNOREARGS_01_012: [ If the argument value starts with IGNORED_STRUCT_ARG then is_argument_ignored shall be set to 1. ]*/
 PARAMETERIZED_TEST_FUNCTION(umockautoignoreargs_is_call_argument_ignored_succeeds,
-    ARGS(const char*, call_str, size_t, arg_idx, int, expected_ignored),
+    ARGS(const char*, call_str, size_t, arg_idx, int, expected_ignored), // no-aaa
     CASE(("a(IGNORED_ARG)", 1, 1), for_arg_1_when_1_IGNORED_ARG),
     CASE(("a(\"a\", IGNORED_ARG)", 2, 1), for_arg_2_with_IGNORED_ARG),
     CASE(("a(\"a\", xx)", 2, 0), for_arg_2_no_match),
