@@ -13,7 +13,7 @@ extern "C" {
 #endif
 
     /* Codes_SRS_UMOCK_C_LIB_01_067: [wchar_t\* and const wchar_t\* shall be supported out of the box through a separate header, umockvalue_wcharptr.h.]*/
-    /* Codes_SRS_UMOCK_C_LIB_01_069: [The signature shall be: ...*/
+    /* Codes_SRS_UMOCK_C_LIB_01_069: [ The signature shall be: ]*/
     int umocktypes_wcharptr_register_types(void);
 
     char* umocktypes_stringify_wcharptr(const wchar_t** value);

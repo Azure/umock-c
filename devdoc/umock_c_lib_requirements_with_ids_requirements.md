@@ -716,12 +716,12 @@ XX**SRS_UMOCK_C_LIB_01_067: [** char\* and const char\* shall be supported out o
 
 In order to enable the usage of char\*, the function umockvalue_charptr_register_types can be used in the test suite init.
 
-XX**SRS_UMOCK_C_LIB_01_069: [** The signature shall be:
+XX**SRS_UMOCK_C_LIB_01_069: [** The signature shall be: **]**
 
 ```c
 int umockvalue_charptr_register_types(void);
 ```
- **]**
+
 
 **SRS_UMOCK_C_LIB_01_070: [** umockvalue_charptr_register_types returns 0 on success and non-zero on failure. **]**
 

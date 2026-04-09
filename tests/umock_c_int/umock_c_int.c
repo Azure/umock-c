@@ -344,7 +344,7 @@ TEST_SUITE_INITIALIZE(suite_init)
 
     result = umock_c_init(test_on_umock_c_error);
     ASSERT_ARE_EQUAL(int, 0, result);
-    /* Tests_SRS_UMOCK_C_LIB_01_069: [The signature shall be: ...*/
+    /* Tests_SRS_UMOCK_C_LIB_01_069: [ The signature shall be: ]*/
     /* Tests_SRS_UMOCK_C_LIB_01_070: [umockvalue_charptr_register_types returns 0 on success and non-zero on failure.]*/
     result = umocktypes_charptr_register_types();
     ASSERT_ARE_EQUAL(int, 0, result);
