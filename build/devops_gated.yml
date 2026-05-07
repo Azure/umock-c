@@ -22,14 +22,11 @@ resources:
     type: github
     name: azure/c-build-tools
     endpoint: github.com_azure
-    ref: 26190c664c53189ce01a3565f55f5d68980a53a3
+    ref: e0bc7a1ec8c93a824e3542834d415615d92eeb76
 
 jobs:
 - template: /pipeline_templates/build_all_flavors.yml@c_build_tools
   parameters:
-    # Preserve existing x64 coverage of int / perf / e2e categories. The new
-    # c-build-tools strict UNIT_TESTS semantic would otherwise filter them out.
-    MAX_STAGE_x64: ALL
     pool_name_x64: ${{ parameters.pool_name_windows_x64 }}
     pool_name_arm64: ${{ parameters.pool_name_windows_arm64 }}
 
