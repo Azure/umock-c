@@ -29,6 +29,7 @@ jobs:
   parameters:
     pool_name_x64: ${{ parameters.pool_name_windows_x64 }}
     pool_name_arm64: ${{ parameters.pool_name_windows_arm64 }}
+    arm64_max_stage: ALL
 
 - template: /pipeline_templates/run_master_check.yml@c_build_tools
   parameters:
