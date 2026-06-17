@@ -8,7 +8,7 @@ parameters:
   - name: pool_name_windows_arm64
     displayName: 'Windows ARM64 Pool'
     type: string
-    default: 'Azure-MessagingStore-Win-ARM64-Dpldsv6-v04'
+    default: 'Azure-MessagingStore-Win-ARM64-Dpldsv6-v15'
   - name: pool_name_linux
     displayName: 'Linux Pool'
     type: string
