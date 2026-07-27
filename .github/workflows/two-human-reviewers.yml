@@ -1,0 +1,22 @@
+name: Two human reviewers
+# Requires two distinct human approvals on bot-authored pull requests, so a PR the agent opened is not
+# merged on the single approval that would normally be the *second* human to look at a change.
+#
+# The logic lives in c-build-tools so all repositories share one definition; see that file for why this
+# is a workflow rather than a branch rule. Do not add a required status check for it until this file is
+# on the default branch, or every open PR will wait forever on a check that cannot run.
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+  pull_request_review:
+    types: [submitted, dismissed]
+
+# Set here because a called workflow can never hold more permission than its caller.
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  two-human-reviewers:
+    uses: Azure/c-build-tools/.github/workflows/two-human-reviewers.yml@mdurak/mrbot/two-human-reviewers
