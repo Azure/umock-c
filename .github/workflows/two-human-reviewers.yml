@@ -1,12 +1,21 @@
 name: Two human reviewers
-# Requires two distinct human approvals on bot-authored pull requests, so a PR the agent opened is not
-# merged on the single approval that would normally be the *second* human to look at a change.
+# Requires approvals from two distinct humans on bot-authored pull requests, so a PR the agent opened is
+# not merged on the single approval that would normally be the *second* human to look at a change.
 #
 # The logic lives in c-build-tools so all repositories share one definition; see that file for why this
-# is a workflow rather than a branch rule. Do not add a required status check for it until this file is
-# on the default branch, or every open PR will wait forever on a check that cannot run.
+# is a workflow rather than a branch rule, and for the `required-approvals` and `exempt-bots` inputs.
+# Do not add a required status check for it until this file is on the default branch, or every open PR
+# will wait forever on a check that cannot run.
 
 on:
+  # Lets an already-open PR be evaluated when this workflow is first added, since the events below are
+  # not emitted retroactively and the check would otherwise never report on it.
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: PR number to evaluate.
+        type: string
+        required: true
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
   pull_request_review:
@@ -20,3 +29,5 @@ permissions:
 jobs:
   two-human-reviewers:
     uses: Azure/c-build-tools/.github/workflows/two-human-reviewers.yml@mdurak/mrbot/two-human-reviewers
+    with:
+      pr: ${{ github.event.pull_request.number || inputs.pr }}
