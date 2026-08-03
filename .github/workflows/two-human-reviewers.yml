@@ -32,6 +32,6 @@ permissions:
 
 jobs:
   two-human-reviewers:
-    uses: Azure/c-build-tools/.github/workflows/two-human-reviewers.yml@mdurak/mrbot/two-human-reviewers
+    uses: Azure/c-build-tools/.github/workflows/two-human-reviewers.yml@master
     with:
       pr: ${{ github.event.pull_request.number || inputs.pr }}
