@@ -22,7 +22,7 @@ resources:
     type: github
     name: azure/c-build-tools
     endpoint: github.com_azure
-    ref: 089029c2a18bed7b6c47cb51fec3120ee6290c3c
+    ref: 9e3a4f8b6311c48b9e584e4541d30f825d6de445
 
 jobs:
 - template: /pipeline_templates/build_all_flavors.yml@c_build_tools
