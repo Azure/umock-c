@@ -45,6 +45,6 @@ jobs:
   two-human-reviewers:
     # Pin to a tag or commit SHA instead of a branch if you need the gate's behaviour to change only when
     # you choose to update it.
-    uses: Azure/c-build-tools/.github/workflows/two-human-reviewers.yml@e5ade18fce434f142d4e88060f0b893217e44ec1
+    uses: Azure/c-build-tools/.github/workflows/two-human-reviewers.yml@d78d8f3b254fdef08300b4eebfbd5c848627eafe
     with:
       pr: ${{ github.event.pull_request.number || inputs.pr }}
