@@ -61,11 +61,39 @@ TEST_FUNCTION(function_under_test_with_dependency_succeeds)
 
 ### Global Mock Configuration
 ```c
-// Test suite setup
+// Inside TEST_SUITE_INITIALIZE
 REGISTER_GLOBAL_MOCK_HOOK(malloc, my_malloc_hook);
 REGISTER_GLOBAL_MOCK_RETURN(function_name, success_value);
 REGISTER_GLOBAL_MOCK_FAIL_RETURN(function_name, failure_value);
 ```
+
+#### Global Mock Hook Registration
+- Call `REGISTER_GLOBAL_MOCK_HOOK` only from `TEST_SUITE_INITIALIZE`. Never register, replace, or unregister a global mock hook inside a `TEST_FUNCTION`, `TEST_FUNCTION_INITIALIZE`, or `TEST_FUNCTION_CLEANUP`.
+- The same rule applies to `REGISTER_*_GLOBAL_MOCK_HOOK()` wrappers that register multiple hooks.
+- If a hook needs different behavior for individual tests, register the hook once and control its behavior with explicit static test state.
+- Reset every hook-control flag, callback, result, or context to its default value in `TEST_FUNCTION_INITIALIZE` so tests remain independent. `umock_c_reset_all_calls()` resets recorded calls, not global hooks or their control state.
+
+### Mock Functions with Code
+Use `MOCK_FUNCTION_WITH_CODE` for inline mock implementations:
+
+```c
+MOCK_FUNCTION_WITH_CODE(, void, test_free_func, void*, context)
+MOCK_FUNCTION_END()
+```
+
+### Real Function Access
+Include the corresponding `real_*` header by name to access real implementations. Use real functions in test setup, helpers, and hooks when the calls should not be recorded as mock calls:
+
+```c
+#include "real_gballoc_hl.h"
+
+static void* my_real_malloc(size_t size)
+{
+    return real_gballoc_hl_malloc(size);
+}
+```
+
+Pair real allocations with their corresponding real frees, such as `real_gballoc_hl_free`.
 
 ### Call Modifiers (Fluent Interface)
 ```c
@@ -761,11 +789,33 @@ When `MOCK_PRECOMPILE_HEADERS` or `NO_MOCK_PRECOMPILE_HEADERS` is used, the buil
 - **Always verify calls match**: `ASSERT_ARE_EQUAL(char_ptr, umock_c_get_expected_calls(), umock_c_get_actual_calls())`
 
 ### Test Initialization
+Register hooks once per suite and reset their control state before each test. Individual tests can change `test_dependency_result` without replacing the hook:
+
 ```c
+static int test_dependency_result;
+
+static int test_dependency_hook(int arg)
+{
+    (void)arg;
+    return test_dependency_result;
+}
+
 TEST_SUITE_INITIALIZE(TestClassInitialize)
 {
     ASSERT_ARE_EQUAL(int, 0, umock_c_init(test_on_umock_c_error));
     ASSERT_ARE_EQUAL(int, 0, umocktypes_charptr_register_types());
+    REGISTER_GLOBAL_MOCK_HOOK(dependency_function, test_dependency_hook);
+}
+
+TEST_SUITE_CLEANUP(TestClassCleanup)
+{
+    umock_c_deinit();
+}
+
+TEST_FUNCTION_INITIALIZE(TestMethodInitialize)
+{
+    umock_c_reset_all_calls();
+    test_dependency_result = 0;
 }
 
 TEST_FUNCTION_CLEANUP(TestMethodCleanup)
