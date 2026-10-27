@@ -4,7 +4,7 @@ parameters:
   - name: pool_name_windows_x64
     displayName: 'Windows x64 Pool'
     type: string
-    default: 'Azure-MessagingStore-Win-x64-Dadsv6-v04'
+    default: 'Azure-MessagingStore-Win-x64-MiCell-v05'
   - name: pool_name_windows_arm64
     displayName: 'Windows ARM64 Pool'
     type: string
