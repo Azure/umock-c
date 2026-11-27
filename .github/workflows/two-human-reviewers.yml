@@ -1,8 +1,8 @@
 name: Two human reviewers
-# Calls the shared gate in c-build-tools. Keep `pull_request_review`, or approvals never re-run it. A
-# fork's PR gets a read-only token (`pull_request_target` is blocked by default), so a maintainer
-# publishes its status with "Run workflow" or the command below, again after each push or review.
-# Never add a checkout.
+# Runs the gate pinned by the target branch's deps/c-build-tools.
+# Keep `pull_request_review`, or approvals never re-run it. A fork's PR gets a read-only token
+# (`pull_request_target` is blocked by default), so a maintainer publishes its status with "Run workflow"
+# or the command below, again after each push or review. Never check out PR code.
 #   gh workflow run two-human-reviewers.yml -R <owner>/<repo> -f pr=<number>
 
 on:
@@ -17,7 +17,6 @@ on:
   pull_request_review:
     types: [submitted, dismissed]
 
-# Set here because a called workflow can never hold more permission than its caller.
 permissions:
   contents: read
   pull-requests: read
@@ -25,8 +24,51 @@ permissions:
 
 jobs:
   two-human-reviewers:
-    # Pin to a tag or commit SHA instead of a branch if you need the gate's behaviour to change only when
-    # you choose to update it.
-    uses: Azure/c-build-tools/.github/workflows/two-human-reviewers.yml@e5ade18fce434f142d4e88060f0b893217e44ec1
-    with:
-      pr: ${{ github.event.pull_request.number || inputs.pr }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch the gate pinned by the target branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number || inputs.pr }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if ! [[ "$PR" =~ ^[1-9][0-9]*$ ]]; then
+            echo "::error::Pass a positive PR number when dispatching manually."
+            exit 1
+          fi
+
+          base_ref=$(gh api "repos/$REPO/pulls/$PR" --jq .base.ref)
+          # Qualify the branch so a same-named tag cannot select a different gitlink.
+          gate_sha=$(gh api -X GET "repos/$REPO/contents/deps/c-build-tools" \
+            -f ref="refs/heads/$base_ref" --jq 'select(.type == "submodule") | .sha')
+          if ! [[ "$gate_sha" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "::error::deps/c-build-tools on $base_ref is not a valid submodule."
+            exit 1
+          fi
+
+          # Auto-approved dependency updates must not select an unmerged gate.
+          master_sha=$(gh api "repos/Azure/c-build-tools/git/ref/heads/master" --jq .object.sha)
+          if ! [[ "$master_sha" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "::error::Could not resolve Azure/c-build-tools master."
+            exit 1
+          fi
+          ancestry=$(gh api "repos/Azure/c-build-tools/compare/$gate_sha...$master_sha" --jq .status)
+          if [ "$ancestry" != "ahead" ] && [ "$ancestry" != "identical" ]; then
+            echo "::error::deps/c-build-tools on $base_ref pins $gate_sha, which is not on Azure/c-build-tools master."
+            exit 1
+          fi
+
+          mkdir -p .gate
+          if ! gh api -X GET "repos/Azure/c-build-tools/contents/.github/actions/two-human-reviewers/action.yml" \
+              -f ref="$gate_sha" -H "Accept: application/vnd.github.raw+json" > .gate/action.yml; then
+            echo "::error::Could not fetch the gate from Azure/c-build-tools@$gate_sha. The target branch must pin a commit containing the composite action."
+            exit 1
+          fi
+          echo "::notice::Gate from Azure/c-build-tools@$gate_sha, pinned by $base_ref."
+
+      - uses: ./.gate
+        with:
+          pr: ${{ github.event.pull_request.number || inputs.pr }}
